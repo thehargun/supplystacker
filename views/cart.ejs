@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin-left: 0; /* Updated to align table to the left */
+        }
+
+        @media only screen and (max-width: 600px) {
+            table {
+                width: 100%;
+            }
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .edit-save-button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <% if (cart.length > 0) { %>
+        <table>
+            <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+            <% cart.forEach(item => { %>
+                <tr id="cart-item-<%= item.id %>">
+                    <td><%= item.itemName %></td>
+                    <td>
+                        <span id="quantity_<%= item.id %>"><%= item.quantity %></span>
+                        <input type="number" id="edit-quantity-<%= item.id %>" style="display: none;" min="1" value="<%= item.quantity %>">
+                        <button onclick="editQuantity('<%= item.id %>')" id="edit-button-<%= item.id %>" class="edit-save-button">Edit</button>
+                        <button onclick="saveQuantity('<%= item.id %>')" id="save-button-<%= item.id %>" class="edit-save-button" style="display: none;">Save</button>
+                    </td>
+                    <td>$<%= item.price.toFixed(2) %></td>
+                    <td><button onclick="removeItem('<%= item.id %>')" class="edit-save-button">Remove</button></td>
+                </tr>
+            <% }); %>
+        </table>
+        <!-- Total Amount -->
+        <h2>Total Amount: $<span id="totalAmount"></span></h2>
+
+        <!-- Checkout button -->
+        <form action="/checkout" method="get">
+            <button type="submit">Checkout</button>
+        </form>
+
+    <% } else { %>
+        <p>Your cart is empty.</p>
+    <% } %>
+    
+    <!-- Continue Shopping button -->
+    <form action="/products" method="get">
+        <button type="submit">Continue Shopping</button>
+    </form>
+
+    <script>
+        // Function to calculate total amount
+        function calculateTotalAmount(cart) {
+            var total = 0;
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+            });
+            return total.toFixed(2);
+        }
+
+        // Function to update total amount on the page
+        function updateTotalAmount(cart) {
+            var totalAmount = calculateTotalAmount(cart);
+            document.getElementById('totalAmount').textContent = totalAmount;
+        }
+
+        // Initial update of total amount
+        updateTotalAmount(<%- JSON.stringify(cart) %>);
+
+        // Function to remove item from cart
+        function removeItem(itemId) {
+            // Logic to remove item from cart and update UI
+            fetch('/remove-from-cart/' + itemId, { method: 'DELETE' })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById('cart-item-' + itemId).remove();
+                        // Reload the page after successful removal
+                        window.location.reload();
+                    } else {
+                        console.error('Failed to remove item from cart.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error removing item from cart:', error);
+                });
+        }
+
+        // Function to update quantity of item in cart and update UI
+        function saveQuantity(itemId) {
+            var newQuantity = document.getElementById('edit-quantity-' + itemId).value;
+            fetch('/update-cart/' + itemId, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ quantity: newQuantity })
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('quantity_' + itemId).innerText = newQuantity;
+                    document.getElementById('quantity_' + itemId).style.display = 'inline';
+                    document.getElementById('edit-quantity-' + itemId).style.display = 'none';
+                    document.getElementById('edit-button-' + itemId).style.display = 'inline';
+                    document.getElementById('save-button-' + itemId).style.display = 'none';
+                    // Reload the page after successful save
+                    window.location.reload();
+                } else {
+                    console.error('Failed to update item quantity.');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating item quantity:', error);
+            });
+        }
+
+        // Function to switch quantity to editable textbox
+        function editQuantity(itemId) {
+            document.getElementById('quantity_' + itemId).style.display = 'none';
+            document.getElementById('edit-quantity-' + itemId).style.display = 'inline';
+            document.getElementById('edit-button-' + itemId).style.display = 'none';
+            document.getElementById('save-button-' + itemId).style.display = 'inline';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Inventory Item</title>
+</head>
+<body>
+    <h1>Edit Inventory Item</h1>
+    <form action="/admin/edit-inventory/<%= item.id %>" method="post">
+        <input type="text" name="itemName" value="<%= item.itemName %>" required>
+        <input type="number" name="quantity" value="<%= item.quantity %>" required>
+        <button type="submit">Update Item</button>
+    </form>
+    <a href="/admin/view-inventory">Back to Inventory List</a>
+</body>
+</html>

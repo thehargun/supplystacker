@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+    <p>Invoice Number: <%= invoiceNumber %></p>
+    <h2>Order Details</h2>
+    <ul>
+        <% cart.forEach(item => { %>
+            <li><%= item.itemName %> - Quantity: <%= item.quantity %> - Price: $<%= item.price.toFixed(2) %></li>
+        <% }); %>
+    </ul>
+    <form action="/submit-order" method="post">
+        <button type="submit">Submit Order</button>
+    </form>
+
+</body>
+</html>

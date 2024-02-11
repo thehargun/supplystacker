@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Inventory Item</title>
+</head>
+<body>
+    <h1>Add New Inventory Item</h1>
+    <form action="/admin/add-inventory" method="POST" enctype="multipart/form-data">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" name="itemName" required><br>
+    
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required><br>
+    
+        <label for="priceLevel1">Price Level 1:</label>
+        <input type="number" id="priceLevel1" name="priceLevel1" required><br>
+    
+        <label for="priceLevel2">Price Level 2:</label>
+        <input type="number" id="priceLevel2" name="priceLevel2" required><br>
+    
+        <label for="priceLevel3">Price Level 3:</label>
+        <input type="number" id="priceLevel3" name="priceLevel3" required><br>
+    
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="image/*"><br>
+    
+        <input type="submit" value="Add Inventory">
+    </form>
+    <a href="/admin/view-inventory">Back to Inventory List</a>
+</body>
+</html>

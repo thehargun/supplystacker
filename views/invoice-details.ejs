@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Invoice Details</h1>
+    <p><strong>Invoice Number:</strong> <%= invoice.invoiceNumber %></p>
+    <p><strong>Date Created:</strong> <%= invoice.dateCreated %></p>
+    <p><strong>Total Balance:</strong> $<%= invoice.totalBalance.toFixed(2) %></p>
+    <p><strong>Status:</strong> <%= invoice.paid ? "Paid" : "Unpaid" %></p>
+
+    <h2>Products</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% invoice.products.forEach(product => { %>
+                <tr>
+                    <td><%= product.productName %></td>
+                    <td><%= product.productCategory %></td>
+                    <td><%= product.quantity %></td>
+                    <td>$<%= product.rate.toFixed(2) %></td>
+                    <td>$<%= product.total.toFixed(2) %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <p><a href="/admin/invoices">Back to Invoices</a></p>
+</body>
+</html>

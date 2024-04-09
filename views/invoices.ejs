@@ -8,7 +8,6 @@
 </head>
 <body>
     <h1>Invoices</h1>
-    <form id="invoiceUpdateForm" action="/admin/save-invoice-status" method="post">
         <table>
             <thead>
                 <tr>
@@ -47,20 +46,24 @@
                                 </tbody>
                             </table>
                         </td>
-                         <td>
-                <input type="checkbox" 
-                       name="paidStatus[<%= invoice.invoiceNumber %>]" 
-                       <%= invoice.paid ? "checked" : "" %>
-                       onchange="showSaveButton(this, '<%= invoice.invoiceNumber %>')">
-            </td>
-            <td>
-                <!-- Using a class instead of id and data attribute to identify the related invoice -->
-                <button type="button" 
-                        class="saveButton" 
-                        data-invoice-number="<%= invoice.invoiceNumber %>" 
-                        style="display: none;" 
-                        onclick="saveInvoiceStatus('<%= invoice.invoiceNumber %>')">Save Changes</button>
-            </td>
+                        <td>
+                            <% if (invoice.paid) { %>
+                                <label>Paid</label>
+                            <% } else { %>
+                                <input type="checkbox" 
+                                        class="invoiceCheckbox"
+                                        name="paidStatus[<%= invoice.invoiceNumber %>]" 
+                                        data-invoice-number="<%= invoice.invoiceNumber %>">
+                            <% } %>
+                        </td>
+                        
+                        <% if (invoice.paid == false) { %>
+                        <td>
+               
+                        <button type="button" onclick="collectAndSaveInvoiceStatus()">Save All Changes</button>
+                        
+                </td>
+                <% } %>
                        <td>
                             <button type="button" onclick="location.href='/admin/invoice-details/<%= invoice.invoiceNumber %>'">Details</button>
                         </td>
@@ -68,25 +71,45 @@
                 <% }); %>
             </tbody>
         </table>
-        
-    </form>
     <script>
-        function showSaveButton(checkbox, invoiceNumber) {
-            // Find all save buttons and hide them initially
-            document.querySelectorAll('.saveButton').forEach(button => {
-                if (button.getAttribute('data-invoice-number') === invoiceNumber) {
-                    button.style.display = 'inline'; // Show only the button for the changed invoice
-                }
-            });
-        }
+        function collectAndSaveInvoiceStatus() {
+        const invoicesToUpdate = [];
+        document.querySelectorAll('.invoiceCheckbox:checked').forEach(checkbox => {
+            const invoiceNumber = checkbox.getAttribute('data-invoice-number');
+            invoicesToUpdate.push(invoiceNumber);
+        });
         
-        // You'll need to implement saveInvoiceStatus to handle the actual save logic
-        function saveInvoiceStatus(invoiceNumber) {
-            // Implement AJAX call or form submission here
-            console.log("Saving status for invoice: " + invoiceNumber);
-            // After saving, you might want to hide the button again or navigate the user elsewhere
+        if (invoicesToUpdate.length > 0) {
+            saveInvoiceStatus(invoicesToUpdate);
+        } else {
+            console.log("No changes to save.");
         }
+    }
+
+    async function saveInvoiceStatus(invoiceNumbers) {
+        try {
+            const response = await fetch('/admin/save-invoice-status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ invoiceNumbers, paid: true }) // Assuming all selected are to be marked as paid
+            });
+            
+            const data = await response.json(); // Assuming JSON response
+
+            if (response.ok) {
+                console.log("Invoice statuses updated successfully.");
+                window.location.reload();
+            } else {
+                console.error("Failed to update invoice statuses.");
+            }
+        } catch (error) {
+            console.error("Error sending the request:", error);
+        }
+    }
     </script>
+    
     
 </body>
 </html>

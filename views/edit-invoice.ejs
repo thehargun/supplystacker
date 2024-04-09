@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Invoice</title>
+    <!-- Add your CSS stylesheets or other head content here -->
+</head>
+<body>
+    <h1>Edit Invoice: <%= invoice.invoiceNumber %></h1>
+    <form action="/admin/update-invoice/<%= invoice.invoiceNumber %>?customerId=<%= customerId %>" method="POST">
+        <div>
+            <label for="dateCreated">Date:</label>
+            <input type="date" id="dateCreated" name="dateCreated" value="<%= invoice.dateCreated %>">
+        </div>
+        <div>
+            <label for="totalBalance">Total Balance:</label>
+            <input type="number" id="totalBalance" name="totalBalance" step="0.01" value="<%= invoice.totalBalance %>">
+        </div>
+        <!-- Include fields for other invoice details and products here -->
+        <div>
+            <label for="products">Products:</label>
+            <% invoice.products.forEach((product, index) => { %>
+            <div>
+                <label for="productName<%= index %>">Product Name:</label>
+                <input type="text" id="productName<%= index %>" name="products[<%= index %>][productName]" value="<%= product.productName %>">
+
+                <input type="hidden" id="productCategory<%= index %>" name="products[<%= index %>][productCategory]" value="<%= product.productCategory %>">
+
+                <label for="quantity<%= index %>">Quantity:</label>
+                <input type="number" id="quantity<%= index %>" name="products[<%= index %>][quantity]" value="<%= product.quantity %>">
+
+                <label for="rate<%= index %>">Rate:</label>
+                <input type="number" id="rate<%= index %>" name="products[<%= index %>][rate]" step="0.01" value="<%= product.rate %>">
+            </div>
+            <% }); %>
+        </div>
+        <input type="hidden" name="customerId" value="<%= customerId %>">
+        <button type="submit">Save Changes</button>
+    </form>
+    <button onclick="window.history.back()">Cancel</button>
+</body>
+</html>

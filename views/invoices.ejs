@@ -1,4 +1,3 @@
-<!-- Inside invoices.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,23 +8,85 @@
 </head>
 <body>
     <h1>Invoices</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Invoice Number</th>
-                <th>Date</th>
-                <th>Total Balance</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% invoices.forEach(invoice => { %>
+    <form id="invoiceUpdateForm" action="/admin/save-invoice-status" method="post">
+        <table>
+            <thead>
                 <tr>
-                    <td><a href="/admin/invoices/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
-                    <td><%= invoice.dateCreated %></td>
-                    <td>$<%= invoice.totalBalance.toFixed(2) %></td>
+                    <th>Invoice Number</th>
+                    <th>Date</th>
+                    <th>Total Balance</th>
+                    <th>Products</th>
+                    <th>Action</th> <!-- Added header for Action -->
                 </tr>
-            <% }); %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <% invoices.forEach(invoice => { %>
+                    <tr>
+                        <td><a href='/admin/invoice-details/<%= invoice.invoiceNumber %>'><%= invoice.invoiceNumber %></a></td>
+                        <td><%= invoice.dateCreated %></td>
+                        <td>$<%= invoice.totalBalance.toFixed(2) %></td>
+                        <td>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Product Name</th>
+                                        <th>Quantity</th>
+                                        <th>Rate</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% invoice.products.forEach(product => { %>
+                                        <tr>
+                                            <td><%= product.productName %></td>
+                                            <td><%= product.quantity %></td>
+                                            <td>$<%= product.rate.toFixed(2) %></td>
+                                            <td>$<%= product.total.toFixed(2) %></td>
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+                        </td>
+                         <td>
+                <input type="checkbox" 
+                       name="paidStatus[<%= invoice.invoiceNumber %>]" 
+                       <%= invoice.paid ? "checked" : "" %>
+                       onchange="showSaveButton(this, '<%= invoice.invoiceNumber %>')">
+            </td>
+            <td>
+                <!-- Using a class instead of id and data attribute to identify the related invoice -->
+                <button type="button" 
+                        class="saveButton" 
+                        data-invoice-number="<%= invoice.invoiceNumber %>" 
+                        style="display: none;" 
+                        onclick="saveInvoiceStatus('<%= invoice.invoiceNumber %>')">Save Changes</button>
+            </td>
+                       <td>
+                            <button type="button" onclick="location.href='/admin/invoice-details/<%= invoice.invoiceNumber %>'">Details</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        
+    </form>
+    <script>
+        function showSaveButton(checkbox, invoiceNumber) {
+            // Find all save buttons and hide them initially
+            document.querySelectorAll('.saveButton').forEach(button => {
+                if (button.getAttribute('data-invoice-number') === invoiceNumber) {
+                    button.style.display = 'inline'; // Show only the button for the changed invoice
+                }
+            });
+        }
+        
+        // You'll need to implement saveInvoiceStatus to handle the actual save logic
+        function saveInvoiceStatus(invoiceNumber) {
+            // Implement AJAX call or form submission here
+            console.log("Saving status for invoice: " + invoiceNumber);
+            // After saving, you might want to hide the button again or navigate the user elsewhere
+        }
+    </script>
+    
 </body>
 </html>

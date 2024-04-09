@@ -101,7 +101,6 @@
                 width: calc(25% - 20px); /* Adjust to fit 4 items per row */
             }
         }
-<<<<<<< HEAD
         @media print {
     /* Reset margins and paddings for printing */
     body, html {
@@ -140,17 +139,11 @@
 }
 
 
-=======
->>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
     </style>
 </head>
 <body>
     <div class="top-bar">
         <a href="/cart" class="cart-button">Cart</a>
-<<<<<<< HEAD
-=======
-        
->>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
         <a href="/logout" class="logout-button">Logout</a>
     </div>
     <h1>Products</h1>
@@ -161,7 +154,6 @@
                 <img src="<%= item.imageUrl %>" alt="<%= item.itemName %>">
                 <div class="product-details">
                     <h3><%= item.itemName %></h3>
-<<<<<<< HEAD
                     <p>$<%= item[`priceLevel${req.session.user.priceLevel}`] ? item[`priceLevel${req.session.user.priceLevel}`].toFixed(2) : 'N/A' %></p>
                     <% if(item.quantity > 0) { %>
                         <div class="inline-form">
@@ -171,16 +163,10 @@
                     <% } else { %>
                         <button onclick="showBackorderForm('<%= item.id %>')">Backorder</button>
                     <% } %>
-=======
-                    <p>$<%= item[`priceLevel${req.session.user.priceLevel}`].toFixed(2) %></p> <!-- Display price with "$" sign and 2 decimals -->
-                    <input type="number" id="quantity_<%= item.id %>" name="quantity" placeholder="Qty">
-                    <button onclick="addToCart('<%= item.id %>')">Add to Cart</button>
->>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
                 </div>
             </div>
         <% }); %>
     </div>
-<<<<<<< HEAD
 
     <div id="overlay" class="overlay" onclick="hideBackorderForm()"></div>
     <div id="backorderForm" class="backorder-form">
@@ -190,10 +176,6 @@
         <button onclick="submitBackorder()">Submit Backorder</button>
     </div>
 
-=======
-    
-    <!-- Script to handle adding items to cart -->
->>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
     <script>
         function addToCart(itemId) {
             var quantity = document.getElementById('quantity_' + itemId).value;
@@ -211,10 +193,6 @@
             })
             .then(response => {
                 if (response.ok) {
-<<<<<<< HEAD
-=======
-                    // Item added successfully, handle any additional logic
->>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
                     console.log('Item added to cart successfully.');
                 } else {
                     console.error('Failed to add item to cart.');
@@ -225,7 +203,6 @@
             });
         }
 
-<<<<<<< HEAD
         function showBackorderForm(itemId) {
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('backorderForm').style.display = 'block';
@@ -241,15 +218,7 @@
             // Implement submission logic here
             alert('Backorder submitted!');
             hideBackorderForm();
-=======
-        function logout() {
-            // Add logout logic here
->>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
         }
     </script>
 </body>
 </html>
-<<<<<<< HEAD
-
-=======
->>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5

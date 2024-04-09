@@ -594,6 +594,31 @@ app.get('/admin/customer-invoices/:customerId', (req, res) => {
 
     res.render('customer-invoices', { invoices: customer.invoices });
 });
+
+app.get('/admin/invoice-details/:invoiceNumber', (req, res) => {
+    const invoiceNumber = req.params.invoiceNumber;
+    console.log('Invoice Number:', invoiceNumber); // Debugging log
+
+    // Assuming 'users' is an array of all users each containing an 'invoices' array
+    let allInvoices = [];
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            allInvoices = allInvoices.concat(user.invoices);
+        }
+    });
+
+    const invoice = allInvoices.find(invoice => invoice.invoiceNumber === invoiceNumber);
+    if (!invoice) {
+        return res.send('Invoice not found.');
+    }
+
+    console.log('Invoice Details:', invoice); // Debugging log
+
+    // Render your invoice details page here, adjust 'invoice-details' to your template
+    res.render('invoice-details', { invoice: invoice });
+});
+
+
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/');

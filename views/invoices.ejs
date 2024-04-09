@@ -21,7 +21,7 @@
             <% invoices.forEach(invoice => { %>
                 <tr>
                     <td><a href="/admin/invoices/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
-                    <td><%= invoice.dateCreated.toDateString() %></td>
+                    <td><%= invoice.dateCreated %></td>
                     <td>$<%= invoice.totalBalance.toFixed(2) %></td>
                 </tr>
             <% }); %>

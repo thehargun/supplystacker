@@ -1,34 +1,89 @@
-<!-- customer-invoices.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Invoices</title>
+    <!-- Add your CSS stylesheets or other head content here -->
 </head>
-
 <body>
     <h1>Customer Invoices</h1>
+    <button type="button" onclick="collectAndSaveInvoiceStatus()">Save All Changes</button>
     <table>
         <thead>
             <tr>
                 <th>Invoice Number</th>
                 <th>Date</th>
                 <th>Total Balance</th>
+                <th>Products</th>
+                <th>Action</th> <!-- Added header for Action -->
             </tr>
         </thead>
         <tbody>
             <% invoices.forEach(invoice => { %>
-            <tr>
-                <td><a href="/admin/invoice/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
-                <td><%= invoice.dateCreated %></td>
-                <td><%= invoice.totalBalance %></td>
-            </tr>
+                <tr>
+                    <td><a href='/admin/invoice-details/<%= invoice.invoiceNumber %>'><%= invoice.invoiceNumber %></a></td>
+                    <td><%= invoice.dateCreated %></td>
+                    <td>$<%= invoice.totalBalance.toFixed(2) %></td>
+                    <td>
+                        <ul>
+                            <% invoice.products.forEach(product => { %>
+                                <li><%= product.productName %>: <%= product.quantity %> at $<%= product.rate.toFixed(2) %></li>
+                            <% }); %>
+                        </ul>
+                    </td>
+                    <td>
+                        <% if (invoice.paid) { %>
+                            <label>Paid</label>
+                        <% } else { %>
+                            <input type="checkbox" 
+                                    class="invoiceCheckbox" 
+                                    name="paidStatus[<%= invoice.invoiceNumber %>]" 
+                                    data-invoice-number="<%= invoice.invoiceNumber %>">
+                        <% } %>
+                    </td>
+                </tr>
             <% }); %>
         </tbody>
     </table>
-</body>
+    
+    <script>
+        function collectAndSaveInvoiceStatus() {
+        const invoicesToUpdate = [];
+        document.querySelectorAll('.invoiceCheckbox:checked').forEach(checkbox => {
+            const invoiceNumber = checkbox.getAttribute('data-invoice-number');
+            invoicesToUpdate.push(invoiceNumber);
+        });
+        
+        if (invoicesToUpdate.length > 0) {
+            saveInvoiceStatus(invoicesToUpdate);
+        } else {
+            console.log("No changes to save.");
+        }
+    }
 
+    async function saveInvoiceStatus(invoiceNumbers) {
+        try {
+            const response = await fetch('/admin/save-invoice-status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ invoiceNumbers, paid: true }) // Assuming all selected are to be marked as paid
+            });
+            
+            const data = await response.json(); // Assuming JSON response
+
+            if (response.ok) {
+                console.log("Invoice statuses updated successfully.");
+                window.location.reload();
+            } else {
+                console.error("Failed to update invoice statuses.");
+            }
+        } catch (error) {
+            console.error("Error sending the request:", error);
+        }
+    }
+    </script>
+</body>
 </html>

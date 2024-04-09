@@ -103,6 +103,54 @@ if (!adminExists) {
     });
 }
 
+app.post('/admin/update-invoice/:invoiceNumber', (req, res) => {
+    const { invoiceNumber } = req.params;
+    const { dateCreated, totalBalance, products, customerId } = req.body;
+    let numericTotalBalance = Number(totalBalance);
+
+    // Ensure each product's quantity, rate, and total are numbers
+    const numericProducts = products.map(product => ({
+        ...product,
+        quantity: Number(product.quantity),
+        rate: parseFloat(product.rate),
+        total: parseFloat(product.total)
+    }));
+
+    users.forEach(user => {
+        if (user.id.toString() === customerId && Array.isArray(user.invoices)) {
+            user.invoices.forEach(invoice => {
+                if (invoice.invoiceNumber === invoiceNumber) {
+                    invoice.dateCreated = dateCreated;
+                    if (!isNaN(numericTotalBalance)) {
+                        invoice.totalBalance = parseFloat(numericTotalBalance.toFixed(2));
+                    } else {
+                        console.log('totalBalance is not a number:', totalBalance);
+                    }
+                    invoice.products = numericProducts; // Update with numeric values
+                }
+            });
+        }
+    });
+
+    invoices.forEach(invoice => {
+        if (invoice.userId.toString() === customerId) {
+            if (invoice.invoiceNumber === invoiceNumber) {
+                invoice.dateCreated = dateCreated;
+                if (!isNaN(numericTotalBalance)) {
+                    invoice.totalBalance = parseFloat(numericTotalBalance.toFixed(2));
+                } else {
+                    console.log('totalBalance is not a number:', totalBalance);
+                }
+                invoice.products = numericProducts; // Update with numeric values
+            }
+        }
+    });
+
+    res.redirect(`/admin/customer-invoices/${customerId}`);
+});
+
+
+
 
 function saveData() {
     const data = {
@@ -592,7 +640,7 @@ app.get('/admin/customer-invoices/:customerId', (req, res) => {
     }
     
 
-    res.render('customer-invoices', { invoices: customer.invoices });
+    res.render('customer-invoices', { invoices: customer.invoices, customerId });
 });
 
 app.get('/admin/invoice-details/:invoiceNumber', (req, res) => {
@@ -654,6 +702,29 @@ app.post('/admin/save-invoice-status', async (req, res) => {
     }
 });
 
+
+app.get('/admin/edit-invoice/:invoiceNumber', (req, res) => {
+    const invoiceNumber = req.params.invoiceNumber;
+    let foundInvoice = null;
+    const customerId = req.query.customerId;
+
+    users.forEach(user => {
+        if (user.id.toString()  === customerId && Array.isArray(user.invoices)) {
+            user.invoices.forEach(invoice => {
+                if (invoice.invoiceNumber === invoiceNumber) {
+                    foundInvoice = invoice;
+                    return;
+                }
+            });
+        }
+    });
+
+    if (foundInvoice && customerId) {
+        res.render('edit-invoice', { invoice: foundInvoice, customerId });
+    } else {
+        res.status(404).send('Invoice not found');
+    }
+});
 
 
 

@@ -60,11 +60,30 @@ function checkFileType(file, cb) {
 
 function loadData() {
     try {
-      const data = fs.readFileSync('data.json', 'utf8');
-      const json = JSON.parse(data);
-      users = json.users;
-      inventory = json.inventory;
-    } catch (error) {
+    const data = fs.readFileSync('data.json', 'utf8');
+    const json = JSON.parse(data);
+    users = json.users;
+    inventory = json.inventory;
+
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            user.invoices.forEach(invoice => {
+                let invoiceInfo = {
+                    userId: user.id,
+                    userEmail: user.email,
+                    priceLevel: user.priceLevel,
+                    invoiceNumber: invoice.invoiceNumber,
+                    totalBalance: invoice.totalBalance,
+                    paid: invoice.paid,
+                    dateCreated: invoice.dateCreated,
+                    products: invoice.products
+                };
+                invoices.push(invoiceInfo);
+            });
+        }
+    });
+    
+} catch (error) {
       console.log('No existing data found, starting with empty arrays.');
     }
   }

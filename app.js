@@ -619,6 +619,20 @@ app.get('/admin/invoice-details/:invoiceNumber', (req, res) => {
 });
 
 
+app.post('/admin/save-invoice-status', (req, res) => {
+    const paidStatuses = req.body.paidStatus || {};
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            user.invoices.forEach(invoice => {
+                invoice.paid = !!paidStatuses[invoice.invoiceNumber];
+            });
+        }
+    });
+    res.redirect('/admin/invoices');
+});
+
+
+
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/');

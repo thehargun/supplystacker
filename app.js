@@ -620,16 +620,37 @@ app.get('/admin/invoice-details/:invoiceNumber', (req, res) => {
 
 
 app.post('/admin/save-invoice-status', (req, res) => {
-    const paidStatuses = req.body.paidStatus || {};
-    users.forEach(user => {
-        if (user.invoices && user.invoices.length > 0) {
-            user.invoices.forEach(invoice => {
-                invoice.paid = !!paidStatuses[invoice.invoiceNumber];
-            });
+    const { invoiceNumbers, paid } = req.body;
+    let updatedInvoices = 0;
+    let updatedUserIds = [];
+    for (const [index, user] of users.entries()) {
+
+
+        for (const invoice of user.invoices) {
+            if (invoiceNumbers.includes(invoice.invoiceNumber)) {
+                invoice.paid = paid;
+                updatedInvoices++;
+            }
         }
-    });
-    res.redirect('/admin/invoices');
+
+        if (userHasUpdatedInvoice) {
+            updatedUserIds.push(user.id);
+            // Additional modifications to the user object can be done here
+            // For example, updating a summary property or recalculating balances
+            // This example directly updates the user in the array:
+            // Assuming some operation modifies `user` object directly
+            users[index] = user; // Reflect any potential changes to the user object
+        }
+    }
+
+    if (updatedInvoices > 0) {
+        res.json({ message: `${updatedInvoices} Invoices updated successfully.` });
+    } else {
+        res.status(404).json({ message: "No matching invoices found." });
+    }
 });
+
+
 
 
 

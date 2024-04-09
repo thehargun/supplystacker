@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>Edit Inventory Item</h1>
+<<<<<<< HEAD
     <form action="/admin/edit-inventory/<%= item.id %>" method="post" enctype="multipart/form-data">
         <label for="itemName">Item Name:</label>
         <input type="text" id="itemName" name="itemName" value="<%= item.itemName %>" required><br>
@@ -32,6 +33,11 @@
         <input type="file" id="image" name="image"><br>
         <img src="<%= item.imageUrl %>" alt="Item Image" style="max-width: 200px;"><br>
 
+=======
+    <form action="/admin/edit-inventory/<%= item.id %>" method="post">
+        <input type="text" name="itemName" value="<%= item.itemName %>" required>
+        <input type="number" name="quantity" value="<%= item.quantity %>" required>
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
         <button type="submit">Update Item</button>
     </form>
     <a href="/admin/view-inventory">Back to Inventory List</a>

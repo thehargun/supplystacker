@@ -2,14 +2,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
+<<<<<<< HEAD
 const pdfService = require('./services/pdfService');
 const emailService = require('./services/emailService');
 const fs = require('fs');
+=======
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
 const app = express();
 
 let users = []; // To include both admin and customer users
 let inventory = [
     { id: 1, itemName: "Item One", quantity: 100, priceLevel1: 10, priceLevel2: 9, priceLevel3: 8, imageUrl: "/path/to/image1.jpg" },
+<<<<<<< HEAD
+=======
+    // Add more items as needed
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
 ];
 let invoices = [];
 app.set('view engine', 'ejs');
@@ -58,6 +65,7 @@ function checkFileType(file, cb) {
     }
 }
 
+<<<<<<< HEAD
 function loadData() {
     try {
       const data = fs.readFileSync('data.json', 'utf8');
@@ -92,6 +100,16 @@ function saveData() {
     };
     fs.writeFileSync('data.json', JSON.stringify(data), 'utf8');
   }
+=======
+// Initial Admin User Setup
+bcrypt.hash('adminpass', 10, function(err, hash) {
+    if (err) {
+        console.error("Error hashing admin password", err);
+    } else {
+        users.push({ id: 1, email: "admin@example.com", password: hash, role: "admin" });
+    }
+});
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
 
 // Routes
 app.get('/', (req, res) => {
@@ -148,6 +166,7 @@ app.get('/admin/add-inventory', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.send('Unauthorized access.');
     }
+<<<<<<< HEAD
     console.log(inventory);
     res.render('add-inventory', { inventory: inventory });
 });
@@ -183,6 +202,38 @@ app.post('/admin/add-inventory', upload, (req, res) => {
 
 
 
+=======
+    res.render('add-inventory');
+});
+
+app.post('/admin/add-inventory', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            res.send(err);
+        } else {
+            // Check if file is selected
+            if (req.file == undefined) {
+                res.send('Error: No file selected!');
+            } else {
+                const { itemName, quantity, priceLevel1, priceLevel2, priceLevel3 } = req.body;
+                const imageUrl = '/uploads/' + req.file.filename;
+                // Add the inventory item to the inventory array
+                inventory.push({ 
+                    id: inventory.length + 1, 
+                    itemName, 
+                    quantity: parseInt(quantity), 
+                    priceLevel1: parseFloat(priceLevel1), 
+                    priceLevel2: parseFloat(priceLevel2), 
+                    priceLevel3: parseFloat(priceLevel3), 
+                    imageUrl 
+                });
+                res.redirect('/admin/view-inventory');
+            }
+        }
+    });
+});
+
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
 app.get('/admin/edit-inventory/:id', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.send('Unauthorized access.');
@@ -191,6 +242,7 @@ app.get('/admin/edit-inventory/:id', (req, res) => {
     res.render('edit-inventory', { item });
 });
 
+<<<<<<< HEAD
 app.post('/admin/edit-inventory/:id', upload, async (req, res) => {
     const itemId = parseInt(req.params.id);
     const itemIndex = inventory.findIndex(item => item.id === itemId);
@@ -221,6 +273,14 @@ app.post('/admin/edit-inventory/:id', upload, async (req, res) => {
     inventory[itemIndex] = currentItem;
 
     // Redirect to the inventory list
+=======
+app.post('/admin/edit-inventory/:id', (req, res) => {
+    const { itemName, quantity, price } = req.body;
+    const index = inventory.findIndex(item => item.id === parseInt(req.params.id));
+    if (index !== -1) {
+        inventory[index] = { id: parseInt(req.params.id), itemName, quantity: parseInt(quantity), price: parseFloat(price) };
+    }
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
     res.redirect('/admin/view-inventory');
 });
 
@@ -301,6 +361,7 @@ app.post('/add-to-cart', (req, res) => {
     if (!req.session.cart) req.session.cart = [];
     const item = inventory.find(item => item.id == itemId);
     if (item) {
+<<<<<<< HEAD
         const userPriceLevel = req.session.user.priceLevel || '3'; // Default to price level 3 if not set
         const price = item[`priceLevel${userPriceLevel}`]; // Correctly determine price based on price level
 
@@ -315,12 +376,29 @@ app.post('/add-to-cart', (req, res) => {
                 quantity: parseInt(quantity, 10),
                 price // Only store the calculated price
             });
+=======
+        // Ensure that the price property is set before adding the item to the cart
+        if (!item.price) {
+            // Retrieve the price based on the user's price level
+            const userPriceLevel = req.session.user.priceLevel || '3'; // Default to price level 3 if not set
+            item.price = item[`priceLevel${userPriceLevel}`];
+        }
+        // Check if the item is already in the cart
+        const existingItem = req.session.cart.find(cartItem => cartItem.id == itemId);
+        if (existingItem) {
+            existingItem.quantity += parseInt(quantity, 10);
+        } else {
+            req.session.cart.push({...item, quantity: parseInt(quantity, 10)});
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
         }
     }
     res.redirect('/cart');
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
 app.get('/cart', (req, res) => {
     if (!req.session.loggedIn) return res.send('Please log in.');
     res.render('cart', { cart: req.session.cart || [] });
@@ -347,8 +425,12 @@ app.post('/register', async (req, res) => {
         zipCode,
         role: 'customer', // Default role is customer
         priceLevel: 3, // Default price level
+<<<<<<< HEAD
         invoices: [],
         lastInvoiceNumber: 0
+=======
+        invoices: []
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
     };
 
     users.push(newUser);
@@ -398,12 +480,16 @@ app.post('/admin/edit-customer/:id', async (req, res) => {
     // Redirect to view customers page
     res.redirect('/admin/view-customers');
 });
+<<<<<<< HEAD
 app.get('/admin/invoices', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.status(403).send('Access denied.');
     }
     res.render('invoices', { invoices });
 });
+=======
+
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
 app.post('/add-to-cart', (req, res) => {
     const { itemId, quantity } = req.body;
     if (!req.session.cart) {
@@ -463,6 +549,7 @@ app.get('/get-total-amount', (req, res) => {
     // Send the total amount as JSON response
     res.json({ totalAmount });
 });
+<<<<<<< HEAD
 // Modify the generateInvoiceNumber function to accept the user object as an argument
 function generateInvoiceNumber(company, lastInvoiceNumber) {
     // Check if lastInvoiceNumber is a number, if not, default to 0
@@ -470,10 +557,26 @@ function generateInvoiceNumber(company, lastInvoiceNumber) {
     lastInvoiceNumber += 1; // Increment lastInvoiceNumber
     const initials = company.split(' ').map(word => word[0]).join('').toUpperCase();
     return `${initials}${String(lastInvoiceNumber).padStart(2, '0')}`;
+=======
+function padNumber(num, size) {
+    let padded = num.toString();
+    while (padded.length < size) {
+        padded = "0" + padded;
+    }
+    return padded;
+}
+function generateInvoiceNumber(user) {
+    // Extract the company initials from the company name
+    const companyInitials = user.company.split(' ').map(word => word[0]).join('').toUpperCase();
+    // Generate the invoice number based on the length of the invoices array
+    const invoiceNumber = companyInitials + padNumber(user.invoices.length + 1, 3); // Start with 001
+    return invoiceNumber;
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
 }
 
 
 app.get('/checkout', (req, res) => {
+<<<<<<< HEAD
     if (!req.session.user || !req.session.cart) {
         return res.status(400).send('User is not logged in or cart is empty.');
     }
@@ -576,12 +679,61 @@ app.get('/admin/customer-invoices/:customerId', (req, res) => {
 
     res.render('customer-invoices', { invoices: customer.invoices });
 });
+=======
+    const cart = req.session.cart || []; // Assuming the cart data is stored in the session
+    const user = req.session.user;
+    // Generate the invoice number
+    const invoiceNumber = generateInvoiceNumber(user);
+    res.render('checkout', { invoiceNumber, cart });
+});
+app.post('/submit-order', (req, res) => {
+    // Example: Process the order from the session cart
+    const cart = req.session.cart || []; // Assuming the cart data is stored in the session
+    const user = req.session.user;
+    const getinvoiceNumber = generateInvoiceNumber(user);
+    function calculateTotalAmount(cart) {
+        // Calculate the total amount based on the items in the cart
+        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    }
+    // Create an invoice object
+    const invoice = {
+        invoiceNumber: getinvoiceNumber, // Assuming you have a function to generate invoice numbers
+        companyName: req.session.user.company,
+        dateCreated: new Date(),
+        products: req.session.cart.map(item => ({
+            productName: item.itemName,
+            quantity: item.quantity,
+            rate: item.price
+        })),
+        totalBalance: calculateTotalAmount(req.session.cart),
+        paid: false // Invoice is initially set to unpaid
+    };
+
+    // Add the invoice to the user's invoices array
+    const userIndex = users.findIndex(user => user.id === req.session.user.id);
+    if (userIndex !== -1) {
+        users[userIndex].invoices.push(invoice);
+        req.session.user.invoices = users[userIndex].invoices;
+    } else {
+        console.error('User not found.');
+    }
+
+    // Add the invoice to the invoices array
+    invoices.push(invoice);
+    console.log(invoice);
+    // Clear the cart after submitting the order
+    req.session.cart = [];
+    res.send('Order submitted successfully. Thank you!');
+});
+
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/');
     });
 });
 
+<<<<<<< HEAD
 
 
 app.post('/submit-order', async (req, res) => {
@@ -645,5 +797,7 @@ app.post('/submit-order', async (req, res) => {
 
 
 
+=======
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

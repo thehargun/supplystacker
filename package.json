@@ -9,16 +9,23 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.6.8",
+=======
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.18.0",
     "multer": "^1.4.5-lts.1",
+<<<<<<< HEAD
     "nodemailer": "^6.9.12",
     "pdfkit": "^0.14.0",
     "telnet": "^0.0.1",
     "xlsx": "^0.18.5"
+=======
+    "nodemailer": "^6.9.9"
+>>>>>>> 42aa8bf88d43f1a4fbdbf55ec22a55f6097726c5
   }
 }

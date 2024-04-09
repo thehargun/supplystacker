@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Inventory Item</title>
+</head>
+<body>
+    <h1>Edit Inventory Item</h1>
+    <form action="/admin/edit-inventory/<%= item.id %>" method="post" enctype="multipart/form-data">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" name="itemName" value="<%= item.itemName %>" required><br>
+
+        <label for="itemCategory">Item Category:</label>
+        <input type="text" id="itemCategory" name="itemCategory" value="<%= item.itemCategory %>"><br>
+
+        <label for="cost">Cost:</label>
+        <input type="number" step="0.01" id="cost" name="cost" value="<%= item.cost %>"><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="<%= item.quantity %>"><br>
+
+        <label for="priceLevel1">Price Level 1:</label>
+        <input type="number" step="0.01" id="priceLevel1" name="priceLevel1" value="<%= item.priceLevel1 %>"><br>
+
+        <label for="priceLevel2">Price Level 2:</label>
+        <input type="number" step="0.01" id="priceLevel2" name="priceLevel2" value="<%= item.priceLevel2 %>"><br>
+
+        <label for="priceLevel3">Price Level 3:</label>
+        <input type="number" step="0.01" id="priceLevel3" name="priceLevel3" value="<%= item.priceLevel3 %>"><br>
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image"><br>
+        <img src="<%= item.imageUrl %>" alt="Item Image" style="max-width: 200px;"><br>
+
+        <button type="submit">Update Item</button>
+    </form>
+    <a href="/admin/view-inventory">Back to Inventory List</a>
+</body>
+</html>

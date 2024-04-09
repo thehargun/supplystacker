@@ -1,0 +1,42 @@
+<!-- views/view-customers.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Customers</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>View Customers</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Action</th> <!-- Add a new column for actions -->
+        </tr>
+        <% customers.forEach(customer => { %>
+        <tr>
+            <td><%= customer.id %></td>
+            <td><%= customer.username %></td>
+            <td><%= customer.company %></td>
+            <td><%= customer.email %></td>
+            <td>
+                <!-- Add an "Edit" button to edit the customer -->
+                <a href="/admin/edit-customer/<%= customer.id %>">Edit</a>
+                
+            </td>
+            <td><a href="/admin/customer-invoices/<%= customer.id %>">View Invoices</a></td>
+    
+        </tr>
+        <% }); %>
+    </table>
+    
+    <!-- Add a button to add a new customer -->
+    <a href="/admin/add-customer">Add Customer</a>
+    <!-- Add this button at the top of the page -->
+<a href="/admin">Back to Admin Home</a>
+
+</body>
+</html>

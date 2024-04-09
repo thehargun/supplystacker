@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Inventory Item</title>
+</head>
+<body>
+    <h1>Add New Inventory Item</h1>
+    <form action="/admin/add-inventory" method="POST" enctype="multipart/form-data">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" name="itemName" required><br>
+        <script>
+            function handleCategoryChange() {
+                const categorySelect = document.getElementById('itemCategorySelect');
+                const otherInput = document.getElementById('otherCategoryInput');
+                // Display the input field if "Other" is selected
+                if (categorySelect.value === 'Other') {
+                    otherInput.style.display = 'block';
+                } else {
+                    otherInput.style.display = 'none';
+                }
+            }
+            </script>
+<label for="itemCategory">Item Category:</label>
+<select id="itemCategorySelect" name="itemCategory" onchange="handleCategoryChange()" required>
+    <option value="">Select a Category</option>
+    <!-- Dynamically populated options -->
+    <% let categories = new Set(inventory.map(item => item.itemCategory)); %>
+    <% categories.forEach(function(category) { %>
+        <option value="<%= category %>"><%= category %></option>
+    <% }); %>
+    <option value="Other">Other</option>
+</select><br>
+<input type="text" id="otherCategoryInput" name="otherCategory" style="display:none;" placeholder="Enter custom category"><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required><br>
+        
+        <label for="cost">Cost:</label>
+        <input type="number" id="cost" name="cost" required><br>
+    
+        <label for="priceLevel1">Price Level 1:</label>
+        <input type="number" id="priceLevel1" name="priceLevel1" step="0.01" required><br>
+        
+        <label for="priceLevel2">Price Level 2:</label>
+        <input type="number" id="priceLevel2" name="priceLevel2" step="0.01" required><br>
+        
+        <label for="priceLevel3">Price Level 3:</label>
+        <input type="number" id="priceLevel3" name="priceLevel3" step="0.01" required><br>
+        
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="image/*"><br>
+    
+        <input type="submit" value="Add Inventory">
+    </form>
+    <a href="/admin/view-inventory">Back to Inventory List</a>
+</body>
+</html>

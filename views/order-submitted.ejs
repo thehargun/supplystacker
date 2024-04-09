@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Submitted</title>
+    <!-- Add your CSS stylesheets or other head content here -->
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: green;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order submitted successfully. Thank you!</h1>
+        <div class="buttons">
+            <form action="/products" method="get">
+                <button type="submit">Go Back to Product Page</button>
+            </form>
+            <form action="/logout" method="get">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+    <!-- Add your scripts or other body content here -->
+</body>
+</html>

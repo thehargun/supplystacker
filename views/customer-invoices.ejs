@@ -16,7 +16,8 @@
                 <th>Date</th>
                 <th>Total Balance</th>
                 <th>Products</th>
-                <th>Action</th> <!-- Added header for Action -->
+                <th>Action</th>
+                <th>Edit</th> 
             </tr>
         </thead>
         <tbody>
@@ -41,6 +42,9 @@
                                     name="paidStatus[<%= invoice.invoiceNumber %>]" 
                                     data-invoice-number="<%= invoice.invoiceNumber %>">
                         <% } %>
+                    </td>
+                    <td>
+                        <button type="button" onclick="location.href='/admin/edit-invoice/<%= invoice.invoiceNumber %>?customerId=<%= customerId %>'">Edit</button>
                     </td>
                 </tr>
             <% }); %>

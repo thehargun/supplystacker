@@ -618,33 +618,37 @@ app.get('/admin/invoice-details/:invoiceNumber', (req, res) => {
     res.render('invoice-details', { invoice: invoice });
 });
 
-
-app.post('/admin/save-invoice-status', (req, res) => {
+app.post('/admin/save-invoice-status', async (req, res) => {
     const { invoiceNumbers, paid } = req.body;
+    let updatedInvoicesForUser = 0;
     let updatedInvoices = 0;
-    let updatedUserIds = [];
-    for (const [index, user] of users.entries()) {
 
-
-        for (const invoice of user.invoices) {
-            if (invoiceNumbers.includes(invoice.invoiceNumber)) {
-                invoice.paid = paid;
-                updatedInvoices++;
-            }
+    users.forEach(user => {
+        if (Array.isArray(user.invoices)) {
+            user.invoices.forEach(invoice => {
+                if (invoiceNumbers.includes(invoice.invoiceNumber)) {
+                    invoice.paid = paid;
+                    updatedInvoicesForUser++;
+                }
+            });
         }
+    });
 
-        if (userHasUpdatedInvoice) {
-            updatedUserIds.push(user.id);
-            // Additional modifications to the user object can be done here
-            // For example, updating a summary property or recalculating balances
-            // This example directly updates the user in the array:
-            // Assuming some operation modifies `user` object directly
-            users[index] = user; // Reflect any potential changes to the user object
+    invoices.forEach(invoice => {
+        if (invoiceNumbers.includes(invoice.invoiceNumber)) {
+            invoice.paid = paid;
+            updatedInvoices++;
         }
-    }
+    });
 
-    if (updatedInvoices > 0) {
-        res.json({ message: `${updatedInvoices} Invoices updated successfully.` });
+    // After updating the invoices, persist the changes back to data.json
+    if (updatedInvoices > 0 && updatedInvoicesForUser > 0) {
+        try {
+            res.json({ message: `${updatedInvoices} Invoices updated successfully.` });
+        } catch (err) {
+            console.error('Failed to save or reload user data', err);
+            res.status(500).json({ message: "Failed to update invoice status." });
+        }
     } else {
         res.status(404).json({ message: "No matching invoices found." });
     }

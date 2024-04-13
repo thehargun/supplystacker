@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Invoices</h1>
+    <button type="button" onclick="collectAndSaveInvoiceStatus()">Save All Changes</button>
         <table>
             <thead>
                 <tr>
@@ -23,7 +24,7 @@
                     <tr>
                         <td><a href='/admin/invoice-details/<%= invoice.invoiceNumber %>'><%= invoice.invoiceNumber %></a></td>
                         <td><%= invoice.dateCreated %></td>
-                        <td>$<%= invoice.totalBalance.toFixed(2) %></td>
+                        <td>$<%= invoice.totalBalance %></td>
                         <td>
                             <table>
                                 <thead>
@@ -39,8 +40,8 @@
                                         <tr>
                                             <td><%= product.productName %></td>
                                             <td><%= product.quantity %></td>
-                                            <td>$<%= product.rate.toFixed(2) %></td>
-                                            <td>$<%= product.total.toFixed(2) %></td>
+                                            <td>$<%= product.rate %></td>
+                                            <td>$<%= product.total %></td>
                                         </tr>
                                     <% }); %>
                                 </tbody>
@@ -55,17 +56,6 @@
                                         name="paidStatus[<%= invoice.invoiceNumber %>]" 
                                         data-invoice-number="<%= invoice.invoiceNumber %>">
                             <% } %>
-                        </td>
-                        
-                        <% if (invoice.paid == false) { %>
-                        <td>
-               
-                        <button type="button" onclick="collectAndSaveInvoiceStatus()">Save All Changes</button>
-                        
-                </td>
-                <% } %>
-                       <td>
-                            <button type="button" onclick="location.href='/admin/invoice-details/<%= invoice.invoiceNumber %>'">Details</button>
                         </td>
                     </tr>
                 <% }); %>

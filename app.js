@@ -208,7 +208,10 @@ app.get('/admin/view-inventory', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.send('Unauthorized access.');
     }
-    res.render('view-inventory', { inventory });
+
+    const sortedInventory = inventory.sort((a, b) => b.id - a.id);
+
+    res.render('view-inventory', { inventory : sortedInventory });
 });
 
 app.get('/admin/add-inventory', (req, res) => {
@@ -561,11 +564,13 @@ app.post('/submit-order', async (req, res) => {
     const user = req.session.user;
     // Ensure the user's invoices is always an array
     user.invoices = user.invoices || [];
+
+    const { invoiceNumber } = req.body;
     
     // Update lastInvoiceNumber
     user.lastInvoiceNumber = user.lastInvoiceNumber ? user.lastInvoiceNumber + 1 : 1;
     
-    const invoiceNumber = generateInvoiceNumber(user.company, user.lastInvoiceNumber);
+    //const invoiceNumber = generateInvoiceNumber(user.company, user.lastInvoiceNumber);
 
     const invoiceDetails = {
         invoiceNumber,

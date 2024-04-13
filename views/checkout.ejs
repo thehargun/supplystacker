@@ -14,6 +14,7 @@
         <% }); %>
     </ul>
     <form action="/submit-order" method="post">
+        <input type="hidden" name="invoiceNumber" value="<%= invoiceNumber %>">
         <button type="submit">Submit Order</button>
     </form>
 

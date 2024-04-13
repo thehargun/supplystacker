@@ -57,6 +57,9 @@
                                         data-invoice-number="<%= invoice.invoiceNumber %>">
                             <% } %>
                         </td>
+                        <td>
+                            <button type="button" onclick="location.href='/admin/edit-invoice/<%= invoice.invoiceNumber %>?customerId=<%= invoice.userId %>'">Edit</button>
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>

@@ -724,5 +724,5 @@ app.get('/admin/customer-invoices/:customerId', (req, res) => {
     res.render('customer-invoices', { invoices: customer.invoices });
 });
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8080;
 app.listen(80, () => console.log(`Server running on port ${PORT}`));

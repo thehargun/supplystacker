@@ -6,7 +6,7 @@ let transporter = nodemailer.createTransport({
     secure: false, // True for 465, false for other ports
     auth: {
         user: 'sales@supplystacker.com', // Your SMTP username
-        pass: 'sales12345', // Your SMTP password
+        pass: 'Wheninusa16!', // Your SMTP password
     },
     tls: {
         // Do not fail on invalid certs if your server uses self-signed certificates

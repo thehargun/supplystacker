@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Details</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .invoice-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .invoice-header {
+            margin-bottom: 20px;
+        }
+        .invoice-header h1 {
+            margin: 0;
+        }
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+        .invoice-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .invoice-details th, .invoice-details td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .invoice-details th {
+            background: #f4f4f4;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: darkred;
+        }
+        .add-product-btn {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .add-product-btn:hover {
+            background-color: darkgreen;
+        }
+        .total-display {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="invoice-header">
+            <h1>Invoice Details</h1>
+        </div>
+        <form id="invoiceForm" method="POST">
+            <div class="invoice-details">
+                <h2>Invoice Info</h2>
+                <div class="form-group">
+                    <label>Invoice Number:</label>
+                    <input type="text" name="invoiceNumber" value="<%= invoice.invoiceNumber %>">
+                </div>
+                <div class="form-group">
+                    <label>Company Name:</label>
+                    <input type="text" name="companyName" value="<%= invoice.companyName %>">
+                </div>
+                <div class="form-group">
+                    <label>Address Line 1:</label>
+                    <input type="text" name="addressLine1" value="<%= invoice.addressLine1 %>">
+                </div>
+                <div class="form-group">
+                    <label>Address Line 2:</label>
+                    <input type="text" name="addressLine2" value="<%= invoice.addressLine2 %>">
+                </div>
+                <div class="form-group">
+                    <label>City:</label>
+                    <input type="text" name="city" value="<%= invoice.city %>">
+                </div>
+                <div class="form-group">
+                    <label>State:</label>
+                    <input type="text" name="state" value="<%= invoice.state %>">
+                </div>
+                <div class="form-group">
+                    <label>Zip Code:</label>
+                    <input type="text" name="zipCode" value="<%= invoice.zipCode %>">
+                </div>
+                <div class="form-group">
+                    <label>Date Created:</label>
+                    <input type="date" name="dateCreated" value="<%= new Date(invoice.dateCreated).toISOString().split('T')[0] %>">
+                </div>
+                <div class="form-group">
+                    <label>Cash Payment:</label>
+                    <input type="number" name="CashPayment" step="0.01" value="<%= invoice.CashPayment %>">
+                </div>
+                <div class="form-group">
+                    <label>Account Payment:</label>
+                    <input type="number" name="AccountPayment" step="0.01" value="<%= invoice.AccountPayment %>">
+                </div>
+                <div class="form-group">
+                    <label>Invoice Total:</label>
+                    <p>$<%= invoice.invoiceTotal ? invoice.invoiceTotal.toFixed(2) : '0.00' %></p>
+                </div>
+                <div class="form-group">
+                    <label>Total Balance:</label>
+                    <p>$<%= invoice.totalBalance ? invoice.totalBalance.toFixed(2) : '0.00' %></p>
+                </div>
+                <div class="form-group">
+                    <label>Paid:</label>
+                    <p><%= invoice.paid ? 'Yes' : 'No' %></p>
+                </div>
+            </div>
+
+            <div class="invoice-details">
+                <h2>Products</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Rate</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <% invoice.products.forEach((product, index) => { %>
+                            <tr data-index="<%= index %>">
+                                <td><%= product.productName %></td>
+                                <td><%= product.productCategory %></td>
+                                <td><input type="number" name="quantity" value="<%= product.quantity %>" data-index="<%= index %>" class="quantity" oninput="updateProductTotal(<%= index %>)"></td>
+                                <td><input type="number" name="rate" value="<%= product.rate %>" data-index="<%= index %>" class="rate" step="0.01" oninput="updateProductTotal(<%= index %>)"></td>
+                                <td class="total"><%= product.total %></td>
+                                <td><button type="button" class="delete-btn" onclick="deleteProduct(<%= index %>)">Delete</button></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <button type="button" class="add-product-btn" onclick="addProduct()">Add Product</button>
+            </div>
+
+            <div class="total-display">
+                Total: $<span id="totalAmount"><%= invoice.invoiceTotal ? invoice.invoiceTotal.toFixed(2) : '0.00' %></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Submit</button>
+                <button type="button" onclick="printInvoice()">Print</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const inventory = <%- JSON.stringify(inventory) %>;
+
+        function deleteProduct(index) {
+            const row = document.querySelector(`tr[data-index='${index}']`);
+            if (row) {
+                row.remove();
+                updateTotal();
+            }
+        }
+
+        function addProduct() {
+            const tbody = document.getElementById('productsTableBody');
+            const rowCount = tbody.rows.length;
+            const newRow = document.createElement('tr');
+            newRow.dataset.index = rowCount;
+            newRow.innerHTML = `
+                <td>
+                    <select name="productName" data-index="${rowCount}" class="productName" onchange="updateProductDetails(${rowCount})">
+                        <option value="">Select Product</option>
+                        <% inventory.forEach(item => { %>
+                            <option value="<%= item.itemName %>"><%= item.itemName %></option>
+                        <% }); %>
+                    </select>
+                </td>
+                <td class="productCategory"></td>
+                <td><input type="number" name="quantity" data-index="${rowCount}" class="quantity" oninput="updateProductTotal(${rowCount})"></td>
+                <td><input type="number" name="rate" data-index="${rowCount}" class="rate" step="0.01" oninput="updateProductTotal(${rowCount})"></td>
+                <td class="total"></td>
+                <td><button type="button" class="delete-btn" onclick="deleteProduct(${rowCount})">Delete</button></td>
+            `;
+            tbody.appendChild(newRow);
+        }
+
+        function updateProductDetails(index) {
+            const productName = document.querySelector(`select[name='productName'][data-index='${index}']`).value;
+            const product = inventory.find(item => item.itemName === productName);
+            if (product) {
+                document.querySelector(`tr[data-index='${index}'] .productCategory`).textContent = product.itemCategory;
+                document.querySelector(`input[name='rate'][data-index='${index}']`).value = product.priceLevel1; // Assuming priceLevel1 for simplicity
+            }
+            updateProductTotal(index);
+        }
+
+        function updateProductTotal(index) {
+            const row = document.querySelector(`tr[data-index='${index}']`);
+            const quantity = parseFloat(row.querySelector(`input[name='quantity']`).value) || 0;
+            const rate = parseFloat(row.querySelector(`input[name='rate']`).value) || 0;
+            const total = quantity * rate;
+            row.querySelector('.total').textContent = total.toFixed(2);
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = 0;
+            document.querySelectorAll('#productsTableBody tr').forEach(row => {
+                const rowTotal = parseFloat(row.querySelector('.total').textContent) || 0;
+                total += rowTotal;
+            });
+            document.getElementById('totalAmount').textContent = total.toFixed(2);
+        }
+
+        document.getElementById('invoiceForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const products = [];
+            document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
+                const productName = row.querySelector(`select[name='productName']`) ? row.querySelector(`select[name='productName']`).value : row.cells[0].textContent;
+                const productCategory = row.cells[1].textContent;
+                const quantity = row.querySelector(`input[name='quantity']`).value;
+                const rate = row.querySelector(`input[name='rate']`).value;
+                const total = quantity * rate;
+                products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
+            });
+
+            const jsonData = {
+                invoiceNumber: formData.get('invoiceNumber'),
+                companyName: formData.get('companyName'),
+                addressLine1: formData.get('addressLine1'),
+                addressLine2: formData.get('addressLine2'),
+                city: formData.get('city'),
+                state: formData.get('state'),
+                zipCode: formData.get('zipCode'),
+                dateCreated: formData.get('dateCreated'),
+                CashPayment: formData.get('CashPayment'),
+                AccountPayment: formData.get('AccountPayment'),
+                products: JSON.stringify(products)  // Convert products to JSON string
+            };
+
+            fetch(window.location.pathname, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    response.text().then(text => {
+                        alert('Error updating invoice: ' + text);
+                    });
+                }
+            }).catch(error => {
+                alert('Error updating invoice: ' + error);
+            });
+        });
+
+        function printInvoice() {
+            const formData = new FormData(document.getElementById('invoiceForm'));
+            const products = [];
+            document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
+                const productName = row.querySelector(`select[name='productName']`) ? row.querySelector(`select[name='productName']`).value : row.cells[0].textContent;
+                const productCategory = row.cells[1].textContent;
+                const quantity = row.querySelector(`input[name='quantity']`).value;
+                const rate = row.querySelector(`input[name='rate']`).value;
+                const total = quantity * rate;
+                products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
+            });
+
+            const invoiceDetails = {
+                invoiceNumber: formData.get('invoiceNumber'),
+                companyName: formData.get('companyName'),
+                addressLine1: formData.get('addressLine1'),
+                addressLine2: formData.get('addressLine2'),
+                city: formData.get('city'),
+                state: formData.get('state'),
+                zipCode: formData.get('zipCode'),
+                dateCreated: formData.get('dateCreated'),
+                CashPayment: formData.get('CashPayment'),
+                AccountPayment: formData.get('AccountPayment'),
+                products: products,
+                totalBalance: parseFloat(document.getElementById('totalAmount').textContent)
+            };
+
+            fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(invoiceDetails)
+            }).then(response => {
+                if (response.ok) {
+                    alert('Invoice printed and emailed successfully.');
+                } else {
+                    response.text().then(text => {
+                        alert('Error printing invoice: ' + text);
+                    });
+                }
+            }).catch(error => {
+                alert('Error printing invoice: ' + error);
+            });
+        }
+
+        // Update total on page load
+        updateTotal();
+    </script>
+</body>
+</html>

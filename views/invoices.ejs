@@ -1,11 +1,55 @@
-<!-- Inside invoices.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoices</title>
-    <!-- Add your CSS stylesheets or other head content here -->
+    <link rel="stylesheet" href="/path/to/your/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .button-delete {
+            background-color: #f44336;
+        }
+        .button-delete:hover {
+            background-color: #d32f2f;
+        }
+    </style>
 </head>
 <body>
     <h1>Invoices</h1>
@@ -14,15 +58,21 @@
             <tr>
                 <th>Invoice Number</th>
                 <th>Date</th>
+                <th>Invoice Amount</th>
                 <th>Total Balance</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <% invoices.forEach(invoice => { %>
                 <tr>
                     <td><a href="/admin/invoices/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
-                    <td><%= invoice.dateCreated.toDateString() %></td>
-                    <td>$<%= invoice.totalBalance.toFixed(2) %></td>
+                    <td><%= new Date(invoice.dateCreated).toDateString() %></td>
+                    <td>$<%= (typeof invoice.invoiceTotal === 'number' ? invoice.invoiceTotal.toFixed(2) : '0.00') %></td>
+                    <td>$<%= (typeof invoice.totalBalance === 'number' ? invoice.totalBalance.toFixed(2) : '0.00') %></td>
+                    <td>
+                        <a href="/admin/invoices/delete/<%= invoice.invoiceNumber %>" class="button button-delete">Delete</a>
+                    </td>
                 </tr>
             <% }); %>
         </tbody>

@@ -725,4 +725,4 @@ app.get('/admin/customer-invoices/:customerId', (req, res) => {
 });
 
 const PORT = process.env.PORT || 80;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(80, () => console.log(`Server running on port ${PORT}`));

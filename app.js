@@ -91,6 +91,27 @@ function saveData() {
     fs.writeFileSync('data.json', JSON.stringify(data), 'utf8');
 }
 
+
+const cron = require('node-cron'); // Add this at the top of the file along with other requires
+
+// Function to send the latest data.json file via email
+function sendLatestDataJson() {
+    const filePath = path.join(__dirname, 'data.json');
+    emailService.sendEmailWithAttachment('sales@supplystacker.com', 'Latest data.json file', 'Please find the latest data.json file attached.', filePath)
+        .then(() => {
+            console.log('Latest data.json file sent successfully.');
+        })
+        .catch(error => {
+            console.error('Error sending latest data.json file:', error);
+        });
+}
+
+// Schedule the task to run every hour
+cron.schedule('0 * * * *', () => {
+    sendLatestDataJson();
+});
+
+
 // Routes
 app.get('/', (req, res) => {
     res.render('login', { registerButton: true });

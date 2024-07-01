@@ -70,7 +70,7 @@ function loadData() {
 }
 
 loadData();
-setInterval(saveData, 10000);
+setInterval(saveData, 1000);
 
 const adminExists = users.some(user => user.email === "admin@example.com");
 if (!adminExists) {

@@ -37,4 +37,28 @@ function sendOrderConfirmationWithInvoice(email, orderDetails, filePath) {
     });
 }
 
-module.exports = { sendOrderConfirmationWithInvoice };
+function sendBackupEmail(email, subject, text, filePath) {
+    const mailOptions = {
+        from: 'sales@supplystacker.com',
+        to: email,
+        subject: subject,
+        text: text,
+        attachments: [
+            {
+                filename: `data.json`,
+                path: filePath,
+            },
+        ],
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Email send error:', error);
+        } else {
+            console.log('Email sent:', info.response);
+        }
+    });
+}
+
+
+module.exports = { sendOrderConfirmationWithInvoice, sendBackupEmail };

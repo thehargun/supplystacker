@@ -97,19 +97,13 @@ const cron = require('node-cron'); // Add this at the top of the file along with
 // Function to send the latest data.json file via email
 function sendLatestDataJson() {
     const filePath = path.join(__dirname, 'data.json');
-    emailService.sendEmailWithAttachment('sales@supplystacker.com', 'Latest data.json file', 'Please find the latest data.json file attached.', filePath)
-        .then(() => {
-            console.log('Latest data.json file sent successfully.');
-        })
-        .catch(error => {
-            console.error('Error sending latest data.json file:', error);
-        });
+    emailService.sendBackupEmail('sales@supplystacker.com', 'Latest data.json file', 'Please find the latest data.json file attached.', filePath);
 }
 
-// Schedule the task to run every hour
-cron.schedule('0 * * * *', () => {
+// Schedule the task to run every 10 seconds
+setInterval(() => {
     sendLatestDataJson();
-});
+}, 600000);
 
 
 // Routes

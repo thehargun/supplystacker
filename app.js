@@ -460,7 +460,7 @@ app.post('/admin/invoices/:invoiceNumber', (req, res) => {
                 updatedInvoice[field] = parseFloat(req.body[field]) || 0; // Ensure CashPayment and AccountPayment are numbers
             } else if (field === 'dateCreated') {
                 let date = new Date(req.body[field]);
-                date.setDate(date.getDate() + 1); // Increment the date by 1 day
+                date.setDate(date.getDate()); // Increment the date by 1 day
                 updatedInvoice[field] = date.toLocaleDateString('en-US');
             } else {
                 updatedInvoice[field] = req.body[field];

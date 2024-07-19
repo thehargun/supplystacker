@@ -40,20 +40,34 @@ function generateInvoicePdf(orderDetails, callback) {
     }
     doc.text(`${orderDetails.city}, ${orderDetails.state} - ${orderDetails.zipCode}`, { align: 'right' });
 
+    // Function to check if we need to add a new page
+    function checkPageBreak(doc, currentY, addHeight) {
+        if (currentY + addHeight > doc.page.height - doc.page.margins.bottom) {
+            doc.addPage();
+            return doc.page.margins.top;
+        }
+        return currentY;
+    }
+
     // Table Header
     doc.moveDown().fontSize(12).font('Helvetica-Bold');
-    doc.text('Item', 50, 250);
-    doc.text('Qty', 200, 250);
-    doc.text('Rate', 280, 250);
-    doc.text('Amount', 360, 250);
+    let tableTop = 250;
+    doc.text('Item', 50, tableTop);
+    doc.text('Qty', 200, tableTop);
+    doc.text('Rate', 280, tableTop);
+    doc.text('Amount', 360, tableTop);
+
+    tableTop += 15;
 
     // Table Body
-    let tableTop = 265;
+    doc.fontSize(10).font('Helvetica');
     orderDetails.products.forEach(product => {
         // Wrap item name if too long
         const productNameWidth = 140;
-        doc.fontSize(10).font('Helvetica');
         const productNameHeight = doc.heightOfString(product.productName, { width: productNameWidth });
+
+        tableTop = checkPageBreak(doc, tableTop, productNameHeight + 5);
+
         doc.text(product.productName, 50, tableTop, { width: productNameWidth });
 
         const nextColumnY = tableTop + (productNameHeight > 15 ? productNameHeight - 15 : 0);
@@ -66,6 +80,7 @@ function generateInvoicePdf(orderDetails, callback) {
     });
 
     // Balance Due
+    tableTop = checkPageBreak(doc, tableTop, 30);
     doc.fontSize(12).font('Helvetica-Bold').text(`Balance Due: $${orderDetails.totalBalance.toFixed(2)}`, 50, tableTop + 20);
 
     // Draw lines for the table

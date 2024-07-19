@@ -62,15 +62,21 @@ function loadData() {
     try {
         const data = fs.readFileSync('data.json', 'utf8');
         const json = JSON.parse(data);
-        users = json.users;
-        inventory = json.inventory;
+
+        if (json && Array.isArray(json.users) && Array.isArray(json.inventory)) {
+            users = json.users;
+            inventory = json.inventory;
+        } else {
+            console.log('Data structure is not valid, not overwriting existing data.');
+        }
     } catch (error) {
-        console.log('No existing data found, starting with empty arrays.');
+        console.log('Error reading data.json, starting with empty arrays.');
     }
 }
 
 loadData();
 setInterval(saveData, 1000);
+
 
 const adminExists = users.some(user => user.email === "admin@example.com");
 if (!adminExists) {

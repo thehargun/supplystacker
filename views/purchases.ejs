@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase Invoice</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+    <script>
+        const inventory = <%- JSON.stringify(inventory) %>;
+
+        function roundToNearestQuarter(value) {
+            return (Math.round(value * 4) / 4).toFixed(2);
+        }
+
+        function autoPriceRetail(cost) {
+            return {
+                priceLevel1: roundToNearestQuarter(1.1 * cost + 0.25),
+                priceLevel2: roundToNearestQuarter(1.15 * cost + 0.5),
+                priceLevel3: roundToNearestQuarter(1.3 * cost + 1)
+            };
+        }
+
+        function vPackAutoPrice(cost) {
+            return {
+                priceLevel1: roundToNearestQuarter(1.15 * cost + 0.25),
+                priceLevel2: roundToNearestQuarter(1.25 * cost + 0.5),
+                priceLevel3: roundToNearestQuarter(1.45 * cost + 1)
+            };
+        }
+
+        function addProductRow() {
+            const productDropdown = document.createElement('select');
+            productDropdown.name = 'productName';
+            inventory.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.itemName;
+                option.text = item.itemName;
+                productDropdown.appendChild(option);
+            });
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td></td>
+                <td>${productDropdown.outerHTML}</td>
+                <td><input type="number" name="quantity" value="1" min="1" oninput="updateRowTotal(this)"></td>
+                <td><input type="number" step="0.01" name="rate" value="0" oninput="updateRowTotal(this)"></td>
+                <td class="rowTotal">0.00</td>
+                <td>
+                    <select name="autoPricing">
+                        <option value="">Select Pricing</option>
+                        <option value="autoPriceRetail">Auto Price Retail</option>
+                        <option value="vPackAutoPrice">VPack Auto Price</option>
+                    </select>
+                </td>
+                <td><button type="button" onclick="removeProductRow(this)">Delete</button></td>
+            `;
+
+            document.getElementById('productsTableBody').appendChild(tr);
+            updateRowIndices();
+        }
+
+        function updateRowIndices() {
+            const rows = document.querySelectorAll('#productsTableBody tr');
+            rows.forEach((row, index) => {
+                row.querySelector('td:first-child').textContent = index + 1;
+            });
+        }
+
+        function updateRowTotal(input) {
+            const row = input.closest('tr');
+            const quantity = parseFloat(row.querySelector('input[name="quantity"]').value) || 0;
+            const rate = parseFloat(row.querySelector('input[name="rate"]').value) || 0;
+            const total = quantity * rate;
+            row.querySelector('.rowTotal').textContent = total.toFixed(2);
+            updateInvoiceTotal();
+        }
+
+        function removeProductRow(button) {
+            const row = button.closest('tr');
+            row.remove();
+            updateInvoiceTotal();
+            updateRowIndices();
+        }
+
+        function updateInvoiceTotal() {
+            let invoiceTotal = 0;
+            const rows = document.querySelectorAll('#productsTableBody tr');
+            rows.forEach(row => {
+                const total = parseFloat(row.querySelector('.rowTotal').textContent) || 0;
+                invoiceTotal += total;
+            });
+            document.getElementById('invoiceTotal').textContent = invoiceTotal.toFixed(2);
+            updateAccountBalance();
+        }
+
+        function updateAccountBalance() {
+            const invoiceTotal = parseFloat(document.getElementById('invoiceTotal').textContent) || 0;
+            const cashPaid = parseFloat(document.getElementById('cashPaid').value) || 0;
+            const accountPaid = parseFloat(document.getElementById('accountPaid').value) || 0;
+            const accountBalance = invoiceTotal - cashPaid - accountPaid;
+            document.getElementById('accountBalance').textContent = accountBalance.toFixed(2);
+        }
+
+        function determinePaidStatus() {
+            const accountBalance = parseFloat(document.getElementById('accountBalance').textContent) || 0;
+            return accountBalance === 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('addProductBtn').addEventListener('click', addProductRow);
+            document.getElementById('cashPaid').addEventListener('input', updateAccountBalance);
+            document.getElementById('accountPaid').addEventListener('input', updateAccountBalance);
+            document.getElementById('submitBtn').addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const rows = document.querySelectorAll('#productsTableBody tr');
+                const products = [];
+
+                rows.forEach(row => {
+                    const productName = row.querySelector('select[name="productName"]').value;
+                    const quantity = parseFloat(row.querySelector('input[name="quantity"]').value) || 0;
+                    const rate = parseFloat(row.querySelector('input[name="rate"]').value) || 0;
+                    const autoPricing = row.querySelector('select[name="autoPricing"]').value;
+                    const total = parseFloat(row.querySelector('.rowTotal').textContent) || 0;
+
+                    products.push({
+                        productName,
+                        quantity,
+                        rate,
+                        total,
+                        autoPricing
+                    });
+                });
+
+                const form = document.querySelector('form');
+                const productsInput = document.createElement('input');
+                productsInput.type = 'hidden';
+                productsInput.name = 'products';
+                productsInput.value = JSON.stringify(products);
+                form.appendChild(productsInput);
+
+                const paidStatus = determinePaidStatus();
+                const paidInput = document.createElement('input');
+                paidInput.type = 'hidden';
+                paidInput.name = 'paid';
+                paidInput.value = paidStatus;
+                form.appendChild(paidInput);
+
+                form.submit();
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Purchase Invoice</h1>
+    <form action="/admin/purchases" method="post">
+        <label for="vendorName">Vendor Name:</label>
+        <input type="text" id="vendorName" name="vendorName" required><br>
+
+        <label for="dateCreated">Date Created:</label>
+        <input type="date" id="dateCreated" name="dateCreated" required><br>
+
+        <label for="invoiceNumber">Invoice Number:</label>
+        <input type="text" id="invoiceNumber" name="invoiceNumber" required><br>
+
+        <label for="cashPaid">Cash Paid:</label>
+        <input type="number" step="0.01" id="cashPaid" name="cashPaid" value="0" required><br>
+
+        <label for="accountPaid">Account Paid:</label>
+        <input type="number" step="0.01" id="accountPaid" name="accountPaid" value="0" required><br>
+
+        <h2>Products</h2>
+        <table id="productsTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Rate</th>
+                    <th>Total</th>
+                    <th>Auto Pricing</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="productsTableBody">
+                <!-- Products will be dynamically added here -->
+            </tbody>
+        </table>
+        <button type="button" id="addProductBtn">Add Product</button><br><br>
+
+        <label for="invoiceTotal">Invoice Total:</label>
+        <span id="invoiceTotal">0.00</span><br>
+
+        <label for="accountBalance">Account Balance:</label>
+        <span id="accountBalance">0.00</span><br>
+
+        <button type="submit" id="submitBtn">Submit</button>
+    </form>
+</body>
+</html>

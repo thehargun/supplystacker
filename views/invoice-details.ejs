@@ -172,7 +172,10 @@
             <div class="total-display">
                 Total: $<span id="totalAmount"><%= invoice.invoiceTotal ? invoice.invoiceTotal.toFixed(2) : '0.00' %></span>
             </div>
-
+            <div>
+                <input type="text" id="priceMultiplier" placeholder="Enter price multiplier">
+                <button type="button" id="increasePriceButton">Increase Price</button>
+            </div>
             <div class="form-group">
                 <button type="submit">Submit</button>
                 <button type="button" onclick="printInvoice()">Print</button>
@@ -181,6 +184,15 @@
     </div>
 
     <script>
+    function updateTotalBalance() {
+        const invoiceTotal = parseFloat(document.getElementById('invoiceTotal').innerText);
+        const cashPayment = parseFloat(document.getElementById('cashPayment').innerText);
+        const accountPayment = parseFloat(document.getElementById('accountPayment').innerText);
+        const totalBalance = invoiceTotal - cashPayment - accountPayment;
+        document.getElementById('totalBalance').innerText = totalBalance.toFixed(2);
+        document.getElementById('paidStatus').innerText = totalBalance <= 0 ? 'Paid' : 'Unpaid';
+    }
+    
         const inventory = <%- JSON.stringify(inventory) %>;
 
         function deleteProduct(index) {
@@ -219,7 +231,7 @@
             const product = inventory.find(item => item.itemName === productName);
             if (product) {
                 document.querySelector(`tr[data-index='${index}'] .productCategory`).textContent = product.itemCategory;
-                document.querySelector(`input[name='rate'][data-index='${index}']`).value = product.priceLevel1; // Assuming priceLevel1 for simplicity
+                document.querySelector(`input[name='rate'][data-index='${index}']`).value = product.priceLevel2; // Assuming priceLevel1 for simplicity
             }
             updateProductTotal(index);
         }
@@ -254,6 +266,9 @@
                 const total = quantity * rate;
                 products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
             });
+            let dateCreated = new Date(formData.get('dateCreated'));
+            dateCreated.setDate(dateCreated.getDate() + 1);
+            const formattedDate = dateCreated.toISOString().split('T')[0];
 
             const jsonData = {
                 invoiceNumber: formData.get('invoiceNumber'),
@@ -263,7 +278,7 @@
                 city: formData.get('city'),
                 state: formData.get('state'),
                 zipCode: formData.get('zipCode'),
-                dateCreated: formData.get('dateCreated'),
+                dateCreated: formattedDate,
                 CashPayment: formData.get('CashPayment'),
                 AccountPayment: formData.get('AccountPayment'),
                 products: JSON.stringify(products)  // Convert products to JSON string
@@ -289,53 +304,92 @@
         });
 
         function printInvoice() {
-            const formData = new FormData(document.getElementById('invoiceForm'));
-            const products = [];
-            document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
-                const productName = row.querySelector(`select[name='productName']`) ? row.querySelector(`select[name='productName']`).value : row.cells[0].textContent;
-                const productCategory = row.cells[1].textContent;
-                const quantity = row.querySelector(`input[name='quantity']`).value;
-                const rate = row.querySelector(`input[name='rate']`).value;
-                const total = quantity * rate;
-                products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
-            });
+    const formData = new FormData(document.getElementById('invoiceForm'));
+    const products = [];
+    document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
+        const productName = row.querySelector(`select[name='productName']`) ? row.querySelector(`select[name='productName']`).value : row.cells[0].textContent;
+        const productCategory = row.cells[1].textContent;
+        const quantity = row.querySelector(`input[name='quantity']`).value;
+        const rate = row.querySelector(`input[name='rate']`).value;
+        const total = quantity * rate;
+        products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
+    });
 
-            const invoiceDetails = {
-                invoiceNumber: formData.get('invoiceNumber'),
-                companyName: formData.get('companyName'),
-                addressLine1: formData.get('addressLine1'),
-                addressLine2: formData.get('addressLine2'),
-                city: formData.get('city'),
-                state: formData.get('state'),
-                zipCode: formData.get('zipCode'),
-                dateCreated: formData.get('dateCreated'),
-                CashPayment: formData.get('CashPayment'),
-                AccountPayment: formData.get('AccountPayment'),
-                products: products,
-                totalBalance: parseFloat(document.getElementById('totalAmount').textContent)
-            };
+    let dateCreated = new Date(formData.get('dateCreated'));
+    dateCreated.setDate(dateCreated.getDate() - 1);
+    const formattedDate = dateCreated.toISOString().split('T')[0];
 
-            fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(invoiceDetails)
-            }).then(response => {
-                if (response.ok) {
-                    alert('Invoice printed and emailed successfully.');
-                } else {
-                    response.text().then(text => {
-                        alert('Error printing invoice: ' + text);
-                    });
-                }
-            }).catch(error => {
-                alert('Error printing invoice: ' + error);
+    const invoiceDetails = {
+        invoiceNumber: formData.get('invoiceNumber'),
+        companyName: formData.get('companyName'),
+        addressLine1: formData.get('addressLine1'),
+        addressLine2: formData.get('addressLine2'),
+        city: formData.get('city'),
+        state: formData.get('state'),
+        zipCode: formData.get('zipCode'),
+        dateCreated: formattedDate,  // Ensure the subtracted date is used here
+        CashPayment: formData.get('CashPayment'),
+        AccountPayment: formData.get('AccountPayment'),
+        products: products,
+        totalBalance: parseFloat(document.getElementById('totalAmount').textContent)
+    };
+
+    fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(invoiceDetails)
+    }).then(response => {
+        if (response.ok) {
+            alert('Invoice printed and emailed successfully.');
+        } else {
+            response.text().then(text => {
+                alert('Error printing invoice: ' + text);
             });
         }
+    }).catch(error => {
+        alert('Error printing invoice: ' + error);
+    });
+}
+
 
         // Update total on page load
         updateTotal();
+
+        // Add Increase Price functionality
+        document.getElementById('increasePriceButton').addEventListener('click', function () {
+            const multiplier = parseFloat(document.getElementById('priceMultiplier').value);
+            if (!isNaN(multiplier)) {
+                const products = document.querySelectorAll('#productsTableBody tr');
+                products.forEach(product => {
+                    const rateElement = product.querySelector('input.rate');
+                    const totalElement = product.querySelector('.total');
+                    const quantity = parseFloat(product.querySelector('input.quantity').value);
+                    let rate = parseFloat(rateElement.value);
+                    rate *= multiplier;
+                    rate = roundToNearestQuarter(rate);
+                    rateElement.value = rate.toFixed(2);
+                    totalElement.textContent = (rate * quantity).toFixed(2);
+                });
+                updateTotal();
+            } else {
+                alert('Please enter a valid number');
+            }
+        });
+
+        function roundToNearestQuarter(value) {
+            return Math.round(value * 4) / 4;
+        }
+
+        function updateTotal() {
+            let total = 0;
+            document.querySelectorAll('#productsTableBody tr').forEach(row => {
+                const rowTotal = parseFloat(row.querySelector('.total').textContent) || 0;
+                total += rowTotal;
+            });
+            document.getElementById('totalAmount').textContent = total.toFixed(2);
+        }
     </script>
 </body>
 </html>

@@ -9,11 +9,12 @@ const multer = require('multer');
 const path = require('path');
 const app = express();
 
+let categoryRanks = {};
 let users = []; // To include both admin and customer users
 let inventory = [
     { id: 1, itemName: "Item One", quantity: 100, priceLevel1: 10, priceLevel2: 9, priceLevel3: 8, rank: 0, imageUrl: "/path/to/image1.jpg" },
 ];
-let invoices = [];
+let purchases = []
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -63,9 +64,17 @@ function loadData() {
         const data = fs.readFileSync('data.json', 'utf8');
         const json = JSON.parse(data);
 
-        if (json && Array.isArray(json.users) && Array.isArray(json.inventory)) {
+        if (json && Array.isArray(json.users) && Array.isArray(json.inventory) && Array.isArray(json.purchases)) {
             users = json.users;
             inventory = json.inventory;
+            purchases = json.purchases;
+
+            // Load category ranks
+            if (json.ItemsCategory) {
+                json.ItemsCategory.forEach(category => {
+                    categoryRanks[category.Category] = category.Rank;
+                });
+            }
         } else {
             console.log('Data structure is not valid, not overwriting existing data.');
         }
@@ -73,6 +82,7 @@ function loadData() {
         console.log('Error reading data.json, starting with empty arrays.');
     }
 }
+
 
 loadData();
 setInterval(saveData, 1000);
@@ -93,9 +103,15 @@ function saveData() {
     const data = {
         users: users,
         inventory: inventory,
+        purchases: purchases,
+        ItemsCategory: Object.keys(categoryRanks).map(category => ({
+            Category: category,
+            Rank: categoryRanks[category]
+        }))
     };
-    fs.writeFileSync('data.json', JSON.stringify(data), 'utf8');
+    fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
 }
+
 
 
 const cron = require('node-cron'); // Add this at the top of the file along with other requires
@@ -155,6 +171,14 @@ app.get('/admin/view-inventory', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.send('Unauthorized access.');
     }
+
+    // Sort inventory based on category rank
+    inventory.sort((a, b) => {
+        const rankA = categoryRanks[a.itemCategory] || Infinity;
+        const rankB = categoryRanks[b.itemCategory] || Infinity;
+        return rankA - rankB;
+    });
+
     res.render('view-inventory', { inventory });
 });
 
@@ -218,7 +242,12 @@ app.post('/admin/edit-inventory/:id', upload, async (req, res) => {
     currentItem.priceLevel1 = req.body.priceLevel1 ? parseFloat(req.body.priceLevel1) : currentItem.priceLevel1;
     currentItem.priceLevel2 = req.body.priceLevel2 ? parseFloat(req.body.priceLevel2) : currentItem.priceLevel2;
     currentItem.priceLevel3 = req.body.priceLevel3 ? parseFloat(req.body.priceLevel3) : currentItem.priceLevel3;
-    currentItem.rank = req.body.rank ? parseFloat(req.body.rank) : currentItem.rank;
+    currentItem.vendors = req.body.vendors || currentItem.vendors;
+    currentItem.length = req.body.length ? parseFloat(req.body.length) : currentItem.length;
+    currentItem.width = req.body.width ? parseFloat(req.body.width) : currentItem.width;
+    currentItem.height = req.body.height ? parseFloat(req.body.height) : currentItem.height;
+    currentItem.weight = req.body.weight ? parseFloat(req.body.weight) : currentItem.weight;
+    currentItem.palletqty = req.body.palletqty ? parseInt(req.body.palletqty, 10) : currentItem.palletqty;
 
     if (req.file) {
         const newImageUrl = '/uploads/' + req.file.filename;
@@ -226,8 +255,11 @@ app.post('/admin/edit-inventory/:id', upload, async (req, res) => {
     }
 
     inventory[itemIndex] = currentItem;
+    saveData();
+
     res.redirect('/admin/view-inventory');
 });
+
 
 app.get('/admin/delete-inventory/:id', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
@@ -284,15 +316,21 @@ app.get('/products', (req, res) => {
 
     const userPriceLevel = req.session.user.priceLevel || '3';
 
-    const sortedInventory = inventory.sort((a, b) => b.rank - a.rank);
+    // Sort inventory based on category rank and item rank
+    inventory.sort((a, b) => {
+        const rankA = categoryRanks[a.itemCategory] || Infinity;
+        const rankB = categoryRanks[b.itemCategory] || Infinity;
+        return rankA === rankB ? a.rank - b.rank : rankA - rankB;
+    });
 
-    const adjustedInventory = sortedInventory.map(item => ({
+    const adjustedInventory = inventory.map(item => ({
         ...item,
         price: item[`priceLevel${userPriceLevel}`]
     }));
 
     res.render('products', { inventory: adjustedInventory });
 });
+
 
 app.post('/add-to-cart', (req, res) => {
     const { itemId, quantity } = req.body;
@@ -386,6 +424,22 @@ app.post('/admin/edit-customer/:id', async (req, res) => {
     res.redirect('/admin/view-customers');
 });
 
+const parseInvoiceNumber = (invoiceNumber) => {
+    const match = invoiceNumber.match(/([A-Za-z]+)(\d+)/);
+    return match ? { prefix: match[1], number: parseInt(match[2], 10) } : { prefix: invoiceNumber, number: 0 };
+};
+
+const sortInvoicesByNumber = (invoices) => {
+    return invoices.sort((a, b) => {
+        const parsedA = parseInvoiceNumber(a.invoiceNumber);
+        const parsedB = parseInvoiceNumber(b.invoiceNumber);
+        if (parsedA.prefix === parsedB.prefix) {
+            return parsedA.number - parsedB.number;
+        }
+        return parsedA.prefix.localeCompare(parsedB.prefix);
+    });
+};
+
 app.get('/admin/invoices', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.status(403).send('Access denied.');
@@ -398,7 +452,10 @@ app.get('/admin/invoices', (req, res) => {
         }
     });
 
-    res.render('invoices', { invoices: allInvoices });
+    // Sort the invoices by invoice number before rendering
+    const sortedInvoices = sortInvoicesByNumber(allInvoices);
+
+    res.render('invoices', { invoices: sortedInvoices });
 });
 // ... existing code ...
 // Route to render invoice details page
@@ -723,6 +780,292 @@ app.get('/admin/customer-invoices/:customerId', (req, res) => {
 
     res.render('customer-invoices', { invoices: customer.invoices });
 });
+app.post('/admin/duplicate-inventory/:id', (req, res) => {
+    const itemId = parseInt(req.params.id);
+    const item = inventory.find(item => item.id === itemId);
+
+    if (!item) {
+        return res.status(404).send('Item not found.');
+    }
+
+    const newItem = { ...item, id: inventory.length + 1 };
+    inventory.push(newItem);
+
+    saveData();
+
+    res.redirect(`/admin/edit-inventory/${newItem.id}`);
+});
+app.post('/admin/update-inventory-order', (req, res) => {
+    const updatedOrder = req.body;
+
+    // Assuming inventory items have unique IDs and the 'rank' field determines their order
+    updatedOrder.forEach(item => {
+        const inventoryItem = inventory.find(invItem => invItem.id === parseInt(item.id));
+        if (inventoryItem) {
+            inventoryItem.rank = item.rank;
+        }
+    });
+
+    // Sort inventory again after updating ranks
+    inventory.sort((a, b) => a.rank - b.rank);
+
+    // Save the updated inventory order
+    saveData();
+
+    res.json({ success: true });
+});
+app.post('/admin/add-vendor/:id', (req, res) => {
+    const itemId = parseInt(req.params.id);
+    const itemIndex = inventory.findIndex(item => item.id === itemId);
+
+    if (itemIndex === -1) {
+        return res.status(404).send({ success: false, message: 'Item not found.' });
+    }
+
+    const { vendorName, vendorPrice } = req.body;
+    let { vendorIndex } = req.body;
+    vendorIndex = parseInt(vendorIndex);
+
+    if (!inventory[itemIndex].vendors) {
+        inventory[itemIndex].vendors = [];
+    }
+
+    // Check if the vendor name already exists
+    const existingVendorIndex = inventory[itemIndex].vendors.findIndex(vendor => vendor.name.toLowerCase() === vendorName.toLowerCase());
+
+    if (existingVendorIndex >= 0) {
+        // Vendor name exists, update the price
+        inventory[itemIndex].vendors[existingVendorIndex].price = parseFloat(vendorPrice);
+    } else if (vendorIndex >= 0 && vendorIndex < inventory[itemIndex].vendors.length) {
+        // Edit existing vendor by index
+        inventory[itemIndex].vendors[vendorIndex] = { name: vendorName, price: parseFloat(vendorPrice) };
+    } else {
+        // Add new vendor
+        inventory[itemIndex].vendors.push({ name: vendorName, price: parseFloat(vendorPrice) });
+    }
+
+    saveData();  // Save the updated data to data.json
+
+    res.json({ success: true });
+});
+
+app.post('/admin/delete-vendor/:id', (req, res) => {
+    const itemId = parseInt(req.params.id);
+    const itemIndex = inventory.findIndex(item => item.id === itemId);
+
+    if (itemIndex === -1) {
+        return res.status(404).send({ success: false, message: 'Item not found.' });
+    }
+
+    const { index } = req.body;
+
+    if (index >= 0 && index < inventory[itemIndex].vendors.length) {
+        inventory[itemIndex].vendors.splice(index, 1);
+    } else {
+        return res.status(400).send({ success: false, message: 'Invalid vendor index.' });
+    }
+
+    saveData();  // Save the updated data to data.json
+
+    res.json({ success: true });
+});
+app.get('/admin/purchases', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+    res.render('purchases', { inventory });
+});
+
+function roundToNearestQuarter(value) {
+    return (Math.round(value * 4) / 4).toFixed(2);
+}
+
+function autoPriceRetail(cost) {
+    return {
+        priceLevel1: roundToNearestQuarter(1.1 * cost + 0.25),
+        priceLevel2: roundToNearestQuarter(1.15 * cost + 0.5),
+        priceLevel3: roundToNearestQuarter(1.3 * cost + 1)
+    };
+}
+
+function vPackAutoPrice(cost) {
+    return {
+        priceLevel1: roundToNearestQuarter(1.15 * cost + 0.25),
+        priceLevel2: roundToNearestQuarter(1.25 * cost + 0.5),
+        priceLevel3: roundToNearestQuarter(1.45 * cost + 1)
+    };
+}
+
+app.post('/admin/purchases', (req, res) => {
+    const { vendorName, dateCreated, invoiceNumber, cashPaid, accountPaid, paid } = req.body;
+    const products = JSON.parse(req.body.products || '[]');
+
+    if (!Array.isArray(products) || products.length === 0) {
+        return res.status(400).send('No products provided.');
+    }
+
+    console.log('Received Products:', products);  // Debugging line
+    console.log('Current Inventory:', inventory);  // Debugging line
+
+    products.forEach(product => {
+        const itemIndex = inventory.findIndex(item => item.itemName === product.productName);
+        console.log('Product Name:', product.productName, 'Index Found:', itemIndex); // Debugging line
+    
+        if (itemIndex >= 0) {
+            inventory[itemIndex].cost = parseFloat(product.rate);
+    
+            if (product.autoPricing === 'autoPriceRetail') {
+                const newPrices = autoPriceRetail(product.rate);
+                inventory[itemIndex].priceLevel1 = parseFloat(newPrices.priceLevel1);
+                inventory[itemIndex].priceLevel2 = parseFloat(newPrices.priceLevel2);
+                inventory[itemIndex].priceLevel3 = parseFloat(newPrices.priceLevel3);
+            } else if (product.autoPricing === 'vPackAutoPrice') {
+                const newPrices = vPackAutoPrice(product.rate);
+                inventory[itemIndex].priceLevel1 = parseFloat(newPrices.priceLevel1);
+                inventory[itemIndex].priceLevel2 = parseFloat(newPrices.priceLevel2);
+                inventory[itemIndex].priceLevel3 = parseFloat(newPrices.priceLevel3);
+            }
+    
+            // Ensure vendors is an array
+            if (!inventory[itemIndex].vendors) {
+                inventory[itemIndex].vendors = [];
+            }
+    
+            // Check if vendor already exists
+            const vendorIndex = inventory[itemIndex].vendors.findIndex(vendor => vendor.name.toLowerCase() === vendorName.toLowerCase());
+            if (vendorIndex >= 0) {
+                // Update existing vendor
+                inventory[itemIndex].vendors[vendorIndex].price = parseFloat(product.rate);
+                inventory[itemIndex].vendors[vendorIndex].lastPurchased = dateCreated;
+            } else {
+                // Add new vendor
+                inventory[itemIndex].vendors.push({ name: vendorName, price: parseFloat(product.rate), lastPurchased: dateCreated });
+            }
+        } else {
+            console.error('Item not found in inventory:', product.productName);
+        }
+    });
+    
+
+    const invoiceTotal = products.reduce((sum, product) => sum + product.total, 0);
+    const accountBalance = invoiceTotal - parseFloat(cashPaid) - parseFloat(accountPaid);
+
+    const purchaseInvoice = {
+        vendorName,
+        dateCreated: new Date(dateCreated).toLocaleDateString('en-US'),
+        invoiceNumber,
+        cashPaid: parseFloat(cashPaid),
+        accountPaid: parseFloat(accountPaid),
+        invoiceTotal,
+        accountBalance,
+        paid: accountBalance === 0,
+        products: products
+    };
+
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    
+    // Handling purchases array
+    let purchaseID = purchases ? purchases.length + 1 : 1;
+
+    const newPurchase = {
+        PurchaseID: purchaseID,
+        vendorName,
+        dateCreated: new Date(dateCreated).toLocaleDateString('en-US'),
+        invoiceNumber,
+        cashPaid: parseFloat(cashPaid),
+        accountPaid: parseFloat(accountPaid),
+        products: products,
+        invoiceTotal,
+        accountBalance,
+        paid: accountBalance === 0
+    };
+
+    purchases.push(newPurchase);
+
+    // Save the updated data
+    fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
+
+    res.redirect('/admin/purchases');
+});
+
+app.get('/admin/vendor-portal', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    const purchases = data.purchases || [];
+
+    res.render('vendor-portal', { purchases });
+});
+app.get('/admin/purchases/:purchaseID', (req, res) => {
+    const purchaseID = parseInt(req.params.purchaseID, 10);
+    let data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    const purchase = data.purchases.find(p => p.PurchaseID === purchaseID);
+
+    if (!purchase) {
+        return res.status(404).send('Purchase not found.');
+    }
+
+    res.render('purchase-details', { purchase, inventory });
+});
+
+
+
+
+app.post('/admin/purchases/:purchaseID', (req, res) => {
+    const purchaseID = parseInt(req.params.purchaseID, 10);
+    let data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    const purchaseIndex = data.purchases.findIndex(p => p.PurchaseID === purchaseID);
+
+    if (purchaseIndex === -1) {
+        return res.status(404).send('Purchase not found.');
+    }
+
+    const { vendorName, dateCreated, invoiceNumber, cashPaid, accountPaid } = req.body;
+    const products = JSON.parse(req.body.products);  // Ensure this line correctly parses the string
+
+    // Calculate invoice total and account balance
+    const invoiceTotal = products.reduce((sum, product) => sum + parseFloat(product.total), 0);
+    const accountBalance = invoiceTotal - parseFloat(cashPaid) - parseFloat(accountPaid);
+
+    // Update the existing purchase data
+    const updatedPurchase = {
+        ...data.purchases[purchaseIndex],
+        vendorName,
+        dateCreated: new Date(dateCreated).toLocaleDateString('en-US'),
+        invoiceNumber,
+        cashPaid: parseFloat(cashPaid),
+        accountPaid: parseFloat(accountPaid),
+        products: products,
+        invoiceTotal,
+        accountBalance,
+        paid: accountBalance === 0
+    };
+
+    // Replace the old purchase with the updated purchase
+    data.purchases[purchaseIndex] = updatedPurchase;
+
+    // Write the updated data back to data.json
+    fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
+
+    res.redirect(`/admin/purchases/${purchaseID}`);
+});
+
+
+// Handle DELETE request for a purchase
+app.post('/admin/purchases/delete/:purchaseID', (req, res) => {
+    const purchaseID = parseInt(req.params.purchaseID, 10);
+
+    // Filter out the purchase to be deleted
+    purchases = purchases.filter(purchase => purchase.PurchaseID !== purchaseID);
+
+    res.redirect('/admin/vendor-portal');
+});
+
+
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

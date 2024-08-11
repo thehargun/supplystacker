@@ -3,37 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Inventory Item</title>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Edit Inventory Item</h1>
     <form action="/admin/edit-inventory/<%= item.id %>" method="post" enctype="multipart/form-data">
         <label for="itemName">Item Name:</label>
-        <input type="text" id="itemName" name="itemName" value="<%= item.itemName %>" required><br>
+        <input type="text" name="itemName" value="<%= item.itemName %>"><br>
 
         <label for="itemCategory">Item Category:</label>
-        <input type="text" id="itemCategory" name="itemCategory" value="<%= item.itemCategory %>"><br>
+        <input type="text" name="itemCategory" value="<%= item.itemCategory %>"><br>
 
         <label for="cost">Cost:</label>
-        <input type="number" step="0.01" id="cost" name="cost" value="<%= item.cost %>"><br>
+        <input type="number" step="0.01" name="cost" value="<%= item.cost %>"><br>
 
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" value="<%= item.quantity %>"><br>
+        <input type="number" name="quantity" value="<%= item.quantity %>"><br>
 
         <label for="priceLevel1">Price Level 1:</label>
-        <input type="number" step="0.01" id="priceLevel1" name="priceLevel1" value="<%= item.priceLevel1 %>"><br>
+        <input type="number" step="0.01" name="priceLevel1" value="<%= item.priceLevel1 %>">
+        <button type="button" onclick="autoPriceRetail()">Auto Price Retail</button><br>
 
         <label for="priceLevel2">Price Level 2:</label>
-        <input type="number" step="0.01" id="priceLevel2" name="priceLevel2" value="<%= item.priceLevel2 %>"><br>
-
+        <input type="number" step="0.01" name="priceLevel2" value="<%= item.priceLevel2 %>">
+        <button type="button" onclick="vPackAutoPrice()">VPack Auto Price</button><br>
         <label for="priceLevel3">Price Level 3:</label>
-        <input type="number" step="0.01" id="priceLevel3" name="priceLevel3" value="<%= item.priceLevel3 %>"><br>
+        <input type="number" step="0.01" name="priceLevel3" value="<%= item.priceLevel3 %>"><br>
 
-        <label for="image">Image:</label>
-        <input type="file" id="image" name="image"><br>
-        <img src="<%= item.imageUrl %>" alt="Item Image" style="max-width: 200px;"><br>
+        <label for="image">Item Image:</label>
+        <input type="file" name="image"><br>
+        <img src="<%= item.imageUrl %>" alt="<%= item.itemName %>" style="max-width: 200px;"><br>
+
+        <label for="id">ID:</label>
+        <input type="number" name="id" value="<%= item.id %>" readonly><br>
+
+        <h2>Vendors</h2>
+        <% if (item.vendors && item.vendors.length > 0) { %>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Vendor Name</th>
+                        <th>Price</th>
+                        <th>Last Purchased</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% item.vendors.forEach(vendor => { %>
+                        <tr>
+                            <td><%= vendor.name %></td>
+                            <td><%= vendor.price %></td>
+                            <td><%= vendor.lastPurchased %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No Vendors Added</p>
+        <% } %>
+
+        <button type="button" id="addVendorBtn">Add Vendor</button>
+            <br><br>
+        <label for="length">Length:</label>
+        <input type="number" step="0.01" name="length" value="<%= item.length %>"><br>
+
+        <label for="width">Width:</label>
+        <input type="number" step="0.01" name="width" value="<%= item.width %>"><br>
+
+        <label for="height">Height:</label>
+        <input type="number" step="0.01" name="height" value="<%= item.height %>"><br>
+
+        <label for="weight">Weight:</label>
+        <input type="number" step="0.01" name="weight" value="<%= item.weight %>"><br>
+
+        <label for="palletqty">Pallet Quantity:</label>
+        <input type="number" name="palletqty" value="<%= item.palletqty %>"><br>
 
         <button type="submit">Update Item</button>
     </form>
+    <form action="/admin/duplicate-inventory/<%= item.id %>" method="post">
+        <button type="submit">Duplicate Item</button>
+    </form>
     <a href="/admin/view-inventory">Back to Inventory List</a>
+
+    <!-- Modal for adding a vendor -->
+    <div id="addVendorModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Vendor</h2>
+            <form id="addVendorForm">
+                <label for="vendorName">Vendor Name:</label>
+                <input type="text" id="vendorName" name="vendorName" required><br>
+                <br>
+                <label for="vendorPrice">Price:</label>
+                <input type="number" id="vendorPrice" name="vendorPrice" step="0.01" required><br>
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function roundToNearestQuarter(value) {
+            return (Math.round(value * 4) / 4).toFixed(2);
+        }
+        function autoPriceRetail() {
+            const cost = parseFloat(document.querySelector('input[name="cost"]').value);
+            document.querySelector('input[name="priceLevel1"]').value = roundToNearestQuarter(1.1 * cost + 0.25);
+            document.querySelector('input[name="priceLevel2"]').value = roundToNearestQuarter(1.15 * cost + 0.5);
+            document.querySelector('input[name="priceLevel3"]').value = roundToNearestQuarter(1.3 * cost + 1);
+        }
+        function vPackAutoPrice() {
+            const cost = parseFloat(document.querySelector('input[name="cost"]').value);
+            document.querySelector('input[name="priceLevel1"]').value = roundToNearestQuarter(1.15 * cost + 0.25);
+            document.querySelector('input[name="priceLevel2"]').value = roundToNearestQuarter(1.25 * cost + 0.5);
+            document.querySelector('input[name="priceLevel3"]').value = roundToNearestQuarter(1.45 * cost + 1);
+        }
+        // Get modal elements
+        var modal = document.getElementById("addVendorModal");
+        var btn = document.getElementById("addVendorBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        // Open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Close the modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Handle the form submission
+        document.getElementById("addVendorForm").onsubmit = function(event) {
+            event.preventDefault();
+
+            // Get the form data
+            const vendorName = document.getElementById("vendorName").value;
+            const vendorPrice = document.getElementById("vendorPrice").value;
+
+            // Send the form data to the server
+            fetch('/admin/add-vendor/<%= item.id %>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ vendorName, vendorPrice })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();  // Reload the page to show updated vendors
+                } else {
+                    alert('Failed to add vendor');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

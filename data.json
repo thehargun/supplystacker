@@ -8010,6 +8010,11 @@
           "name": "xh",
           "price": 0,
           "lastPurchased": "2024-08-19"
+        },
+        {
+          "name": "Four Seasons Packaging Corp.",
+          "price": 0,
+          "lastPurchased": "2024-08-05"
         }
       ],
       "length": 0,
@@ -9529,7 +9534,13 @@
       "imageUrl": "/uploads/97.jpg",
       "rank": 85,
       "quantity": 100,
-      "vendors": null,
+      "vendors": [
+        {
+          "name": "Getty Packaging Corp.",
+          "price": 15.25,
+          "lastPurchased": "2024-08-08"
+        }
+      ],
       "length": 0,
       "width": 0,
       "height": 0,
@@ -10333,13 +10344,19 @@
       "itemName": "Detroit Forming LBH-111",
       "itemCategory": "Plastic OPS Containers",
       "cost": 28.75,
-      "priceLevel1": 31.75,
-      "priceLevel2": 33.75,
-      "priceLevel3": 40,
+      "priceLevel1": 32,
+      "priceLevel2": 33.5,
+      "priceLevel3": 38.5,
       "imageUrl": "/uploads/142.jpg",
       "rank": 130,
       "quantity": 100,
-      "vendors": null,
+      "vendors": [
+        {
+          "name": "KEYSERMAN PACKAGING CO INC",
+          "price": 28.75,
+          "lastPurchased": "2024-08-01"
+        }
+      ],
       "length": 0,
       "width": 0,
       "height": 0,
@@ -10386,14 +10403,20 @@
       "id": 141,
       "itemName": "Detroit Forming LBH-9812",
       "itemCategory": "Plastic OPS Containers",
-      "cost": 35.25,
-      "priceLevel1": 39,
-      "priceLevel2": 41,
-      "priceLevel3": 48.5,
+      "cost": 34.5,
+      "priceLevel1": 38.25,
+      "priceLevel2": 40.25,
+      "priceLevel3": 45.75,
       "imageUrl": "/uploads/141.jpg",
       "rank": 133,
       "quantity": 100,
-      "vendors": null,
+      "vendors": [
+        {
+          "name": "KEYSERMAN PACKAGING CO INC",
+          "price": 34.5,
+          "lastPurchased": "2024-08-08"
+        }
+      ],
       "length": 0,
       "width": 0,
       "height": 0,
@@ -10407,11 +10430,17 @@
       "cost": 26.6,
       "priceLevel1": 29.5,
       "priceLevel2": 31,
-      "priceLevel3": 37,
+      "priceLevel3": 35.5,
       "imageUrl": "/uploads/139.jpg",
       "rank": 134,
       "quantity": 100,
-      "vendors": null,
+      "vendors": [
+        {
+          "name": "KEYSERMAN PACKAGING CO INC",
+          "price": 26.6,
+          "lastPurchased": "2024-08-08"
+        }
+      ],
       "length": 0,
       "width": 0,
       "height": 0,
@@ -10425,11 +10454,17 @@
       "cost": 31.7,
       "priceLevel1": 35,
       "priceLevel2": 37,
-      "priceLevel3": 43.75,
+      "priceLevel3": 42.25,
       "imageUrl": "/uploads/140.jpg",
       "rank": 135,
       "quantity": 100,
-      "vendors": null,
+      "vendors": [
+        {
+          "name": "KEYSERMAN PACKAGING CO INC",
+          "price": 31.7,
+          "lastPurchased": "2024-08-08"
+        }
+      ],
       "length": 0,
       "width": 0,
       "height": 0,
@@ -10494,14 +10529,25 @@
       "id": 240,
       "itemName": "Dart Souffle Cup 2oz P200N",
       "itemCategory": "Plastic Souffle Cups",
-      "cost": 19.48,
-      "priceLevel1": 21.75,
-      "priceLevel2": 23,
-      "priceLevel3": 26.25,
+      "cost": 18.1,
+      "priceLevel1": 20.25,
+      "priceLevel2": 21.25,
+      "priceLevel3": 24.5,
       "imageUrl": "/uploads/102.jpg",
       "rank": 139,
       "quantity": 100,
-      "vendors": null,
+      "vendors": [
+        {
+          "name": "Four Season Packaging Corp.",
+          "price": 18.1,
+          "lastPurchased": "2024-08-05"
+        },
+        {
+          "name": "Four Seasons Packaging Corp.",
+          "price": 18.1,
+          "lastPurchased": "2024-08-05"
+        }
+      ],
       "length": 0,
       "width": 0,
       "height": 0,
@@ -12714,7 +12760,13 @@
       "priceLevel3": 31.25,
       "rank": 262,
       "imageUrl": "/uploads/image-1722922694862.jpg",
-      "vendors": null,
+      "vendors": [
+        {
+          "name": "Getty Packaging Corp.",
+          "price": 23.25,
+          "lastPurchased": "2024-08-05"
+        }
+      ],
       "length": 0,
       "width": 0,
       "height": 0,
@@ -12732,7 +12784,13 @@
       "priceLevel3": 47.5,
       "rank": 263,
       "imageUrl": "/uploads/image-1722922705329.jpg",
-      "vendors": null,
+      "vendors": [
+        {
+          "name": "Getty Packaging Corp.",
+          "price": 35.75,
+          "lastPurchased": "2024-08-05"
+        }
+      ],
       "length": 0,
       "width": 0,
       "height": 0,
@@ -12752,7 +12810,89 @@
       "imageUrl": "/uploads/image-1722870661183.jpg"
     }
   ],
-  "purchases": [],
+  "purchases": [
+    {
+      "PurchaseID": 1,
+      "vendorName": "KEYSERMAN PACKAGING CO INC",
+      "dateCreated": "8/1/2024",
+      "invoiceNumber": "#10-24",
+      "cashPaid": 0,
+      "accountPaid": 0,
+      "products": [
+        {
+          "productName": "Detroit Forming LBH-111",
+          "quantity": 50,
+          "rate": 28.75,
+          "total": 1437.5,
+          "autoPricing": "autoPriceRetail"
+        },
+        {
+          "productName": "Detroit Forming LBH-9812",
+          "quantity": 50,
+          "rate": 34.5,
+          "total": 1725,
+          "autoPricing": "autoPriceRetail"
+        }
+      ],
+      "invoiceTotal": 3162.5,
+      "accountBalance": 3162.5,
+      "paid": false
+    },
+    {
+      "PurchaseID": 2,
+      "vendorName": "KEYSERMAN PACKAGING CO INC",
+      "dateCreated": "8/8/2024",
+      "invoiceNumber": "#11-24",
+      "cashPaid": 0,
+      "accountPaid": 0,
+      "products": [
+        {
+          "productName": "Detroit Forming LBH-991",
+          "quantity": 66,
+          "rate": 26.6,
+          "total": 1755.6,
+          "autoPricing": "autoPriceRetail"
+        },
+        {
+          "productName": "Detroit Forming LBH-992",
+          "quantity": 58,
+          "rate": 31.7,
+          "total": 1838.6,
+          "autoPricing": "autoPriceRetail"
+        },
+        {
+          "productName": "Detroit Forming LBH-9812",
+          "quantity": 26,
+          "rate": 34.5,
+          "total": 897,
+          "autoPricing": "autoPriceRetail"
+        }
+      ],
+      "invoiceTotal": 4491.2,
+      "accountBalance": 4491.2,
+      "paid": false
+    },
+    {
+      "PurchaseID": 5,
+      "vendorName": "Getty Packaging Corp.",
+      "dateCreated": "8/8/2024",
+      "invoiceNumber": "618",
+      "cashPaid": 0,
+      "accountPaid": 0,
+      "products": [
+        {
+          "productName": "PP Hinged Container PP225 / PP61 6\"x6\"x3 250pcs",
+          "quantity": 25,
+          "rate": 15.25,
+          "total": 381.25,
+          "autoPricing": "autoPriceRetail"
+        }
+      ],
+      "invoiceTotal": 381.25,
+      "accountBalance": 381.25,
+      "paid": false
+    }
+  ],
   "ItemsCategory": [
     {
       "Category": "Aluminum Foil Roll",

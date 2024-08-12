@@ -5773,7 +5773,7 @@
           "city": "Brooklyn",
           "state": "NY",
           "zipCode": "11232",
-          "dateCreated": "5/29/2024",
+          "dateCreated": "5/30/2024",
           "products": [
             {
               "productName": "2 Cup Carrier",
@@ -5825,11 +5825,11 @@
               "total": 680
             }
           ],
-          "totalBalance": 2737.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 2737.5,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 2737.5
         }
       ],
       "lastInvoiceNumber": 1
@@ -5949,9 +5949,11 @@
               "total": 127.5
             }
           ],
-          "totalBalance": 702.5,
-          "paid": false,
-          "invoiceTotal": 702.5
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 702.5,
+          "CashPayment": 702.5,
+          "AccountPayment": 0
         },
         {
           "invoiceNumber": "LASL04",
@@ -5961,7 +5963,7 @@
           "city": "Lavado and Sons LLC",
           "state": "NJ",
           "zipCode": "07055",
-          "dateCreated": "2024-08-09",
+          "dateCreated": "8/9/2024",
           "products": [
             {
               "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
@@ -5978,12 +5980,62 @@
               "total": 440
             }
           ],
-          "totalBalance": 630,
-          "paid": false,
-          "invoiceTotal": 630
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 630,
+          "CashPayment": 630,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "LASL05",
+          "companyName": "Lavado and Sons LLC",
+          "addressLine1": "Lavado and Sons LLC",
+          "addressLine2": "",
+          "city": "Lavado and Sons LLC",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "6/17/2024",
+          "products": [
+            {
+              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productCategory": "Paper Bags",
+              "quantity": 20,
+              "rate": 21,
+              "total": 420
+            }
+          ],
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 420,
+          "CashPayment": 420,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "LASL06",
+          "companyName": "Lavado and Sons LLC",
+          "addressLine1": "Lavado and Sons LLC",
+          "addressLine2": "",
+          "city": "Lavado and Sons LLC",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "6/17/2024",
+          "products": [
+            {
+              "productName": "Aluminum Half Size Lids",
+              "productCategory": "Aluminum Pans",
+              "quantity": 5,
+              "rate": 12.5,
+              "total": 62.5
+            }
+          ],
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 62.5,
+          "CashPayment": 62.5,
+          "AccountPayment": 0
         }
       ],
-      "lastInvoiceNumber": 5
+      "lastInvoiceNumber": 7
     },
     {
       "id": 24,
@@ -6940,9 +6992,33 @@
           "invoiceTotal": 845.53,
           "CashPayment": 0,
           "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "C16",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "6/17/2024",
+          "products": [
+            {
+              "productName": "18\" Pallet Wrap 6 Rolls (33 lb)",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 40,
+              "total": 40
+            }
+          ],
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 40,
+          "CashPayment": 40,
+          "AccountPayment": 0
         }
       ],
-      "lastInvoiceNumber": 15
+      "lastInvoiceNumber": 16
     },
     {
       "id": 31,
@@ -7144,9 +7220,9 @@
             {
               "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
-              "quantity": 30,
+              "quantity": 20,
               "rate": 12.75,
-              "total": 382.5
+              "total": 255
             },
             {
               "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
@@ -7200,8 +7276,8 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2096.25,
-          "CashPayment": 2096.25,
+          "invoiceTotal": 1968.75,
+          "CashPayment": 1968.75,
           "AccountPayment": 0
         },
         {
@@ -7388,9 +7464,11 @@
               "total": 12.5
             }
           ],
-          "totalBalance": 97,
-          "paid": false,
-          "invoiceTotal": 97
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 97,
+          "CashPayment": 0,
+          "AccountPayment": 97
         },
         {
           "invoiceNumber": "GCU02",
@@ -7888,10 +7966,10 @@
               "total": 265
             }
           ],
-          "totalBalance": 265,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 265,
-          "CashPayment": 0,
+          "CashPayment": 265,
           "AccountPayment": 0
         }
       ],

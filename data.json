@@ -3712,11 +3712,11 @@
               "total": 144
             }
           ],
-          "totalBalance": 1214,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 1214,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 1214
         },
         {
           "invoiceNumber": "APP11",
@@ -3764,11 +3764,11 @@
               "total": 170
             }
           ],
-          "totalBalance": 1215,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 1215,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 1215
         }
       ],
       "lastInvoiceNumber": 11
@@ -4720,7 +4720,7 @@
       "role": "customer",
       "invoices": [
         {
-          "invoiceNumber": "BPASI02",
+          "invoiceNumber": "BPASI01",
           "companyName": "b&i packages and supplies. inc",
           "addressLine1": "90 Dayton Ave",
           "addressLine2": "",
@@ -4730,13 +4730,6 @@
           "dateCreated": "4/9/2024",
           "products": [
             {
-              "productName": "7\" Aluminum Pan",
-              "productCategory": "Aluminum Pans",
-              "quantity": 50,
-              "rate": 19,
-              "total": 950
-            },
-            {
               "productName": "8\" Aluminum Pan XHD",
               "productCategory": "Aluminum Pans",
               "quantity": 72,
@@ -4744,31 +4737,11 @@
               "total": 2304
             }
           ],
-          "totalBalance": 3254,
-          "paid": false,
-          "invoiceTotal": 3254
-        },
-        {
-          "invoiceNumber": "BPASI02",
-          "companyName": "b&i packages and supplies. inc",
-          "addressLine1": "90 Dayton Ave",
-          "addressLine2": "",
-          "city": "Passaic",
-          "state": "NJ",
-          "zipCode": "07055",
-          "dateCreated": "5/7/2024",
-          "products": [
-            {
-              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 243,
-              "rate": 12,
-              "total": 2916
-            }
-          ],
-          "totalBalance": 2916,
-          "paid": false,
-          "invoiceTotal": 2916
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 2304,
+          "CashPayment": 0,
+          "AccountPayment": 2304
         },
         {
           "invoiceNumber": "BPASI03",
@@ -4853,9 +4826,11 @@
               "total": 530
             }
           ],
-          "totalBalance": 530,
-          "paid": false,
-          "invoiceTotal": 530
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 530,
+          "CashPayment": 530,
+          "AccountPayment": 0
         }
       ],
       "lastInvoiceNumber": 1
@@ -5058,9 +5033,11 @@
               "total": 225
             }
           ],
-          "totalBalance": 225,
-          "paid": false,
-          "invoiceTotal": 225
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 225,
+          "CashPayment": 0,
+          "AccountPayment": 225
         }
       ],
       "lastInvoiceNumber": 1
@@ -5569,7 +5546,7 @@
           "city": "Passaic",
           "state": "NJ",
           "zipCode": "07055",
-          "dateCreated": "5/22/2024",
+          "dateCreated": "5/21/2024",
           "products": [
             {
               "productName": "18\" Pallet Wrap 6 Rolls (33 lb)",
@@ -5579,11 +5556,13 @@
               "total": 858
             }
           ],
-          "totalBalance": 858,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "cash": 0,
           "account": 0,
-          "invoiceTotal": 858
+          "invoiceTotal": 858,
+          "CashPayment": 0,
+          "AccountPayment": 858
         }
       ],
       "lastInvoiceNumber": 1
@@ -5610,7 +5589,7 @@
           "city": "Bohemia",
           "state": "NY",
           "zipCode": "11716",
-          "dateCreated": "5/23/2024",
+          "dateCreated": "5/24/2024",
           "products": [
             {
               "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
@@ -5620,11 +5599,11 @@
               "total": 8906.25
             }
           ],
-          "totalBalance": 8906.25,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 8906.25,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 8906.25
         },
         {
           "invoiceNumber": "CI&ECL02",
@@ -5634,7 +5613,7 @@
           "city": "Bohemia",
           "state": "NY",
           "zipCode": "11716",
-          "dateCreated": "6/6/2024",
+          "dateCreated": "6/5/2024",
           "products": [
             {
               "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
@@ -5651,31 +5630,11 @@
               "total": 2400
             }
           ],
-          "totalBalance": 6775,
-          "paid": false,
-          "invoiceTotal": 6775
-        },
-        {
-          "invoiceNumber": "CI&ECL03",
-          "companyName": "Cammy Import & Export Co. LTD",
-          "addressLine1": "585 Johnson Ave",
-          "addressLine2": "",
-          "city": "Bohemia",
-          "state": "NY",
-          "zipCode": "11716",
-          "dateCreated": "6/7/2024",
-          "products": [
-            {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 100,
-              "rate": 12,
-              "total": 1200
-            }
-          ],
-          "totalBalance": 1200,
-          "paid": false,
-          "invoiceTotal": 1200
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 6775,
+          "CashPayment": 0,
+          "AccountPayment": 6775
         }
       ],
       "lastInvoiceNumber": 3
@@ -6507,12 +6466,19 @@
               "quantity": 2,
               "rate": 43.75,
               "total": 87.5
+            },
+            {
+              "productName": "8 oz Hot Cup 1000ct",
+              "productCategory": "Paper Hot Cups",
+              "quantity": 1,
+              "rate": 30,
+              "total": 30
             }
           ],
-          "totalBalance": 350.75,
-          "paid": false,
-          "invoiceTotal": 350.75,
-          "CashPayment": 0,
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 380.75,
+          "CashPayment": 380.75,
           "AccountPayment": 0
         },
         {
@@ -6540,9 +6506,11 @@
               "total": 30.75
             }
           ],
-          "totalBalance": 116.75,
-          "paid": false,
-          "invoiceTotal": 116.75
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 116.75,
+          "CashPayment": 116.75,
+          "AccountPayment": 0
         },
         {
           "invoiceNumber": "A04",
@@ -6552,7 +6520,7 @@
           "city": "--",
           "state": "--",
           "zipCode": "--",
-          "dateCreated": "7/31/2024",
+          "dateCreated": "8/1/2024",
           "products": [
             {
               "productName": "Meal Kit 4pcs 250ct",
@@ -6597,10 +6565,10 @@
               "total": 43
             }
           ],
-          "totalBalance": 295,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 295,
-          "CashPayment": 0,
+          "CashPayment": 295,
           "AccountPayment": 0
         }
       ],
@@ -7009,11 +6977,11 @@
               "total": 52.53
             }
           ],
-          "totalBalance": 845.53,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 845.53,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 845.53
         },
         {
           "invoiceNumber": "C16",
@@ -7023,7 +6991,7 @@
           "city": "Passaic",
           "state": "NJ",
           "zipCode": "07055",
-          "dateCreated": "6/17/2024",
+          "dateCreated": "7/31/2024",
           "products": [
             {
               "productName": "18\" Pallet Wrap 6 Rolls (33 lb)",
@@ -7031,13 +6999,20 @@
               "quantity": 1,
               "rate": 40,
               "total": 40
+            },
+            {
+              "productName": "Tax",
+              "productCategory": "Miscellaneous",
+              "quantity": 1,
+              "rate": 2.65,
+              "total": 2.65
             }
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 40,
-          "CashPayment": 40,
-          "AccountPayment": 0
+          "invoiceTotal": 42.65,
+          "CashPayment": 0,
+          "AccountPayment": 42.65
         }
       ],
       "lastInvoiceNumber": 16

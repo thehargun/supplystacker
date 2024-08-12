@@ -4104,10 +4104,10 @@
               "total": 27
             }
           ],
-          "totalBalance": 46.25,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 46.25,
-          "CashPayment": 0,
+          "CashPayment": 46.25,
           "AccountPayment": 0
         },
         {
@@ -4118,7 +4118,7 @@
           "city": "Clifton",
           "state": "NJ",
           "zipCode": "07011",
-          "dateCreated": "7/19/2024",
+          "dateCreated": "7/18/2024",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -4128,9 +4128,11 @@
               "total": 630
             }
           ],
-          "totalBalance": 630,
-          "paid": false,
-          "invoiceTotal": 630
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 630,
+          "CashPayment": 0,
+          "AccountPayment": 630
         }
       ],
       "lastInvoiceNumber": 9
@@ -4219,7 +4221,7 @@
       "role": "customer",
       "invoices": [
         {
-          "invoiceNumber": "TPI02",
+          "invoiceNumber": "TPI01",
           "companyName": "TOP PLUS INC",
           "addressLine1": "25 Brighton Ave",
           "addressLine2": "building T",
@@ -4257,9 +4259,11 @@
               "total": 18.25
             }
           ],
-          "totalBalance": 179.5,
-          "paid": false,
-          "invoiceTotal": 179.5
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 179.5,
+          "CashPayment": 179.5,
+          "AccountPayment": 0
         },
         {
           "invoiceNumber": "TPI02",
@@ -4286,9 +4290,11 @@
               "total": 90
             }
           ],
-          "totalBalance": 395,
-          "paid": false,
-          "invoiceTotal": 395
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 395,
+          "CashPayment": 0,
+          "AccountPayment": 395
         },
         {
           "invoiceNumber": "TPI03",
@@ -4322,9 +4328,11 @@
               "total": 330
             }
           ],
-          "totalBalance": 1879,
-          "paid": false,
-          "invoiceTotal": 1879
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 1879,
+          "CashPayment": 0,
+          "AccountPayment": 1879
         }
       ],
       "lastInvoiceNumber": 3
@@ -4867,7 +4875,7 @@
       "role": "customer",
       "invoices": [
         {
-          "invoiceNumber": "ADI02",
+          "invoiceNumber": "ADI01",
           "companyName": "Aname Distribution Inc",
           "addressLine1": "120 Orchard Street",
           "addressLine2": "",
@@ -4884,9 +4892,11 @@
               "total": 1200
             }
           ],
-          "totalBalance": 1200,
-          "paid": false,
-          "invoiceTotal": 1200
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 1200,
+          "CashPayment": 1200,
+          "AccountPayment": 0
         },
         {
           "invoiceNumber": "ADI02",
@@ -4906,9 +4916,11 @@
               "total": 3800
             }
           ],
-          "totalBalance": 3800,
-          "paid": false,
-          "invoiceTotal": 3800
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 3800,
+          "CashPayment": 3800,
+          "AccountPayment": 0
         },
         {
           "invoiceNumber": "ADI03",
@@ -4928,9 +4940,11 @@
               "total": 3300
             }
           ],
-          "totalBalance": 3300,
-          "paid": false,
-          "invoiceTotal": 3300
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 3300,
+          "CashPayment": 3300,
+          "AccountPayment": 0
         },
         {
           "invoiceNumber": "ADI04",
@@ -4950,11 +4964,11 @@
               "total": 5467.5
             }
           ],
-          "totalBalance": 472.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 5467.5,
           "CashPayment": 0,
-          "AccountPayment": 4995
+          "AccountPayment": 5467.5
         }
       ],
       "lastInvoiceNumber": 4
@@ -5720,11 +5734,13 @@
               "total": 650
             }
           ],
-          "totalBalance": 935,
+          "totalBalance": 0,
           "paid": true,
           "cash": 0,
           "account": 935,
-          "invoiceTotal": 935
+          "invoiceTotal": 935,
+          "CashPayment": 0,
+          "AccountPayment": 935
         },
         {
           "invoiceNumber": "JND02",
@@ -5744,9 +5760,11 @@
               "total": 285
             }
           ],
-          "totalBalance": 285,
-          "paid": false,
-          "invoiceTotal": 285
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 285,
+          "CashPayment": 285,
+          "AccountPayment": 0
         }
       ],
       "lastInvoiceNumber": 2
@@ -6763,10 +6781,10 @@
               "total": 26
             }
           ],
-          "totalBalance": 50,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 50,
-          "CashPayment": 0,
+          "CashPayment": 50,
           "AccountPayment": 0
         },
         {
@@ -6787,10 +6805,10 @@
               "total": 27
             }
           ],
-          "totalBalance": 27,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 27,
-          "CashPayment": 0,
+          "CashPayment": 27,
           "AccountPayment": 0
         },
         {
@@ -6833,10 +6851,10 @@
               "total": 728.75
             }
           ],
-          "totalBalance": 728.75,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 728.75,
-          "CashPayment": 0,
+          "CashPayment": 728.75,
           "AccountPayment": 0
         },
         {
@@ -6857,10 +6875,10 @@
               "total": 92.5
             }
           ],
-          "totalBalance": 92.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 92.5,
-          "CashPayment": 0,
+          "CashPayment": 92.5,
           "AccountPayment": 0
         },
         {
@@ -6888,10 +6906,10 @@
               "total": 28
             }
           ],
-          "totalBalance": 60,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 60,
-          "CashPayment": 0,
+          "CashPayment": 60,
           "AccountPayment": 0
         },
         {
@@ -6912,10 +6930,10 @@
               "total": 18.5
             }
           ],
-          "totalBalance": 18.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 18.5,
-          "CashPayment": 0,
+          "CashPayment": 18.5,
           "AccountPayment": 0
         },
         {
@@ -6926,7 +6944,7 @@
           "city": "Passaic",
           "state": "NJ",
           "zipCode": "07055",
-          "dateCreated": "2024-08-06",
+          "dateCreated": "8/6/2024",
           "products": [
             {
               "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty (Red Blue)",
@@ -6936,9 +6954,11 @@
               "total": 795
             }
           ],
-          "totalBalance": 795,
-          "paid": false,
-          "invoiceTotal": 795
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 795,
+          "CashPayment": 795,
+          "AccountPayment": 0
         },
         {
           "invoiceNumber": "C14",
@@ -6948,7 +6968,7 @@
           "city": "Passaic",
           "state": "NJ",
           "zipCode": "07055",
-          "dateCreated": "2024-08-06",
+          "dateCreated": "8/7/2024",
           "products": [
             {
               "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty (Red Blue)",
@@ -6958,9 +6978,11 @@
               "total": 1192.5
             }
           ],
-          "totalBalance": 1192.5,
-          "paid": false,
-          "invoiceTotal": 1192.5
+          "totalBalance": 0,
+          "paid": true,
+          "invoiceTotal": 1192.5,
+          "CashPayment": 1192.5,
+          "AccountPayment": 0
         },
         {
           "invoiceNumber": "C15",
@@ -7392,7 +7414,7 @@
           "city": "Carlstadt",
           "state": "NJ",
           "zipCode": "07072",
-          "dateCreated": "7/16/2024",
+          "dateCreated": "7/18/2024",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -7409,10 +7431,10 @@
               "total": -150
             }
           ],
-          "totalBalance": 8850,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 8850,
-          "CashPayment": 0,
+          "CashPayment": 8850,
           "AccountPayment": 0
         }
       ],
@@ -7543,10 +7565,10 @@
               "total": 876
             }
           ],
-          "totalBalance": 876,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "invoiceTotal": 876,
-          "CashPayment": 0,
+          "CashPayment": 876,
           "AccountPayment": 0
         }
       ],

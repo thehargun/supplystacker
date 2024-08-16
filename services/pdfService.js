@@ -26,7 +26,7 @@ function generateInvoicePdf(orderDetails, callback) {
     doc.fontSize(10).font('Helvetica-Bold').text(`INVOICE ${orderDetails.invoiceNumber}`, 400, 50, { align: 'right', width: 190 });
 
     // Invoice Date and Number
-    doc.fontSize(10).font('Helvetica-Bold').text(`${new Date(new Date(orderDetails.dateCreated).setDate(new Date(orderDetails.dateCreated).getDate() + 1)).toLocaleDateString()}`, 400, 80, { align: 'right' });
+    doc.fontSize(10).font('Helvetica-Bold').text(`${new Date(new Date(orderDetails.dateCreated).setDate(new Date(orderDetails.dateCreated).getDate())).toLocaleDateString()}`, 400, 80, { align: 'right' });
 
     // Bill To Section
     const billToStartY = 130;

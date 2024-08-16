@@ -4176,9 +4176,31 @@
           "invoiceTotal": 630,
           "CashPayment": 0,
           "AccountPayment": 630
+        },
+        {
+          "invoiceNumber": "SSL10",
+          "companyName": "Superior Supplies LLC",
+          "addressLine1": "10 Clifton Blvd",
+          "addressLine2": "Suite B1",
+          "city": "Clifton",
+          "state": "NJ",
+          "zipCode": "07011",
+          "dateCreated": "2024-08-16",
+          "products": [
+            {
+              "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
+              "productCategory": "Paper Bags",
+              "quantity": 5,
+              "rate": 28.5,
+              "total": 142.5
+            }
+          ],
+          "totalBalance": 142.5,
+          "paid": false,
+          "invoiceTotal": 142.5
         }
       ],
-      "lastInvoiceNumber": 9
+      "lastInvoiceNumber": 10
     },
     {
       "id": 8,
@@ -7213,9 +7235,31 @@
           "invoiceTotal": 760,
           "CashPayment": 0,
           "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "C21",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2024-08-16",
+          "products": [
+            {
+              "productName": "18\" Pallet Wrap 6 Rolls (33 lb)",
+              "productCategory": "Industrial",
+              "quantity": 15,
+              "rate": 32,
+              "total": 480
+            }
+          ],
+          "totalBalance": 480,
+          "paid": false,
+          "invoiceTotal": 480
         }
       ],
-      "lastInvoiceNumber": 20
+      "lastInvoiceNumber": 21
     },
     {
       "id": 31,
@@ -7704,9 +7748,75 @@
           "invoiceTotal": 176.75,
           "CashPayment": 0,
           "AccountPayment": 176.75
+        },
+        {
+          "invoiceNumber": "GCU03",
+          "companyName": "Global Crossing USA",
+          "addressLine1": "5 IVY Lane",
+          "addressLine2": "",
+          "city": "Wallington",
+          "state": "NJ",
+          "zipCode": "07057",
+          "dateCreated": "8/15/2024",
+          "products": [
+            {
+              "productName": "7\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 10,
+              "total": 30
+            },
+            {
+              "productName": "8\" Aluminum Pan",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 36.25,
+              "total": 108.75
+            },
+            {
+              "productName": "8\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 11.5,
+              "total": 34.5
+            },
+            {
+              "productName": "12x3000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 2,
+              "rate": 10,
+              "total": 20
+            },
+            {
+              "productName": "Toilet Roll 2 Ply 96 Rolls",
+              "productCategory": "Paper Towels",
+              "quantity": 1,
+              "rate": 33.5,
+              "total": 33.5
+            },
+            {
+              "productName": "Meal Kit 4pcs 250/CS",
+              "productCategory": "Utensils",
+              "quantity": 2,
+              "rate": 12.5,
+              "total": 25
+            },
+            {
+              "productName": "Norpak Interfolded Sheet 8\" x 10.75",
+              "productCategory": "Wax Paper",
+              "quantity": 2,
+              "rate": 42.25,
+              "total": 84.5
+            }
+          ],
+          "totalBalance": 336.25,
+          "paid": false,
+          "invoiceTotal": 336.25,
+          "CashPayment": 0,
+          "AccountPayment": 0
         }
       ],
-      "lastInvoiceNumber": 2
+      "lastInvoiceNumber": 3
     },
     {
       "id": 36,
@@ -12663,11 +12773,11 @@
       "id": 203,
       "itemName": "18\" Pallet Wrap 6 Rolls (33 lb)",
       "itemCategory": "Industrial",
-      "cost": 26.5,
+      "cost": 27,
       "quantity": 100,
-      "priceLevel1": 29.5,
-      "priceLevel2": 31,
-      "priceLevel3": 35.5,
+      "priceLevel1": 30.5,
+      "priceLevel2": 32,
+      "priceLevel3": 40,
       "rank": 242,
       "imageUrl": "/uploads/image-1719456881263.jpg",
       "vendors": null,

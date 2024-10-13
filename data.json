@@ -60,7 +60,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 252.5,
+          "totalAmount": 252.5,
           "CashPayment": 0,
           "AccountPayment": 252.5
         },
@@ -126,7 +126,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 631,
+          "totalAmount": 631,
           "CashPayment": 0,
           "AccountPayment": 631
         },
@@ -227,7 +227,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1010.95,
+          "totalAmount": 1010.95,
           "CashPayment": 0,
           "AccountPayment": 1010.95
         },
@@ -251,7 +251,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 77.5,
+          "totalAmount": 77.5,
           "CashPayment": 0,
           "AccountPayment": 77.5
         },
@@ -317,7 +317,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 534.5,
+          "totalAmount": 534.5,
           "CashPayment": 0,
           "AccountPayment": 534.5
         },
@@ -341,7 +341,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 42,
+          "totalAmount": 42,
           "CashPayment": 0,
           "AccountPayment": 42
         },
@@ -386,7 +386,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 270.25,
+          "totalAmount": 270.25,
           "CashPayment": 0,
           "AccountPayment": 270.25
         },
@@ -424,7 +424,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 840,
+          "totalAmount": 840,
           "CashPayment": 0,
           "AccountPayment": 840
         },
@@ -448,7 +448,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 66.25,
+          "totalAmount": 66.25,
           "CashPayment": 0,
           "AccountPayment": 66.25
         },
@@ -493,7 +493,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1042.5,
+          "totalAmount": 1042.5,
           "CashPayment": 0,
           "AccountPayment": 1042.5
         },
@@ -524,7 +524,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 81.5,
+          "totalAmount": 81.5,
           "CashPayment": 0,
           "AccountPayment": 81.5
         },
@@ -576,7 +576,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 564.95,
+          "totalAmount": 564.95,
           "CashPayment": 0,
           "AccountPayment": 564.95
         },
@@ -607,7 +607,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 29.15,
+          "totalAmount": 29.15,
           "CashPayment": 0,
           "AccountPayment": 29.15
         },
@@ -687,7 +687,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1758.5,
+          "totalAmount": 1758.5,
           "CashPayment": 410,
           "AccountPayment": 1348.5
         },
@@ -753,7 +753,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 436.25,
+          "totalAmount": 436.25,
           "CashPayment": 0,
           "AccountPayment": 436.25
         },
@@ -798,7 +798,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 156.5,
+          "totalAmount": 156.5,
           "CashPayment": 0,
           "AccountPayment": 156.5
         },
@@ -906,7 +906,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 551.6,
+          "totalAmount": 551.6,
           "CashPayment": 551.6,
           "AccountPayment": 0
         },
@@ -951,7 +951,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 269,
+          "totalAmount": 269,
           "CashPayment": 48.5,
           "AccountPayment": 220.5
         },
@@ -975,7 +975,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 255,
+          "totalAmount": 255,
           "CashPayment": 0,
           "AccountPayment": 255
         },
@@ -1027,7 +1027,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 235.25,
+          "totalAmount": 235.25,
           "CashPayment": 0,
           "AccountPayment": 235.25
         },
@@ -1072,7 +1072,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 824.5,
+          "totalAmount": 824.5,
           "CashPayment": 0,
           "AccountPayment": 824.5
         },
@@ -1117,7 +1117,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 287,
+          "totalAmount": 287,
           "CashPayment": 0,
           "AccountPayment": 287
         },
@@ -1183,7 +1183,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1580.25,
+          "totalAmount": 1580.25,
           "CashPayment": 655,
           "AccountPayment": 925.25
         },
@@ -1235,7 +1235,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 623,
+          "totalAmount": 623,
           "CashPayment": 0,
           "AccountPayment": 623
         },
@@ -1287,7 +1287,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 124.9,
+          "totalAmount": 124.9,
           "CashPayment": 0,
           "AccountPayment": 124.9
         },
@@ -1311,7 +1311,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 25,
+          "totalAmount": 25,
           "CashPayment": 0,
           "AccountPayment": 25
         },
@@ -1384,7 +1384,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 298,
+          "totalAmount": 298,
           "CashPayment": 0,
           "AccountPayment": 298
         },
@@ -1422,7 +1422,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 388,
+          "totalAmount": 388,
           "CashPayment": 0,
           "AccountPayment": 388
         },
@@ -1488,7 +1488,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 393.5,
+          "totalAmount": 393.5,
           "CashPayment": 0,
           "AccountPayment": 393.5
         },
@@ -1533,7 +1533,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 280.75,
+          "totalAmount": 280.75,
           "CashPayment": 0,
           "AccountPayment": 280.75
         },
@@ -1578,7 +1578,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1837.5,
+          "totalAmount": 1837.5,
           "CashPayment": 500,
           "AccountPayment": 1337.5
         },
@@ -1672,7 +1672,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1189.75,
+          "totalAmount": 1189.75,
           "CashPayment": 0,
           "AccountPayment": 1189.75
         },
@@ -1752,7 +1752,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1291.95,
+          "totalAmount": 1291.95,
           "CashPayment": 0,
           "AccountPayment": 1291.95
         },
@@ -1846,7 +1846,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2030.75,
+          "totalAmount": 2030.75,
           "CashPayment": 0,
           "AccountPayment": 2030.75
         },
@@ -1961,7 +1961,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1218.75,
+          "totalAmount": 1218.75,
           "CashPayment": 0,
           "AccountPayment": 1218.75
         },
@@ -2055,7 +2055,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1080.5,
+          "totalAmount": 1080.5,
           "CashPayment": 0,
           "AccountPayment": 1080.5
         },
@@ -2093,7 +2093,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 865,
+          "totalAmount": 865,
           "CashPayment": 0,
           "AccountPayment": 865
         },
@@ -2187,7 +2187,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 735.75,
+          "totalAmount": 735.75,
           "CashPayment": 0,
           "AccountPayment": 735.75
         },
@@ -2267,7 +2267,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 845,
+          "totalAmount": 845,
           "CashPayment": 0,
           "AccountPayment": 845
         },
@@ -2319,7 +2319,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 336.25,
+          "totalAmount": 336.25,
           "CashPayment": 0,
           "AccountPayment": 336.25
         },
@@ -2385,7 +2385,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 810.75,
+          "totalAmount": 810.75,
           "CashPayment": 0,
           "AccountPayment": 810.75
         },
@@ -2451,7 +2451,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 256,
+          "totalAmount": 256,
           "CashPayment": 0,
           "AccountPayment": 256
         },
@@ -2510,7 +2510,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1216.5,
+          "totalAmount": 1216.5,
           "CashPayment": 0,
           "AccountPayment": 1216.5
         },
@@ -2555,7 +2555,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 171.5,
+          "totalAmount": 171.5,
           "CashPayment": 0,
           "AccountPayment": 171.5
         },
@@ -2614,7 +2614,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 328.75,
+          "totalAmount": 328.75,
           "CashPayment": 0,
           "AccountPayment": 328.75
         },
@@ -2645,7 +2645,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 72.5,
+          "totalAmount": 72.5,
           "CashPayment": 0,
           "AccountPayment": 72.5
         },
@@ -2690,7 +2690,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 627,
+          "totalAmount": 627,
           "CashPayment": 0,
           "AccountPayment": 627
         },
@@ -2728,7 +2728,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 313.75,
+          "totalAmount": 313.75,
           "CashPayment": 0,
           "AccountPayment": 313.75
         },
@@ -2808,7 +2808,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 944,
+          "totalAmount": 944,
           "CashPayment": 0,
           "AccountPayment": 944
         },
@@ -2895,7 +2895,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 714,
+          "totalAmount": 714,
           "CashPayment": 0,
           "AccountPayment": 714
         },
@@ -2933,7 +2933,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 273,
+          "totalAmount": 273,
           "CashPayment": 0,
           "AccountPayment": 273
         },
@@ -3013,7 +3013,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 855.5,
+          "totalAmount": 855.5,
           "CashPayment": 0,
           "AccountPayment": 855.5
         },
@@ -3051,7 +3051,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 374,
+          "totalAmount": 374,
           "CashPayment": 0,
           "AccountPayment": 374
         },
@@ -3103,7 +3103,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 321.5,
+          "totalAmount": 321.5,
           "CashPayment": 0,
           "AccountPayment": 321.5
         },
@@ -3169,7 +3169,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1470,
+          "totalAmount": 1470,
           "CashPayment": 0,
           "AccountPayment": 1470
         },
@@ -3235,7 +3235,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 621.75,
+          "totalAmount": 621.75,
           "CashPayment": 0,
           "AccountPayment": 621.75
         },
@@ -3308,7 +3308,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 809.75,
+          "totalAmount": 809.75,
           "CashPayment": 0,
           "AccountPayment": 809.75
         },
@@ -3367,7 +3367,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 214,
+          "totalAmount": 214,
           "CashPayment": 0,
           "AccountPayment": 214
         },
@@ -3412,7 +3412,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 100.75,
+          "totalAmount": 100.75,
           "CashPayment": 0,
           "AccountPayment": 100.75
         },
@@ -3534,7 +3534,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 680,
+          "totalAmount": 680,
           "CashPayment": 0,
           "AccountPayment": 680
         },
@@ -3558,7 +3558,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 650,
+          "totalAmount": 650,
           "CashPayment": 0,
           "AccountPayment": 650
         },
@@ -3603,7 +3603,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 190.5,
+          "totalAmount": 190.5,
           "CashPayment": 0,
           "AccountPayment": 190.5
         },
@@ -3634,7 +3634,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 318.5,
+          "totalAmount": 318.5,
           "CashPayment": 0,
           "AccountPayment": 318.5
         },
@@ -3749,7 +3749,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 943.5,
+          "totalAmount": 943.5,
           "CashPayment": 0,
           "AccountPayment": 943.5
         },
@@ -3850,7 +3850,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 852.25,
+          "totalAmount": 852.25,
           "CashPayment": 0,
           "AccountPayment": 852.25
         },
@@ -3874,7 +3874,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 105,
+          "totalAmount": 105,
           "CashPayment": 0,
           "AccountPayment": 105
         },
@@ -3912,7 +3912,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 170.5,
+          "totalAmount": 170.5,
           "CashPayment": 0,
           "AccountPayment": 170.5
         },
@@ -3950,7 +3950,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 97.25,
+          "totalAmount": 97.25,
           "CashPayment": 0,
           "AccountPayment": 97.25
         },
@@ -4002,7 +4002,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 236,
+          "totalAmount": 236,
           "CashPayment": 0,
           "AccountPayment": 236
         },
@@ -4075,7 +4075,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 370.75,
+          "totalAmount": 370.75,
           "CashPayment": 0,
           "AccountPayment": 370.75
         },
@@ -4120,7 +4120,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 531.5,
+          "totalAmount": 531.5,
           "CashPayment": 0,
           "AccountPayment": 531.5
         },
@@ -4172,7 +4172,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 205.75,
+          "totalAmount": 205.75,
           "CashPayment": 0,
           "AccountPayment": 205.75
         },
@@ -4245,7 +4245,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1187,
+          "totalAmount": 1187,
           "CashPayment": 0,
           "AccountPayment": 1187
         },
@@ -4304,7 +4304,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 161,
+          "totalAmount": 161,
           "CashPayment": 0,
           "AccountPayment": 161
         },
@@ -4328,7 +4328,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 69,
+          "totalAmount": 69,
           "CashPayment": 0,
           "AccountPayment": 69
         },
@@ -4429,7 +4429,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 643,
+          "totalAmount": 643,
           "CashPayment": 0,
           "AccountPayment": 643
         },
@@ -4502,7 +4502,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 344.25,
+          "totalAmount": 344.25,
           "CashPayment": 0,
           "AccountPayment": 344.25
         },
@@ -4624,7 +4624,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 405.6,
+          "totalAmount": 405.6,
           "CashPayment": 0,
           "AccountPayment": 405.6
         },
@@ -4655,7 +4655,7 @@
           ],
           "totalBalance": 39,
           "paid": false,
-          "invoiceTotal": 39,
+          "totalAmount": 39,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -4714,7 +4714,7 @@
           ],
           "totalBalance": 149.75,
           "paid": false,
-          "invoiceTotal": 149.75,
+          "totalAmount": 149.75,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -4822,7 +4822,7 @@
           ],
           "totalBalance": 438,
           "paid": false,
-          "invoiceTotal": 438,
+          "totalAmount": 438,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -4916,7 +4916,7 @@
           ],
           "totalBalance": 1371.75,
           "paid": false,
-          "invoiceTotal": 1371.75,
+          "totalAmount": 1371.75,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -5017,7 +5017,7 @@
           ],
           "totalBalance": 486.5,
           "paid": false,
-          "invoiceTotal": 486.5,
+          "totalAmount": 486.5,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -5056,7 +5056,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2376,
+          "totalAmount": 2376,
           "CashPayment": 0,
           "AccountPayment": 2376
         },
@@ -5080,7 +5080,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2376,
+          "totalAmount": 2376,
           "CashPayment": 0,
           "AccountPayment": 2376
         },
@@ -5104,7 +5104,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2376,
+          "totalAmount": 2376,
           "CashPayment": 0,
           "AccountPayment": 2376
         }
@@ -5165,7 +5165,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 570,
+          "totalAmount": 570,
           "CashPayment": 0,
           "AccountPayment": 570
         }
@@ -5239,7 +5239,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2605,
+          "totalAmount": 2605,
           "CashPayment": 0,
           "AccountPayment": 2605
         },
@@ -5270,7 +5270,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1014,
+          "totalAmount": 1014,
           "CashPayment": 0,
           "AccountPayment": 1014
         },
@@ -5308,7 +5308,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 772,
+          "totalAmount": 772,
           "CashPayment": 0,
           "AccountPayment": 772
         },
@@ -5332,7 +5332,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 288,
+          "totalAmount": 288,
           "CashPayment": 0,
           "AccountPayment": 288
         },
@@ -5363,7 +5363,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1152,
+          "totalAmount": 1152,
           "CashPayment": 0,
           "AccountPayment": 1152
         },
@@ -5408,7 +5408,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1379,
+          "totalAmount": 1379,
           "CashPayment": 0,
           "AccountPayment": 1379
         },
@@ -5453,7 +5453,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1519,
+          "totalAmount": 1519,
           "CashPayment": 0,
           "AccountPayment": 1519
         },
@@ -5484,7 +5484,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2055,
+          "totalAmount": 2055,
           "CashPayment": 0,
           "AccountPayment": 2055
         },
@@ -5522,7 +5522,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1214,
+          "totalAmount": 1214,
           "CashPayment": 0,
           "AccountPayment": 1214
         },
@@ -5560,7 +5560,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1214,
+          "totalAmount": 1214,
           "CashPayment": 0,
           "AccountPayment": 1214
         },
@@ -5612,7 +5612,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1215,
+          "totalAmount": 1215,
           "CashPayment": 0,
           "AccountPayment": 1215
         },
@@ -5657,7 +5657,7 @@
           ],
           "totalBalance": 1622.5,
           "paid": false,
-          "invoiceTotal": 1622.5
+          "totalAmount": 1622.5
         },
         {
           "invoiceNumber": "APP13",
@@ -5693,7 +5693,7 @@
           ],
           "totalBalance": 2090,
           "paid": false,
-          "invoiceTotal": 2090,
+          "totalAmount": 2090,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -5759,7 +5759,7 @@
           ],
           "totalBalance": 2388,
           "paid": false,
-          "invoiceTotal": 2388,
+          "totalAmount": 2388,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -5818,7 +5818,7 @@
           ],
           "totalBalance": 2769,
           "paid": false,
-          "invoiceTotal": 2769,
+          "totalAmount": 2769,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -5877,7 +5877,7 @@
           ],
           "totalBalance": 3206,
           "paid": false,
-          "invoiceTotal": 3206,
+          "totalAmount": 3206,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -5929,94 +5929,7 @@
           ],
           "totalBalance": 2112,
           "paid": false,
-          "invoiceTotal": 2112,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
-          "invoiceNumber": "APP999",
-          "companyName": "ACE Paper Products",
-          "addressLine1": "21 Grand Ave",
-          "addressLine2": "#211",
-          "city": "Palisades Park",
-          "state": "NJ",
-          "zipCode": "07650",
-          "dateCreated": "9/30/2024",
-          "products": [
-            {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 1,
-              "rate": 12,
-              "total": 12
-            },
-            {
-              "productName": "Paper Bags 8x4x10 Twisted Handle (250pcs)",
-              "productCategory": "Paper Bags",
-              "quantity": 1,
-              "rate": 16,
-              "total": 16
-            },
-            {
-              "productName": "Paper Bags 10x5x13 Twisted Handle",
-              "productCategory": "Paper Bags",
-              "quantity": 1,
-              "rate": 17,
-              "total": 17
-            },
-            {
-              "productName": "Paper Bags 10x7x12 Twisted Handle",
-              "productCategory": "Paper Bags",
-              "quantity": 1,
-              "rate": 18,
-              "total": 18
-            },
-            {
-              "productName": "Paper Bags 13x7x17 Twisted Handle",
-              "productCategory": "Paper Bags",
-              "quantity": 1,
-              "rate": 26,
-              "total": 26
-            },
-            {
-              "productName": "Paper Bags 18x7x18 Twisted Handle (200 pcs)",
-              "productCategory": "Paper Bags",
-              "quantity": 1,
-              "rate": 27,
-              "total": 27
-            },
-            {
-              "productName": "#4 Kraft SOS Bag 500pcs",
-              "productCategory": "SOS Bags",
-              "quantity": 1,
-              "rate": 5.5,
-              "total": 5.5
-            },
-            {
-              "productName": "#6 Kraft SOS Bag 500pcs",
-              "productCategory": "SOS Bags",
-              "quantity": 1,
-              "rate": 7.25,
-              "total": 7.25
-            },
-            {
-              "productName": "#8 Kraft SOS Bag 500pcs",
-              "productCategory": "SOS Bags",
-              "quantity": 1,
-              "rate": 9.5,
-              "total": 9.5
-            },
-            {
-              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16 (1000/Case)",
-              "productCategory": "Aluminum Foil Sheets",
-              "quantity": 1,
-              "rate": 29,
-              "total": 29
-            }
-          ],
-          "totalBalance": 167.25,
-          "paid": false,
-          "invoiceTotal": 167.25,
+          "totalAmount": 2112,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -6222,7 +6135,7 @@
           ],
           "totalBalance": 581.14,
           "paid": false,
-          "invoiceTotal": 581.14,
+          "totalAmount": 581.14,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -6276,7 +6189,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 707.25,
+          "totalAmount": 707.25,
           "CashPayment": 0,
           "AccountPayment": 707.25
         },
@@ -6307,7 +6220,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1097,
+          "totalAmount": 1097,
           "CashPayment": 97,
           "AccountPayment": 1000
         },
@@ -6352,7 +6265,7 @@
           ],
           "totalBalance": 631,
           "paid": false,
-          "invoiceTotal": 631
+          "totalAmount": 631
         }
       ]
     },
@@ -6390,7 +6303,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 105,
+          "totalAmount": 105,
           "CashPayment": 0,
           "AccountPayment": 105
         },
@@ -6414,7 +6327,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2916,
+          "totalAmount": 2916,
           "CashPayment": 0,
           "AccountPayment": 2916
         },
@@ -6445,7 +6358,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 282,
+          "totalAmount": 282,
           "CashPayment": 0,
           "AccountPayment": 282
         },
@@ -6469,7 +6382,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 84,
+          "totalAmount": 84,
           "CashPayment": 0,
           "AccountPayment": 84
         },
@@ -6500,7 +6413,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 70,
+          "totalAmount": 70,
           "CashPayment": 0,
           "AccountPayment": 70
         },
@@ -6524,7 +6437,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 420,
+          "totalAmount": 420,
           "CashPayment": 0,
           "AccountPayment": 420
         },
@@ -6548,7 +6461,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2376,
+          "totalAmount": 2376,
           "CashPayment": 0,
           "AccountPayment": 2376
         },
@@ -6572,7 +6485,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 315,
+          "totalAmount": 315,
           "CashPayment": 0,
           "AccountPayment": 315
         },
@@ -6603,7 +6516,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 46.25,
+          "totalAmount": 46.25,
           "CashPayment": 46.25,
           "AccountPayment": 0
         },
@@ -6627,7 +6540,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 630,
+          "totalAmount": 630,
           "CashPayment": 0,
           "AccountPayment": 630
         },
@@ -6651,7 +6564,7 @@
           ],
           "totalBalance": 142.5,
           "paid": false,
-          "invoiceTotal": 142.5
+          "totalAmount": 142.5
         },
         {
           "invoiceNumber": "SSL11",
@@ -6673,7 +6586,7 @@
           ],
           "totalBalance": 142.5,
           "paid": false,
-          "invoiceTotal": 142.5
+          "totalAmount": 142.5
         }
       ]
     },
@@ -6739,7 +6652,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1781.5,
+          "totalAmount": 1781.5,
           "CashPayment": 1781.5,
           "AccountPayment": 0
         }
@@ -6800,7 +6713,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 179.5,
+          "totalAmount": 179.5,
           "CashPayment": 179.5,
           "AccountPayment": 0
         },
@@ -6831,7 +6744,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 395,
+          "totalAmount": 395,
           "CashPayment": 0,
           "AccountPayment": 395
         },
@@ -6869,7 +6782,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1879,
+          "totalAmount": 1879,
           "CashPayment": 0,
           "AccountPayment": 1879
         }
@@ -6930,7 +6843,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 610.25,
+          "totalAmount": 610.25,
           "CashPayment": 0,
           "AccountPayment": 610.25
         },
@@ -7010,7 +6923,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1720.25,
+          "totalAmount": 1720.25,
           "CashPayment": 0,
           "AccountPayment": 1720.25
         },
@@ -7048,7 +6961,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 519,
+          "totalAmount": 519,
           "CashPayment": 0,
           "AccountPayment": 519
         },
@@ -7079,7 +6992,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 632.5,
+          "totalAmount": 632.5,
           "CashPayment": 0,
           "AccountPayment": 632.5
         },
@@ -7138,7 +7051,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 825,
+          "totalAmount": 825,
           "CashPayment": 0,
           "AccountPayment": 825
         },
@@ -7176,7 +7089,7 @@
           ],
           "totalBalance": 416,
           "paid": false,
-          "invoiceTotal": 416,
+          "totalAmount": 416,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -7214,7 +7127,7 @@
           ],
           "totalBalance": 615,
           "paid": false,
-          "invoiceTotal": 615,
+          "totalAmount": 615,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -7238,7 +7151,7 @@
           ],
           "totalBalance": 1375,
           "paid": false,
-          "invoiceTotal": 1375,
+          "totalAmount": 1375,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -7346,7 +7259,7 @@
           ],
           "totalBalance": 1887.5,
           "paid": false,
-          "invoiceTotal": 1887.5,
+          "totalAmount": 1887.5,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -7398,7 +7311,7 @@
           ],
           "totalBalance": 3190.5,
           "paid": false,
-          "invoiceTotal": 3190.5,
+          "totalAmount": 3190.5,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -7450,7 +7363,7 @@
           ],
           "totalBalance": 1900,
           "paid": false,
-          "invoiceTotal": 1900,
+          "totalAmount": 1900,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -7495,7 +7408,7 @@
           ],
           "totalBalance": 1520,
           "paid": false,
-          "invoiceTotal": 1520,
+          "totalAmount": 1520,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -7533,7 +7446,7 @@
           ],
           "totalBalance": 311.4,
           "paid": false,
-          "invoiceTotal": 311.4
+          "totalAmount": 311.4
         }
       ]
     },
@@ -7571,7 +7484,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2304,
+          "totalAmount": 2304,
           "CashPayment": 0,
           "AccountPayment": 2304
         },
@@ -7595,7 +7508,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 320,
+          "totalAmount": 320,
           "CashPayment": 0,
           "AccountPayment": 320
         },
@@ -7619,7 +7532,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2160,
+          "totalAmount": 2160,
           "CashPayment": 0,
           "AccountPayment": 2160
         },
@@ -7643,7 +7556,7 @@
           ],
           "totalBalance": 2808.75,
           "paid": false,
-          "invoiceTotal": 2808.75
+          "totalAmount": 2808.75
         },
         {
           "invoiceNumber": "BPASI06",
@@ -7672,7 +7585,7 @@
           ],
           "totalBalance": 1265,
           "paid": false,
-          "invoiceTotal": 1265,
+          "totalAmount": 1265,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -7712,7 +7625,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 530,
+          "totalAmount": 530,
           "CashPayment": 530,
           "AccountPayment": 0
         }
@@ -7752,7 +7665,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1200,
+          "totalAmount": 1200,
           "CashPayment": 1200,
           "AccountPayment": 0
         },
@@ -7776,7 +7689,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 3800,
+          "totalAmount": 3800,
           "CashPayment": 3800,
           "AccountPayment": 0
         },
@@ -7800,7 +7713,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 3300,
+          "totalAmount": 3300,
           "CashPayment": 3300,
           "AccountPayment": 0
         },
@@ -7824,7 +7737,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 5467.5,
+          "totalAmount": 5467.5,
           "CashPayment": 0,
           "AccountPayment": 5467.5
         }
@@ -7878,7 +7791,7 @@
           ],
           "totalBalance": 1770,
           "paid": false,
-          "invoiceTotal": 1770
+          "totalAmount": 1770
         }
       ]
     },
@@ -7916,7 +7829,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 225,
+          "totalAmount": 225,
           "CashPayment": 0,
           "AccountPayment": 225
         }
@@ -8067,7 +7980,7 @@
           ],
           "totalBalance": 6073.25,
           "paid": false,
-          "invoiceTotal": 6073.25,
+          "totalAmount": 6073.25,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -8091,7 +8004,7 @@
           ],
           "totalBalance": 19,
           "paid": false,
-          "invoiceTotal": 19
+          "totalAmount": 19
         },
         {
           "invoiceNumber": "BPS03",
@@ -8113,7 +8026,7 @@
           ],
           "totalBalance": 19,
           "paid": false,
-          "invoiceTotal": 19
+          "totalAmount": 19
         },
         {
           "invoiceNumber": "BPS04",
@@ -8135,7 +8048,7 @@
           ],
           "totalBalance": 19,
           "paid": false,
-          "invoiceTotal": 19
+          "totalAmount": 19
         },
         {
           "invoiceNumber": "BPS05",
@@ -8199,7 +8112,7 @@
           ],
           "totalBalance": 1017.75,
           "paid": false,
-          "invoiceTotal": 1017.75
+          "totalAmount": 1017.75
         },
         {
           "invoiceNumber": "BPS06",
@@ -8256,7 +8169,7 @@
           ],
           "totalBalance": 1281.25,
           "paid": false,
-          "invoiceTotal": 1281.25
+          "totalAmount": 1281.25
         },
         {
           "invoiceNumber": "BPS07",
@@ -8397,7 +8310,7 @@
           ],
           "totalBalance": 4003,
           "paid": false,
-          "invoiceTotal": 4003,
+          "totalAmount": 4003,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -8470,7 +8383,7 @@
           ],
           "totalBalance": 3606.25,
           "paid": false,
-          "invoiceTotal": 3606.25
+          "totalAmount": 3606.25
         },
         {
           "invoiceNumber": "BPS09",
@@ -8527,7 +8440,7 @@
           ],
           "totalBalance": 259.75,
           "paid": false,
-          "invoiceTotal": 259.75,
+          "totalAmount": 259.75,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -8600,7 +8513,7 @@
           ],
           "totalBalance": 2582.5,
           "paid": false,
-          "invoiceTotal": 2582.5,
+          "totalAmount": 2582.5,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -8642,7 +8555,7 @@
           "paid": true,
           "cash": 0,
           "account": 0,
-          "invoiceTotal": 858,
+          "totalAmount": 858,
           "CashPayment": 0,
           "AccountPayment": 858
         }
@@ -8682,7 +8595,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 8906.25,
+          "totalAmount": 8906.25,
           "CashPayment": 0,
           "AccountPayment": 8906.25
         },
@@ -8713,7 +8626,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 6775,
+          "totalAmount": 6775,
           "CashPayment": 0,
           "AccountPayment": 6775
         },
@@ -8737,7 +8650,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 8750,
+          "totalAmount": 8750,
           "CashPayment": 0,
           "AccountPayment": 8750
         }
@@ -8801,7 +8714,7 @@
           "paid": true,
           "cash": 0,
           "account": 935,
-          "invoiceTotal": 935,
+          "totalAmount": 935,
           "CashPayment": 0,
           "AccountPayment": 935
         },
@@ -8825,7 +8738,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 285,
+          "totalAmount": 285,
           "CashPayment": 285,
           "AccountPayment": 0
         }
@@ -8907,7 +8820,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 2737.5,
+          "totalAmount": 2737.5,
           "CashPayment": 0,
           "AccountPayment": 2737.5
         }
@@ -8947,7 +8860,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 420,
+          "totalAmount": 420,
           "CashPayment": 420,
           "AccountPayment": 0
         },
@@ -8992,7 +8905,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 767.75,
+          "totalAmount": 767.75,
           "CashPayment": 767.75,
           "AccountPayment": 0
         },
@@ -9030,7 +8943,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 702.5,
+          "totalAmount": 702.5,
           "CashPayment": 702.5,
           "AccountPayment": 0
         },
@@ -9061,7 +8974,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 630,
+          "totalAmount": 630,
           "CashPayment": 630,
           "AccountPayment": 0
         },
@@ -9085,7 +8998,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 420,
+          "totalAmount": 420,
           "CashPayment": 420,
           "AccountPayment": 0
         },
@@ -9109,7 +9022,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 62.5,
+          "totalAmount": 62.5,
           "CashPayment": 62.5,
           "AccountPayment": 0
         }
@@ -9126,7 +9039,7 @@
       "city": "Milwaukee",
       "state": "WI",
       "zipCode": "53233",
-      "priceLevel": "1",
+      "priceLevel": 1,
       "role": "customer",
       "invoices": [
         {
@@ -9352,7 +9265,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 42265.45,
+          "totalAmount": 42265.45,
           "CashPayment": 0,
           "AccountPayment": 42265.45
         },
@@ -9502,7 +9415,7 @@
           ],
           "totalBalance": 53162.75,
           "paid": false,
-          "invoiceTotal": 53162.75,
+          "totalAmount": 53162.75,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -9610,11 +9523,12 @@
           ],
           "totalBalance": 25811.75,
           "paid": false,
-          "invoiceTotal": 25811.75,
+          "totalAmount": 25811.75,
           "CashPayment": 0,
           "AccountPayment": 0
         }
-      ]
+      ],
+      "taxable": false
     },
     {
       "id": 25,
@@ -9665,7 +9579,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 140,
+          "totalAmount": 140,
           "CashPayment": 0,
           "AccountPayment": 140
         }
@@ -9705,7 +9619,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 756.6,
+          "totalAmount": 756.6,
           "CashPayment": 0,
           "AccountPayment": 756.6
         },
@@ -9729,7 +9643,7 @@
           ],
           "totalBalance": 556,
           "paid": false,
-          "invoiceTotal": 556,
+          "totalAmount": 556,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -9797,7 +9711,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 393.75,
+          "totalAmount": 393.75,
           "CashPayment": 393.75,
           "AccountPayment": 0
         },
@@ -9856,7 +9770,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 380.75,
+          "totalAmount": 380.75,
           "CashPayment": 380.75,
           "AccountPayment": 0
         },
@@ -9887,7 +9801,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 116.75,
+          "totalAmount": 116.75,
           "CashPayment": 116.75,
           "AccountPayment": 0
         },
@@ -9946,7 +9860,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 295,
+          "totalAmount": 295,
           "CashPayment": 295,
           "AccountPayment": 0
         },
@@ -9977,7 +9891,7 @@
           ],
           "totalBalance": 204,
           "paid": false,
-          "invoiceTotal": 204
+          "totalAmount": 204
         },
         {
           "invoiceNumber": "A06",
@@ -10041,7 +9955,7 @@
           ],
           "totalBalance": 299.25,
           "paid": false,
-          "invoiceTotal": 299.25,
+          "totalAmount": 299.25,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -10086,7 +10000,7 @@
           ],
           "totalBalance": 195,
           "paid": false,
-          "invoiceTotal": 195
+          "totalAmount": 195
         },
         {
           "invoiceNumber": "A08",
@@ -10108,7 +10022,7 @@
           ],
           "totalBalance": 155,
           "paid": false,
-          "invoiceTotal": 155,
+          "totalAmount": 155,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -10146,7 +10060,7 @@
           ],
           "totalBalance": 192,
           "paid": false,
-          "invoiceTotal": 192
+          "totalAmount": 192
         },
         {
           "invoiceNumber": "A10",
@@ -10196,7 +10110,7 @@
           ],
           "totalBalance": 333.75,
           "paid": false,
-          "invoiceTotal": 333.75,
+          "totalAmount": 333.75,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -10251,7 +10165,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 637.5,
+          "totalAmount": 637.5,
           "CashPayment": 637.5,
           "AccountPayment": 0
         },
@@ -10275,7 +10189,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 40,
+          "totalAmount": 40,
           "CashPayment": 40,
           "AccountPayment": 0
         },
@@ -10299,7 +10213,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 3037.5,
+          "totalAmount": 3037.5,
           "CashPayment": 3037.5,
           "AccountPayment": 0
         },
@@ -10323,7 +10237,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 152.5,
+          "totalAmount": 152.5,
           "CashPayment": 152.5,
           "AccountPayment": 0
         },
@@ -10347,7 +10261,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 305,
+          "totalAmount": 305,
           "CashPayment": 305,
           "AccountPayment": 0
         },
@@ -10378,7 +10292,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 50,
+          "totalAmount": 50,
           "CashPayment": 50,
           "AccountPayment": 0
         },
@@ -10402,7 +10316,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 27,
+          "totalAmount": 27,
           "CashPayment": 27,
           "AccountPayment": 0
         },
@@ -10426,7 +10340,7 @@
           ],
           "totalBalance": 44,
           "paid": false,
-          "invoiceTotal": 44
+          "totalAmount": 44
         },
         {
           "invoiceNumber": "C09",
@@ -10448,7 +10362,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 728.75,
+          "totalAmount": 728.75,
           "CashPayment": 728.75,
           "AccountPayment": 0
         },
@@ -10472,7 +10386,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 92.5,
+          "totalAmount": 92.5,
           "CashPayment": 92.5,
           "AccountPayment": 0
         },
@@ -10503,7 +10417,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 60,
+          "totalAmount": 60,
           "CashPayment": 60,
           "AccountPayment": 0
         },
@@ -10527,7 +10441,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 18.5,
+          "totalAmount": 18.5,
           "CashPayment": 18.5,
           "AccountPayment": 0
         },
@@ -10551,7 +10465,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 795,
+          "totalAmount": 795,
           "CashPayment": 795,
           "AccountPayment": 0
         },
@@ -10575,7 +10489,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1192.5,
+          "totalAmount": 1192.5,
           "CashPayment": 1192.5,
           "AccountPayment": 0
         },
@@ -10606,7 +10520,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 845.53,
+          "totalAmount": 845.53,
           "CashPayment": 0,
           "AccountPayment": 845.53
         },
@@ -10637,7 +10551,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 42.65,
+          "totalAmount": 42.65,
           "CashPayment": 0,
           "AccountPayment": 42.65
         },
@@ -10675,7 +10589,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 191.5,
+          "totalAmount": 191.5,
           "CashPayment": 191.5,
           "AccountPayment": 0
         },
@@ -10713,7 +10627,7 @@
           ],
           "totalBalance": 5978.25,
           "paid": false,
-          "invoiceTotal": 5978.25,
+          "totalAmount": 5978.25,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -10737,7 +10651,7 @@
           ],
           "totalBalance": 160,
           "paid": false,
-          "invoiceTotal": 160,
+          "totalAmount": 160,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -10768,7 +10682,7 @@
           ],
           "totalBalance": 760,
           "paid": false,
-          "invoiceTotal": 760,
+          "totalAmount": 760,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -10792,7 +10706,7 @@
           ],
           "totalBalance": 480,
           "paid": false,
-          "invoiceTotal": 480
+          "totalAmount": 480
         },
         {
           "invoiceNumber": "C22",
@@ -10835,7 +10749,7 @@
           ],
           "totalBalance": 357.5,
           "paid": false,
-          "invoiceTotal": 357.5,
+          "totalAmount": 357.5,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -10859,7 +10773,7 @@
           ],
           "totalBalance": 160,
           "paid": false,
-          "invoiceTotal": 160
+          "totalAmount": 160
         },
         {
           "invoiceNumber": "C24",
@@ -10909,7 +10823,7 @@
           ],
           "totalBalance": 243.25,
           "paid": false,
-          "invoiceTotal": 243.25,
+          "totalAmount": 243.25,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -10940,7 +10854,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 3095,
+          "totalAmount": 3095,
           "CashPayment": 3095,
           "AccountPayment": 0
         },
@@ -10971,7 +10885,7 @@
           ],
           "totalBalance": 618.75,
           "paid": false,
-          "invoiceTotal": 618.75,
+          "totalAmount": 618.75,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -11009,7 +10923,7 @@
           ],
           "totalBalance": 201,
           "paid": false,
-          "invoiceTotal": 201
+          "totalAmount": 201
         },
         {
           "invoiceNumber": "C30",
@@ -11031,7 +10945,7 @@
           ],
           "totalBalance": 978.75,
           "paid": false,
-          "invoiceTotal": 978.75
+          "totalAmount": 978.75
         },
         {
           "invoiceNumber": "C31",
@@ -11095,7 +11009,7 @@
           ],
           "totalBalance": 581.25,
           "paid": false,
-          "invoiceTotal": 581.25
+          "totalAmount": 581.25
         },
         {
           "invoiceNumber": "C32",
@@ -11117,7 +11031,7 @@
           ],
           "totalBalance": 160,
           "paid": false,
-          "invoiceTotal": 160
+          "totalAmount": 160
         },
         {
           "invoiceNumber": "C33",
@@ -11153,7 +11067,7 @@
           ],
           "totalBalance": 234,
           "paid": false,
-          "invoiceTotal": 234,
+          "totalAmount": 234,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -11184,7 +11098,7 @@
           ],
           "totalBalance": 1351.25,
           "paid": false,
-          "invoiceTotal": 1351.25,
+          "totalAmount": 1351.25,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -11215,7 +11129,7 @@
           ],
           "totalBalance": 170.6,
           "paid": false,
-          "invoiceTotal": 170.6,
+          "totalAmount": 170.6,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -11246,7 +11160,7 @@
           ],
           "totalBalance": 212.25,
           "paid": false,
-          "invoiceTotal": 212.25,
+          "totalAmount": 212.25,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -11305,7 +11219,7 @@
           ],
           "totalBalance": 867.75,
           "paid": false,
-          "invoiceTotal": 867.75,
+          "totalAmount": 867.75,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -11329,7 +11243,7 @@
           ],
           "totalBalance": 412.5,
           "paid": false,
-          "invoiceTotal": 412.5
+          "totalAmount": 412.5
         },
         {
           "invoiceNumber": "C39",
@@ -11358,7 +11272,7 @@
           ],
           "totalBalance": 510,
           "paid": false,
-          "invoiceTotal": 510
+          "totalAmount": 510
         },
         {
           "invoiceNumber": "C40",
@@ -11387,7 +11301,7 @@
           ],
           "totalBalance": 765,
           "paid": false,
-          "invoiceTotal": 765
+          "totalAmount": 765
         },
         {
           "invoiceNumber": "C41",
@@ -11430,7 +11344,7 @@
           ],
           "totalBalance": 2332.5,
           "paid": false,
-          "invoiceTotal": 2332.5,
+          "totalAmount": 2332.5,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -11468,7 +11382,7 @@
           ],
           "totalBalance": 180.5,
           "paid": false,
-          "invoiceTotal": 180.5
+          "totalAmount": 180.5
         },
         {
           "invoiceNumber": "C43",
@@ -11511,7 +11425,7 @@
           ],
           "totalBalance": 882.5,
           "paid": false,
-          "invoiceTotal": 882.5,
+          "totalAmount": 882.5,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -11577,7 +11491,7 @@
           ],
           "totalBalance": 476.5,
           "paid": false,
-          "invoiceTotal": 476.5,
+          "totalAmount": 476.5,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -11601,7 +11515,7 @@
           ],
           "totalBalance": 247.5,
           "paid": false,
-          "invoiceTotal": 247.5
+          "totalAmount": 247.5
         },
         {
           "invoiceNumber": "C46",
@@ -11651,38 +11565,7 @@
           ],
           "totalBalance": 1730,
           "paid": false,
-          "invoiceTotal": 1730,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
-          "invoiceNumber": "C47",
-          "companyName": "Cash",
-          "addressLine1": "90 Dayton Ave",
-          "addressLine2": "Bld 12",
-          "city": "Passaic",
-          "state": "NJ",
-          "zipCode": "07055",
-          "dateCreated": "10/11/2024",
-          "products": [
-            {
-              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty (Red Blue)",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 15,
-              "rate": 12.75,
-              "total": 191.25
-            },
-            {
-              "productName": "Freight",
-              "productCategory": "Industrial",
-              "quantity": 1,
-              "rate": 40,
-              "total": 40
-            }
-          ],
-          "totalBalance": 231.25,
-          "paid": false,
-          "invoiceTotal": 231.25,
+          "totalAmount": 1730,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -11799,11 +11682,12 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 931.75,
+          "totalAmount": 931.75,
           "CashPayment": 931.75,
           "AccountPayment": 0
         }
-      ]
+      ],
+      "taxable": false
     },
     {
       "id": 32,
@@ -11846,7 +11730,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 9904,
+          "totalAmount": 9904,
           "CashPayment": 0,
           "AccountPayment": 9904
         }
@@ -11942,7 +11826,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1968.75,
+          "totalAmount": 1968.75,
           "CashPayment": 1968.75,
           "AccountPayment": 0
         },
@@ -12029,7 +11913,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 1528.75,
+          "totalAmount": 1528.75,
           "CashPayment": 1000,
           "AccountPayment": 528.75
         },
@@ -12116,7 +12000,7 @@
           ],
           "totalBalance": 1989.5,
           "paid": false,
-          "invoiceTotal": 1989.5,
+          "totalAmount": 1989.5,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -12163,7 +12047,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 8850,
+          "totalAmount": 8850,
           "CashPayment": 8850,
           "AccountPayment": 0
         }
@@ -12217,7 +12101,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 97,
+          "totalAmount": 97,
           "CashPayment": 0,
           "AccountPayment": 97
         },
@@ -12255,7 +12139,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 176.75,
+          "totalAmount": 176.75,
           "CashPayment": 0,
           "AccountPayment": 176.75
         },
@@ -12321,7 +12205,7 @@
           ],
           "totalBalance": 336.25,
           "paid": false,
-          "invoiceTotal": 336.25,
+          "totalAmount": 336.25,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -12373,7 +12257,7 @@
           ],
           "totalBalance": 623.25,
           "paid": false,
-          "invoiceTotal": 623.25
+          "totalAmount": 623.25
         },
         {
           "invoiceNumber": "GCU05",
@@ -12416,7 +12300,7 @@
           ],
           "totalBalance": 296.75,
           "paid": false,
-          "invoiceTotal": 296.75
+          "totalAmount": 296.75
         }
       ]
     },
@@ -12454,7 +12338,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 876,
+          "totalAmount": 876,
           "CashPayment": 876,
           "AccountPayment": 0
         },
@@ -12478,7 +12362,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 3300,
+          "totalAmount": 3300,
           "CashPayment": 300,
           "AccountPayment": 3000
         }
@@ -12518,7 +12402,7 @@
           ],
           "totalBalance": 198.75,
           "paid": false,
-          "invoiceTotal": 198.75,
+          "totalAmount": 198.75,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -12803,7 +12687,7 @@
           ],
           "totalBalance": 800,
           "paid": false,
-          "invoiceTotal": 800,
+          "totalAmount": 800,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -12857,7 +12741,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 9274.25,
+          "totalAmount": 9274.25,
           "CashPayment": 0,
           "AccountPayment": 9274.25
         },
@@ -12902,7 +12786,7 @@
           ],
           "totalBalance": 4477.5,
           "paid": false,
-          "invoiceTotal": 4477.5,
+          "totalAmount": 4477.5,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -12926,7 +12810,7 @@
           ],
           "totalBalance": 2574,
           "paid": false,
-          "invoiceTotal": 2574,
+          "totalAmount": 2574,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -13006,7 +12890,7 @@
           ],
           "totalBalance": 210,
           "paid": false,
-          "invoiceTotal": 210,
+          "totalAmount": 210,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -13030,7 +12914,7 @@
           ],
           "totalBalance": 3060,
           "paid": false,
-          "invoiceTotal": 3060,
+          "totalAmount": 3060,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -13061,7 +12945,7 @@
           ],
           "totalBalance": 7576,
           "paid": false,
-          "invoiceTotal": 7576
+          "totalAmount": 7576
         }
       ]
     },
@@ -13099,7 +12983,7 @@
           ],
           "totalBalance": 0,
           "paid": true,
-          "invoiceTotal": 265,
+          "totalAmount": 265,
           "CashPayment": 265,
           "AccountPayment": 0
         },
@@ -13137,7 +13021,7 @@
           ],
           "totalBalance": 236.5,
           "paid": false,
-          "invoiceTotal": 236.5
+          "totalAmount": 236.5
         },
         {
           "invoiceNumber": "TLG03",
@@ -13159,7 +13043,7 @@
           ],
           "totalBalance": 168,
           "paid": false,
-          "invoiceTotal": 168
+          "totalAmount": 168
         },
         {
           "invoiceNumber": "TLG04",
@@ -13216,7 +13100,7 @@
           ],
           "totalBalance": 302.25,
           "paid": false,
-          "invoiceTotal": 302.25
+          "totalAmount": 302.25
         },
         {
           "invoiceNumber": "TLG05",
@@ -13238,7 +13122,7 @@
           ],
           "totalBalance": 165,
           "paid": false,
-          "invoiceTotal": 165
+          "totalAmount": 165
         }
       ]
     },
@@ -13290,7 +13174,7 @@
           ],
           "totalBalance": 10832.96,
           "paid": false,
-          "invoiceTotal": 10832.96,
+          "totalAmount": 10832.96,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -13429,7 +13313,7 @@
           ],
           "totalBalance": 10537,
           "paid": false,
-          "invoiceTotal": 10537,
+          "totalAmount": 10537,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -13532,7 +13416,7 @@
           ],
           "totalBalance": 892,
           "paid": false,
-          "invoiceTotal": 892,
+          "totalAmount": 892,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -13591,7 +13475,7 @@
           ],
           "totalBalance": 411.5,
           "paid": false,
-          "invoiceTotal": 411.5,
+          "totalAmount": 411.5,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -13650,7 +13534,7 @@
           ],
           "totalBalance": 482,
           "paid": false,
-          "invoiceTotal": 482,
+          "totalAmount": 482,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -13914,7 +13798,7 @@
           ],
           "totalBalance": 674,
           "paid": false,
-          "invoiceTotal": 674,
+          "totalAmount": 674,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -14024,7 +13908,7 @@
           ],
           "totalBalance": 446.5,
           "paid": false,
-          "invoiceTotal": 446.5,
+          "totalAmount": 446.5,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14111,7 +13995,7 @@
           ],
           "totalBalance": 338,
           "paid": false,
-          "invoiceTotal": 338,
+          "totalAmount": 338,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14170,7 +14054,7 @@
           ],
           "totalBalance": 153,
           "paid": false,
-          "invoiceTotal": 153,
+          "totalAmount": 153,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -14238,7 +14122,7 @@
           ],
           "totalBalance": 221,
           "paid": false,
-          "invoiceTotal": 221,
+          "totalAmount": 221,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14297,7 +14181,7 @@
           ],
           "totalBalance": 330,
           "paid": false,
-          "invoiceTotal": 330,
+          "totalAmount": 330,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14349,7 +14233,7 @@
           ],
           "totalBalance": 197,
           "paid": false,
-          "invoiceTotal": 197,
+          "totalAmount": 197,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14394,7 +14278,7 @@
           ],
           "totalBalance": 224,
           "paid": false,
-          "invoiceTotal": 224,
+          "totalAmount": 224,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14446,7 +14330,7 @@
           ],
           "totalBalance": 298,
           "paid": false,
-          "invoiceTotal": 298,
+          "totalAmount": 298,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14505,7 +14389,7 @@
           ],
           "totalBalance": 272,
           "paid": false,
-          "invoiceTotal": 272,
+          "totalAmount": 272,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14578,7 +14462,7 @@
           ],
           "totalBalance": 346,
           "paid": false,
-          "invoiceTotal": 346,
+          "totalAmount": 346,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14637,7 +14521,7 @@
           ],
           "totalBalance": 220,
           "paid": false,
-          "invoiceTotal": 220,
+          "totalAmount": 220,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -14677,7 +14561,7 @@
           ],
           "totalBalance": 24,
           "paid": false,
-          "invoiceTotal": 24,
+          "totalAmount": 24,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14715,7 +14599,7 @@
           ],
           "totalBalance": 86,
           "paid": false,
-          "invoiceTotal": 86,
+          "totalAmount": 86,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14760,7 +14644,7 @@
           ],
           "totalBalance": 125,
           "paid": false,
-          "invoiceTotal": 125,
+          "totalAmount": 125,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14805,7 +14689,7 @@
           ],
           "totalBalance": 125,
           "paid": false,
-          "invoiceTotal": 125,
+          "totalAmount": 125,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14878,7 +14762,7 @@
           ],
           "totalBalance": 223,
           "paid": false,
-          "invoiceTotal": 223,
+          "totalAmount": 223,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -14930,7 +14814,7 @@
           ],
           "totalBalance": 200,
           "paid": false,
-          "invoiceTotal": 200,
+          "totalAmount": 200,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -15010,7 +14894,7 @@
           ],
           "totalBalance": 297,
           "paid": false,
-          "invoiceTotal": 297,
+          "totalAmount": 297,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -15069,7 +14953,7 @@
           ],
           "totalBalance": 215,
           "paid": false,
-          "invoiceTotal": 215,
+          "totalAmount": 215,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -15109,7 +14993,7 @@
           ],
           "totalBalance": 900,
           "paid": false,
-          "invoiceTotal": 900,
+          "totalAmount": 900,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -15156,7 +15040,7 @@
           ],
           "totalBalance": 3047.5,
           "paid": false,
-          "invoiceTotal": 3047.5,
+          "totalAmount": 3047.5,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -15203,7 +15087,7 @@
           ],
           "totalBalance": 561.5,
           "paid": false,
-          "invoiceTotal": 561.5
+          "totalAmount": 561.5
         }
       ]
     },
@@ -15262,7 +15146,7 @@
           ],
           "totalBalance": 68,
           "paid": false,
-          "invoiceTotal": 68,
+          "totalAmount": 68,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -15309,7 +15193,7 @@
           ],
           "totalBalance": 54,
           "paid": false,
-          "invoiceTotal": 54,
+          "totalAmount": 54,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -15361,7 +15245,7 @@
           ],
           "totalBalance": 211.5,
           "paid": false,
-          "invoiceTotal": 211.5,
+          "totalAmount": 211.5,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -15392,7 +15276,7 @@
           ],
           "totalBalance": 96,
           "paid": false,
-          "invoiceTotal": 96,
+          "totalAmount": 96,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -15481,7 +15365,7 @@
           ],
           "totalBalance": 907,
           "paid": false,
-          "invoiceTotal": 907,
+          "totalAmount": 907,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -15568,7 +15452,7 @@
           ],
           "totalBalance": 1122,
           "paid": false,
-          "invoiceTotal": 1122,
+          "totalAmount": 1122,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -15699,7 +15583,7 @@
           ],
           "totalBalance": 1095,
           "paid": false,
-          "invoiceTotal": 1095,
+          "totalAmount": 1095,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -15800,7 +15684,7 @@
           ],
           "totalBalance": 897,
           "paid": false,
-          "invoiceTotal": 897,
+          "totalAmount": 897,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -15887,7 +15771,7 @@
           ],
           "totalBalance": 673,
           "paid": false,
-          "invoiceTotal": 673,
+          "totalAmount": 673,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -15903,7 +15787,7 @@
           "products": [],
           "totalBalance": 0,
           "paid": false,
-          "invoiceTotal": 0
+          "totalAmount": 0
         }
       ]
     },
@@ -16039,7 +15923,7 @@
           ],
           "totalBalance": 1472,
           "paid": false,
-          "invoiceTotal": 1472,
+          "totalAmount": 1472,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -16189,7 +16073,7 @@
           ],
           "totalBalance": 1989,
           "paid": false,
-          "invoiceTotal": 1989,
+          "totalAmount": 1989,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -16264,7 +16148,7 @@
           ],
           "totalBalance": 141,
           "paid": false,
-          "invoiceTotal": 141,
+          "totalAmount": 141,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -16309,7 +16193,7 @@
           ],
           "totalBalance": 144,
           "paid": false,
-          "invoiceTotal": 144,
+          "totalAmount": 144,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -16375,7 +16259,7 @@
           ],
           "totalBalance": 211,
           "paid": false,
-          "invoiceTotal": 211,
+          "totalAmount": 211,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -16441,7 +16325,7 @@
           ],
           "totalBalance": 211,
           "paid": false,
-          "invoiceTotal": 211,
+          "totalAmount": 211,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -16507,7 +16391,7 @@
           ],
           "totalBalance": 225,
           "paid": false,
-          "invoiceTotal": 225,
+          "totalAmount": 225,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -16594,7 +16478,7 @@
           ],
           "totalBalance": 391,
           "paid": false,
-          "invoiceTotal": 391,
+          "totalAmount": 391,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -16653,7 +16537,7 @@
           ],
           "totalBalance": 185,
           "paid": false,
-          "invoiceTotal": 185,
+          "totalAmount": 185,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -16714,7 +16598,7 @@
           ],
           "totalBalance": 229,
           "paid": false,
-          "invoiceTotal": 229,
+          "totalAmount": 229,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -16831,7 +16715,7 @@
           ],
           "totalBalance": 450,
           "paid": false,
-          "invoiceTotal": 450,
+          "totalAmount": 450,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -16949,7 +16833,7 @@
           ],
           "totalBalance": 418,
           "paid": false,
-          "invoiceTotal": 418,
+          "totalAmount": 418,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -17004,7 +16888,7 @@
           ],
           "totalBalance": 318,
           "paid": false,
-          "invoiceTotal": 318,
+          "totalAmount": 318,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -17045,7 +16929,7 @@
           ],
           "totalBalance": 380,
           "paid": false,
-          "invoiceTotal": 380,
+          "totalAmount": 380,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -17076,7 +16960,7 @@
           ],
           "totalBalance": 248,
           "paid": false,
-          "invoiceTotal": 248,
+          "totalAmount": 248,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -17107,7 +16991,7 @@
           ],
           "totalBalance": 2070,
           "paid": false,
-          "invoiceTotal": 2070,
+          "totalAmount": 2070,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -17131,7 +17015,7 @@
           ],
           "totalBalance": 277.5,
           "paid": false,
-          "invoiceTotal": 277.5
+          "totalAmount": 277.5
         },
         {
           "invoiceNumber": "PAPNI05",
@@ -17153,7 +17037,7 @@
           ],
           "totalBalance": 1824,
           "paid": false,
-          "invoiceTotal": 1824,
+          "totalAmount": 1824,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -17193,7 +17077,7 @@
           ],
           "totalBalance": 1152,
           "paid": false,
-          "invoiceTotal": 1152,
+          "totalAmount": 1152,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -17366,7 +17250,7 @@
           ],
           "totalBalance": 1767.25,
           "paid": false,
-          "invoiceTotal": 1767.25,
+          "totalAmount": 1767.25,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -17434,7 +17318,7 @@
           ],
           "totalBalance": 1925.5,
           "paid": false,
-          "invoiceTotal": 1925.5
+          "totalAmount": 1925.5
         },
         {
           "invoiceNumber": "TPN02",
@@ -17477,7 +17361,7 @@
           ],
           "totalBalance": 2330,
           "paid": false,
-          "invoiceTotal": 2330,
+          "totalAmount": 2330,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -17515,7 +17399,7 @@
           ],
           "totalBalance": 3137.5,
           "paid": false,
-          "invoiceTotal": 3137.5,
+          "totalAmount": 3137.5,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -17612,7 +17496,7 @@
           ],
           "totalBalance": 349.25,
           "paid": false,
-          "invoiceTotal": 349.25,
+          "totalAmount": 349.25,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -17659,7 +17543,7 @@
           ],
           "totalBalance": 1612,
           "paid": false,
-          "invoiceTotal": 1612,
+          "totalAmount": 1612,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -17730,11 +17614,22 @@
               "quantity": 2,
               "rate": 13,
               "total": 26
+            },
+            {
+              "productName": "5 oz Translucent Drinking Cup 1200pcs",
+              "productCategory": "Plastic Drinking Cups",
+              "quantity": 2,
+              "rate": 15,
+              "total": 30
             }
           ],
-          "totalBalance": 570,
-          "paid": false,
-          "invoiceTotal": 570
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 600,
+          "CashPayment": 0,
+          "AccountPayment": 600,
+          "salesTax": null,
+          "subtotal": 600
         }
       ]
     }
@@ -22879,7 +22774,7 @@
           "autoPricing": "autoPriceRetail"
         }
       ],
-      "invoiceTotal": 3162.5,
+      "totalAmount": 3162.5,
       "accountBalance": 3162.5,
       "paid": false
     },
@@ -22913,7 +22808,7 @@
           "autoPricing": "autoPriceRetail"
         }
       ],
-      "invoiceTotal": 4491.2,
+      "totalAmount": 4491.2,
       "accountBalance": 4491.2,
       "paid": false
     },
@@ -22933,7 +22828,7 @@
           "autoPricing": "autoPriceRetail"
         }
       ],
-      "invoiceTotal": 381.25,
+      "totalAmount": 381.25,
       "accountBalance": 381.25,
       "paid": false
     },
@@ -22964,7 +22859,7 @@
       ],
       "subtotal": "31.00",
       "salesTax": "0.83",
-      "invoiceTotal": "31.83",
+      "totalAmount": "31.83",
       "totalBalance": "31.83",
       "paid": false
     },
@@ -22988,7 +22883,7 @@
       ],
       "subtotal": "12.50",
       "salesTax": "0.83",
-      "invoiceTotal": "13.33",
+      "totalAmount": "13.33",
       "totalBalance": "13.33",
       "paid": false
     },
@@ -23019,7 +22914,7 @@
       ],
       "subtotal": "31.00",
       "salesTax": "0.83",
-      "invoiceTotal": "31.83",
+      "totalAmount": "31.83",
       "totalBalance": "31.83",
       "paid": false
     }

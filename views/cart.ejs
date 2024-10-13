@@ -85,42 +85,37 @@
     </form>
 
     <script>
-        // Function to calculate subtotal, sales tax, and total amount
-        function calculateCartTotals() {
-            let subtotal = 0;
-            let salesTax = 0;
+    // Get user's taxable status from server-side
+    const userTaxable = <%= userTaxable %>;
 
-            document.querySelectorAll('[id^="total_"]').forEach(totalElement => {
-                const totalText = totalElement.textContent.replace('$', '');
-                const total = parseFloat(totalText);
-                const isTaxable = totalElement.getAttribute('data-taxable') === 'true';
+    // Function to calculate subtotal, sales tax, and total amount
+    function calculateCartTotals() {
+        let subtotal = 0;
+        let salesTax = 0;
 
-                subtotal += total;
-                if (isTaxable) {
-                    salesTax += total * 0.06625; // Apply 6.625% sales tax only to taxable items
-                }
-            });
+        document.querySelectorAll('[id^="total_"]').forEach(totalElement => {
+            const totalText = totalElement.textContent.replace('$', '');
+            const total = parseFloat(totalText);
+            const isTaxable = totalElement.getAttribute('data-taxable') === 'true';
 
-            const totalAmount = subtotal + salesTax;
+            subtotal += total;
 
-            return {
-                subtotal: subtotal.toFixed(2),
-                salesTax: salesTax.toFixed(2),
-                totalAmount: totalAmount.toFixed(2)
-            };
-        }
+            // Apply sales tax only if both user is taxable and item is taxable
+            if (userTaxable && isTaxable) {
+                salesTax += total * 0.06625; // Apply 6.625% sales tax only to taxable items
+            }
+        });
 
-        // Function to update cart totals on the page
-        function updateCartTotals() {
-            const totals = calculateCartTotals();
-            document.getElementById('subtotal').textContent = totals.subtotal;
-            document.getElementById('salesTax').textContent = totals.salesTax;
-            document.getElementById('totalAmount').textContent = totals.totalAmount;
-        }
+        const totalAmount = subtotal + salesTax;
 
-        // Initial update of total amount
-        updateCartTotals();
+        // Update the values on the page
+        document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+        document.getElementById('salesTax').textContent = salesTax.toFixed(2);
+        document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+    }
 
+    // Initial update of total amount
+    calculateCartTotals();
         // Function to remove item from cart
         function removeItem(itemId) {
         fetch('/delete-cart-item', {

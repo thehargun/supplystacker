@@ -18,8 +18,8 @@ let purchases = []
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(session({
     secret: 'secret123',
     resave: true,
@@ -384,7 +384,7 @@ app.get('/cart', (req, res) => {
         let itemTotal = item.price * item.quantity;
         subtotal += itemTotal;
 
-        // If user is taxable and item is taxable, calculate the sales tax
+        // Apply tax only if the user is taxable and the item is taxable
         if (user.taxable && item.taxableItem) {
             salesTax += itemTotal * 0.06625; // 6.625% tax
         }
@@ -397,9 +397,11 @@ app.get('/cart', (req, res) => {
         cart: cart,
         subtotal: subtotal.toFixed(2),
         salesTax: salesTax.toFixed(2),
-        totalAmount: totalAmount.toFixed(2)
+        totalAmount: totalAmount.toFixed(2),
+        userTaxable: user.taxable // Pass user's taxable status to the template
     });
 });
+
 
 
 app.get('/register', (req, res) => {
@@ -512,29 +514,52 @@ app.get('/admin/invoices/:invoiceNumber', (req, res) => {
     const invoiceNumber = req.params.invoiceNumber;
     let invoiceDetails = null;
 
-    users.forEach(user => {
-        if (user.invoices && user.invoices.length > 0) {
-            const invoice = user.invoices.find(inv => inv.invoiceNumber === invoiceNumber);
-            if (invoice) {
-                invoiceDetails = invoice;
-            }
+    // Load users and inventory from data.json
+    fs.readFile('./data.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error("Error reading data.json:", err);
+            return res.status(500).send('Error reading data.');
         }
+
+        let users, inventory;
+
+        try {
+            const jsonData = JSON.parse(data);
+            users = jsonData.users;
+            inventory = jsonData.inventory;
+        } catch (parseError) {
+            console.error("Error parsing JSON:", parseError);
+            return res.status(500).send('Data format error.');
+        }
+
+        // Find the requested invoice and customer price level
+        let customerPriceLevel = null;
+        users.forEach(user => {
+            if (user.invoices && user.invoices.length > 0) {
+                const invoice = user.invoices.find(inv => inv.invoiceNumber === invoiceNumber);
+                if (invoice) {
+                    invoiceDetails = invoice;
+                    customerPriceLevel = user.priceLevel;  // Get the price level of the customer
+                }
+            }
+        });
+
+        if (!invoiceDetails) {
+            return res.status(404).send('Invoice not found.');
+        }
+
+        // Pass the invoice details, inventory (available products), and customer price level to the template
+        res.render('invoice-details', {
+            invoice: invoiceDetails,
+            availableProducts: inventory,
+            customerPriceLevel: customerPriceLevel
+        });
     });
-
-    if (!invoiceDetails) {
-        return res.status(404).send('Invoice not found.');
-    }
-
-    res.render('invoice-details', { invoice: invoiceDetails, inventory: inventory });
 });
 
 
 
-
-    app.post('/admin/invoices/:invoiceNumber', (req, res) => {
-        // Log the entire request body for debugging
-        console.log("Received request body:", req.body);
-    
+app.post('/admin/invoices/:invoiceNumber', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.status(403).send('Access denied.');
     }
@@ -557,72 +582,18 @@ app.get('/admin/invoices/:invoiceNumber', (req, res) => {
         return res.status(404).send('Invoice not found.');
     }
 
-    // Update sales tax and recalculate total balance
-    const updatedInvoice = users[userIndex].invoices[invoiceIndex];
-    
-    // Parse and validate sales tax from request body
-    let salesTaxRaw = req.body.salesTax;
-    console.log("Raw sales tax value received:", salesTaxRaw);
+    // Update invoice details
+    const updatedInvoice = req.body;
+    users[userIndex].invoices[invoiceIndex] = {
+        ...users[userIndex].invoices[invoiceIndex],
+        ...updatedInvoice,
+        products: updatedInvoice.products // Update products array
+    };
 
-    let salesTax = parseFloat(salesTaxRaw);
-    if (isNaN(salesTax) || salesTax < 0) {
-        console.error("Sales tax value is not a valid number, defaulting to 0");
-        salesTax = 0;
-    }
-    updatedInvoice.salesTax = salesTax;
-
-    console.log("Parsed and validated sales tax from request body:", salesTax);
-
-    let subtotal = 0;
-
-    // Parse req.body.products if it is a string
-    let products;
-    try {
-        products = typeof req.body.products === 'string' ? JSON.parse(req.body.products) : req.body.products;
-    } catch (error) {
-        console.error("Failed to parse products:", error);
-        products = [];
-    }
-
-    console.log("Parsed products from request body:", products);
-
-    if (Array.isArray(products) && products.length > 0) {
-        updatedInvoice.products = products.map((product, index) => {
-            const quantity = parseInt(product.quantity, 10) || 1;
-            const rate = parseFloat(product.rate) || 0;
-            const productName = product.productName || updatedInvoice.products[index]?.productName || '';
-            const productCategory = product.productCategory || updatedInvoice.products[index]?.productCategory || '';
-            const total = (quantity * rate).toFixed(2);
-            subtotal += parseFloat(total);
-
-            console.log(`Product ${index + 1}:`, { productName, productCategory, quantity, rate, total });
-
-            return {
-                productName: productName,
-                productCategory: productCategory,
-                quantity: quantity,
-                rate: rate,
-                total: total
-            };
-        });
-    } else {
-        console.error("Products data is not in the expected format or is empty.");
-    }
-
-    updatedInvoice.subtotal = parseFloat(subtotal.toFixed(2));
-    updatedInvoice.totalAmount = parseFloat((subtotal + updatedInvoice.salesTax).toFixed(2));
-    updatedInvoice.totalBalance = parseFloat(updatedInvoice.totalAmount);
-
-    console.log("Updated Invoice:", updatedInvoice);
-    
-    updatedInvoice.totalAmount = (parseFloat(updatedInvoice.subtotal) + updatedInvoice.salesTax).toFixed(2);
-    updatedInvoice.totalBalance = updatedInvoice.totalAmount;
-
-    // Save changes to data.json
     saveData();
-
-    res.redirect(`/admin/invoices/${invoiceNumber}`);
+    res.status(200).send('Invoice updated successfully');
 });
+
 
 app.post('/admin/invoices/print/:invoiceNumber', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
@@ -709,6 +680,33 @@ app.get('/admin/invoices/delete/:invoiceNumber', (req, res) => {
     res.redirect('/admin/invoices');
 });
 
+app.get('/admin/manage-payment/invoices/delete/:invoiceNumber', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+
+    const invoiceNumber = req.params.invoiceNumber;
+    let invoiceFound = false;
+
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            const invoiceIndex = user.invoices.findIndex(inv => inv.invoiceNumber === invoiceNumber);
+            if (invoiceIndex !== -1) {
+                user.invoices.splice(invoiceIndex, 1);
+                invoiceFound = true;
+            }
+        }
+    });
+
+    if (!invoiceFound) {
+        return res.status(404).send('Invoice not found.');
+    }
+
+    // Save updated data to data.json
+    saveData();
+
+    res.redirect('/admin/manage-payment');
+});
 
 app.delete('/remove-from-cart/:id', (req, res) => {
     const itemId = parseInt(req.params.id);
@@ -823,8 +821,8 @@ app.get('/checkout', (req, res) => {
         let itemTotal = item.price * item.quantity;
         subtotal += itemTotal;
 
-        // If the item is taxable, calculate the sales tax
-        if (item.taxableItem) {
+        // If the user is taxable and the item is taxable, calculate the sales tax
+        if (user.taxable && item.taxableItem) {
             salesTax += itemTotal * 0.06625; // 6.625% tax
         }
     });
@@ -858,14 +856,15 @@ app.post('/checkout', async (req, res) => {
         let itemTotal = item.price * item.quantity;
         subtotal += itemTotal;
 
-        // If the item is taxable, calculate the sales tax
-        if (item.taxableItem) {
+        // If the user is taxable and the item is taxable, calculate the sales tax
+        if (user.taxable && item.taxableItem) {
             salesTax += itemTotal * 0.06625; // 6.625% tax
         }
     });
 
     let totalAmount = subtotal + salesTax;
 
+    // Create the invoice details, ensuring all values are numbers, not strings
     const invoiceDetails = {
         invoiceNumber,
         companyName: user.company,
@@ -878,15 +877,17 @@ app.post('/checkout', async (req, res) => {
         products: req.session.cart.map(item => ({
             productName: item.itemName,
             productCategory: item.itemCategory,
-            quantity: item.quantity,
-            rate: item.price,
-            total: (item.quantity * item.price).toFixed(2)
+            quantity: item.quantity,  // Numeric value
+            rate: item.price,         // Numeric value
+            total: item.quantity * item.price  // Numeric value
         })),
-        subtotal: subtotal.toFixed(2),
-        salesTax: salesTax.toFixed(2),
-        totalAmount: totalAmount.toFixed(2),
-        totalBalance: totalAmount.toFixed(2),
-        paid: false
+        subtotal: subtotal,            // Numeric value
+        salesTax: salesTax,            // Numeric value
+        totalAmount: totalAmount,      // Numeric value
+        totalBalance: totalAmount,     // Numeric value
+        paid: false,
+        CashPayment: 0,                // Default as a numeric value
+        AccountPayment: 0              // Default as a numeric value
     };
 
     // Push the new invoice to the user's invoice list
@@ -907,7 +908,7 @@ app.post('/checkout', async (req, res) => {
     // Update session user data to reflect the new invoice
     req.session.user = user;
 
-    // Save data to data.json
+    // Save data to data.json (implement saveData function accordingly)
     saveData();
 
     // Clear the cart after checkout
@@ -928,9 +929,6 @@ app.post('/submit-order', async (req, res) => {
     // Extract the user object from the session
     let user = req.session.user;
 
-    // Debugging to see what data is available in the user object
-    console.log("User data from session:", user);
-
     // Ensure that user.invoices is properly initialized as an array
     if (!user.invoices) {
         console.error("User invoices not found, initializing to an empty array.");
@@ -940,15 +938,11 @@ app.post('/submit-order', async (req, res) => {
         user.invoices = [];
     }
 
-    // Debugging to see if user invoices are properly initialized
-    console.log("User invoices after initialization:", user.invoices);
-
     try {
         // Generate the next invoice number using the generateInvoiceNumber function
         const invoiceNumber = generateInvoiceNumber(user.company);
 
         // Debugging to see the generated invoice number
-        console.log("Generated invoice number:", invoiceNumber);
 
         const invoiceDetails = {
             invoiceNumber,
@@ -1173,12 +1167,8 @@ app.post('/admin/purchases', (req, res) => {
         return res.status(400).send('No products provided.');
     }
 
-    console.log('Received Products:', products);  // Debugging line
-    console.log('Current Inventory:', inventory);  // Debugging line
-
     products.forEach(product => {
         const itemIndex = inventory.findIndex(item => item.itemName === product.productName);
-        console.log('Product Name:', product.productName, 'Index Found:', itemIndex); // Debugging line
     
         if (itemIndex >= 0) {
             inventory[itemIndex].cost = parseFloat(product.rate);

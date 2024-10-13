@@ -126,7 +126,7 @@
                 <tr>
                     <td><a href="/admin/invoices/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
                     <td><%= new Date(invoice.dateCreated).toDateString() %></td>
-                    <td>$<%= (typeof invoice.invoiceTotal === 'number' ? invoice.invoiceTotal.toFixed(2) : '0.00') %></td>
+                    <td>$<%= (typeof invoice.totalAmount === 'number' ? invoice.totalAmount.toFixed(2) : '0.00') %></td>
                     <td>$<%= (typeof invoice.totalBalance === 'number' ? invoice.totalBalance.toFixed(2) : '0.00') %></td>
                     <td>
                         <a href="/admin/invoices/delete/<%= invoice.invoiceNumber %>" class="button button-delete">Delete</a>

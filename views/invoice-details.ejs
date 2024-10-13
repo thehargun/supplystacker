@@ -128,12 +128,12 @@
                 </div>
                 <div class="form-group">
                     <label>Invoice Total:</label>
-                    <p>$<%= invoice.invoiceTotal ? invoice.invoiceTotal.toFixed(2) : '0.00' %></p>
-                </div>
+                    <p>$<%= (typeof invoice.totalAmount === 'number' ? invoice.totalAmount.toFixed(2) : parseFloat(invoice.totalAmount).toFixed(2)) %></p>
+                </div>   
                 <div class="form-group">
                     <label>Total Balance:</label>
-                    <p>$<%= invoice.totalBalance ? invoice.totalBalance.toFixed(2) : '0.00' %></p>
-                </div>
+                    <p>$<%= (typeof invoice.totalBalance === 'number' ? invoice.totalBalance.toFixed(2) : parseFloat(invoice.totalBalance).toFixed(2)) %></p>
+                </div>                
                 <div class="form-group">
                     <label>Paid:</label>
                     <p><%= invoice.paid ? 'Yes' : 'No' %></p>
@@ -169,9 +169,24 @@
                 <button type="button" class="add-product-btn" onclick="addProduct()">Add Product</button>
             </div>
 
-            <div class="total-display">
-                Total: $<span id="totalAmount"><%= invoice.invoiceTotal ? invoice.invoiceTotal.toFixed(2) : '0.00' %></span>
+            <!-- Editable Sales Tax -->
+            <div class="form-group">
+                <label>Sales Tax:</label>
+                <input type="number" name="salesTax" id="salesTax" step="0.01" value="<%= invoice.salesTax %>" onchange="updateTotal()" />
             </div>
+
+            <!-- Subtotal -->
+            <div class="form-group">
+                <label>Subtotal:</label>
+                <span id="subtotal">$<%= invoice.subtotal %></span>
+            </div>
+
+            <!-- Total Amount -->
+            <div class="form-group">
+                <label>Total Amount:</label>
+                <span id="totalAmount">$<%= (parseFloat(invoice.subtotal) + parseFloat(invoice.salesTax)).toFixed(2) %></span>
+            </div>
+
             <div>
                 <input type="text" id="priceMultiplier" placeholder="Enter price multiplier">
                 <button type="button" id="increasePriceButton">Increase Price</button>
@@ -184,75 +199,30 @@
     </div>
 
     <script>
-    function updateTotalBalance() {
-        const invoiceTotal = parseFloat(document.getElementById('invoiceTotal').innerText);
-        const cashPayment = parseFloat(document.getElementById('cashPayment').innerText);
-        const accountPayment = parseFloat(document.getElementById('accountPayment').innerText);
-        const totalBalance = invoiceTotal - cashPayment - accountPayment;
-        document.getElementById('totalBalance').innerText = totalBalance.toFixed(2);
-        document.getElementById('paidStatus').innerText = totalBalance <= 0 ? 'Paid' : 'Unpaid';
-    }
-    
-        const inventory = <%- JSON.stringify(inventory) %>;
-
-        function deleteProduct(index) {
-            const row = document.querySelector(`tr[data-index='${index}']`);
-            if (row) {
-                row.remove();
-                updateTotal();
-            }
-        }
-
-        function addProduct() {
-            const tbody = document.getElementById('productsTableBody');
-            const rowCount = tbody.rows.length;
-            const newRow = document.createElement('tr');
-            newRow.dataset.index = rowCount;
-            newRow.innerHTML = `
-                <td>
-                    <select name="productName" data-index="${rowCount}" class="productName" onchange="updateProductDetails(${rowCount})">
-                        <option value="">Select Product</option>
-                        <% inventory.forEach(item => { %>
-                            <option value="<%= item.itemName %>"><%= item.itemName %></option>
-                        <% }); %>
-                    </select>
-                </td>
-                <td class="productCategory"></td>
-                <td><input type="number" name="quantity" data-index="${rowCount}" class="quantity" oninput="updateProductTotal(${rowCount})"></td>
-                <td><input type="number" name="rate" data-index="${rowCount}" class="rate" step="0.01" oninput="updateProductTotal(${rowCount})"></td>
-                <td class="total"></td>
-                <td><button type="button" class="delete-btn" onclick="deleteProduct(${rowCount})">Delete</button></td>
-            `;
-            tbody.appendChild(newRow);
-        }
-
-        function updateProductDetails(index) {
-            const productName = document.querySelector(`select[name='productName'][data-index='${index}']`).value;
-            const product = inventory.find(item => item.itemName === productName);
-            if (product) {
-                document.querySelector(`tr[data-index='${index}'] .productCategory`).textContent = product.itemCategory;
-                document.querySelector(`input[name='rate'][data-index='${index}']`).value = product.priceLevel2; // Assuming priceLevel1 for simplicity
-            }
-            updateProductTotal(index);
-        }
-
-        function updateProductTotal(index) {
-            const row = document.querySelector(`tr[data-index='${index}']`);
-            const quantity = parseFloat(row.querySelector(`input[name='quantity']`).value) || 0;
-            const rate = parseFloat(row.querySelector(`input[name='rate']`).value) || 0;
-            const total = quantity * rate;
-            row.querySelector('.total').textContent = total.toFixed(2);
-            updateTotal();
-        }
-
         function updateTotal() {
-            let total = 0;
+            let subtotal = 0;
+
+            // Calculate the subtotal by summing up all the product totals
             document.querySelectorAll('#productsTableBody tr').forEach(row => {
                 const rowTotal = parseFloat(row.querySelector('.total').textContent) || 0;
-                total += rowTotal;
+                subtotal += rowTotal;
             });
-            document.getElementById('totalAmount').textContent = total.toFixed(2);
+
+            // Update the displayed subtotal
+            document.getElementById('subtotal').innerText = "$" + subtotal.toFixed(2);
+
+            // Get the sales tax value
+            const salesTax = parseFloat(document.getElementById("salesTax").value) || 0;
+
+            // Calculate the total amount (subtotal + sales tax)
+            const totalAmount = subtotal + salesTax;
+
+            // Update the displayed total amount
+            document.getElementById("totalAmount").innerText = "$" + totalAmount.toFixed(2);
         }
+
+        // Update total on page load
+        updateTotal();
 
         document.getElementById('invoiceForm').addEventListener('submit', function (event) {
             event.preventDefault();
@@ -304,55 +274,54 @@
         });
 
         function printInvoice() {
-    const formData = new FormData(document.getElementById('invoiceForm'));
-    const products = [];
-    document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
-        const productName = row.querySelector(`select[name='productName']`) ? row.querySelector(`select[name='productName']`).value : row.cells[0].textContent;
-        const productCategory = row.cells[1].textContent;
-        const quantity = row.querySelector(`input[name='quantity']`).value;
-        const rate = row.querySelector(`input[name='rate']`).value;
-        const total = quantity * rate;
-        products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
-    });
+            const formData = new FormData(document.getElementById('invoiceForm'));
+            const products = [];
+            document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
+                const productName = row.querySelector(`select[name='productName']`) ? row.querySelector(`select[name='productName']`).value : row.cells[0].textContent;
+                const productCategory = row.cells[1].textContent;
+                const quantity = row.querySelector(`input[name='quantity']`).value;
+                const rate = row.querySelector(`input[name='rate']`).value;
+                const total = quantity * rate;
+                products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
+            });
 
-    let dateCreated = new Date(formData.get('dateCreated'));
-    dateCreated.setDate(dateCreated.getDate() - 1);
-    const formattedDate = dateCreated.toISOString().split('T')[0];
+            let dateCreated = new Date(formData.get('dateCreated'));
+            dateCreated.setDate(dateCreated.getDate() - 1);
+            const formattedDate = dateCreated.toISOString().split('T')[0];
 
-    const invoiceDetails = {
-        invoiceNumber: formData.get('invoiceNumber'),
-        companyName: formData.get('companyName'),
-        addressLine1: formData.get('addressLine1'),
-        addressLine2: formData.get('addressLine2'),
-        city: formData.get('city'),
-        state: formData.get('state'),
-        zipCode: formData.get('zipCode'),
-        dateCreated: formattedDate,  // Ensure the subtracted date is used here
-        CashPayment: formData.get('CashPayment'),
-        AccountPayment: formData.get('AccountPayment'),
-        products: products,
-        totalBalance: parseFloat(document.getElementById('totalAmount').textContent)
-    };
+            const invoiceDetails = {
+                invoiceNumber: formData.get('invoiceNumber'),
+                companyName: formData.get('companyName'),
+                addressLine1: formData.get('addressLine1'),
+                addressLine2: formData.get('addressLine2'),
+                city: formData.get('city'),
+                state: formData.get('state'),
+                zipCode: formData.get('zipCode'),
+                dateCreated: formattedDate,  // Ensure the subtracted date is used here
+                CashPayment: formData.get('CashPayment'),
+                AccountPayment: formData.get('AccountPayment'),
+                products: products,
+                totalBalance: parseFloat(document.getElementById('totalAmount').textContent.replace('$', ''))
+            };
 
-    fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(invoiceDetails)
-    }).then(response => {
-        if (response.ok) {
-            alert('Invoice printed and emailed successfully.');
-        } else {
-            response.text().then(text => {
-                alert('Error printing invoice: ' + text);
+            fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(invoiceDetails)
+            }).then(response => {
+                if (response.ok) {
+                    alert('Invoice printed and emailed successfully.');
+                } else {
+                    response.text().then(text => {
+                        alert('Error printing invoice: ' + text);
+                    });
+                }
+            }).catch(error => {
+                alert('Error printing invoice: ' + error);
             });
         }
-    }).catch(error => {
-        alert('Error printing invoice: ' + error);
-    });
-}
-
 
         // Update total on page load
         updateTotal();
@@ -381,15 +350,119 @@
         function roundToNearestQuarter(value) {
             return Math.round(value * 4) / 4;
         }
-
-        function updateTotal() {
-            let total = 0;
-            document.querySelectorAll('#productsTableBody tr').forEach(row => {
-                const rowTotal = parseFloat(row.querySelector('.total').textContent) || 0;
-                total += rowTotal;
-            });
-            document.getElementById('totalAmount').textContent = total.toFixed(2);
-        }
     </script>
-</body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const invoiceForm = document.getElementById('invoiceForm');
+            const quantityInputs = document.querySelectorAll('.quantity');
+            const rateInputs = document.querySelectorAll('.rate');
+            const salesTaxElement = document.getElementById('salesTax');
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('totalAmount');
+
+            // Flag to prevent unnecessary recalculation during initialization
+            let isInitialized = false;
+
+            // Function to update invoice values
+            function updateInvoice() {
+                if (!isInitialized) {
+                    return; // Skip recalculation if still initializing
+                }
+
+                let subtotal = 0;
+
+                quantityInputs.forEach((input, index) => {
+                    const quantity = parseFloat(input.value) || 0;
+                    const rate = parseFloat(rateInputs[index].value) || 0;
+                    const itemSubtotal = quantity * rate;
+
+                    // Update individual product subtotal
+                    const productTotalElement = document.getElementById(`product-total-${index}`);
+                    if (productTotalElement) {
+                        productTotalElement.innerText = itemSubtotal.toFixed(2);
+                    }
+                    subtotal += itemSubtotal;
+                });
+
+                let salesTax = parseFloat(salesTaxElement.value);
+                if (isNaN(salesTax) || salesTax < 0) {
+                    salesTax = 0; // Ensure a valid sales tax value
+                }
+
+                console.log("Subtotal after calculation: ", subtotal);
+                console.log("Sales Tax Before Calculation: ", salesTax);
+
+                const total = subtotal + salesTax;
+
+                console.log("Total after calculation: ", total);
+
+                // Update subtotal and total elements
+                subtotalElement.innerText = "$" + subtotal.toFixed(2);
+                totalElement.innerText = "$" + total.toFixed(2);
+            }
+
+            // Attach event listeners to inputs to update invoice when changed
+            quantityInputs.forEach(input => {
+                input.addEventListener('input', updateInvoice);
+            });
+
+            rateInputs.forEach(input => {
+                input.addEventListener('input', updateInvoice);
+            });
+
+            salesTaxElement.addEventListener('input', updateInvoice);
+
+            // Update values on page load with initial data
+            function initializeInvoice() {
+                let subtotal = parseFloat("<%= invoice.subtotal %>") || 0;
+                let salesTax = parseFloat("<%= invoice.salesTax %>") || 0;
+                let totalAmount = parseFloat("<%= invoice.totalAmount %>") || 0;
+
+                console.log("Initializing invoice with values - Subtotal: ", subtotal, ", Sales Tax: ", salesTax, ", Total Amount: ", totalAmount);
+
+                subtotalElement.innerText = "$" + subtotal.toFixed(2);
+                totalElement.innerText = "$" + totalAmount.toFixed(2);
+                salesTaxElement.value = salesTax.toFixed(2);
+
+                // Mark initialization as complete
+                isInitialized = true;
+            }
+
+            // Initialize invoice with existing values from data
+            initializeInvoice();
+
+            // On form submit, explicitly set salesTax and recalculate totalAmount before submitting the form
+            invoiceForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission to verify data first
+
+                quantityInputs.forEach((input, index) => {
+                    const productNameElement = document.querySelector(`#productsTableBody tr[data-index="${index}"] .product-name`);
+                    const productCategoryElement = document.querySelector(`#productsTableBody tr[data-index="${index}"] .product-category`);
+
+                    input.setAttribute('name', `products[${index}][quantity]`);
+                    rateInputs[index].setAttribute('name', `products[${index}][rate]`);
+                    if (productNameElement) {
+                        productNameElement.setAttribute('name', `products[${index}][productName]`);
+                    }
+                    if (productCategoryElement) {
+                        productCategoryElement.setAttribute('name', `products[${index}][productCategory]`);
+                    }
+                });
+
+                salesTaxElement.setAttribute('name', 'salesTax');
+                salesTaxElement.value = parseFloat(salesTaxElement.value) || 0;
+
+                let subtotal = parseFloat(subtotalElement.innerText.replace('$', '')) || 0;
+                let totalAmount = subtotal + parseFloat(salesTaxElement.value);
+                totalElement.innerText = "$" + totalAmount.toFixed(2);
+                console.log("Total Amount Before Submission: ", totalAmount);
+
+                // Submit the form after setting totalAmount explicitly
+                invoiceForm.submit();
+            });
+        });
+    </script>
+    </body>
+    
 </html>

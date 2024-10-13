@@ -194,15 +194,23 @@ app.post('/admin/add-inventory', upload, (req, res) => {
         return res.send('Error: No file selected!');
     }
 
-    let { itemName, itemCategory, otherCategory, quantity, cost, priceLevel1, priceLevel2, priceLevel3, rank } = req.body;
+    let { itemName, itemCategory, otherCategory, quantity, cost, priceLevel1, priceLevel2, priceLevel3, rank, taxableItem } = req.body;
     const imageUrl = '/uploads/' + req.file.filename;
 
     if (itemCategory === 'Other' && otherCategory) {
         itemCategory = otherCategory;
     }
 
+    // Find the highest existing id
+    const highestId = inventory.reduce((maxId, currentItem) => {
+        return currentItem.id > maxId ? currentItem.id : maxId;
+    }, 0);
+
+    // Assign new id as highest id + 1
+    const newId = highestId + 1;
+
     inventory.push({
-        id: inventory.length + 1,
+        id: newId,
         itemName,
         itemCategory,
         cost: parseFloat(cost),
@@ -211,11 +219,14 @@ app.post('/admin/add-inventory', upload, (req, res) => {
         priceLevel2: parseFloat(priceLevel2),
         priceLevel3: parseFloat(priceLevel3),
         rank: 0,
-        imageUrl
+        imageUrl,
+        taxableItem: taxableItem === 'Yes'
     });
 
+    saveData();
     res.redirect('/admin/view-inventory');
 });
+
 
 app.get('/admin/edit-inventory/:id', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
@@ -233,8 +244,8 @@ app.post('/admin/edit-inventory/:id', upload, async (req, res) => {
         return res.status(404).send('Item not found.');
     }
 
+    // Update item properties
     const currentItem = inventory[itemIndex];
-
     currentItem.itemName = req.body.itemName || currentItem.itemName;
     currentItem.itemCategory = req.body.itemCategory || currentItem.itemCategory;
     currentItem.cost = req.body.cost ? parseFloat(req.body.cost) : currentItem.cost;
@@ -242,23 +253,21 @@ app.post('/admin/edit-inventory/:id', upload, async (req, res) => {
     currentItem.priceLevel1 = req.body.priceLevel1 ? parseFloat(req.body.priceLevel1) : currentItem.priceLevel1;
     currentItem.priceLevel2 = req.body.priceLevel2 ? parseFloat(req.body.priceLevel2) : currentItem.priceLevel2;
     currentItem.priceLevel3 = req.body.priceLevel3 ? parseFloat(req.body.priceLevel3) : currentItem.priceLevel3;
-    currentItem.vendors = req.body.vendors || currentItem.vendors;
-    currentItem.length = req.body.length ? parseFloat(req.body.length) : currentItem.length;
-    currentItem.width = req.body.width ? parseFloat(req.body.width) : currentItem.width;
-    currentItem.height = req.body.height ? parseFloat(req.body.height) : currentItem.height;
-    currentItem.weight = req.body.weight ? parseFloat(req.body.weight) : currentItem.weight;
-    currentItem.palletqty = req.body.palletqty ? parseInt(req.body.palletqty, 10) : currentItem.palletqty;
+    
+    // Fix for taxableItem update
+    currentItem.taxableItem = req.body.taxableItem === 'Yes';
 
     if (req.file) {
-        const newImageUrl = '/uploads/' + req.file.filename;
-        currentItem.imageUrl = newImageUrl;
+        currentItem.imageUrl = '/uploads/' + req.file.filename;
     }
 
+    // Update inventory item and save data
     inventory[itemIndex] = currentItem;
     saveData();
-
     res.redirect('/admin/view-inventory');
 });
+
+
 
 
 app.get('/admin/delete-inventory/:id', (req, res) => {
@@ -284,11 +293,7 @@ app.get('/admin/add-customer', (req, res) => {
 });
 
 app.post('/admin/add-customer', async (req, res) => {
-    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
-    }
-
-    const { email, password, company, phone, addressLine1, addressLine2, city, state, zipCode, priceLevel } = req.body;
+    const { email, password, company, phone, addressLine1, addressLine2, city, state, zipCode, priceLevel, taxable } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newCustomer = {
@@ -302,34 +307,44 @@ app.post('/admin/add-customer', async (req, res) => {
         city,
         state,
         zipCode,
-        priceLevel,
+        priceLevel: parseInt(priceLevel),
+        taxable: taxable === 'Yes',
         role: 'customer',
         invoices: []
     };
 
     users.push(newCustomer);
+    saveData();
     res.redirect('/admin/view-customers');
 });
 
+
+
+
+
 app.get('/products', (req, res) => {
-    if (!req.session.loggedIn) return res.send('Please log in.');
-
-    const userPriceLevel = req.session.user.priceLevel || '3';
-
-    // Sort inventory based on category rank and item rank
+    if (!req.session.loggedIn) {
+        return res.send('Please log in.');
+    }
     inventory.sort((a, b) => {
         const rankA = categoryRanks[a.itemCategory] || Infinity;
         const rankB = categoryRanks[b.itemCategory] || Infinity;
         return rankA === rankB ? a.rank - b.rank : rankA - rankB;
     });
+    const user = req.session.user;
+    const userPriceLevel = `priceLevel${user.priceLevel}`;
+    const finalPriceMultiplier = user.finalPrice || 1;
 
+    // Adjust inventory prices based on price level, apply finalPrice multiplier, and round to nearest .00, .25, .50, .75
     const adjustedInventory = inventory.map(item => ({
         ...item,
-        price: item[`priceLevel${userPriceLevel}`]
+        price: (Math.floor((item[userPriceLevel] * finalPriceMultiplier) * 4) / 4).toFixed(2)
     }));
 
     res.render('products', { inventory: adjustedInventory });
 });
+
+
 
 
 app.post('/add-to-cart', (req, res) => {
@@ -342,11 +357,11 @@ app.post('/add-to-cart', (req, res) => {
 
         const existingItemIndex = req.session.cart.findIndex(cartItem => cartItem.id == itemId);
         if (existingItemIndex !== -1) {
-            req.session.cart[existingItemIndex].quantity += parseInt(quantity, 10);
+            req.session.cart[existingItemIndex].quantity += parseFloat(quantity);
         } else {
             req.session.cart.push({
                 ...item,
-                quantity: parseInt(quantity, 10),
+                quantity: parseFloat(quantity),
                 price
             });
         }
@@ -354,10 +369,38 @@ app.post('/add-to-cart', (req, res) => {
     res.redirect('/cart');
 });
 
+
 app.get('/cart', (req, res) => {
     if (!req.session.loggedIn) return res.send('Please log in.');
-    res.render('cart', { cart: req.session.cart || [] });
+
+    let cart = req.session.cart || [];
+    let user = req.session.user;
+
+    // Calculate subtotal and tax
+    let subtotal = 0;
+    let salesTax = 0;
+
+    cart.forEach(item => {
+        let itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        // If user is taxable and item is taxable, calculate the sales tax
+        if (user.taxable && item.taxableItem) {
+            salesTax += itemTotal * 0.06625; // 6.625% tax
+        }
+    });
+
+    // Calculate total amount including sales tax
+    let totalAmount = subtotal + salesTax;
+
+    res.render('cart', {
+        cart: cart,
+        subtotal: subtotal.toFixed(2),
+        salesTax: salesTax.toFixed(2),
+        totalAmount: totalAmount.toFixed(2)
+    });
 });
+
 
 app.get('/register', (req, res) => {
     res.render('register');
@@ -399,30 +442,32 @@ app.get('/admin/edit-customer/:id', (req, res) => {
 
 app.post('/admin/edit-customer/:id', async (req, res) => {
     const customerId = parseInt(req.params.id);
+    const customerIndex = users.findIndex(user => user.id === customerId);
 
-    const updatedCustomer = {
-        id: customerId,
-        email: req.body.email,
-        password: req.body.password ? await bcrypt.hash(req.body.password, 10) : undefined,
-        company: req.body.company,
-        phone: req.body.phone,
-        addressLine1: req.body.addressLine1,
-        addressLine2: req.body.addressLine2,
-        city: req.body.city,
-        state: req.body.state,
-        zipCode: req.body.zipCode,
-        priceLevel: parseInt(req.body.priceLevel),
-    };
-
-    const index = users.findIndex(customer => customer.id === customerId);
-    if (index === -1) {
-        return res.send('Customer not found.');
+    if (customerIndex === -1) {
+        return res.status(404).send('Customer not found.');
     }
 
-    users[index] = { ...users[index], ...updatedCustomer };
+    // Update customer details
+    users[customerIndex].email = req.body.email;
+    users[customerIndex].company = req.body.company;
+    users[customerIndex].phone = req.body.phone;
+    users[customerIndex].addressLine1 = req.body.addressLine1;
+    users[customerIndex].addressLine2 = req.body.addressLine2;
+    users[customerIndex].city = req.body.city;
+    users[customerIndex].state = req.body.state;
+    users[customerIndex].zipCode = req.body.zipCode;
+    users[customerIndex].priceLevel = parseInt(req.body.priceLevel);
+    users[customerIndex].taxable = req.body.taxable === 'Yes';
 
+    saveData();
     res.redirect('/admin/view-customers');
 });
+
+
+
+
+
 
 const parseInvoiceNumber = (invoiceNumber) => {
     const match = invoiceNumber.match(/([A-Za-z]+)(\d+)/);
@@ -485,7 +530,11 @@ app.get('/admin/invoices/:invoiceNumber', (req, res) => {
 
 
 
-app.post('/admin/invoices/:invoiceNumber', (req, res) => {
+
+    app.post('/admin/invoices/:invoiceNumber', (req, res) => {
+        // Log the entire request body for debugging
+        console.log("Received request body:", req.body);
+    
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.status(403).send('Access denied.');
     }
@@ -493,80 +542,83 @@ app.post('/admin/invoices/:invoiceNumber', (req, res) => {
     const invoiceNumber = req.params.invoiceNumber;
     let userIndex = null;
     let invoiceIndex = null;
-    let updatedInvoice = null;
 
     users.forEach((user, uIndex) => {
         if (user.invoices && user.invoices.length > 0) {
             const foundInvoiceIndex = user.invoices.findIndex(inv => inv.invoiceNumber === invoiceNumber);
             if (foundInvoiceIndex !== -1) {
-                updatedInvoice = user.invoices[foundInvoiceIndex];
                 userIndex = uIndex;
                 invoiceIndex = foundInvoiceIndex;
             }
         }
     });
 
-    if (!updatedInvoice) {
+    if (userIndex === null || invoiceIndex === null) {
         return res.status(404).send('Invoice not found.');
     }
 
-    // Update invoice number
-    if (req.body.invoiceNumber) {
-        updatedInvoice.invoiceNumber = req.body.invoiceNumber;
+    // Update sales tax and recalculate total balance
+    const updatedInvoice = users[userIndex].invoices[invoiceIndex];
+    
+    // Parse and validate sales tax from request body
+    let salesTaxRaw = req.body.salesTax;
+    console.log("Raw sales tax value received:", salesTaxRaw);
+
+    let salesTax = parseFloat(salesTaxRaw);
+    if (isNaN(salesTax) || salesTax < 0) {
+        console.error("Sales tax value is not a valid number, defaulting to 0");
+        salesTax = 0;
     }
+    updatedInvoice.salesTax = salesTax;
 
-    // Update invoice fields only if they have changed
-    const fieldsToUpdate = ['companyName', 'addressLine1', 'addressLine2', 'city', 'state', 'zipCode', 'dateCreated', 'CashPayment', 'AccountPayment'];
-    fieldsToUpdate.forEach(field => {
-        if (req.body[field] !== undefined && req.body[field] !== null) {
-            if (field === 'CashPayment' || field === 'AccountPayment') {
-                updatedInvoice[field] = parseFloat(req.body[field]) || 0; // Ensure CashPayment and AccountPayment are numbers
-            } else if (field === 'dateCreated') {
-                let date = new Date(req.body[field]);
-                date.setDate(date.getDate()-1); // Increment the date by 1 day
-                updatedInvoice[field] = date.toLocaleDateString('en-US');
-            } else {
-                updatedInvoice[field] = req.body[field];
-            }
-        }
-    });
+    console.log("Parsed and validated sales tax from request body:", salesTax);
 
-    // Log the raw product data
-    console.log("Raw product data:", req.body.products);
+    let subtotal = 0;
 
-    // Parse and update products
+    // Parse req.body.products if it is a string
     let products;
     try {
-        products = JSON.parse(req.body.products);
-        console.log("Parsed products:", products);  // Log parsed products
+        products = typeof req.body.products === 'string' ? JSON.parse(req.body.products) : req.body.products;
     } catch (error) {
-        console.error("Error parsing product data:", error);  // Log the error
-        return res.status(400).send('Invalid product data.');
+        console.error("Failed to parse products:", error);
+        products = [];
     }
 
-    // Ensure all required fields in products are present
-    const validProducts = products.every(product => 
-        product.productName && product.productCategory && !isNaN(product.quantity) && !isNaN(product.rate) && !isNaN(product.total)
-    );
+    console.log("Parsed products from request body:", products);
 
-    if (!validProducts) {
-        console.error("Invalid product data structure:", products);  // Log invalid products
-        return res.status(400).send('Invalid product data.');
+    if (Array.isArray(products) && products.length > 0) {
+        updatedInvoice.products = products.map((product, index) => {
+            const quantity = parseInt(product.quantity, 10) || 1;
+            const rate = parseFloat(product.rate) || 0;
+            const productName = product.productName || updatedInvoice.products[index]?.productName || '';
+            const productCategory = product.productCategory || updatedInvoice.products[index]?.productCategory || '';
+            const total = (quantity * rate).toFixed(2);
+            subtotal += parseFloat(total);
+
+            console.log(`Product ${index + 1}:`, { productName, productCategory, quantity, rate, total });
+
+            return {
+                productName: productName,
+                productCategory: productCategory,
+                quantity: quantity,
+                rate: rate,
+                total: total
+            };
+        });
+    } else {
+        console.error("Products data is not in the expected format or is empty.");
     }
 
-    updatedInvoice.products = products;
+    updatedInvoice.subtotal = parseFloat(subtotal.toFixed(2));
+    updatedInvoice.totalAmount = parseFloat((subtotal + updatedInvoice.salesTax).toFixed(2));
+    updatedInvoice.totalBalance = parseFloat(updatedInvoice.totalAmount);
 
-    // Calculate invoiceTotal
-    updatedInvoice.invoiceTotal = products.reduce((sum, product) => sum + product.total, 0);
+    console.log("Updated Invoice:", updatedInvoice);
+    
+    updatedInvoice.totalAmount = (parseFloat(updatedInvoice.subtotal) + updatedInvoice.salesTax).toFixed(2);
+    updatedInvoice.totalBalance = updatedInvoice.totalAmount;
 
-    // Calculate and update totalBalance and paid status
-    updatedInvoice.totalBalance = updatedInvoice.invoiceTotal - updatedInvoice.CashPayment - updatedInvoice.AccountPayment;
-    updatedInvoice.paid = updatedInvoice.totalBalance <= 0;
-
-    // Update the user's invoice
-    users[userIndex].invoices[invoiceIndex] = updatedInvoice;
-
-    // Save updated data to data.json
+    // Save changes to data.json
     saveData();
 
     res.redirect(`/admin/invoices/${invoiceNumber}`);
@@ -668,56 +720,151 @@ app.delete('/remove-from-cart/:id', (req, res) => {
     res.sendStatus(204);
 });
 
-app.put('/update-cart/:id', (req, res) => {
-    const itemId = parseInt(req.params.id);
-    const newQuantity = parseInt(req.body.quantity);
-
-    if (!req.session.cart || !req.session.cart.length) {
-        return res.status(400).send('Cart is empty.');
+app.post('/update-cart', (req, res) => {
+    if (!req.session.cart) {
+        req.session.cart = [];
     }
 
-    const itemIndex = req.session.cart.findIndex(item => item.id === itemId);
-    if (itemIndex === -1) {
-        return res.status(404).send('Item not found in cart.');
-    }
+    const { itemId, quantity } = req.body;
 
-    req.session.cart[itemIndex].quantity = newQuantity;
-    res.sendStatus(204);
+    // Find the item in the cart and update its quantity
+    const itemIndex = req.session.cart.findIndex(item => item.id == itemId);
+    if (itemIndex !== -1) {
+        req.session.cart[itemIndex].quantity = parseFloat(quantity);
+
+        // Recalculate the subtotal, sales tax, and total amount
+        let subtotal = 0;
+        let salesTax = 0;
+
+        req.session.cart.forEach(item => {
+            let itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+
+            if (item.taxableItem) {
+                salesTax += itemTotal * 0.06625; // 6.625% tax
+            }
+        });
+
+        let totalAmount = subtotal + salesTax;
+
+        // Send the updated totals back to the client
+        res.json({
+            success: true,
+            subtotal,
+            salesTax,
+            totalAmount
+        });
+    } else {
+        res.status(404).send({ success: false, message: 'Item not found in cart.' });
+    }
 });
+
 
 app.get('/get-total-amount', (req, res) => {
     const totalAmount = req.session.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     res.json({ totalAmount });
 });
 
-function generateInvoiceNumber(company, lastInvoiceNumber) {
-    lastInvoiceNumber = typeof lastInvoiceNumber === 'number' ? lastInvoiceNumber : 0;
-    lastInvoiceNumber += 1;
-    const initials = company.split(' ').map(word => word[0]).join('').toUpperCase();
-    return `${initials}${String(lastInvoiceNumber).padStart(2, '0')}`;
+function generateInvoiceNumber(company) {
+    // Locate the user by company name
+    const user = users.find(user => user.company === company);
+    if (!user) {
+        throw new Error('User company information is missing.');
+    }
+
+    // Extract invoices for the user
+    const userInvoices = user.invoices || [];
+
+    if (userInvoices.length === 0) {
+        // If no invoices exist, start with 01
+        const initials = company.split(' ').map(word => word[0]).join('').toUpperCase();
+        return `${initials}01`;
+    }
+
+    // Extract the highest invoice number from user's invoices
+    const invoiceNumbers = userInvoices.map(inv => {
+        const { prefix, number } = parseInvoiceNumber(inv.invoiceNumber);
+        return { prefix, number };
+    });
+
+    const companyInitials = company.split(' ').map(word => word[0]).join('').toUpperCase();
+    let highestNumber = 0;
+
+    // Find the highest number for the same prefix
+    invoiceNumbers.forEach(inv => {
+        if (inv.prefix === companyInitials && inv.number > highestNumber) {
+            highestNumber = inv.number;
+        }
+    });
+
+    // Generate the next invoice number
+    const newInvoiceNumber = `${companyInitials}${String(highestNumber + 1).padStart(2, '0')}`;
+    return newInvoiceNumber;
 }
 
+
+
+
+
+
 app.get('/checkout', (req, res) => {
-    if (!req.session.user || !req.session.cart) {
-        return res.status(400).send('User is not logged in or cart is empty.');
+    if (!req.session.loggedIn) {
+        return res.redirect('/login'); // Redirect to login if not logged in
     }
-    const cart = req.session.cart;
-    const user = req.session.user;
-    user.invoices = user.invoices || [];
-    const invoiceNumber = generateInvoiceNumber(user.company, user.lastInvoiceNumber);
-    res.render('checkout', { invoiceNumber, cart });
+
+    let cart = req.session.cart || [];
+    let user = req.session.user;
+
+    // Calculate subtotal, sales tax, and total
+    let subtotal = 0;
+    let salesTax = 0;
+
+    cart.forEach(item => {
+        let itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        // If the item is taxable, calculate the sales tax
+        if (item.taxableItem) {
+            salesTax += itemTotal * 0.06625; // 6.625% tax
+        }
+    });
+
+    let totalAmount = subtotal + salesTax;
+
+    // Render the checkout page with these values
+    res.render('checkout', {
+        cart: cart,
+        subtotal: subtotal.toFixed(2),
+        salesTax: salesTax.toFixed(2),
+        totalAmount: totalAmount.toFixed(2)
+    });
 });
 
-app.post('/submit-order', async (req, res) => {
+app.post('/checkout', async (req, res) => {
     if (!req.session.cart || !req.session.user) {
         return res.send('No items in cart or user not logged in.');
     }
 
-    const user = req.session.user;
-    user.invoices = user.invoices || [];
-    user.lastInvoiceNumber = user.lastInvoiceNumber ? user.lastInvoiceNumber + 1 : 1;
+    let user = req.session.user;
 
-    const invoiceNumber = generateInvoiceNumber(user.company, (user.lastInvoiceNumber - 1));
+    // Generate the next invoice number using the generateInvoiceNumber function
+    const invoiceNumber = generateInvoiceNumber(user.company);
+
+    // Calculate subtotal, sales tax, and total
+    let subtotal = 0;
+    let salesTax = 0;
+
+    req.session.cart.forEach(item => {
+        let itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        // If the item is taxable, calculate the sales tax
+        if (item.taxableItem) {
+            salesTax += itemTotal * 0.06625; // 6.625% tax
+        }
+    });
+
+    let totalAmount = subtotal + salesTax;
 
     const invoiceDetails = {
         invoiceNumber,
@@ -733,37 +880,151 @@ app.post('/submit-order', async (req, res) => {
             productCategory: item.itemCategory,
             quantity: item.quantity,
             rate: item.price,
-            total: item.quantity * item.price
+            total: (item.quantity * item.price).toFixed(2)
         })),
-        totalBalance: req.session.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0),
-        paid: false,
-        invoiceTotal: req.session.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)
+        subtotal: subtotal.toFixed(2),
+        salesTax: salesTax.toFixed(2),
+        totalAmount: totalAmount.toFixed(2),
+        totalBalance: totalAmount.toFixed(2),
+        paid: false
     };
 
+    // Push the new invoice to the user's invoice list
+    if (!user.invoices) {
+        user.invoices = [];
+    }
     user.invoices.push(invoiceDetails);
 
+    // Update the users array with the modified user object
     const userIndex = users.findIndex(u => u.id === user.id);
     if (userIndex !== -1) {
         users[userIndex] = user;
     } else {
+        console.error("User not found in users array.");
         return res.status(404).send('User not found.');
     }
 
+    // Update session user data to reflect the new invoice
     req.session.user = user;
 
-    pdfService.generateInvoicePdf(invoiceDetails, pdfFilePath => {
-        emailService.sendOrderConfirmationWithInvoice('sales@supplystacker.com', invoiceDetails, pdfFilePath);
+    // Save data to data.json
+    saveData();
 
-        req.session.cart = [];
+    // Clear the cart after checkout
+    req.session.cart = [];
 
-        res.render('order-submitted', { message: 'Order submitted successfully. Thank you!' });
-    });
+    // Render the order submission page with invoice details
+    res.render('order-submitted', { invoice: invoiceDetails });
+});
 
+
+
+
+app.post('/submit-order', async (req, res) => {
+    if (!req.session.cart || !req.session.user) {
+        return res.send('No items in cart or user not logged in.');
+    }
+
+    // Extract the user object from the session
+    let user = req.session.user;
+
+    // Debugging to see what data is available in the user object
+    console.log("User data from session:", user);
+
+    // Ensure that user.invoices is properly initialized as an array
+    if (!user.invoices) {
+        console.error("User invoices not found, initializing to an empty array.");
+        user.invoices = [];
+    } else if (!Array.isArray(user.invoices)) {
+        console.error("User invoices is not an array, initializing to an empty array.");
+        user.invoices = [];
+    }
+
+    // Debugging to see if user invoices are properly initialized
+    console.log("User invoices after initialization:", user.invoices);
+
+    try {
+        // Generate the next invoice number using the generateInvoiceNumber function
+        const invoiceNumber = generateInvoiceNumber(user.company);
+
+        // Debugging to see the generated invoice number
+        console.log("Generated invoice number:", invoiceNumber);
+
+        const invoiceDetails = {
+            invoiceNumber,
+            companyName: user.company,
+            addressLine1: user.addressLine1,
+            addressLine2: user.addressLine2,
+            city: user.city,
+            state: user.state,
+            zipCode: user.zipCode,
+            dateCreated: new Date().toISOString().split('T')[0],
+            products: req.session.cart.map(item => ({
+                productName: item.itemName,
+                productCategory: item.itemCategory,
+                quantity: item.quantity,
+                rate: item.price,
+                total: item.quantity * item.price
+            })),
+            totalBalance: req.session.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0),
+            paid: false,
+            invoiceTotal: req.session.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)
+        };
+
+        // Push the new invoice to the user's invoice list
+        user.invoices.push(invoiceDetails);
+
+        // Update the users array with the modified user object
+        const userIndex = users.findIndex(u => u.id === user.id);
+        if (userIndex !== -1) {
+            users[userIndex] = user;
+        } else {
+            console.error("User not found in users array.");
+            return res.status(404).send('User not found.');
+        }
+
+        // Update session user data to reflect the new invoice
+        req.session.user = user;
+
+        // Generate PDF and send confirmation email
+        pdfService.generateInvoicePdf(invoiceDetails, pdfFilePath => {
+            emailService.sendOrderConfirmationWithInvoice('sales@supplystacker.com', invoiceDetails, pdfFilePath);
+
+            // Clear the cart after successful order submission
+            req.session.cart = [];
+
+            // Render the order submission page
+            res.render('order-submitted', { message: 'Order submitted successfully. Thank you!' });
+        });
+    } catch (error) {
+        console.error('Error generating invoice number:', error.message);
+        res.status(500).send('Error generating invoice number. Please try again.');
+    }
 });
 
 app.get('/admin/manage-payment', (req, res) => {
-    res.render('manage-payment');
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+
+    // Get all unpaid invoices
+    let unpaidInvoices = [];
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            unpaidInvoices = unpaidInvoices.concat(user.invoices.filter(invoice => invoice.paid === false));
+        }
+    });
+
+    // Sort the invoices by date in descending order
+    unpaidInvoices.sort((a, b) => {
+        const dateA = new Date(a.dateCreated);
+        const dateB = new Date(b.dateCreated);
+        return dateB - dateA; // descending order
+    });
+
+    res.render('manage-payment', { invoices: unpaidInvoices });
 });
+
 
 app.get('/admin/customer-invoices/:customerId', (req, res) => {
     const customerId = parseInt(req.params.customerId);
@@ -788,13 +1049,20 @@ app.post('/admin/duplicate-inventory/:id', (req, res) => {
         return res.status(404).send('Item not found.');
     }
 
-    const newItem = { ...item, id: inventory.length + 1 };
+    // Find the highest existing id
+    const highestId = inventory.reduce((maxId, currentItem) => {
+        return currentItem.id > maxId ? currentItem.id : maxId;
+    }, 0);
+
+    // Assign new id as highest id + 1
+    const newItem = { ...item, id: highestId + 1 };
     inventory.push(newItem);
 
     saveData();
 
     res.redirect(`/admin/edit-inventory/${newItem.id}`);
 });
+
 app.post('/admin/update-inventory-order', (req, res) => {
     const updatedOrder = req.body;
 
@@ -814,6 +1082,7 @@ app.post('/admin/update-inventory-order', (req, res) => {
 
     res.json({ success: true });
 });
+
 app.post('/admin/add-vendor/:id', (req, res) => {
     const itemId = parseInt(req.params.id);
     const itemIndex = inventory.findIndex(item => item.id === itemId);
@@ -851,24 +1120,24 @@ app.post('/admin/add-vendor/:id', (req, res) => {
 
 app.post('/admin/delete-vendor/:id', (req, res) => {
     const itemId = parseInt(req.params.id);
+    const { vendorName } = req.body;
+
+    // Find the item in the inventory
     const itemIndex = inventory.findIndex(item => item.id === itemId);
-
     if (itemIndex === -1) {
-        return res.status(404).send({ success: false, message: 'Item not found.' });
+        return res.status(404).send('Item not found');
     }
 
-    const { index } = req.body;
+    // Remove the vendor with the specified name
+    const currentItem = inventory[itemIndex];
+    currentItem.vendors = currentItem.vendors.filter(vendor => vendor.name.trim() !== vendorName.trim());
 
-    if (index >= 0 && index < inventory[itemIndex].vendors.length) {
-        inventory[itemIndex].vendors.splice(index, 1);
-    } else {
-        return res.status(400).send({ success: false, message: 'Invalid vendor index.' });
-    }
+    // Save the updated inventory to data.json
+    saveData();
 
-    saveData();  // Save the updated data to data.json
-
-    res.json({ success: true });
+    res.status(200).send({ success: true });
 });
+
 app.get('/admin/purchases', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.status(403).send('Access denied.');
@@ -1061,6 +1330,39 @@ app.post('/admin/purchases/delete/:purchaseID', (req, res) => {
     purchases = purchases.filter(purchase => purchase.PurchaseID !== purchaseID);
 
     res.redirect('/admin/vendor-portal');
+});
+app.post('/delete-cart-item', (req, res) => {
+    if (!req.session.cart) {
+        req.session.cart = [];
+    }
+
+    const { itemId } = req.body;
+
+    // Remove the item from the cart
+    req.session.cart = req.session.cart.filter(item => item.id != itemId);
+
+    // Recalculate the subtotal, sales tax, and total amount
+    let subtotal = 0;
+    let salesTax = 0;
+
+    req.session.cart.forEach(item => {
+        let itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        if (item.taxableItem) {
+            salesTax += itemTotal * 0.06625; // 6.625% tax
+        }
+    });
+
+    let totalAmount = subtotal + salesTax;
+
+    // Send the updated totals back to the client
+    res.json({
+        success: true,
+        subtotal,
+        salesTax,
+        totalAmount
+    });
 });
 
 

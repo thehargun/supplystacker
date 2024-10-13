@@ -2,27 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Customer</title>
-    <!-- Add your CSS link or styling here -->
+    <link rel="stylesheet" href="/path/to/your/css/style.css">
 </head>
 <body>
-    <h1>Edit Customer</h1>
-    <form action="/admin/edit-customer/<%= customer.id %>" method="post">
-        <input type="email" name="email" placeholder="Email" value="<%= customer.email %>" required><br>
-        <input type="password" name="password" placeholder="Password" value="<%= customer.password %>" required><br>
-        <input type="text" name="company" placeholder="Company Name" value="<%= customer.company %>" required><br>
-        <input type="text" name="phone" placeholder="Phone Number" value="<%= customer.phone %>" required><br>
-        <input type="text" name="addressLine1" placeholder="Address Line 1" value="<%= customer.addressLine1 %>" required><br>
-        <input type="text" name="addressLine2" placeholder="Address Line 2" value="<%= customer.addressLine2 %>"><br>
-        <input type="text" name="city" placeholder="City" value="<%= customer.city %>" required><br>
-        <input type="text" name="state" placeholder="State" value="<%= customer.state %>" required><br>
-        <input type="text" name="zipCode" placeholder="Zip Code" value="<%= customer.zipCode %>" required><br>
-        <select name="priceLevel">
-            <option value="1" <%= customer.priceLevel === 1 ? 'selected' : '' %>>Level 1</option>
-            <option value="2" <%= customer.priceLevel === 2 ? 'selected' : '' %>>Level 2</option>
-            <option value="3" <%= customer.priceLevel === 3 ? 'selected' : '' %>>Level 3</option>
-        </select><br>
-        <button type="submit">Update Customer</button>
-    </form>
+    <div class="container">
+        <h1>Edit Customer</h1>
+        <form action="/admin/edit-customer/<%= customer.id %>" method="POST">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="<%= customer.email %>" required>
+            </div>
+            <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Enter new password" required />
+        </div>
+            <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" class="form-control" id="company" name="company" value="<%= customer.company %>">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="<%= customer.phone %>">
+            </div>
+
+            <div class="form-group">
+                <label for="addressLine1">Address Line 1</label>
+                <input type="text" class="form-control" id="addressLine1" name="addressLine1" value="<%= customer.addressLine1 %>">
+            </div>
+
+            <div class="form-group">
+                <label for="addressLine2">Address Line 2</label>
+                <input type="text" class="form-control" id="addressLine2" name="addressLine2" value="<%= customer.addressLine2 %>">
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" name="city" value="<%= customer.city %>">
+            </div>
+
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" class="form-control" id="state" name="state" value="<%= customer.state %>">
+            </div>
+
+            <div class="form-group">
+                <label for="zipCode">Zip Code</label>
+                <input type="text" class="form-control" id="zipCode" name="zipCode" value="<%= customer.zipCode %>">
+            </div>
+
+            <div class="form-group">
+                <label for="priceLevel">Price Level</label>
+                <select class="form-control" id="priceLevel" name="priceLevel" required>
+                    <option value="1" <% if (customer.priceLevel == 1) { %>selected<% } %>>1</option>
+                    <option value="2" <% if (customer.priceLevel == 2) { %>selected<% } %>>2</option>
+                    <option value="3" <% if (customer.priceLevel == 3) { %>selected<% } %>>3</option>
+                </select>
+            </div>
+
+            <!-- New fields for Average Sales and Trucking Time (Minutes) -->
+            <div class="form-group">
+                <label for="averageSales">Average Sales</label>
+                <input type="number" class="form-control" id="averageSales" name="averageSales" placeholder="Enter Average Sales">
+            </div>
+
+            <div class="form-group">
+                <label for="truckingTime">Trucking Time (Minutes)</label>
+                <input type="number" class="form-control" id="truckingTime" name="truckingTime" placeholder="Enter Trucking Time">
+            </div>
+
+            <div class="form-group">
+                <label for="taxable">Taxable</label>
+                <select class="form-control" id="taxable" name="taxable">
+                    <option value="Yes" <% if (customer.taxable === true) { %>selected<% } %>>Yes</option>
+                    <option value="No" <% if (customer.taxable === false || customer.taxable === undefined) { %>selected<% } %>>No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Update Customer</button>
+            </div>
+        </form>
+
+        <a href="/admin/view-customers" class="btn btn-secondary">Back to Customers</a>
+    </div>
 </body>
 </html>

@@ -2,37 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Submitted</title>
-    <!-- Add your CSS stylesheets or other head content here -->
     <style>
-        /* Add your custom CSS styles here */
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            color: green;
-        }
-        .buttons {
-            margin-top: 20px;
-        }
-        .buttons button {
-            margin-right: 10px;
-        }
+        /* Add your styles here */
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Order submitted successfully. Thank you!</h1>
-        <div class="buttons">
-            <form action="/products" method="get">
-                <button type="submit">Go Back to Product Page</button>
-            </form>
-            <form action="/logout" method="get">
-                <button type="submit">Logout</button>
-            </form>
-        </div>
-    </div>
-    <!-- Add your scripts or other body content here -->
+    <h1>Thank you for your order!</h1>
+    <p>Your order has been successfully submitted. Below are your order details:</p>
+
+    <h2>Invoice Details</h2>
+    <p><strong>Invoice Number:</strong> <%= invoice.invoiceNumber %></p>
+    <p><strong>Company Name:</strong> <%= invoice.companyName %></p>
+    <p><strong>Date Created:</strong> <%= invoice.dateCreated %></p>
+    
+    <h3>Products:</h3>
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Rate</th>
+            <th>Total</th>
+        </tr>
+        <% invoice.products.forEach(product => { %>
+            <tr>
+                <td><%= product.productName %></td>
+                <td><%= product.productCategory %></td>
+                <td><%= product.quantity %></td>
+                <td>$<%= product.rate.toFixed(2) %></td>
+                <td>$<%= product.total %></td>
+            </tr>
+        <% }); %>
+    </table>
+    
+    <h3>Payment Summary:</h3>
+    <p><strong>Subtotal:</strong> $<%= invoice.subtotal %></p>
+    <p><strong>Sales Tax:</strong> $<%= invoice.salesTax %></p>
+    <h4><strong>Total Amount:</strong> $<%= invoice.totalAmount %></h4>
+    
+    <form action="/products" method="get">
+        <button type="submit">Continue Shopping</button>
+    </form>
+    
 </body>
 </html>

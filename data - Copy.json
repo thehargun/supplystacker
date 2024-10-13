@@ -16834,6 +16834,37 @@
           "invoiceTotal": 450,
           "CashPayment": 0,
           "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "MIF02",
+          "companyName": "Manjal Indian Fusion",
+          "addressLine1": "95 Lincoln Ave",
+          "addressLine2": "",
+          "city": "Fair Lawn",
+          "state": "NJ",
+          "zipCode": "07410",
+          "dateCreated": "2024-10-13",
+          "products": [
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 1,
+              "rate": 18.5,
+              "total": "18.50"
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 12.5,
+              "total": "12.50"
+            }
+          ],
+          "subtotal": "31.00",
+          "salesTax": "0.83",
+          "totalAmount": "31.83",
+          "totalBalance": "31.83",
+          "paid": false
         }
       ],
       "taxable": true

@@ -22,7 +22,7 @@
         <tbody>
             <% invoices.forEach(invoice => { %>
             <tr>
-                <td><a href="/admin/invoice/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
+                <td><a href="/admin/invoices/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
                 <td><%= invoice.dateCreated %></td>
                 <td><%= invoice.totalBalance %></td>
             </tr>

@@ -3,19 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
+    <style>
+        /* Add your styles here */
+    </style>
 </head>
 <body>
-    <h1>Checkout</h1>
-    <p>Invoice Number: <%= invoiceNumber %></p>
-    <h2>Order Details</h2>
-    <ul>
+    <h1>Checkout Summary</h1>
+    <table>
+        <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Price (per unit)</th>
+            <th>Total</th>
+        </tr>
         <% cart.forEach(item => { %>
-            <li><%= item.itemName %> - Quantity: <%= item.quantity %> - Price: $<%= item.price.toFixed(2) %></li>
+            <tr>
+                <td><%= item.itemName %></td>
+                <td><%= item.quantity %></td>
+                <td>$<%= item.price.toFixed(2) %></td>
+                <td>$<%= (item.quantity * item.price).toFixed(2) %></td>
+            </tr>
         <% }); %>
-    </ul>
-    <form action="/submit-order" method="post">
+    </table>
+    
+    <p>Subtotal: $<%= subtotal %></p>
+    <p>Sales Tax: $<%= salesTax %></p>
+    <h4>Total Amount: $<%= totalAmount %></h4>
+
+    <form action="/checkout" method="post">
         <button type="submit">Submit Order</button>
     </form>
 
+    <form action="/cart" method="get">
+        <button type="button" onclick="window.history.back();">Back to Cart</button>
+    </form>
 </body>
 </html>

@@ -32,6 +32,21 @@
         .actions button {
             margin-right: 10px;
         }
+        .btn-danger {
+            background-color: #ff6666;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #66b3ff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -53,15 +68,15 @@
                     <tr>
                         <td><%= invoice.invoiceNumber %></td>
                         <td><%= invoice.companyName %></td>
-                        <td><%= invoice.dateCreated.toDateString() %></td>
+                        <td><%= new Date(invoice.dateCreated).toDateString() %></td>
                         <td>$<%= invoice.totalBalance.toFixed(2) %></td>
                         <td><%= invoice.paid ? 'Paid' : 'Unpaid' %></td>
                         <td>
-                            <% if (!invoice.paid) { %>
-                                <form action="/mark-as-paid/<%= invoice.invoiceNumber %>" method="post">
-                                    <button type="submit">Mark as Paid</button>
-                                </form>
-                            <% } %>
+                            <!-- Go to Invoice Button -->
+                            <a href="/admin/invoices/<%= invoice.invoiceNumber %>" class="btn btn-primary">Go to Invoice</a>
+                            
+                            <!-- Delete Button -->
+                            <button onclick="confirmDelete('<%= invoice.invoiceNumber %>')" class="btn btn-danger">Delete</button>
                         </td>
                     </tr>
                 <% }); %>
@@ -76,6 +91,13 @@
             </form>
         </div>
     </div>
+    <script>
+        function confirmDelete(invoiceNumber) {
+            if (confirm('Are you sure you want to delete this invoice?')) {
+                window.location.href = `/admin/invoices/delete/${invoiceNumber}`;
+            }
+        }
+    </script>
     <!-- Add your scripts or other body content here -->
 </body>
 </html>

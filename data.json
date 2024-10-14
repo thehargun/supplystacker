@@ -13622,7 +13622,8 @@
           "totalBalance": 509.04,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         }
       ]
     },
@@ -14689,7 +14690,7 @@
           "subtotal": 220
         },
         {
-          "invoiceNumber": "SP09",
+          "invoiceNumber": "SP03",
           "companyName": "Samosa Paradise",
           "addressLine1": "804 Newark Ave",
           "addressLine2": "",
@@ -14754,10 +14755,11 @@
           "totalBalance": 228,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
-          "invoiceNumber": "SP10",
+          "invoiceNumber": "SP09",
           "companyName": "Samosa Paradise",
           "addressLine1": "804 Newark Ave",
           "addressLine2": "",
@@ -14829,10 +14831,11 @@
           "totalBalance": 294,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
-          "invoiceNumber": "SP11",
+          "invoiceNumber": "SP10",
           "companyName": "Samosa Paradise",
           "addressLine1": "804 Newark Ave",
           "addressLine2": "",
@@ -14876,10 +14879,11 @@
           "totalBalance": 177,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
-          "invoiceNumber": "SP12",
+          "invoiceNumber": "SP11",
           "companyName": "Samosa Paradise",
           "addressLine1": "804 Newark Ave",
           "addressLine2": "",
@@ -14923,7 +14927,8 @@
           "totalBalance": 195,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         }
       ]
     },
@@ -14982,211 +14987,6 @@
           "subtotal": 86
         },
         {
-          "invoiceNumber": "BCHJC05",
-          "companyName": "Bricklane Curry House, Jersey City",
-          "addressLine1": "136 Newark Ave",
-          "addressLine2": "",
-          "city": "Jersey City",
-          "state": "New Jersey",
-          "zipCode": "07302",
-          "dateCreated": "8/30/2024",
-          "products": [
-            {
-              "productName": "7\" Aluminum Pan",
-              "productCategory": "Aluminum Pans",
-              "quantity": 1,
-              "rate": 29,
-              "total": 29
-            },
-            {
-              "productName": "7\" Aluminum Pan Dome Lid",
-              "productCategory": "Aluminum Pans",
-              "quantity": 1,
-              "rate": 25,
-              "total": 25
-            },
-            {
-              "productName": "8 oz Hot Cup 1000ct",
-              "productCategory": "Paper Hot Cups",
-              "quantity": 1,
-              "rate": 45,
-              "total": 45
-            },
-            {
-              "productName": "18x3000 Plastic Film Wrap",
-              "productCategory": "Film Wrap",
-              "quantity": 1,
-              "rate": 23,
-              "total": 23
-            },
-            {
-              "productName": "Starco Bleach 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 15,
-              "total": 15
-            },
-            {
-              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 24,
-              "total": 24
-            },
-            {
-              "productName": "Plastic Reusable Bag 1/6 150",
-              "productCategory": "Plastic Bag",
-              "quantity": 2,
-              "rate": 20,
-              "total": 40
-            }
-          ],
-          "totalBalance": 223,
-          "paid": false,
-          "totalAmount": 223,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
-          "invoiceNumber": "BCHJC06",
-          "companyName": "Bricklane Curry House, Jersey City",
-          "addressLine1": "136 Newark Ave",
-          "addressLine2": "",
-          "city": "Jersey City",
-          "state": "New Jersey",
-          "zipCode": "07302",
-          "dateCreated": "9/6/2024",
-          "products": [
-            {
-              "productName": "Aluminum BBQ Bag Quart Size",
-              "productCategory": "Aluminum BBQ Bags",
-              "quantity": 1,
-              "rate": 75,
-              "total": 75
-            },
-            {
-              "productName": "Starco Bleach 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 15,
-              "total": 15
-            },
-            {
-              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Plastic Reusable Bag 1/6 150",
-              "productCategory": "Plastic Bag",
-              "quantity": 2,
-              "rate": 20,
-              "total": 40
-            },
-            {
-              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 24,
-              "total": 48
-            }
-          ],
-          "totalBalance": 200,
-          "paid": false,
-          "totalAmount": 200,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
-          "invoiceNumber": "BCHJC07",
-          "companyName": "Bricklane Curry House, Jersey City",
-          "addressLine1": "136 Newark Ave",
-          "addressLine2": "",
-          "city": "Jersey City",
-          "state": "New Jersey",
-          "zipCode": "07302",
-          "dateCreated": "9/13/2024",
-          "products": [
-            {
-              "productName": "18x3000 Plastic Film Wrap",
-              "productCategory": "Film Wrap",
-              "quantity": 1,
-              "rate": 23,
-              "total": 23
-            },
-            {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 1,
-              "rate": 20,
-              "total": 20
-            },
-            {
-              "productName": "Toilet Roll 2 Ply 96 Rolls",
-              "productCategory": "Paper Towels",
-              "quantity": 1,
-              "rate": 48,
-              "total": 48
-            },
-            {
-              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
-              "productCategory": "Plastic Garbage Bag",
-              "quantity": 1,
-              "rate": 20,
-              "total": 20
-            },
-            {
-              "productName": "Plastic Reusable Bag 1/6 150",
-              "productCategory": "Plastic Bag",
-              "quantity": 2,
-              "rate": 20,
-              "total": 40
-            },
-            {
-              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Starco Bleach 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 15,
-              "total": 30
-            },
-            {
-              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 3,
-              "rate": 24,
-              "total": 72
-            }
-          ],
-          "totalBalance": 297,
-          "paid": false,
-          "totalAmount": 297,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
           "invoiceNumber": "BCHJC08",
           "companyName": "Bricklane Curry House, Jersey City",
           "addressLine1": "136 Newark Ave",
@@ -15243,10 +15043,11 @@
           "paid": false,
           "totalAmount": 215,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
-          "invoiceNumber": "BCHJC09",
+          "invoiceNumber": "BCHJC01",
           "companyName": "Bricklane Curry House, Jersey City",
           "addressLine1": "136 Newark Ave",
           "addressLine2": "",
@@ -15290,10 +15091,11 @@
           "totalBalance": 90.91,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
-          "invoiceNumber": "BCHJC10",
+          "invoiceNumber": "BCHJC03",
           "companyName": "Bricklane Curry House, Jersey City",
           "addressLine1": "136 Newark Ave",
           "addressLine2": "",
@@ -15351,10 +15153,11 @@
           "totalBalance": 171.13,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
-          "invoiceNumber": "BCHJC11",
+          "invoiceNumber": "BCHJC04",
           "companyName": "Bricklane Curry House, Jersey City",
           "addressLine1": "136 Newark Ave",
           "addressLine2": "",
@@ -15419,10 +15222,11 @@
           "totalBalance": 207.4,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
-          "invoiceNumber": "BCHJC12",
+          "invoiceNumber": "BCHJC05",
           "companyName": "Bricklane Curry House, Jersey City",
           "addressLine1": "136 Newark Ave",
           "addressLine2": "",
@@ -15469,9 +15273,9 @@
             {
               "productName": "Lapaco 8\" Normandy Lace Doilie Paper 5000ct",
               "productCategory": "Miscellaneous",
-              "quantity": 0.02,
+              "quantity": 0.2,
               "rate": 126.67,
-              "total": 2.5334
+              "total": 25.334000000000003
             },
             {
               "productName": "9\" Paper Plates (1000pcs)",
@@ -15483,9 +15287,9 @@
             {
               "productName": "1/6 Plastic Reusable Bag 150pcs",
               "productCategory": "Plastic Bag",
-              "quantity": 2,
+              "quantity": 1,
               "rate": 17.75,
-              "total": 35.5
+              "total": 17.75
             },
             {
               "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
@@ -15509,11 +15313,73 @@
               "total": 12.5
             },
             {
+              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 19.25,
+              "total": 19.25
+            },
+            {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
               "rate": 19.25,
               "total": 19.25
+            }
+          ],
+          "subtotal": 265.6521,
+          "salesTax": 0,
+          "totalAmount": 265.6521,
+          "totalBalance": 265.6521,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "BCHJC09",
+          "companyName": "Bricklane Curry House, Jersey City",
+          "addressLine1": "136 Newark Ave",
+          "addressLine2": "",
+          "city": "Jersey City",
+          "state": "New Jersey",
+          "zipCode": "07302",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "Aluminum BBQ Bag Quart Size",
+              "productCategory": "Aluminum BBQ Bags",
+              "quantity": 1,
+              "rate": 109,
+              "total": 109
+            },
+            {
+              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
+              "productCategory": "Aluminum Foil Sheets",
+              "quantity": 0.167,
+              "rate": 41,
+              "total": 6.847
+            },
+            {
+              "productName": "Lapaco 8\" Normandy Lace Doilie Paper 5000ct",
+              "productCategory": "Miscellaneous",
+              "quantity": 0.2,
+              "rate": 126.67,
+              "total": 25.334000000000003
+            },
+            {
+              "productName": "Scotch Brite 84CC 72 Pack",
+              "productCategory": "Janitorial",
+              "quantity": 0.167,
+              "rate": 54.3,
+              "total": 9.0681
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 12.5,
+              "total": 12.5
             },
             {
               "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
@@ -15521,12 +15387,190 @@
               "quantity": 1,
               "rate": 19.25,
               "total": 19.25
+            },
+            {
+              "productName": "1/6 Plastic Reusable Bag 150pcs",
+              "productCategory": "Plastic Bag",
+              "quantity": 2,
+              "rate": 17.75,
+              "total": 35.5
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 19.25,
+              "total": 38.5
             }
           ],
-          "subtotal": 260.6015,
+          "subtotal": 255.99909999999997,
           "salesTax": 0,
-          "totalAmount": 260.6015,
-          "totalBalance": 260.6015,
+          "totalAmount": 255.99909999999997,
+          "totalBalance": 255.99909999999997,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "BCHJC10",
+          "companyName": "Bricklane Curry House, Jersey City",
+          "addressLine1": "136 Newark Ave",
+          "addressLine2": "",
+          "city": "Jersey City",
+          "state": "New Jersey",
+          "zipCode": "07302",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "18x3000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 1,
+              "rate": 17,
+              "total": 17
+            },
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 1,
+              "rate": 18.5,
+              "total": 18.5
+            },
+            {
+              "productName": "Toilet Roll 2 Ply 96 Rolls",
+              "productCategory": "Paper Towels",
+              "quantity": 0.5,
+              "rate": 38,
+              "total": 19
+            },
+            {
+              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
+              "productCategory": "Aluminum Foil Sheets",
+              "quantity": 0.167,
+              "rate": 41,
+              "total": 6.847
+            },
+            {
+              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
+              "productCategory": "Plastic Garbage Bag",
+              "quantity": 1,
+              "rate": 16.5,
+              "total": 16.5
+            },
+            {
+              "productName": "1/6 Plastic Reusable Bag 150pcs",
+              "productCategory": "Plastic Bag",
+              "quantity": 2,
+              "rate": 17.75,
+              "total": 35.5
+            },
+            {
+              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 19.25,
+              "total": 19.25
+            },
+            {
+              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 21,
+              "total": 21
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 12.5,
+              "total": 25
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 3,
+              "rate": 19.25,
+              "total": 57.75
+            }
+          ],
+          "subtotal": 236.347,
+          "salesTax": 0,
+          "totalAmount": 236.347,
+          "totalBalance": 236.347,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "BCHJC11",
+          "companyName": "Bricklane Curry House, Jersey City",
+          "addressLine1": "136 Newark Ave",
+          "addressLine2": "",
+          "city": "Jersey City",
+          "state": "New Jersey",
+          "zipCode": "07302",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "16 oz PET Cup (1000pcs)",
+              "productCategory": "Plastic PET Cups",
+              "quantity": 1,
+              "rate": 44,
+              "total": 44
+            },
+            {
+              "productName": "98mm PET Cup Flat Lids (1000pcs)",
+              "productCategory": "Plastic PET Cups",
+              "quantity": 1,
+              "rate": 19.5,
+              "total": 19.5
+            },
+            {
+              "productName": "1/6 Plastic Reusable Bag 150pcs",
+              "productCategory": "Plastic Bag",
+              "quantity": 2,
+              "rate": 17.75,
+              "total": 35.5
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 12.5,
+              "total": 12.5
+            },
+            {
+              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 21,
+              "total": 21
+            },
+            {
+              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 19.25,
+              "total": 19.25
+            },
+            {
+              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
+              "productCategory": "Plastic Garbage Bag",
+              "quantity": 1,
+              "rate": 16.5,
+              "total": 16.5
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 19.25,
+              "total": 38.5
+            }
+          ],
+          "subtotal": 206.75,
+          "salesTax": 0,
+          "totalAmount": 206.75,
+          "totalBalance": 206.75,
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0
@@ -16189,7 +16233,8 @@
           "paid": false,
           "totalAmount": 1095,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
           "invoiceNumber": "DABH02",
@@ -16378,20 +16423,6 @@
           "totalAmount": 673,
           "CashPayment": 0,
           "AccountPayment": 0
-        },
-        {
-          "invoiceNumber": "DABH04",
-          "companyName": "Dosa And Biryani House",
-          "addressLine1": "350 Market St",
-          "addressLine2": "",
-          "city": "Saddle Brook",
-          "state": "NJ",
-          "zipCode": "07663",
-          "dateCreated": "2024-09-22",
-          "products": [],
-          "totalBalance": 0,
-          "paid": false,
-          "totalAmount": 0
         }
       ]
     },
@@ -16698,65 +16729,6 @@
       "role": "customer",
       "invoices": [
         {
-          "invoiceNumber": "PJ01",
-          "companyName": "Paratha Junction",
-          "addressLine1": " 779 Newark Ave",
-          "addressLine2": "",
-          "city": "Jersey City",
-          "state": "NJ",
-          "zipCode": "07306",
-          "dateCreated": "8/9/2024",
-          "products": [
-            {
-              "productName": "18x2000 Plastic Film Wrap Cling Classic",
-              "productCategory": "Film Wrap",
-              "quantity": 1,
-              "rate": 23,
-              "total": 23
-            },
-            {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 1,
-              "rate": 20,
-              "total": 20
-            },
-            {
-              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Starco Bleach 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 15,
-              "total": 30
-            },
-            {
-              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 24,
-              "total": 24
-            },
-            {
-              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            }
-          ],
-          "totalBalance": 141,
-          "paid": false,
-          "totalAmount": 141,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
           "invoiceNumber": "PJ02",
           "companyName": "Paratha Junction",
           "addressLine1": " 779 Newark Ave",
@@ -16798,204 +16770,6 @@
           "totalBalance": 144,
           "paid": false,
           "totalAmount": 144,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
-          "invoiceNumber": "PJ03",
-          "companyName": "Paratha Junction",
-          "addressLine1": " 779 Newark Ave",
-          "addressLine2": "",
-          "city": "Jersey City",
-          "state": "NJ",
-          "zipCode": "07306",
-          "dateCreated": "8/23/2024",
-          "products": [
-            {
-              "productName": "9 in Jumbo Bathroom Tissue",
-              "productCategory": "Paper Towels",
-              "quantity": 1,
-              "rate": 29,
-              "total": 29
-            },
-            {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 1,
-              "rate": 20,
-              "total": 20
-            },
-            {
-              "productName": "Starco Bleach 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 15,
-              "total": 30
-            },
-            {
-              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 24,
-              "total": 48
-            },
-            {
-              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
-              "productCategory": "Plastic Garbage Bag",
-              "quantity": 2,
-              "rate": 20,
-              "total": 40
-            }
-          ],
-          "totalBalance": 211,
-          "paid": false,
-          "totalAmount": 211,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
-          "invoiceNumber": "PJ04",
-          "companyName": "Paratha Junction",
-          "addressLine1": " 779 Newark Ave",
-          "addressLine2": "",
-          "city": "Jersey City",
-          "state": "NJ",
-          "zipCode": "07306",
-          "dateCreated": "8/30/2024",
-          "products": [
-            {
-              "productName": "9 in Jumbo Bathroom Tissue",
-              "productCategory": "Paper Towels",
-              "quantity": 1,
-              "rate": 29,
-              "total": 29
-            },
-            {
-              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
-              "productCategory": "Plastic Garbage Bag",
-              "quantity": 2,
-              "rate": 20,
-              "total": 40
-            },
-            {
-              "productName": "Plastic Reusable Bag 1/6 150",
-              "productCategory": "Plastic Bag",
-              "quantity": 1,
-              "rate": 20,
-              "total": 20
-            },
-            {
-              "productName": "Starco Bleach 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 15,
-              "total": 30
-            },
-            {
-              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 24,
-              "total": 48
-            }
-          ],
-          "totalBalance": 211,
-          "paid": false,
-          "totalAmount": 211,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
-          "invoiceNumber": "PJ05",
-          "companyName": "Paratha Junction",
-          "addressLine1": " 779 Newark Ave",
-          "addressLine2": "",
-          "city": "Jersey City",
-          "state": "NJ",
-          "zipCode": "07306",
-          "dateCreated": "9/6/2024",
-          "products": [
-            {
-              "productName": "18x3000 Plastic Film Wrap",
-              "productCategory": "Film Wrap",
-              "quantity": 1,
-              "rate": 23,
-              "total": 23
-            },
-            {
-              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 22,
-              "total": 22
-            },
-            {
-              "productName": "Starco Bleach 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 15,
-              "total": 30
-            },
-            {
-              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 24,
-              "total": 48
-            },
-            {
-              "productName": "Plastic Reusable Bag 1/6 150",
-              "productCategory": "Plastic Bag",
-              "quantity": 2,
-              "rate": 20,
-              "total": 40
-            },
-            {
-              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
-              "productCategory": "Plastic Garbage Bag",
-              "quantity": 2,
-              "rate": 20,
-              "total": 40
-            }
-          ],
-          "totalBalance": 225,
-          "paid": false,
-          "totalAmount": 225,
           "CashPayment": 0,
           "AccountPayment": 0
         },
@@ -17084,7 +16858,305 @@
           "paid": false,
           "totalAmount": 391,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "PJ01",
+          "companyName": "Paratha Junction",
+          "addressLine1": " 779 Newark Ave",
+          "addressLine2": "",
+          "city": "Jersey City",
+          "state": "NJ",
+          "zipCode": "07306",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "18x3000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 1,
+              "rate": 17,
+              "total": 17
+            },
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 1,
+              "rate": 18.5,
+              "total": 18.5
+            },
+            {
+              "productName": "Norpak Interfolded Sheet 8\" x 10.75",
+              "productCategory": "Wax Paper",
+              "quantity": 0.167,
+              "rate": 48.25,
+              "total": 8.05775
+            },
+            {
+              "productName": "Starco So-Kleen Lavender Floor Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 20.25,
+              "total": 20.25
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 12.5,
+              "total": 25
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 19.25,
+              "total": 19.25
+            },
+            {
+              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 21,
+              "total": 21
+            }
+          ],
+          "subtotal": 129.05775,
+          "salesTax": 0,
+          "totalAmount": 129.05775,
+          "totalBalance": 129.05775,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "PJ03",
+          "companyName": "Paratha Junction",
+          "addressLine1": " 779 Newark Ave",
+          "addressLine2": "",
+          "city": "Jersey City",
+          "state": "NJ",
+          "zipCode": "07306",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "Norpak Interfolded Sheet 8\" x 10.75",
+              "productCategory": "Wax Paper",
+              "quantity": 0.83,
+              "rate": 48.25,
+              "total": 40.0475
+            },
+            {
+              "productName": "9 in Jumbo Bathroom Tissue",
+              "productCategory": "Paper Towels",
+              "quantity": 1,
+              "rate": 22.5,
+              "total": 22.5
+            },
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 1,
+              "rate": 18.5,
+              "total": 18.5
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 12.5,
+              "total": 25
+            },
+            {
+              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 19.25,
+              "total": 19.25
+            },
+            {
+              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 21,
+              "total": 21
+            },
+            {
+              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
+              "productCategory": "Plastic Garbage Bag",
+              "quantity": 2,
+              "rate": 16.5,
+              "total": 33
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 19.25,
+              "total": 19.25
+            }
+          ],
+          "subtotal": 198.5475,
+          "salesTax": 0,
+          "totalAmount": 198.5475,
+          "totalBalance": 198.5475,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "PJ04",
+          "companyName": "Paratha Junction",
+          "addressLine1": " 779 Newark Ave",
+          "addressLine2": "",
+          "city": "Jersey City",
+          "state": "NJ",
+          "zipCode": "07306",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "9 in Jumbo Bathroom Tissue",
+              "productCategory": "Paper Towels",
+              "quantity": 1,
+              "rate": 22.5,
+              "total": 22.5
+            },
+            {
+              "productName": "Norpak Interfolded Sheet 8\" x 10.75",
+              "productCategory": "Wax Paper",
+              "quantity": 0.083,
+              "rate": 48.25,
+              "total": 4.0047500000000005
+            },
+            {
+              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
+              "productCategory": "Plastic Garbage Bag",
+              "quantity": 2,
+              "rate": 16.5,
+              "total": 33
+            },
+            {
+              "productName": "1/6 Plastic Reusable Bag 150pcs",
+              "productCategory": "Plastic Bag",
+              "quantity": 1,
+              "rate": 17.75,
+              "total": 17.75
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 12.5,
+              "total": 25
+            },
+            {
+              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 21,
+              "total": 21
+            },
+            {
+              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 19.25,
+              "total": 19.25
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 19.25,
+              "total": 38.5
+            }
+          ],
+          "subtotal": 181.00475,
+          "salesTax": 0,
+          "totalAmount": 181.00475,
+          "totalBalance": 181.00475,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "PJ05",
+          "companyName": "Paratha Junction",
+          "addressLine1": " 779 Newark Ave",
+          "addressLine2": "",
+          "city": "Jersey City",
+          "state": "NJ",
+          "zipCode": "07306",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "Norpak Interfolded Sheet 8\" x 10.75",
+              "productCategory": "Wax Paper",
+              "quantity": 0.083,
+              "rate": 48.25,
+              "total": 4.0047500000000005
+            },
+            {
+              "productName": "18x3000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 1,
+              "rate": 17,
+              "total": 17
+            },
+            {
+              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 19.25,
+              "total": 19.25
+            },
+            {
+              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 21,
+              "total": 21
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 12.5,
+              "total": 25
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 19.25,
+              "total": 38.5
+            },
+            {
+              "productName": "1/6 Plastic Reusable Bag 150pcs",
+              "productCategory": "Plastic Bag",
+              "quantity": 2,
+              "rate": 17.75,
+              "total": 35.5
+            },
+            {
+              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
+              "productCategory": "Plastic Garbage Bag",
+              "quantity": 2,
+              "rate": 16.5,
+              "total": 33
+            }
+          ],
+          "subtotal": 193.25475,
+          "salesTax": 0,
+          "totalAmount": 193.25475,
+          "totalBalance": 193.25475,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
           "invoiceNumber": "PJ07",
@@ -17094,54 +17166,131 @@
           "city": "Jersey City",
           "state": "NJ",
           "zipCode": "07306",
-          "dateCreated": "9/20/2024",
+          "dateCreated": "2024-10-14",
           "products": [
+            {
+              "productName": "Norpak Interfolded Sheet 8\" x 10.75",
+              "productCategory": "Wax Paper",
+              "quantity": 0.083,
+              "rate": 48.25,
+              "total": 4.0047500000000005
+            },
             {
               "productName": "18x3000 Plastic Film Wrap",
               "productCategory": "Film Wrap",
               "quantity": 1,
-              "rate": 23,
-              "total": 23
+              "rate": 17,
+              "total": 17
             },
             {
               "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
               "productCategory": "Plastic Garbage Bag",
-              "quantity": 2,
-              "rate": 20,
-              "total": 40
+              "quantity": 4,
+              "rate": 16.5,
+              "total": 66
+            }
+          ],
+          "subtotal": 87.00475,
+          "salesTax": 0,
+          "totalAmount": 87.00475,
+          "totalBalance": 87.00475,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "PJ08",
+          "companyName": "Paratha Junction",
+          "addressLine1": " 779 Newark Ave",
+          "addressLine2": "",
+          "city": "Jersey City",
+          "state": "NJ",
+          "zipCode": "07306",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "Paper Bags 13x7x17 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 1,
+              "rate": 32,
+              "total": 32
             },
             {
-              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
+              "productName": "Aluminum BBQ Bag Quart Size",
+              "productCategory": "Aluminum BBQ Bags",
               "quantity": 1,
-              "rate": 22,
-              "total": 22
+              "rate": 109,
+              "total": 109
+            },
+            {
+              "productName": "Norpak Interfolded Sheet 8\" x 10.75",
+              "productCategory": "Wax Paper",
+              "quantity": 0.332,
+              "rate": 48.25,
+              "total": 16.019000000000002
+            },
+            {
+              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
+              "productCategory": "Aluminum Foil Sheets",
+              "quantity": 0.249,
+              "rate": 41,
+              "total": 10.209
+            },
+            {
+              "productName": "Paper Bags 1/8 BBL 100/bundle",
+              "productCategory": "Paper Bags",
+              "quantity": 5,
+              "rate": 6.75,
+              "total": 33.75
+            },
+            {
+              "productName": "12x3000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 1,
+              "rate": 14,
+              "total": 14
             },
             {
               "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 22,
-              "total": 22
+              "rate": 21,
+              "total": 21
+            },
+            {
+              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 19.25,
+              "total": 19.25
             },
             {
               "productName": "Starco Bleach 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 15,
-              "total": 30
+              "rate": 12.5,
+              "total": 25
             },
             {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 24,
-              "total": 48
+              "rate": 19.25,
+              "total": 38.5
+            },
+            {
+              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
+              "productCategory": "Plastic Garbage Bag",
+              "quantity": 2,
+              "rate": 16.5,
+              "total": 33
             }
           ],
-          "totalBalance": 185,
+          "subtotal": 351.728,
+          "salesTax": 0,
+          "totalAmount": 351.728,
+          "totalBalance": 351.728,
           "paid": false,
-          "totalAmount": 185,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -17320,6 +17469,116 @@
           "totalBalance": 450,
           "paid": false,
           "totalAmount": 450,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "MIF02",
+          "companyName": "Manjal Indian Fusion",
+          "addressLine1": "95 Lincoln Ave",
+          "addressLine2": "",
+          "city": "Fair Lawn",
+          "state": "NJ",
+          "zipCode": "07410",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "Pactiv NC723B 24 oz Black Round Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 3,
+              "rate": 34.75,
+              "total": 104.25
+            },
+            {
+              "productName": "Pactiv NC729B 32 oz Black Round Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 2,
+              "rate": 39,
+              "total": 78
+            },
+            {
+              "productName": "Pactiv 8 oz Deli Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 2,
+              "rate": 29.5,
+              "total": 59
+            },
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 1,
+              "rate": 18.5,
+              "total": 18.5
+            },
+            {
+              "productName": "8\" 350' Hardwound Towel White",
+              "productCategory": "Paper Towels",
+              "quantity": 1,
+              "rate": 27.75,
+              "total": 27.75
+            },
+            {
+              "productName": "Aluminum Half Size Shallow Pan XHD",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 18.25,
+              "total": 18.25
+            },
+            {
+              "productName": "Toilet Roll 2 Ply 96 Rolls",
+              "productCategory": "Paper Towels",
+              "quantity": 1,
+              "rate": 38,
+              "total": 38
+            },
+            {
+              "productName": "7\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 11.25,
+              "total": 11.25
+            },
+            {
+              "productName": "PP Hinged Container PP91 9\"x9\"x3 150pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 1,
+              "rate": 27,
+              "total": 27
+            },
+            {
+              "productName": "18x3000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 1,
+              "rate": 17,
+              "total": 17
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 12.5,
+              "total": 12.5
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 19.25,
+              "total": 19.25
+            },
+            {
+              "productName": "Vynl Powder Free Gloves Large",
+              "productCategory": "Gloves",
+              "quantity": 1,
+              "rate": 19,
+              "total": 19
+            }
+          ],
+          "subtotal": 449.75,
+          "salesTax": 0.828125,
+          "totalAmount": 450.578125,
+          "totalBalance": 450.578125,
+          "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -18233,7 +18492,79 @@
           "CashPayment": 0,
           "AccountPayment": 600,
           "salesTax": null,
-          "subtotal": 600
+          "subtotal": 600,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "email": "namasteindia@example.com",
+      "password": "$2a$10$NXdsYQ4l9Q/IMWDjl3IiCe2GrdaQAovj.629/gMbCrlYfqu7dj8kq",
+      "company": "Namaste India",
+      "phone": "2016772266",
+      "addressLine1": "44 Franklin Turnpike",
+      "addressLine2": "",
+      "city": "Mahwah",
+      "state": "NJ",
+      "zipCode": "07430",
+      "priceLevel": 3,
+      "taxable": true,
+      "role": "customer",
+      "invoices": [
+        {
+          "invoiceNumber": "NI01",
+          "companyName": "Namaste India",
+          "addressLine1": "44 Franklin Turnpike",
+          "addressLine2": "",
+          "city": "Mahwah",
+          "state": "NJ",
+          "zipCode": "07430",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "Fabri Kal 8 oz Deli Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 1,
+              "rate": 27.5,
+              "total": 27.5
+            },
+            {
+              "productName": "5 Comp Bagasse Plate 500/Case",
+              "productCategory": "Bagasse",
+              "quantity": 1,
+              "rate": 57.75,
+              "total": 57.75
+            },
+            {
+              "productName": "8 oz White Bowl with Lid A08 500pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 1,
+              "rate": 35,
+              "total": 35
+            },
+            {
+              "productName": "Garbage Bag 46 Gallon Blue 50pcs XXXHD",
+              "productCategory": "Plastic Garbage Bag",
+              "quantity": 1,
+              "rate": 15.25,
+              "total": 15.25
+            },
+            {
+              "productName": "16-32oz Deli Container Lids 500pcs",
+              "productCategory": "Plastic Containers",
+              "quantity": 1,
+              "rate": 14.5,
+              "total": 14.5
+            }
+          ],
+          "subtotal": 150,
+          "salesTax": 0,
+          "totalAmount": 150,
+          "totalBalance": 150,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
         }
       ]
     }

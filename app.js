@@ -558,14 +558,16 @@ app.get('/admin/invoices/:invoiceNumber', (req, res) => {
 });
 
 
-
 app.post('/admin/invoices/:invoiceNumber', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        console.log("Unauthorized access attempt");
         return res.status(403).send('Access denied.');
     }
 
+    console.log("Received data for updating invoice:", req.body);
+
     const oldInvoiceNumber = req.params.invoiceNumber;
-    const newInvoiceNumber = req.body.invoiceNumber; // Get the new invoice number from the request
+    const newInvoiceNumber = req.body.invoiceNumber;
     const updatedNote = req.body.notes;
 
     let userIndex = null;
@@ -582,76 +584,55 @@ app.post('/admin/invoices/:invoiceNumber', (req, res) => {
     });
 
     if (userIndex === null || invoiceIndex === null) {
+        console.error("Invoice not found.");
         return res.status(404).send('Invoice not found.');
     }
 
-    // Update the invoice number
-    users[userIndex].invoices[invoiceIndex].invoiceNumber = newInvoiceNumber;
-
-    // Update other fields if needed (e.g., notes)
-    users[userIndex].invoices[invoiceIndex].notes = updatedNote;
-
-    saveData(); // Save changes to data.json
-
-    res.redirect(`/admin/invoices/${newInvoiceNumber}`);
-});
-
-
-
-
-
-app.post('/admin/invoices/print/:invoiceNumber', (req, res) => {
-    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+    // Log products for validation debugging
+    if (!req.body.products || !Array.isArray(req.body.products)) {
+        console.error("Invalid product data format. Products should be an array:", req.body.products);
+        return res.status(400).send('Invalid product data format.');
     }
 
-    const invoiceNumber = req.params.invoiceNumber;
-    let invoiceDetails = null;
-
-    users.forEach(user => {
-        if (user.invoices && user.invoices.length > 0) {
-            const invoice = user.invoices.find(inv => inv.invoiceNumber === invoiceNumber);
-            if (invoice) {
-                invoiceDetails = invoice;
-            }
+    req.body.products.forEach((product, index) => {
+        if (
+            !product.productName ||
+            typeof product.productName !== 'string' ||
+            typeof product.productCategory !== 'string' ||
+            typeof product.quantity !== 'number' ||
+            typeof product.rate !== 'number' ||
+            typeof product.total !== 'number'
+        ) {
+            console.error(`Invalid product at index ${index}:`, product);
+            return res.status(400).send(`Invalid product data format at index ${index}.`);
         }
     });
 
-    if (!invoiceDetails) {
-        return res.status(404).send('Invoice not found.');
+    // Update invoice details
+    try {
+        users[userIndex].invoices[invoiceIndex] = {
+            ...users[userIndex].invoices[invoiceIndex],
+            ...req.body, // Spread new updates
+            CashPayment: parseFloat(req.body.CashPayment) || 0,
+            AccountPayment: parseFloat(req.body.AccountPayment) || 0,
+            notes: req.body.notes,
+            salesTax: parseFloat(req.body.salesTax) || 0,
+            subtotal: parseFloat(req.body.subtotal) || 0,
+            totalAmount: parseFloat(req.body.totalAmount) || 0,
+            totalBalance: parseFloat(req.body.totalBalance) || 0,
+            paid: req.body.totalBalance === 0
+        };
+
+        saveData(); // Save changes to data.json
+        console.log("Invoice updated successfully:", users[userIndex].invoices[invoiceIndex]);
+
+        // Redirect to the new invoice number page instead of sending JSON
+        res.redirect(`/admin/invoices/${newInvoiceNumber}`);
+    } catch (error) {
+        console.error("Error updating invoice:", error);
+        res.status(500).send("An error occurred while updating the invoice.");
     }
-
-    pdfService.generateInvoicePdf(invoiceDetails, pdfFilePath => {
-        emailService.sendOrderConfirmationWithInvoice('sales@supplystacker.com', invoiceDetails, pdfFilePath);
-        res.send('Invoice has been sent successfully.');
-    });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

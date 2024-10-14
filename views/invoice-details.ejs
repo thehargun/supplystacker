@@ -194,8 +194,8 @@
                                     </select>
                                 </td>
                                 <td><input type="text" name="productCategory" value="<%= product.productCategory %>" data-index="<%= index %>" class="productCategory" readonly></td>
-                                <td><input type="number" name="quantity" value="<%= product.quantity %>" data-index="<%= index %>" class="quantity" oninput="updateProductTotal(<%= index %>)"></td>
-                                <td><input type="number" name="rate" value="<%= product.rate %>" data-index="<%= index %>" class="rate" step="0.01" oninput="updateProductTotal(<%= index %>)"></td>
+                                <td><input type="number" name="quantity" class="form-control" value="<%= product.quantity %>" step="any"></td>
+                                <td><input type="number" name="rate" class="form-control" value="<%= product.rate %>" step="any"></td>
                                 <td class="total"><%= product.total ? parseFloat(product.total).toFixed(2) : '0.00' %></td>
                                 <td><button type="button" class="delete-btn" onclick="deleteProduct(<%= index %>)">Delete</button></td>
                             </tr>
@@ -236,235 +236,224 @@
     <script>
         const availableProducts = <%- JSON.stringify(availableProducts) %>;
         const customerPriceLevel = <%= customerPriceLevel %>;
-        document.addEventListener('DOMContentLoaded', function () {
-    // Add event listeners for all input changes to dynamically update totals and balance
-    document.getElementById("salesTax").addEventListener("input", updateTotal);
-    document.querySelector("input[name='CashPayment']").addEventListener("input", updateTotal);
-    document.querySelector("input[name='AccountPayment']").addEventListener("input", updateTotal);
-    
-    // Attach event listeners for quantity and rate fields to update totals when changed
-    document.querySelectorAll('#productsTableBody .quantity, #productsTableBody .rate').forEach(input => {
-        input.addEventListener('input', () => {
-            const index = input.dataset.index;
-            updateProductTotal(index);
+        document.getElementById('invoiceForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const products = [];
+
+            // Construct products array from form inputs
+            document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
+                const productName = row.querySelector(`select[name='productName']`).value;
+                const productCategory = row.querySelector(`input[name='productCategory']`).value.trim();
+                const quantity = parseFloat(row.querySelector(`input[name='quantity']`).value);
+                const rate = parseFloat(row.querySelector(`input[name='rate']`).value);
+                const total = parseFloat(row.querySelector('.total').textContent);
+
+                if (productName && !isNaN(quantity) && !isNaN(rate)) {
+                    products.push({
+                        productName,
+                        productCategory,
+                        quantity,
+                        rate,
+                        total: parseFloat(total.toFixed(2))
+                    });
+                }
+            });
+
+            // Prepare JSON data to send to the server
+            const jsonData = {
+                invoiceNumber: formData.get('invoiceNumber'),
+                companyName: formData.get('companyName'),
+                addressLine1: formData.get('addressLine1'),
+                addressLine2: formData.get('addressLine2'),
+                city: formData.get('city'),
+                state: formData.get('state'),
+                zipCode: formData.get('zipCode'),
+                notes: formData.get('notes'),
+                dateCreated: formData.get('dateCreated'),
+                CashPayment: parseFloat(formData.get('CashPayment')) || 0,
+                AccountPayment: parseFloat(formData.get('AccountPayment')) || 0,
+                salesTax: parseFloat(formData.get('salesTax')),
+                subtotal: parseFloat(document.getElementById('subtotal').textContent.replace('$', '')),
+                totalAmount: parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')),
+                totalBalance: parseFloat(document.getElementById('totalBalance').textContent.replace('$', '')),
+                paid: parseFloat(document.getElementById('totalBalance').textContent.replace('$', '')) === 0,
+                products: products
+            };
+
+            console.log("Sending JSON data to server:", jsonData);
+
+            // Send the JSON data using fetch
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Redirect to the updated invoice URL
+                    window.location.href = `/admin/invoices/${jsonData.invoiceNumber}`;
+                } else {
+                    return response.text().then(text => {
+                        console.error("Server responded with an error:", text);
+                        alert('Error updating invoice: ' + text);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error connecting to server:', error);
+                alert('Error connecting to server. Please try again later.');
+            });
         });
-    });
-
-    // Update total and balance on page load
-    updateTotal();
-});
-
-function updateProductTotal(index) {
-    const row = document.querySelector(`tr[data-index='${index}']`);
-    const quantity = parseFloat(row.querySelector(`input[name='quantity']`).value) || 0;
-    const rate = parseFloat(row.querySelector(`input[name='rate']`).value) || 0;
-    const total = quantity * rate;
-    row.querySelector('.total').textContent = total.toFixed(2);
-    updateTotal();  // Update totals whenever a product's details change
-}
-
-function updateTotal() {
-    let subtotal = 0;
-
-    // Calculate the subtotal by summing up all the product totals
-    document.querySelectorAll('#productsTableBody tr').forEach(row => {
-        const rowTotal = parseFloat(row.querySelector('.total').textContent) || 0;
-        subtotal += rowTotal;
-    });
-
-    // Update the displayed subtotal
-    document.getElementById('subtotal').innerText = "$" + subtotal.toFixed(2);
-
-    // Get the sales tax value
-    const salesTax = parseFloat(document.getElementById("salesTax").value) || 0;
-
-    // Calculate the Total Amount (subtotal + sales tax)
-    const totalAmount = subtotal + salesTax;
-
-    // Update the displayed Total Amount
-    document.getElementById("totalAmount").innerText = "$" + totalAmount.toFixed(2);
-
-    // Update total balance after updating Total Amount
-    updateTotalBalance();
-}
-
-function updateTotalBalance() {
-    const totalAmount = parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0;
-    const cashPayment = parseFloat(document.querySelector("input[name='CashPayment']").value) || 0;
-    const accountPayment = parseFloat(document.querySelector("input[name='AccountPayment']").value) || 0;
-
-    // Calculate the total balance
-    const totalBalance = totalAmount - cashPayment - accountPayment;
-
-    // Update the displayed total balance
-    document.getElementById("totalBalance").innerText = "$" + totalBalance.toFixed(2);
-
-    // Update the 'Paid' status based on the total balance
-    const paidElement = document.querySelector("p.paid-status");
-    if (totalBalance === 0) {
-        paidElement.innerText = "Yes";
-    } else {
-        paidElement.innerText = "No";
-    }
-}
-
-function deleteProduct(index) {
-    const row = document.querySelector(`tr[data-index='${index}']`);
-    if (row) {
-        row.remove();
-        updateTotal();  // Recalculate totals after deleting a product
-    }
-}
-
-function addProduct() {
-    const tbody = document.getElementById('productsTableBody');
-    const rowCount = tbody.rows.length;
-    const newRow = document.createElement('tr');
-    newRow.dataset.index = rowCount;
-    newRow.innerHTML = `
-        <td>
-            <select name="productName" data-index="${rowCount}" class="productName" onchange="updateProductDetails(${rowCount})">
-                <option value="">Select Product</option>
-                <% availableProducts.forEach(availableProduct => { %>
-                    <option value="<%= availableProduct.itemName %>"><%= availableProduct.itemName %></option>
-                <% }); %>
-            </select>
-        </td>
-        <td><input type="text" name="productCategory" data-index="${rowCount}" class="productCategory" readonly></td>
-        <td><input type="number" name="quantity" data-index="${rowCount}" class="quantity" oninput="updateProductTotal(${rowCount})" placeholder="Enter Quantity"></td>
-        <td><input type="number" name="rate" data-index="${rowCount}" class="rate" step="0.01" oninput="updateProductTotal(${rowCount})" placeholder="Enter Rate"></td>
-        <td class="total">0.00</td>
-        <td><button type="button" class="delete-btn" onclick="deleteProduct(${rowCount})">Delete</button></td>
-    `;
-    tbody.appendChild(newRow);
-
-    // Attach event listener for new product's quantity and rate fields
-    newRow.querySelector('.quantity').addEventListener('input', () => updateProductTotal(rowCount));
-    newRow.querySelector('.rate').addEventListener('input', () => updateProductTotal(rowCount));
-}
-
-document.getElementById('invoiceForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const formData = new FormData(this);
-    const products = [];
-
-    document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
-        const productName = row.querySelector(`select[name='productName']`).value;
-        const productCategory = row.querySelector(`input[name='productCategory']`).value.trim();
-        const quantity = parseFloat(row.querySelector(`input[name='quantity']`).value);
-        const rate = parseFloat(row.querySelector(`input[name='rate']`).value);
-        const total = quantity * rate;
-
-        if (productName && quantity > 0 && rate > 0) {
-            products.push({
-                productName,
-                productCategory,
-                quantity,
-                rate,
-                total: parseFloat(total.toFixed(2))
+        document.addEventListener('DOMContentLoaded', function () {
+        // Attach event listeners for all quantity and rate input fields
+        document.querySelectorAll('#productsTableBody input[name="quantity"], #productsTableBody input[name="rate"]').forEach(input => {
+            input.addEventListener('input', function () {
+                const index = this.closest('tr').dataset.index;
+                updateProductTotal(index);
             });
-        }
-    });
+        });
 
-    formData.append('products', JSON.stringify(products));
-
-    fetch(this.action, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Invoice updated successfully.');
-            // Redirect to the new invoice number page
-            const newInvoiceNumber = document.getElementById('invoiceNumber').value;
-            window.location.href = `/admin/invoices/${newInvoiceNumber}`;
-        } else {
-            alert('Error updating invoice. Please try again.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error connecting to server. Please try again later.');
-    });
-});
-
-
-    const totalAmount = parseFloat(document.getElementById('totalAmount').textContent.replace('$', ''));
-    const cashPayment = parseFloat(formData.get('CashPayment')) || 0;
-    const accountPayment = parseFloat(formData.get('AccountPayment')) || 0;
-    const totalBalance = totalAmount - cashPayment - accountPayment;
-    const paid = totalBalance === 0;
-
-    const jsonData = {
-        invoiceNumber: formData.get('invoiceNumber'),
-        companyName: formData.get('companyName'),
-        addressLine1: formData.get('addressLine1'),
-        addressLine2: formData.get('addressLine2'),
-        city: formData.get('city'),
-        state: formData.get('state'),
-        zipCode: formData.get('zipCode'),
-        dateCreated: formData.get('dateCreated'),
-        CashPayment: cashPayment,
-        AccountPayment: accountPayment,
-        salesTax: parseFloat(formData.get('salesTax')),
-        subtotal: parseFloat(document.getElementById('subtotal').textContent.replace('$', '')),
-        totalAmount: totalAmount,
-        totalBalance: totalBalance,
-        paid: paid,
-        products: products
-    };
-
-    fetch(window.location.pathname, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(jsonData)
-    }).then(response => {
-        if (response.ok) {
-            window.location.reload();
-        } else {
-            response.text().then(text => {
-                alert('Error updating invoice: ' + text);
-            });
-        }
-    }).catch(error => {
-        alert('Error updating invoice: ' + error);
-    });
-});
-
-        
-        function updateProductDetails(index) {
-    const productName = document.querySelector(`select[name='productName'][data-index='${index}']`).value;
-    const product = availableProducts.find(item => item.itemName === productName);
-
-    if (product) {
-        // Update the product category field
-        document.querySelector(`input[name='productCategory'][data-index='${index}']`).value = product.itemCategory;
-
-        // Set the price level based on the customer's price level
-        const priceKey = `priceLevel${customerPriceLevel}`;
-        if (product[priceKey]) {
-            document.querySelector(`input[name='rate'][data-index='${index}']`).value = product[priceKey].toFixed(2);
-        } else {
-            document.querySelector(`input[name='rate'][data-index='${index}']`).value = '0.00';
-        }
-    } else {
-        document.querySelector(`input[name='productCategory'][data-index='${index}']`).value = '';
-        document.querySelector(`input[name='rate'][data-index='${index}']`).value = '0.00';
-    }
-
-    updateProductTotal(index);
-}
-        
+        // Attach event listener for sales tax input field
         document.getElementById("salesTax").addEventListener("input", updateTotal);
 
-        function printInvoice() {
-            window.print();
+        // Attach event listeners for cash and account payments to update balance
+        document.querySelector("input[name='CashPayment']").addEventListener("input", updateTotalBalance);
+        document.querySelector("input[name='AccountPayment']").addEventListener("input", updateTotalBalance);
+
+        // Initial calculation on page load
+        updateTotal();
+    });
+
+    function updateProductTotal(index) {
+        // Get the row for the product
+        const row = document.querySelector(`tr[data-index='${index}']`);
+        if (!row) return;
+
+        const quantityInput = row.querySelector(`input[name='quantity']`);
+        const rateInput = row.querySelector(`input[name='rate']`);
+
+        const quantity = parseFloat(quantityInput.value) || 0;
+        const rate = parseFloat(rateInput.value) || 0;
+
+        // Calculate the total for this product
+        const total = quantity * rate;
+
+        // Update the total in the row
+        row.querySelector('.total').textContent = total.toFixed(2);
+
+        // Update the subtotal and total amounts
+        updateTotal();
+    }
+
+    function updateTotal() {
+        let subtotal = 0;
+
+        // Loop through each product row and add up the totals
+        document.querySelectorAll('#productsTableBody tr').forEach(row => {
+            const rowTotal = parseFloat(row.querySelector('.total').textContent) || 0;
+            subtotal += rowTotal;
+        });
+
+        // Update the displayed subtotal
+        document.getElementById('subtotal').innerText = "$" + subtotal.toFixed(2);
+
+        // Calculate the total amount with sales tax
+        const salesTax = parseFloat(document.getElementById("salesTax").value) || 0;
+        const totalAmount = subtotal + salesTax;
+
+        // Update the displayed total amount
+        document.getElementById("totalAmount").innerText = "$" + totalAmount.toFixed(2);
+
+        // Update total balance
+        updateTotalBalance();
+    }
+
+    function updateTotalBalance() {
+        const totalAmount = parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0;
+        const cashPayment = parseFloat(document.querySelector("input[name='CashPayment']").value) || 0;
+        const accountPayment = parseFloat(document.querySelector("input[name='AccountPayment']").value) || 0;
+
+        // Calculate the total balance
+        const totalBalance = totalAmount - cashPayment - accountPayment;
+
+        // Update the displayed total balance
+        document.getElementById("totalBalance").innerText = "$" + totalBalance.toFixed(2);
+
+        // Update the 'Paid' status
+        const paidElement = document.querySelector("p.paid-status");
+        if (paidElement) {
+            paidElement.innerText = totalBalance === 0 ? "Yes" : "No";
+        }
+    }
+
+    function deleteProduct(index) {
+        const row = document.querySelector(`tr[data-index='${index}']`);
+        if (row) {
+            row.remove();
+            updateTotal();  // Recalculate totals after deleting a product
+        }
+    }
+
+    function addProduct() {
+        const tbody = document.getElementById('productsTableBody');
+        const rowCount = tbody.rows.length;
+        const newRow = document.createElement('tr');
+        newRow.dataset.index = rowCount;
+        newRow.innerHTML = `
+            <td>
+                <select name="productName" data-index="${rowCount}" class="productName" onchange="updateProductDetails(${rowCount})">
+                    <option value="">Select Product</option>
+                    <% availableProducts.forEach(availableProduct => { %>
+                        <option value="<%= availableProduct.itemName %>"><%= availableProduct.itemName %></option>
+                    <% }); %>
+                </select>
+            </td>
+            <td><input type="text" name="productCategory" data-index="${rowCount}" class="productCategory" readonly></td>
+            <td><input type="number" name="quantity" data-index="${rowCount}" class="quantity" step="0.01" oninput="updateProductTotal(${rowCount})" placeholder="Enter Quantity"></td>
+            <td><input type="number" name="rate" data-index="${rowCount}" class="rate" step="0.01" oninput="updateProductTotal(${rowCount})" placeholder="Enter Rate"></td>
+            <td class="total">0.00</td>
+            <td><button type="button" class="delete-btn" onclick="deleteProduct(${rowCount})">Delete</button></td>
+        `;
+        tbody.appendChild(newRow);
+
+        // Attach event listeners for new row's quantity and rate fields
+        newRow.querySelector('.quantity').addEventListener('input', () => updateProductTotal(rowCount));
+        newRow.querySelector('.rate').addEventListener('input', () => updateProductTotal(rowCount));
+    }
+
+    function updateProductDetails(index) {
+        const productName = document.querySelector(`select[name='productName'][data-index='${index}']`).value;
+        const product = availableProducts.find(item => item.itemName === productName);
+
+        if (product) {
+            // Update the product category field
+            document.querySelector(`input[name='productCategory'][data-index='${index}']`).value = product.itemCategory;
+
+            // Set the price level based on the customer's price level
+            const priceKey = `priceLevel${customerPriceLevel}`;
+            if (product[priceKey]) {
+                document.querySelector(`input[name='rate'][data-index='${index}']`).value = product[priceKey].toFixed(2);
+            } else {
+                document.querySelector(`input[name='rate'][data-index='${index}']`).value = '0.00';
+            }
+        } else {
+            document.querySelector(`input[name='productCategory'][data-index='${index}']`).value = '';
+            document.querySelector(`input[name='rate'][data-index='${index}']`).value = '0.00';
         }
 
-        updateTotal();
+        updateProductTotal(index);
+    }
+
+    function printInvoice() {
+        window.print();
+    }
+
+    // Initial calculation when the page loads
+    updateTotal();
     </script>
 </body>
 

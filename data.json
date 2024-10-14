@@ -11568,6 +11568,53 @@
           "totalAmount": 1730,
           "CashPayment": 0,
           "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "C47",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 60,
+              "rate": 12.75,
+              "total": 765
+            },
+            {
+              "productName": "C90PST1 Hinged Container Import",
+              "productCategory": "Plastic Hinged Container",
+              "quantity": 1,
+              "rate": 43,
+              "total": 43
+            },
+            {
+              "productName": "8\" Aluminum Pan",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 34,
+              "total": 102
+            },
+            {
+              "productName": "8\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 11.75,
+              "total": 35.25
+            }
+          ],
+          "subtotal": 945.25,
+          "salesTax": 0,
+          "totalAmount": 945.25,
+          "totalBalance": 945.25,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
         }
       ]
     },
@@ -12301,6 +12348,46 @@
           "totalBalance": 296.75,
           "paid": false,
           "totalAmount": 296.75
+        },
+        {
+          "invoiceNumber": "GCU06",
+          "companyName": "Global Crossing USA",
+          "addressLine1": "5 IVY Lane",
+          "addressLine2": "",
+          "city": "Wallington",
+          "state": "NJ",
+          "zipCode": "07057",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "Dinner Napkin 2 Ply 3000/Case",
+              "productCategory": "Paper Towels",
+              "quantity": 2,
+              "rate": 24.5,
+              "total": 49
+            },
+            {
+              "productName": "7\" Aluminum Pan",
+              "productCategory": "Aluminum Pans",
+              "quantity": 5,
+              "rate": 19.5,
+              "total": 97.5
+            },
+            {
+              "productName": "8\" Aluminum Pan",
+              "productCategory": "Aluminum Pans",
+              "quantity": 5,
+              "rate": 34,
+              "total": 170
+            }
+          ],
+          "subtotal": 316.5,
+          "salesTax": 0,
+          "totalAmount": 316.5,
+          "totalBalance": 316.5,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
         }
       ]
     },
@@ -15233,21 +15320,21 @@
           "city": "Jersey City",
           "state": "New Jersey",
           "zipCode": "07302",
-          "dateCreated": "2024-10-14",
+          "dateCreated": "2024-08-30",
           "products": [
             {
               "productName": "7\" Aluminum Pan",
               "productCategory": "Aluminum Pans",
               "quantity": 1,
-              "rate": 31.25,
-              "total": 31.25
+              "rate": 29,
+              "total": 29
             },
             {
               "productName": "7\" Aluminum Pan Dome Lid",
               "productCategory": "Aluminum Pans",
               "quantity": 1,
-              "rate": 11.25,
-              "total": 11.25
+              "rate": 25,
+              "total": 25
             },
             {
               "productName": "8 oz Hot Cup 1000ct",
@@ -15275,7 +15362,7 @@
               "productCategory": "Miscellaneous",
               "quantity": 0.2,
               "rate": 126.67,
-              "total": 25.334000000000003
+              "total": 25.33
             },
             {
               "productName": "9\" Paper Plates (1000pcs)",
@@ -15303,7 +15390,7 @@
               "productCategory": "Janitorial",
               "quantity": 0.167,
               "rate": 54.3,
-              "total": 9.0681
+              "total": 9.07
             },
             {
               "productName": "Starco Bleach 4 Gallon",
@@ -15327,14 +15414,14 @@
               "total": 19.25
             }
           ],
-          "subtotal": 265.6521,
+          "subtotal": 277.15,
           "salesTax": 0,
-          "totalAmount": 265.6521,
-          "totalBalance": 265.6521,
+          "totalAmount": 277.15,
+          "totalBalance": 277.15,
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
-          "notes": ""
+          "notes": "cash"
         },
         {
           "invoiceNumber": "BCHJC09",
@@ -16128,7 +16215,7 @@
           "city": "Saddle Brook",
           "state": "NJ",
           "zipCode": "07663",
-          "dateCreated": "8/8/2024",
+          "dateCreated": "2024-08-08",
           "products": [
             {
               "productName": "Pactiv NC729B 32 oz Black Round Container",
@@ -16166,7 +16253,7 @@
               "total": 48
             },
             {
-              "productName": "Win Sone/Wellchoice Aluminum Full Size Deep Pan XHD",
+              "productName": "Aluminum Full Size Deep Pan 125g",
               "productCategory": "Aluminum Pans",
               "quantity": 2,
               "rate": 45,
@@ -16180,7 +16267,7 @@
               "total": 44
             },
             {
-              "productName": "Aluminum Half Size Deep Pan XHD 100/Cs",
+              "productName": "Aluminum Half Size Deep Pan XHD",
               "productCategory": "Aluminum Pans",
               "quantity": 2,
               "rate": 35,
@@ -16208,7 +16295,7 @@
               "total": 92
             },
             {
-              "productName": "PP901 Plastic Plates 400pcs",
+              "productName": "PP901 PP091 Plastic Plates 400pcs",
               "productCategory": "Plastic Containers",
               "quantity": 4,
               "rate": 26,
@@ -16227,14 +16314,37 @@
               "quantity": 3,
               "rate": 23,
               "total": 69
+            },
+            {
+              "productName": "8 oz Hot Cup Lid",
+              "productCategory": "Paper Hot Cups",
+              "quantity": 2,
+              "rate": 23,
+              "total": 46
+            },
+            {
+              "productName": "9\" Bagasse 3 Compartment Plates Heavy Duty (400 pcs)",
+              "productCategory": "Bagasse",
+              "quantity": 4,
+              "rate": 35,
+              "total": 140
+            },
+            {
+              "productName": "10\" Bagasse 3 Compartment Plates Heavy Duty (400 pcs)",
+              "productCategory": "Bagasse",
+              "quantity": 4,
+              "rate": 42,
+              "total": 168
             }
           ],
-          "totalBalance": 1095,
+          "totalBalance": 1449,
           "paid": false,
-          "totalAmount": 1095,
+          "totalAmount": 1449,
           "CashPayment": 0,
           "AccountPayment": 0,
-          "notes": ""
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 1449
         },
         {
           "invoiceNumber": "DABH02",
@@ -16244,7 +16354,7 @@
           "city": "Saddle Brook",
           "state": "NJ",
           "zipCode": "07663",
-          "dateCreated": "8/27/2024",
+          "dateCreated": "2024-08-27",
           "products": [
             {
               "productName": "7\" Aluminum Pan",
@@ -16261,7 +16371,7 @@
               "total": 30
             },
             {
-              "productName": "PP901 Plastic Plates 400pcs",
+              "productName": "PP901 PP091 Plastic Plates 400pcs",
               "productCategory": "Plastic Containers",
               "quantity": 5,
               "rate": 26,
@@ -16324,7 +16434,7 @@
               "total": 81
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 2,
               "rate": 17,
@@ -16335,7 +16445,10 @@
           "paid": false,
           "totalAmount": 897,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 897
         },
         {
           "invoiceNumber": "DABH03",
@@ -16448,7 +16561,7 @@
           "city": "Denville",
           "state": "NJ",
           "zipCode": "07834",
-          "dateCreated": "8/15/2024",
+          "dateCreated": "2024-08-15",
           "products": [
             {
               "productName": "Pactiv NC729B 32 oz Black Round Container",
@@ -16521,7 +16634,7 @@
               "total": 27
             },
             {
-              "productName": "Aluminum Half Size Shallow Pan XHD 100/CS",
+              "productName": "Aluminum Half Size Shallow Pan XHD",
               "productCategory": "Aluminum Pans",
               "quantity": 3,
               "rate": 31,
@@ -16535,7 +16648,7 @@
               "total": 69
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 4,
               "rate": 20,
@@ -16556,11 +16669,14 @@
               "total": 70
             }
           ],
-          "totalBalance": 1472,
+          "totalBalance": 1473.45,
           "paid": false,
-          "totalAmount": 1472,
+          "totalAmount": 1473.45,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 1.45,
+          "subtotal": 1472
         },
         {
           "invoiceNumber": "HOBAK02",
@@ -16736,7 +16852,7 @@
           "city": "Jersey City",
           "state": "NJ",
           "zipCode": "07306",
-          "dateCreated": "8/16/2024",
+          "dateCreated": "2024-08-16",
           "products": [
             {
               "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
@@ -16767,11 +16883,14 @@
               "total": 22
             }
           ],
-          "totalBalance": 144,
+          "totalBalance": 153.54,
           "paid": false,
-          "totalAmount": 144,
+          "totalAmount": 153.54,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 9.54,
+          "subtotal": 144
         },
         {
           "invoiceNumber": "PJ06",
@@ -16869,62 +16988,62 @@
           "city": "Jersey City",
           "state": "NJ",
           "zipCode": "07306",
-          "dateCreated": "2024-10-14",
+          "dateCreated": "2024-08-09",
           "products": [
             {
               "productName": "18x3000 Plastic Film Wrap",
               "productCategory": "Film Wrap",
               "quantity": 1,
-              "rate": 17,
-              "total": 17
+              "rate": 22.97,
+              "total": 22.97
             },
             {
               "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 1,
-              "rate": 18.5,
-              "total": 18.5
+              "rate": 19.99,
+              "total": 19.99
             },
             {
               "productName": "Norpak Interfolded Sheet 8\" x 10.75",
               "productCategory": "Wax Paper",
               "quantity": 0.167,
-              "rate": 48.25,
-              "total": 8.05775
+              "rate": 71.9,
+              "total": 12.01
             },
             {
               "productName": "Starco So-Kleen Lavender Floor Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 20.25,
-              "total": 20.25
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Starco Bleach 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 12.5,
-              "total": 25
+              "rate": 15,
+              "total": 30
             },
             {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
+              "rate": 24,
+              "total": 24
             },
             {
               "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 21,
-              "total": 21
+              "rate": 22,
+              "total": 22
             }
           ],
-          "subtotal": 129.05775,
-          "salesTax": 0,
-          "totalAmount": 129.05775,
-          "totalBalance": 129.05775,
+          "subtotal": 152.97,
+          "salesTax": 6.49,
+          "totalAmount": 159.46,
+          "totalBalance": 159.46,
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
@@ -16938,69 +17057,69 @@
           "city": "Jersey City",
           "state": "NJ",
           "zipCode": "07306",
-          "dateCreated": "2024-10-14",
+          "dateCreated": "2024-08-23",
           "products": [
             {
               "productName": "Norpak Interfolded Sheet 8\" x 10.75",
               "productCategory": "Wax Paper",
-              "quantity": 0.83,
-              "rate": 48.25,
-              "total": 40.0475
+              "quantity": 0.083,
+              "rate": 72.3,
+              "total": 6
             },
             {
               "productName": "9 in Jumbo Bathroom Tissue",
               "productCategory": "Paper Towels",
               "quantity": 1,
-              "rate": 22.5,
-              "total": 22.5
+              "rate": 29,
+              "total": 29
             },
             {
               "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 1,
-              "rate": 18.5,
-              "total": 18.5
+              "rate": 20,
+              "total": 20
             },
             {
               "productName": "Starco Bleach 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 12.5,
-              "total": 25
+              "rate": 15,
+              "total": 30
             },
             {
               "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 21,
-              "total": 21
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
               "productCategory": "Plastic Garbage Bag",
               "quantity": 2,
-              "rate": 16.5,
-              "total": 33
+              "rate": 20,
+              "total": 40
             },
             {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
               "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
+              "quantity": 2,
+              "rate": 24,
+              "total": 48
             }
           ],
-          "subtotal": 198.5475,
-          "salesTax": 0,
-          "totalAmount": 198.5475,
-          "totalBalance": 198.5475,
+          "subtotal": 217,
+          "salesTax": 10.73,
+          "totalAmount": 227.73,
+          "totalBalance": 227.73,
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
@@ -17607,7 +17726,7 @@
           "city": "Ridgewood",
           "state": "NJ",
           "zipCode": "07450",
-          "dateCreated": "8/30/2024",
+          "dateCreated": "2024-08-30",
           "products": [
             {
               "productName": "Pactiv NC723B 24 oz Black Round Container",
@@ -17652,7 +17771,7 @@
               "total": 50
             },
             {
-              "productName": "2 Cup Carrier 200/Case",
+              "productName": "2 Cup Carrier",
               "productCategory": "Plastic PET Cups",
               "quantity": 1,
               "rate": 35,
@@ -17673,7 +17792,7 @@
               "total": 20
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 1,
               "rate": 19,
@@ -17692,13 +17811,23 @@
               "quantity": 1,
               "rate": 24,
               "total": 24
+            },
+            {
+              "productName": "Plastic Straws (7200 pcs)",
+              "productCategory": "Utensils",
+              "quantity": 0.08,
+              "rate": 87.5,
+              "total": 7
             }
           ],
-          "totalBalance": 418,
+          "totalBalance": 427.91,
           "paid": false,
-          "totalAmount": 418,
+          "totalAmount": 427.91,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 2.91,
+          "subtotal": 425
         }
       ],
       "taxable": true

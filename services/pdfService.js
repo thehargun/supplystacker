@@ -81,7 +81,12 @@ function generateInvoicePdf(orderDetails, callback) {
 
     // Balance Due
     tableTop = checkPageBreak(doc, tableTop, 30);
-    doc.fontSize(12).font('Helvetica-Bold').text(`Balance Due: $${orderDetails.totalBalance.toFixed(2)}`, 50, tableTop + 20);
+    // Ensure totalBalance is defined and has a valid value
+const balanceDue = orderDetails.totalBalance ? parseFloat(orderDetails.totalBalance) : 0;
+
+doc.fontSize(12)
+   .font('Helvetica-Bold')
+   .text(`Balance Due: $${balanceDue.toFixed(2)}`, 50, tableTop + 20);
 
     // Draw lines for the table
     doc.strokeColor('#000')

@@ -449,7 +449,53 @@
     }
 
     function printInvoice() {
-        window.print();
+        const formData = new FormData(document.getElementById('invoiceForm'));
+        const products = [];
+        document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
+            const productName = row.querySelector(`select[name='productName']`) ? row.querySelector(`select[name='productName']`).value : row.cells[0].textContent;
+            const productCategory = row.cells[1].textContent;
+            const quantity = row.querySelector(`input[name='quantity']`).value;
+            const rate = row.querySelector(`input[name='rate']`).value;
+            const total = quantity * rate;
+            products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
+        });
+
+        let dateCreated = new Date(formData.get('dateCreated'));
+        dateCreated.setDate(dateCreated.getDate());
+        const formattedDate = dateCreated.toISOString().split('T')[0];
+
+        const invoiceDetails = {
+            invoiceNumber: formData.get('invoiceNumber'),
+            companyName: formData.get('companyName'),
+            addressLine1: formData.get('addressLine1'),
+            addressLine2: formData.get('addressLine2'),
+            city: formData.get('city'),
+            state: formData.get('state'),
+            zipCode: formData.get('zipCode'),
+            dateCreated: formattedDate,
+            CashPayment: formData.get('CashPayment'),
+            AccountPayment: formData.get('AccountPayment'),
+            products: products,
+            totalBalance: parseFloat(document.getElementById('totalAmount').textContent)
+        };
+
+        fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(invoiceDetails)
+        }).then(response => {
+            if (response.ok) {
+                alert('Invoice PDF generated and emailed successfully.');
+            } else {
+                response.text().then(text => {
+                    alert('Error printing invoice: ' + text);
+                });
+            }
+        }).catch(error => {
+            alert('Error printing invoice: ' + error);
+        });
     }
 
     // Initial calculation when the page loads

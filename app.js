@@ -635,6 +635,16 @@ app.post('/admin/invoices/:invoiceNumber', (req, res) => {
 });
 
 
+app.post('/admin/invoices/print/:invoiceNumber', (req, res) => {
+    const invoiceNumber = req.params.invoiceNumber;
+    const orderDetails = req.body;
+
+    pdfService.generateInvoicePdf(orderDetails, (filePath) => {
+        emailService.sendOrderConfirmationWithInvoice(orderDetails.companyName, orderDetails, filePath);
+        res.status(200).send('Invoice PDF generated and sent successfully.');
+    });
+});
+
 
 
 

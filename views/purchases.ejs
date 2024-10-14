@@ -162,13 +162,26 @@
                 form.submit();
             });
         });
+        function toggleVendorInput() {
+            const vendorDropdown = document.getElementById("vendor");
+            const newVendorInput = document.getElementById("newVendor");
+            newVendorInput.style.display = vendorDropdown.value === "other" ? "block" : "none";
+        }
+
     </script>
 </head>
 <body>
     <h1>Purchase Invoice</h1>
     <form action="/admin/purchases" method="post">
-        <label for="vendorName">Vendor Name:</label>
-        <input type="text" id="vendorName" name="vendorName" required><br>
+        <label for="vendor">Vendor Name:</label>
+        <select id="vendor" name="vendor" onchange="toggleVendorInput()">
+            <% vendors.forEach(vendor => { %>
+                <option value="<%= vendor %>"><%= vendor %></option>
+            <% }) %>
+            <option value="other">Other</option>
+        </select>
+        <input type="text" id="newVendor" name="newVendor" style="display:none;" placeholder="Enter new vendor">
+
 
         <label for="dateCreated">Date Created:</label>
         <input type="date" id="dateCreated" name="dateCreated" required><br>

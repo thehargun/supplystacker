@@ -40,11 +40,11 @@
             </div>
             <div class="form-group">
                 <label for="cashPaid">Cash Paid:</label>
-                <input type="number" class="form-control" id="cashPaid" name="cashPaid" value="<%= purchase.cashPaid %>">
+                <input type="number" class="form-control" id="cashPaid" name="cashPaid" value="<%= purchase.cashPaid %>" oninput="updateAccountBalance()">
             </div>
             <div class="form-group">
                 <label for="accountPaid">Account Paid:</label>
-                <input type="number" class="form-control" id="accountPaid" name="accountPaid" value="<%= purchase.accountPaid %>">
+                <input type="number" class="form-control" id="accountPaid" name="accountPaid" value="<%= purchase.accountPaid %>" oninput="updateAccountBalance()">
             </div>
 
             <h3>Products</h3>
@@ -65,8 +65,8 @@
                         <tr>
                             <td><%= index + 1 %></td>
                             <td><%= product.productName %></td>
-                            <td><input type="number" class="form-control quantity" name="products[<%= index %>][quantity]" value="<%= product.quantity %>" data-index="<%= index %>"></td>
-                            <td><input type="number" step="0.01" class="form-control rate" name="products[<%= index %>][rate]" value="<%= product.rate %>" data-index="<%= index %>"></td>
+                            <td><input type="number" class="form-control quantity" name="products[<%= index %>][quantity]" value="<%= product.quantity %>" data-index="<%= index %>" oninput="updateRowTotal(this)"></td>
+                            <td><input type="number" step="0.01" class="form-control rate" name="products[<%= index %>][rate]" value="<%= product.rate %>" data-index="<%= index %>" oninput="updateRowTotal(this)"></td>
                             <td class="productTotal">$<%= (product.total || 0).toFixed(2) %></td>
                             <td>
                                 <select class="form-control autoPricing" name="products[<%= index %>][autoPricing]" data-index="<%= index %>">
@@ -183,38 +183,37 @@
         }
 
         $('#purchaseForm').on('submit', function(event) {
-    event.preventDefault();
+            event.preventDefault();
 
-    const products = [];
-    $('#productsTableBody tr').each(function() {
-        const productName = $(this).find('select[name^="products["]').val();
-        const quantity = parseFloat($(this).find('input[name$="[quantity]"]').val()) || 0;
-        const rate = parseFloat($(this).find('input[name$="[rate]"]').val()) || 0;
-        const total = quantity * rate;
-        const autoPricing = $(this).find('select[name$="[autoPricing]"]').val();
+            const products = [];
+            $('#productsTableBody tr').each(function() {
+                const productName = $(this).find('select[name^="products["]').val();
+                const quantity = parseFloat($(this).find('input[name$="[quantity]"]').val()) || 0;
+                const rate = parseFloat($(this).find('input[name$="[rate]"]').val()) || 0;
+                const total = quantity * rate;
+                const autoPricing = $(this).find('select[name$="[autoPricing]"]').val();
 
-        products.push({
-            productName,
-            quantity,
-            rate,
-            total,
-            autoPricing
+                products.push({
+                    productName,
+                    quantity,
+                    rate,
+                    total,
+                    autoPricing
+                });
+            });
+
+            // Ensure the products array is properly stringified
+            const productsString = JSON.stringify(products);
+
+            // Serialize the form data
+            const formData = $(this).serializeArray();
+            formData.push({ name: 'products', value: productsString });
+
+            // Send the data to the server
+            $.post($(this).attr('action'), $.param(formData), function(response) {
+                window.location.href = response.redirectUrl || '/admin/purchases';
+            });
         });
-    });
-
-    // Ensure the products array is properly stringified
-    const productsString = JSON.stringify(products);
-
-    // Serialize the form data
-    const formData = $(this).serializeArray();
-    formData.push({ name: 'products', value: productsString });
-
-    // Send the data to the server
-    $.post($(this).attr('action'), $.param(formData), function(response) {
-        window.location.href = response.redirectUrl || '/admin/purchases';
-    });
-});
-
 
         $(document).on('input', '.quantity, .rate', updateRowTotal);
 

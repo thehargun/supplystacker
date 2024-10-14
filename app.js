@@ -564,13 +564,16 @@ app.post('/admin/invoices/:invoiceNumber', (req, res) => {
         return res.status(403).send('Access denied.');
     }
 
-    const invoiceNumber = req.params.invoiceNumber;
+    const oldInvoiceNumber = req.params.invoiceNumber;
+    const newInvoiceNumber = req.body.invoiceNumber; // Get the new invoice number from the request
+    const updatedNote = req.body.notes;
+
     let userIndex = null;
     let invoiceIndex = null;
 
     users.forEach((user, uIndex) => {
         if (user.invoices && user.invoices.length > 0) {
-            const foundInvoiceIndex = user.invoices.findIndex(inv => inv.invoiceNumber === invoiceNumber);
+            const foundInvoiceIndex = user.invoices.findIndex(inv => inv.invoiceNumber === oldInvoiceNumber);
             if (foundInvoiceIndex !== -1) {
                 userIndex = uIndex;
                 invoiceIndex = foundInvoiceIndex;
@@ -582,17 +585,19 @@ app.post('/admin/invoices/:invoiceNumber', (req, res) => {
         return res.status(404).send('Invoice not found.');
     }
 
-    // Update invoice details
-    const updatedInvoice = req.body;
-    users[userIndex].invoices[invoiceIndex] = {
-        ...users[userIndex].invoices[invoiceIndex],
-        ...updatedInvoice,
-        products: updatedInvoice.products // Update products array
-    };
+    // Update the invoice number
+    users[userIndex].invoices[invoiceIndex].invoiceNumber = newInvoiceNumber;
 
-    saveData();
-    res.status(200).send('Invoice updated successfully');
+    // Update other fields if needed (e.g., notes)
+    users[userIndex].invoices[invoiceIndex].notes = updatedNote;
+
+    saveData(); // Save changes to data.json
+
+    res.redirect(`/admin/invoices/${newInvoiceNumber}`);
 });
+
+
+
 
 
 app.post('/admin/invoices/print/:invoiceNumber', (req, res) => {
@@ -1160,11 +1165,27 @@ function vPackAutoPrice(cost) {
 }
 
 app.post('/admin/purchases', (req, res) => {
-    const { vendorName, dateCreated, invoiceNumber, cashPaid, accountPaid, paid } = req.body;
+    let { vendorName, newVendor, dateCreated, invoiceNumber, cashPaid, accountPaid, paid } = req.body;
     const products = JSON.parse(req.body.products || '[]');
 
     if (!Array.isArray(products) || products.length === 0) {
         return res.status(400).send('No products provided.');
+    }
+
+    // Check if a new vendor is being added
+    if (vendorName === 'other' && newVendor) {
+        vendorName = newVendor;
+        // Add the new vendor to the vendor list if not already there
+        const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+        if (!data.vendors) {
+            data.vendors = [];
+        }
+
+        if (!data.vendors.includes(newVendor)) {
+            data.vendors.push(newVendor);
+            // Save the updated vendors list
+            fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
+        }
     }
 
     products.forEach(product => {
@@ -1204,7 +1225,6 @@ app.post('/admin/purchases', (req, res) => {
             console.error('Item not found in inventory:', product.productName);
         }
     });
-    
 
     const invoiceTotal = products.reduce((sum, product) => sum + product.total, 0);
     const accountBalance = invoiceTotal - parseFloat(cashPaid) - parseFloat(accountPaid);
@@ -1241,11 +1261,13 @@ app.post('/admin/purchases', (req, res) => {
 
     purchases.push(newPurchase);
 
-    // Save the updated data
+    // Save the updated purchases array in data.json
+    data.purchases = purchases;
     fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
 
     res.redirect('/admin/purchases');
 });
+
 
 app.get('/admin/vendor-portal', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {

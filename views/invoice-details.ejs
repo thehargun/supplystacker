@@ -107,8 +107,8 @@
             <div class="invoice-details">
                 <h2>Invoice Info</h2>
                 <div class="form-group">
-                    <label>Invoice Number:</label>
-                    <input type="text" name="invoiceNumber" value="<%= invoice.invoiceNumber %>" readonly>
+                    <label for="invoiceNumber">Invoice Number:</label>
+                    <input type="text" id="invoiceNumber" name="invoiceNumber" class="form-control" value="<%= invoice.invoiceNumber %>">
                 </div>
                 <div class="form-group">
                     <label>Company Name:</label>
@@ -158,6 +158,12 @@
                     <label>Paid:</label>
                     <p><%= invoice.paid ? 'Yes' : 'No' %></p>
                 </div>
+                <div class="form-group">
+                    <label>Notes:</label>
+                    <input type="text" name="notes" value="<%= invoice.notes %>">
+                </div>
+
+
             </div>
 
             <!-- Products Section -->
@@ -216,6 +222,8 @@
                 <label>Total Amount:</label>
                 <span id="totalAmount">$<%= (typeof invoice.totalAmount === 'number' ? invoice.totalAmount.toFixed(2) : parseFloat(invoice.totalAmount).toFixed(2)) %></span>
             </div>
+
+            
 
 
             <div class="form-group">
@@ -357,6 +365,30 @@ document.getElementById('invoiceForm').addEventListener('submit', function (even
             });
         }
     });
+
+    formData.append('products', JSON.stringify(products));
+
+    fetch(this.action, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Invoice updated successfully.');
+            // Redirect to the new invoice number page
+            const newInvoiceNumber = document.getElementById('invoiceNumber').value;
+            window.location.href = `/admin/invoices/${newInvoiceNumber}`;
+        } else {
+            alert('Error updating invoice. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error connecting to server. Please try again later.');
+    });
+});
+
 
     const totalAmount = parseFloat(document.getElementById('totalAmount').textContent.replace('$', ''));
     const cashPayment = parseFloat(formData.get('CashPayment')) || 0;

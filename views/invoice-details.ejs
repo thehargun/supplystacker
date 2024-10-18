@@ -460,10 +460,11 @@
             products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
         });
 
+        const totalAmount = parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0;
+        
         let dateCreated = new Date(formData.get('dateCreated'));
         dateCreated.setDate(dateCreated.getDate());
         const formattedDate = dateCreated.toISOString().split('T')[0];
-
         const invoiceDetails = {
             invoiceNumber: formData.get('invoiceNumber'),
             companyName: formData.get('companyName'),
@@ -476,7 +477,7 @@
             CashPayment: formData.get('CashPayment'),
             AccountPayment: formData.get('AccountPayment'),
             products: products,
-            totalBalance: parseFloat(document.getElementById('totalAmount').textContent)
+            totalBalance: totalAmount,
         };
 
         fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
@@ -495,6 +496,7 @@
             }
         }).catch(error => {
             alert('Error printing invoice: ' + error);
+     
         });
     }
 

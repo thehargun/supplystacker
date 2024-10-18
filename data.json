@@ -619,10 +619,10 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "4/23/2024",
+          "dateCreated": "2024-04-23",
           "products": [
             {
-              "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 5,
               "rate": 20,
@@ -657,7 +657,7 @@
               "total": 73.75
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 20,
               "rate": 21,
@@ -689,7 +689,10 @@
           "paid": true,
           "totalAmount": 1758.5,
           "CashPayment": 410,
-          "AccountPayment": 1348.5
+          "AccountPayment": 1348.5,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 1758.5
         },
         {
           "invoiceNumber": "AWL18",
@@ -699,24 +702,24 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "4/25/2024",
+          "dateCreated": "2024-04-25",
           "products": [
             {
-              "productName": "PP Hinged Container PP225 6\"x6\"x3 250pcs",
+              "productName": "PP Hinged Container PP225 / PP61 6\"x6\"x3 250pcs",
               "productCategory": "Plastic PP Container",
               "quantity": 3,
               "rate": 15.5,
               "total": 46.5
             },
             {
-              "productName": "PP Hinged Container PP91 9\"x9\"x3",
+              "productName": "PP Hinged Container PP91 9\"x9\"x3 150pcs",
               "productCategory": "Plastic PP Container",
               "quantity": 2,
               "rate": 22,
               "total": 44
             },
             {
-              "productName": "Aluminum Oblong Pan 2.25 lb (1000pcs)",
+              "productName": "Aluminum Oblong Pan 2.25 lb (500pcs)",
               "productCategory": "Aluminum Pans",
               "quantity": 1,
               "rate": 37,
@@ -755,7 +758,10 @@
           "paid": true,
           "totalAmount": 436.25,
           "CashPayment": 0,
-          "AccountPayment": 436.25
+          "AccountPayment": 436.25,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 436.25
         },
         {
           "invoiceNumber": "AWL19",
@@ -765,7 +771,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "4/25/2024",
+          "dateCreated": "2024-04-25",
           "products": [
             {
               "productName": "PP Hinged Container PP206 9\"x6\"x3 250pcs",
@@ -789,7 +795,7 @@
               "total": 39.75
             },
             {
-              "productName": "PP Hinged Container PP225 6\"x6\"x3 250pcs",
+              "productName": "PP Hinged Container PP225 / PP61 6\"x6\"x3 250pcs",
               "productCategory": "Plastic PP Container",
               "quantity": 3,
               "rate": 15.5,
@@ -800,7 +806,10 @@
           "paid": true,
           "totalAmount": 156.5,
           "CashPayment": 0,
-          "AccountPayment": 156.5
+          "AccountPayment": 156.5,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 156.5
         },
         {
           "invoiceNumber": "AWL20",
@@ -810,7 +819,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "4/25/2024",
+          "dateCreated": "2024-04-25",
           "products": [
             {
               "productName": "7\" Aluminum Pan",
@@ -876,7 +885,7 @@
               "total": 14
             },
             {
-              "productName": "12\" x 10.75\" Pop Up Foil Sheets 12/Box",
+              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
               "productCategory": "Aluminum Foil Sheets",
               "quantity": 1,
               "rate": 40.5,
@@ -908,7 +917,10 @@
           "paid": true,
           "totalAmount": 551.6,
           "CashPayment": 551.6,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 551.6
         },
         {
           "invoiceNumber": "AWL21",
@@ -918,7 +930,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "4/26/2024",
+          "dateCreated": "2024-04-26",
           "products": [
             {
               "productName": "PP Hinged Container PP206 9\"x6\"x3 250pcs",
@@ -928,7 +940,7 @@
               "total": 57
             },
             {
-              "productName": "PP Hinged Container PP91 9\"x9\"x3",
+              "productName": "PP Hinged Container PP91 9\"x9\"x3 150pcs",
               "productCategory": "Plastic PP Container",
               "quantity": 3,
               "rate": 22,
@@ -953,7 +965,10 @@
           "paid": true,
           "totalAmount": 269,
           "CashPayment": 48.5,
-          "AccountPayment": 220.5
+          "AccountPayment": 220.5,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 269
         },
         {
           "invoiceNumber": "AWL22",
@@ -987,7 +1002,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "5/2/2024",
+          "dateCreated": "2024-05-02",
           "products": [
             {
               "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
@@ -1018,7 +1033,7 @@
               "total": 15.75
             },
             {
-              "productName": "Aluminum Half Size Medium Pan XHD",
+              "productName": "Aluminum Half Size Medium Pan 29g",
               "productCategory": "Aluminum Pans",
               "quantity": 2,
               "rate": 15.5,
@@ -1029,7 +1044,10 @@
           "paid": true,
           "totalAmount": 235.25,
           "CashPayment": 0,
-          "AccountPayment": 235.25
+          "AccountPayment": 235.25,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 235.25
         },
         {
           "invoiceNumber": "AWL24",
@@ -1129,7 +1147,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "5/7/2024",
+          "dateCreated": "2024-05-07",
           "products": [
             {
               "productName": "#4 White SOS Bag 500pcs",
@@ -1153,7 +1171,7 @@
               "total": 675
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 25,
               "rate": 21,
@@ -1185,7 +1203,10 @@
           "paid": true,
           "totalAmount": 1580.25,
           "CashPayment": 655,
-          "AccountPayment": 925.25
+          "AccountPayment": 925.25,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 1580.25
         },
         {
           "invoiceNumber": "AWL27",
@@ -1195,7 +1216,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "5/8/2024",
+          "dateCreated": "2024-05-08",
           "products": [
             {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
@@ -1219,14 +1240,14 @@
               "total": 610
             },
             {
-              "productName": "12\" x 10.75\" Pop Up Foil Sheets 12/Box",
+              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
               "productCategory": "Aluminum Foil Sheets",
               "quantity": 1,
               "rate": 40.5,
               "total": 40.5
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 2,
               "rate": 21,
@@ -1237,7 +1258,10 @@
           "paid": true,
           "totalAmount": 623,
           "CashPayment": 0,
-          "AccountPayment": 623
+          "AccountPayment": 623,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 623
         },
         {
           "invoiceNumber": "AWL28",
@@ -1247,17 +1271,17 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "5/9/2024",
+          "dateCreated": "2024-05-09",
           "products": [
             {
-              "productName": "Aluminum Half Size Deep Pan XHD",
+              "productName": "Aluminum Half Size Deep Pan 29g",
               "productCategory": "Aluminum Pans",
               "quantity": 2,
               "rate": 15.5,
               "total": 31
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 2,
               "rate": 21,
@@ -1271,7 +1295,7 @@
               "total": 12.75
             },
             {
-              "productName": "12\" x 10.75\" Pop Up Foil Sheets 12/Box",
+              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
               "productCategory": "Aluminum Foil Sheets",
               "quantity": 1,
               "rate": 19.15,
@@ -1289,7 +1313,10 @@
           "paid": true,
           "totalAmount": 124.9,
           "CashPayment": 0,
-          "AccountPayment": 124.9
+          "AccountPayment": 124.9,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 124.9
         },
         {
           "invoiceNumber": "AWL29",
@@ -1323,7 +1350,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "5/13/2024",
+          "dateCreated": "2024-05-13",
           "products": [
             {
               "productName": "7\" Aluminum Pan Dome Lid",
@@ -1347,21 +1374,21 @@
               "total": 25
             },
             {
-              "productName": "Aluminum Half Size Deep Pan XHD",
+              "productName": "Aluminum Half Size Deep Pan 29g",
               "productCategory": "Aluminum Pans",
               "quantity": 2,
               "rate": 15.5,
               "total": 31
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 2,
               "rate": 21,
               "total": 42
             },
             {
-              "productName": "Import 8 oz Deli Container 240pc Combo",
+              "productName": "Import 8 oz Soup Container 240pc Combo",
               "productCategory": "Plastic Containers",
               "quantity": 1,
               "rate": 20.7,
@@ -1386,7 +1413,10 @@
           "paid": true,
           "totalAmount": 298,
           "CashPayment": 0,
-          "AccountPayment": 298
+          "AccountPayment": 298,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 298
         },
         {
           "invoiceNumber": "AWL31",
@@ -1396,7 +1426,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "5/14/2024",
+          "dateCreated": "2024-05-14",
           "products": [
             {
               "productName": "8\" Aluminum Pan",
@@ -1406,14 +1436,14 @@
               "total": 305
             },
             {
-              "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 13x7x17 Twisted Handle 250pcs",
               "productCategory": "Paper Bags",
               "quantity": 2,
               "rate": 26,
               "total": 52
             },
             {
-              "productName": "Aluminum Half Size Deep Pan XHD",
+              "productName": "Wine Sone Aluminum Half Size Deep Pan XHD",
               "productCategory": "Aluminum Pans",
               "quantity": 2,
               "rate": 15.5,
@@ -1424,7 +1454,10 @@
           "paid": true,
           "totalAmount": 388,
           "CashPayment": 0,
-          "AccountPayment": 388
+          "AccountPayment": 388,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 388
         },
         {
           "invoiceNumber": "AWL32",
@@ -1434,7 +1467,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "5/15/2024",
+          "dateCreated": "2024-05-15",
           "products": [
             {
               "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
@@ -1444,7 +1477,7 @@
               "total": 127.5
             },
             {
-              "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 13x7x17 Twisted Handle 250pcs",
               "productCategory": "Paper Bags",
               "quantity": 5,
               "rate": 26,
@@ -1465,7 +1498,7 @@
               "total": 42
             },
             {
-              "productName": "Aluminum Half Size Shallow Pan XHD",
+              "productName": "Aluminum Half Size Shallow Pan 29g",
               "productCategory": "Aluminum Pans",
               "quantity": 1,
               "rate": 15.5,
@@ -1479,7 +1512,7 @@
               "total": 25
             },
             {
-              "productName": "PP901 Plastic Plates 400pcs",
+              "productName": "PP901 PP091 Plastic Plates 400pcs",
               "productCategory": "Plastic Containers",
               "quantity": 1,
               "rate": 24,
@@ -1490,7 +1523,10 @@
           "paid": true,
           "totalAmount": 393.5,
           "CashPayment": 0,
-          "AccountPayment": 393.5
+          "AccountPayment": 393.5,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 393.5
         },
         {
           "invoiceNumber": "AWL33",
@@ -1500,7 +1536,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "5/16/2024",
+          "dateCreated": "2024-05-16",
           "products": [
             {
               "productName": "PP Hinged Container PP206 9\"x6\"x3 250pcs",
@@ -1517,7 +1553,7 @@
               "total": 191.25
             },
             {
-              "productName": "Import 16 oz Deli Container  240pc Combo",
+              "productName": "Import 16 oz Soup Container  240pc Combo",
               "productCategory": "Plastic Containers",
               "quantity": 2,
               "rate": 20,
@@ -1535,7 +1571,10 @@
           "paid": true,
           "totalAmount": 280.75,
           "CashPayment": 0,
-          "AccountPayment": 280.75
+          "AccountPayment": 280.75,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 280.75
         },
         {
           "invoiceNumber": "AWL34",
@@ -1545,7 +1584,7 @@
           "city": "Garfield",
           "state": "NJ",
           "zipCode": "07026",
-          "dateCreated": "5/22/2024",
+          "dateCreated": "2024-05-22",
           "products": [
             {
               "productName": "#4 White SOS Bag 500pcs",
@@ -1555,7 +1594,7 @@
               "total": 180
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 30,
               "rate": 21,
@@ -1580,7 +1619,10 @@
           "paid": true,
           "totalAmount": 1837.5,
           "CashPayment": 500,
-          "AccountPayment": 1337.5
+          "AccountPayment": 1337.5,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 1837.5
         },
         {
           "invoiceNumber": "AWL35",
@@ -5132,7 +5174,7 @@
           "city": "Hoboken",
           "state": "NJ",
           "zipCode": "07030",
-          "dateCreated": "3/19/2024",
+          "dateCreated": "2024-03-19",
           "products": [
             {
               "productName": "Dart Souffle Cup 1oz P100N",
@@ -5156,7 +5198,7 @@
               "total": 218.75
             },
             {
-              "productName": "Dart Souffle Cup 4oz Lid PL4N",
+              "productName": "Dart Souffle Cup 3.25-4oz Lid PL4N",
               "productCategory": "Plastic Souffle Cups",
               "quantity": 5,
               "rate": 36.25,
@@ -5167,7 +5209,10 @@
           "paid": true,
           "totalAmount": 570,
           "CashPayment": 0,
-          "AccountPayment": 570
+          "AccountPayment": 570,
+          "notes": "zelle",
+          "salesTax": 0,
+          "subtotal": 570
         }
       ]
     },
@@ -5192,7 +5237,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "3/24/2024",
+          "dateCreated": "2024-03-24",
           "products": [
             {
               "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
@@ -5209,7 +5254,7 @@
               "total": 120
             },
             {
-              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16",
+              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16 (1000/Case)",
               "productCategory": "Aluminum Foil Sheets",
               "quantity": 50,
               "rate": 29,
@@ -5223,7 +5268,7 @@
               "total": 360
             },
             {
-              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16",
+              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16 (1000/Case)",
               "productCategory": "Aluminum Foil Sheets",
               "quantity": 30,
               "rate": 29,
@@ -5241,7 +5286,10 @@
           "paid": true,
           "totalAmount": 2605,
           "CashPayment": 0,
-          "AccountPayment": 2605
+          "AccountPayment": 2605,
+          "notes": "03/27/24 check # 4341",
+          "salesTax": 0,
+          "subtotal": 2605
         },
         {
           "invoiceNumber": "APP02",
@@ -5251,7 +5299,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "4/8/2024",
+          "dateCreated": "2024-04-08",
           "products": [
             {
               "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
@@ -5261,7 +5309,7 @@
               "total": 144
             },
             {
-              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16",
+              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16 (1000/Case)",
               "productCategory": "Aluminum Foil Sheets",
               "quantity": 30,
               "rate": 29,
@@ -5272,7 +5320,10 @@
           "paid": true,
           "totalAmount": 1014,
           "CashPayment": 0,
-          "AccountPayment": 1014
+          "AccountPayment": 1014,
+          "notes": "04/11/24 check # 4347",
+          "salesTax": 0,
+          "subtotal": 1014
         },
         {
           "invoiceNumber": "APP03",
@@ -5282,7 +5333,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "5/2/2024",
+          "dateCreated": "2024-05-02",
           "products": [
             {
               "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
@@ -5299,7 +5350,7 @@
               "total": 96
             },
             {
-              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16",
+              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16 (1000/Case)",
               "productCategory": "Aluminum Foil Sheets",
               "quantity": 20,
               "rate": 29,
@@ -5310,7 +5361,10 @@
           "paid": true,
           "totalAmount": 772,
           "CashPayment": 0,
-          "AccountPayment": 772
+          "AccountPayment": 772,
+          "notes": "05/10/24 check # 4367",
+          "salesTax": 0,
+          "subtotal": 772
         },
         {
           "invoiceNumber": "APP04",
@@ -5320,7 +5374,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "5/22/2024",
+          "dateCreated": "2024-05-22",
           "products": [
             {
               "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
@@ -5334,7 +5388,10 @@
           "paid": true,
           "totalAmount": 288,
           "CashPayment": 0,
-          "AccountPayment": 288
+          "AccountPayment": 288,
+          "notes": "05/25/24 check # 4381",
+          "salesTax": 0,
+          "subtotal": 288
         },
         {
           "invoiceNumber": "APP05",
@@ -5344,10 +5401,10 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "6/18/2024",
+          "dateCreated": "2024-06-18",
           "products": [
             {
-              "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 13x7x17 Twisted Handle 250pcs",
               "productCategory": "Paper Bags",
               "quantity": 42,
               "rate": 24,
@@ -5365,7 +5422,10 @@
           "paid": true,
           "totalAmount": 1152,
           "CashPayment": 0,
-          "AccountPayment": 1152
+          "AccountPayment": 1152,
+          "notes": "06/24/24 check # 2638",
+          "salesTax": 0,
+          "subtotal": 1152
         },
         {
           "invoiceNumber": "APP06",
@@ -5375,10 +5435,10 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "6/18/2024",
+          "dateCreated": "2024-06-18",
           "products": [
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 50,
               "rate": 18,
@@ -5410,7 +5470,10 @@
           "paid": true,
           "totalAmount": 1379,
           "CashPayment": 0,
-          "AccountPayment": 1379
+          "AccountPayment": 1379,
+          "notes": "06/24/24 check # 2638",
+          "salesTax": 0,
+          "subtotal": 1379
         },
         {
           "invoiceNumber": "APP07",
@@ -5420,7 +5483,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "6/27/2024",
+          "dateCreated": "2024-06-27",
           "products": [
             {
               "productName": "#4 Kraft SOS Bag 500pcs",
@@ -5437,7 +5500,7 @@
               "total": 145
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 White Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 50,
               "rate": 18,
@@ -5455,7 +5518,10 @@
           "paid": true,
           "totalAmount": 1519,
           "CashPayment": 0,
-          "AccountPayment": 1519
+          "AccountPayment": 1519,
+          "notes": "06/28/24 check # 4403",
+          "salesTax": 0,
+          "subtotal": 1519
         },
         {
           "invoiceNumber": "APP08",
@@ -5465,17 +5531,17 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "7/8/2024",
+          "dateCreated": "2024-07-08",
           "products": [
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 100,
               "rate": 18,
               "total": 1800
             },
             {
-              "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 15,
               "rate": 17,
@@ -5486,7 +5552,10 @@
           "paid": true,
           "totalAmount": 2055,
           "CashPayment": 0,
-          "AccountPayment": 2055
+          "AccountPayment": 2055,
+          "notes": "07/15/24 check # 4410",
+          "salesTax": 0,
+          "subtotal": 2055
         },
         {
           "invoiceNumber": "APP09",
@@ -5496,7 +5565,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "7/17/2024",
+          "dateCreated": "2024-07-17",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -5506,7 +5575,7 @@
               "total": 900
             },
             {
-              "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 10,
               "rate": 17,
@@ -5524,7 +5593,10 @@
           "paid": true,
           "totalAmount": 1214,
           "CashPayment": 0,
-          "AccountPayment": 1214
+          "AccountPayment": 1214,
+          "notes": "07/29/24 check # 2696",
+          "salesTax": 0,
+          "subtotal": 1214
         },
         {
           "invoiceNumber": "APP10",
@@ -5534,7 +5606,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "7/28/2024",
+          "dateCreated": "2024-07-28",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -5544,14 +5616,14 @@
               "total": 900
             },
             {
-              "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 10,
               "rate": 17,
               "total": 170
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 12,
               "rate": 12,
@@ -5562,7 +5634,10 @@
           "paid": true,
           "totalAmount": 1214,
           "CashPayment": 0,
-          "AccountPayment": 1214
+          "AccountPayment": 1214,
+          "notes": "08/02/24 check # 2649",
+          "salesTax": 0,
+          "subtotal": 1214
         },
         {
           "invoiceNumber": "APP11",
@@ -5572,7 +5647,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "8/5/2024",
+          "dateCreated": "2024-08-05",
           "products": [
             {
               "productName": "#6 Kraft SOS Bag 500pcs",
@@ -5603,7 +5678,7 @@
               "total": 900
             },
             {
-              "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 10,
               "rate": 17,
@@ -5614,7 +5689,10 @@
           "paid": true,
           "totalAmount": 1215,
           "CashPayment": 0,
-          "AccountPayment": 1215
+          "AccountPayment": 1215,
+          "notes": "08/09/24 check # 2653",
+          "salesTax": 0,
+          "subtotal": 1215
         },
         {
           "invoiceNumber": "APP12",
@@ -5627,37 +5705,42 @@
           "dateCreated": "2024-08-14",
           "products": [
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 50,
-              "rate": 21,
-              "total": 1050
+              "rate": 18,
+              "total": 900
             },
             {
-              "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 13x7x17 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 5,
-              "rate": 27.5,
-              "total": 137.5
+              "rate": 25,
+              "total": 125
             },
             {
-              "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 10,
-              "rate": 18,
-              "total": 180
+              "rate": 17,
+              "total": 170
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 20,
-              "rate": 12.75,
-              "total": 255
+              "rate": 12,
+              "total": 240
             }
           ],
-          "totalBalance": 1622.5,
-          "paid": false,
-          "totalAmount": 1622.5
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 1435,
+          "notes": "08/16/24 check # 2657 chase",
+          "CashPayment": 0,
+          "AccountPayment": 1435,
+          "salesTax": 0,
+          "subtotal": 1435
         },
         {
           "invoiceNumber": "APP13",
@@ -5667,10 +5750,10 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "8/21/2024",
+          "dateCreated": "2024-08-21",
           "products": [
             {
-              "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 40,
               "rate": 17,
@@ -5684,18 +5767,21 @@
               "total": 870
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 30,
               "rate": 18,
               "total": 540
             }
           ],
-          "totalBalance": 2090,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 2090,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 2090,
+          "notes": "08/23/24 check # 4444",
+          "salesTax": 0,
+          "subtotal": 2090
         },
         {
           "invoiceNumber": "APP14",
@@ -5705,24 +5791,24 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "8/27/2024",
+          "dateCreated": "2024-08-27",
           "products": [
             {
-              "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 30,
               "rate": 17,
               "total": 510
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 30,
               "rate": 18,
               "total": 540
             },
             {
-              "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 13x7x17 Twisted Handle 250pcs",
               "productCategory": "Paper Bags",
               "quantity": 20,
               "rate": 25,
@@ -5736,7 +5822,7 @@
               "total": 435
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 20,
               "rate": 12,
@@ -5757,11 +5843,14 @@
               "total": 76
             }
           ],
-          "totalBalance": 2388,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 2388,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 2388,
+          "notes": "09/04/24 check # 4454",
+          "salesTax": 0,
+          "subtotal": 2388
         },
         {
           "invoiceNumber": "APP15",
@@ -5771,7 +5860,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "9/5/2024",
+          "dateCreated": "2024-09-08",
           "products": [
             {
               "productName": "Paper Bags 10x5x13 Twisted Handle",
@@ -5802,7 +5891,7 @@
               "total": 870
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 12,
               "rate": 12,
@@ -5816,11 +5905,14 @@
               "total": 160
             }
           ],
-          "totalBalance": 2769,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 2769,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 2769,
+          "notes": "09/13/24 check # 4457",
+          "salesTax": 0,
+          "subtotal": 2769
         },
         {
           "invoiceNumber": "APP16",
@@ -5830,7 +5922,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "9/8/2024",
+          "dateCreated": "2024-09-20",
           "products": [
             {
               "productName": "Paper Bags 8x4x10 Twisted Handle (250pcs)",
@@ -5868,18 +5960,21 @@
               "total": 87
             },
             {
-              "productName": "Paper Bags 18x7x18 Twisted Handle (200 pcs)",
+              "productName": "Paper Bags 18x7x18.5 Twisted Handle (250pcs)",
               "productCategory": "Paper Bags",
               "quantity": 2,
               "rate": 29,
               "total": 58
             }
           ],
-          "totalBalance": 3206,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 3206,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 3206,
+          "notes": "09/28/24 check # 2671",
+          "salesTax": 0,
+          "subtotal": 3206
         },
         {
           "invoiceNumber": "APP17",
@@ -5889,7 +5984,7 @@
           "city": "Palisades Park",
           "state": "NJ",
           "zipCode": "07650",
-          "dateCreated": "9/24/2024",
+          "dateCreated": "2024-09-24",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -5913,7 +6008,7 @@
               "total": 114
             },
             {
-              "productName": "Paper Bags 18x7x18 Twisted Handle (200 pcs)",
+              "productName": "Paper Bags 18x7x18.5 Twisted Handle (250pcs)",
               "productCategory": "Paper Bags",
               "quantity": 2,
               "rate": 29,
@@ -5927,11 +6022,14 @@
               "total": 170
             }
           ],
-          "totalBalance": 2112,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 2112,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 2112,
+          "notes": "10/01/24 check # 4474",
+          "salesTax": 0,
+          "subtotal": 2112
         },
         {
           "invoiceNumber": "APP19",
@@ -6263,9 +6361,55 @@
               "total": 42
             }
           ],
-          "totalBalance": 631,
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 631,
+          "notes": "zelle",
+          "CashPayment": 0,
+          "AccountPayment": 631,
+          "salesTax": 0,
+          "subtotal": 631
+        },
+        {
+          "invoiceNumber": "AD05",
+          "companyName": "AMC Distributions",
+          "addressLine1": "73 Bimini Drive",
+          "addressLine2": "",
+          "city": "Toms River",
+          "state": "NJ",
+          "zipCode": "08757",
+          "dateCreated": "2024-10-16",
+          "products": [
+            {
+              "productName": "16 oz PET Cup (1000pcs)",
+              "productCategory": "Plastic PET Cups",
+              "quantity": 10,
+              "rate": 31,
+              "total": 310
+            },
+            {
+              "productName": "12 oz PET Cup 92mm (1000pcs)",
+              "productCategory": "Plastic PET Cups",
+              "quantity": 6,
+              "rate": 33,
+              "total": 198
+            },
+            {
+              "productName": "16 oz PET Cup (1000pcs)",
+              "productCategory": "Plastic PET Cups",
+              "quantity": -8,
+              "rate": 31,
+              "total": -248
+            }
+          ],
+          "subtotal": 260,
+          "salesTax": 0,
+          "totalAmount": 260,
+          "totalBalance": 260,
           "paid": false,
-          "totalAmount": 631
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
         }
       ]
     },
@@ -7447,6 +7591,46 @@
           "totalBalance": 311.4,
           "paid": false,
           "totalAmount": 311.4
+        },
+        {
+          "invoiceNumber": "KP15",
+          "companyName": "Keyserman Packaging",
+          "addressLine1": "1906 Ave R",
+          "addressLine2": "",
+          "city": "Brooklyn",
+          "state": "NY",
+          "zipCode": "11229",
+          "dateCreated": "2024-10-16",
+          "products": [
+            {
+              "productName": "7\" Aluminum Pan",
+              "productCategory": "Aluminum Pans",
+              "quantity": 20,
+              "rate": 19.5,
+              "total": 390
+            },
+            {
+              "productName": "8\" Aluminum Pan",
+              "productCategory": "Aluminum Pans",
+              "quantity": 15,
+              "rate": 34,
+              "total": 510
+            },
+            {
+              "productName": "#25 Kraft SOS Bag 500pcs",
+              "productCategory": "SOS Bags",
+              "quantity": 4,
+              "rate": 23.75,
+              "total": 95
+            }
+          ],
+          "subtotal": 995,
+          "salesTax": 0,
+          "totalAmount": 995,
+          "totalBalance": 995,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
         }
       ]
     },
@@ -7472,7 +7656,7 @@
           "city": "Passaic",
           "state": "NJ",
           "zipCode": "07055",
-          "dateCreated": "4/9/2024",
+          "dateCreated": "2024-04-09",
           "products": [
             {
               "productName": "8\" Aluminum Pan XHD",
@@ -7486,7 +7670,10 @@
           "paid": true,
           "totalAmount": 2304,
           "CashPayment": 0,
-          "AccountPayment": 2304
+          "AccountPayment": 2304,
+          "notes": "check #7329",
+          "salesTax": 0,
+          "subtotal": 2304
         },
         {
           "invoiceNumber": "BPASI03",
@@ -7496,10 +7683,10 @@
           "city": "Passaic",
           "state": "NJ",
           "zipCode": "07055",
-          "dateCreated": "7/1/2024",
+          "dateCreated": "2024-07-01",
           "products": [
             {
-              "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 13x7x17 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 10,
               "rate": 32,
@@ -7510,7 +7697,10 @@
           "paid": true,
           "totalAmount": 320,
           "CashPayment": 0,
-          "AccountPayment": 320
+          "AccountPayment": 320,
+          "notes": " zelle",
+          "salesTax": 0,
+          "subtotal": 320
         },
         {
           "invoiceNumber": "BPASI04",
@@ -7520,7 +7710,7 @@
           "city": "Passaic",
           "state": "NJ",
           "zipCode": "07055",
-          "dateCreated": "7/2/2024",
+          "dateCreated": "2024-07-02",
           "products": [
             {
               "productName": "Aluminum Half Size Lids",
@@ -7534,7 +7724,10 @@
           "paid": true,
           "totalAmount": 2160,
           "CashPayment": 0,
-          "AccountPayment": 2160
+          "AccountPayment": 2160,
+          "notes": "zelle",
+          "salesTax": 0,
+          "subtotal": 2160
         },
         {
           "invoiceNumber": "BPASI05",
@@ -7547,16 +7740,21 @@
           "dateCreated": "2024-09-10",
           "products": [
             {
-              "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 13x7x17 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 105,
               "rate": 26.75,
               "total": 2808.75
             }
           ],
-          "totalBalance": 2808.75,
-          "paid": false,
-          "totalAmount": 2808.75
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 2808.75,
+          "notes": "09/13/24 check # 7472",
+          "CashPayment": 0,
+          "AccountPayment": 2808.75,
+          "salesTax": 0,
+          "subtotal": 2808.75
         },
         {
           "invoiceNumber": "BPASI06",
@@ -7566,28 +7764,31 @@
           "city": "Passaic",
           "state": "NJ",
           "zipCode": "07055",
-          "dateCreated": "9/13/2024",
+          "dateCreated": "2024-09-13",
           "products": [
             {
-              "productName": "Aluminum Half Size Medium Pan XXXHD 100/CS",
+              "productName": "Aluminum Half Size Medium Pan XXXHD",
               "productCategory": "Aluminum Pans",
               "quantity": 60,
               "rate": 16.5,
               "total": 990
             },
             {
-              "productName": "Paper Bags 10x7x12 White Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 10,
               "rate": 27.5,
               "total": 275
             }
           ],
-          "totalBalance": 1265,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 1265,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 1265,
+          "notes": "09/13/24 check # 7473",
+          "salesTax": 0,
+          "subtotal": 1265
         }
       ]
     },
@@ -7740,6 +7941,40 @@
           "totalAmount": 5467.5,
           "CashPayment": 0,
           "AccountPayment": 5467.5
+        },
+        {
+          "invoiceNumber": "ADI05",
+          "companyName": "Aname Distribution Inc",
+          "addressLine1": "120 Orchard Street",
+          "addressLine2": "",
+          "city": "Newark",
+          "state": "NJ",
+          "zipCode": "07102",
+          "dateCreated": "2024-10-16",
+          "products": [
+            {
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 528,
+              "rate": 12.5,
+              "total": 6600
+            },
+            {
+              "productName": "7\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 144,
+              "rate": 9.75,
+              "total": 1404
+            }
+          ],
+          "subtotal": 8004,
+          "salesTax": 0,
+          "totalAmount": 8004,
+          "totalBalance": 8004,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
         }
       ]
     },
@@ -7765,7 +8000,7 @@
           "city": "North Bergen",
           "state": "NJ",
           "zipCode": "07047",
-          "dateCreated": "5/6/2024",
+          "dateCreated": "2024-05-06",
           "products": [
             {
               "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
@@ -7775,23 +8010,28 @@
               "total": 530
             },
             {
-              "productName": "Aluminum Half Size Shallow Pan XHD",
+              "productName": "Aluminum Half Size Shallow Pan 29g",
               "productCategory": "Aluminum Pans",
               "quantity": 40,
               "rate": 15.5,
               "total": 620
             },
             {
-              "productName": "Aluminum Half Size Deep Pan XHD",
+              "productName": "Aluminum Half Size Deep Pan 29g",
               "productCategory": "Aluminum Pans",
               "quantity": 40,
               "rate": 15.5,
               "total": 620
             }
           ],
-          "totalBalance": 1770,
-          "paid": false,
-          "totalAmount": 1770
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 1770,
+          "notes": "Zelle $800 04/13/24 + 970 04/21/24",
+          "CashPayment": 0,
+          "AccountPayment": 1770,
+          "salesTax": 0,
+          "subtotal": 1770
         }
       ]
     },
@@ -9671,7 +9911,7 @@
           "city": "--",
           "state": "--",
           "zipCode": "--",
-          "dateCreated": "6/30/2024",
+          "dateCreated": "2024-06-30",
           "products": [
             {
               "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
@@ -9681,7 +9921,7 @@
               "total": 242.25
             },
             {
-              "productName": "Meal Kit 4pcs 250ct",
+              "productName": "Meal Kit 4pcs 250/CS",
               "productCategory": "Utensils",
               "quantity": 2,
               "rate": 12.5,
@@ -9713,7 +9953,10 @@
           "paid": true,
           "totalAmount": 393.75,
           "CashPayment": 393.75,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 393.75
         },
         {
           "invoiceNumber": "A02",
@@ -9723,7 +9966,7 @@
           "city": "--",
           "state": "--",
           "zipCode": "--",
-          "dateCreated": "7/18/2024",
+          "dateCreated": "2024-07-18",
           "products": [
             {
               "productName": "16 oz PET Cup (1000pcs)",
@@ -9733,7 +9976,7 @@
               "total": 154
             },
             {
-              "productName": "16-24 oz PET Cup Flat Lids",
+              "productName": "98mm PET Cup Flat Lids (1000pcs)",
               "productCategory": "Plastic PET Cups",
               "quantity": 2,
               "rate": 16.25,
@@ -9747,7 +9990,7 @@
               "total": 28.75
             },
             {
-              "productName": "PP901 Plastic Plates 400pcs",
+              "productName": "PP901 PP091 Plastic Plates 400pcs",
               "productCategory": "Plastic Containers",
               "quantity": 2,
               "rate": 24,
@@ -9772,7 +10015,10 @@
           "paid": true,
           "totalAmount": 380.75,
           "CashPayment": 380.75,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 380.75
         },
         {
           "invoiceNumber": "A03",
@@ -9782,7 +10028,7 @@
           "city": "--",
           "state": "--",
           "zipCode": "--",
-          "dateCreated": "7/22/2024",
+          "dateCreated": "2024-07-22",
           "products": [
             {
               "productName": "C90PST1 Hinged Container Import",
@@ -9792,7 +10038,7 @@
               "total": 86
             },
             {
-              "productName": "Souffle Cup 4oz Lid PL4N",
+              "productName": "Dart Souffle Cup 3.25-4oz Lid PL4N",
               "productCategory": "Plastic Souffle Cups",
               "quantity": 1,
               "rate": 30.75,
@@ -9803,7 +10049,10 @@
           "paid": true,
           "totalAmount": 116.75,
           "CashPayment": 116.75,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 116.75
         },
         {
           "invoiceNumber": "A04",
@@ -9813,10 +10062,10 @@
           "city": "--",
           "state": "--",
           "zipCode": "--",
-          "dateCreated": "8/1/2024",
+          "dateCreated": "2024-08-01",
           "products": [
             {
-              "productName": "Meal Kit 4pcs 250ct",
+              "productName": "Meal Kit 4pcs 250/CS",
               "productCategory": "Utensils",
               "quantity": 3,
               "rate": 12.5,
@@ -9837,7 +10086,7 @@
               "total": 36
             },
             {
-              "productName": "PP901 Plastic Plates 400pcs",
+              "productName": "PP901 PP091 Plastic Plates 400pcs",
               "productCategory": "Plastic Containers",
               "quantity": 2,
               "rate": 24,
@@ -9862,7 +10111,10 @@
           "paid": true,
           "totalAmount": 295,
           "CashPayment": 295,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 295
         },
         {
           "invoiceNumber": "A05",
@@ -9875,23 +10127,28 @@
           "dateCreated": "2024-08-23",
           "products": [
             {
-              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty (Red Blue)",
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 12,
               "rate": 12.75,
               "total": 153
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 4,
               "rate": 12.75,
               "total": 51
             }
           ],
-          "totalBalance": 204,
-          "paid": false,
-          "totalAmount": 204
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 204,
+          "notes": "",
+          "CashPayment": 204,
+          "AccountPayment": 0,
+          "salesTax": 0,
+          "subtotal": 204
         },
         {
           "invoiceNumber": "A06",
@@ -9901,17 +10158,17 @@
           "city": "--",
           "state": "--",
           "zipCode": "--",
-          "dateCreated": "8/27/2024",
+          "dateCreated": "2024-08-27",
           "products": [
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 3,
               "rate": 12.75,
               "total": 38.25
             },
             {
-              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty (Red Blue)",
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 4,
               "rate": 12.75,
@@ -9932,14 +10189,14 @@
               "total": 38.5
             },
             {
-              "productName": "12\" Plastic Catering Tray Black",
+              "productName": "WNA 12\" Plastic Catering Tray Black",
               "productCategory": "Plastic Catering Tray",
               "quantity": 1,
               "rate": 19.25,
               "total": 19.25
             },
             {
-              "productName": "12\" Plastic Catering Tray Lids",
+              "productName": "WNA 12\" Plastic Catering Tray Black",
               "productCategory": "Plastic Catering Tray",
               "quantity": 1,
               "rate": 14.25,
@@ -9953,11 +10210,14 @@
               "total": 100.5
             }
           ],
-          "totalBalance": 299.25,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 299.25,
-          "CashPayment": 0,
-          "AccountPayment": 0
+          "CashPayment": 299.25,
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 299.25
         },
         {
           "invoiceNumber": "A07",
@@ -9977,7 +10237,7 @@
               "total": 86.25
             },
             {
-              "productName": "PP901 Plastic Plates 400pcs",
+              "productName": "PP901 PP091 Plastic Plates 400pcs",
               "productCategory": "Plastic Containers",
               "quantity": 4,
               "rate": 24,
@@ -9998,9 +10258,14 @@
               "total": 7.25
             }
           ],
-          "totalBalance": 195,
-          "paid": false,
-          "totalAmount": 195
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 195,
+          "notes": "",
+          "CashPayment": 195,
+          "AccountPayment": 0,
+          "salesTax": 0,
+          "subtotal": 195
         },
         {
           "invoiceNumber": "A08",
@@ -10010,7 +10275,7 @@
           "city": "--",
           "state": "--",
           "zipCode": "--",
-          "dateCreated": "9/16/2024",
+          "dateCreated": "2024-09-16",
           "products": [
             {
               "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
@@ -10020,11 +10285,14 @@
               "total": 155
             }
           ],
-          "totalBalance": 155,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 155,
-          "CashPayment": 0,
-          "AccountPayment": 0
+          "CashPayment": 155,
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 155
         },
         {
           "invoiceNumber": "A09",
@@ -10037,8 +10305,8 @@
           "dateCreated": "2024-09-23",
           "products": [
             {
-              "productName": "PP901 Plastic Plates 400pcs",
-              "productCategory": "Plastic Plates",
+              "productName": "PP901 PP091 Plastic Plates 400pcs",
+              "productCategory": "Plastic Containers",
               "quantity": 4,
               "rate": 24,
               "total": 96
@@ -10058,9 +10326,14 @@
               "total": 57.5
             }
           ],
-          "totalBalance": 192,
-          "paid": false,
-          "totalAmount": 192
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 192,
+          "notes": "",
+          "CashPayment": 192,
+          "AccountPayment": 0,
+          "salesTax": 0,
+          "subtotal": 192
         },
         {
           "invoiceNumber": "A10",
@@ -10070,24 +10343,24 @@
           "city": "--",
           "state": "--",
           "zipCode": "--",
-          "dateCreated": "10/4/2024",
+          "dateCreated": "2024-10-04",
           "products": [
             {
-              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty (Red Blue)",
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 5,
               "rate": 12.75,
               "total": 63.75
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 5,
               "rate": 12.75,
               "total": 63.75
             },
             {
-              "productName": "PP901 Plastic Plates 400pcs",
+              "productName": "PP901 PP091 Plastic Plates 400pcs",
               "productCategory": "Plastic Containers",
               "quantity": 3,
               "rate": 26.75,
@@ -10104,15 +10377,18 @@
               "productName": "Aluminum Half Size Deep Pan XHD",
               "productCategory": "Aluminum Pans",
               "quantity": 5,
-              "rate": 17.5,
-              "total": 87.5
+              "rate": 18,
+              "total": 90
             }
           ],
-          "totalBalance": 333.75,
-          "paid": false,
-          "totalAmount": 333.75,
-          "CashPayment": 0,
-          "AccountPayment": 0
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 336.25,
+          "CashPayment": 336.25,
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 336.25
         }
       ]
     },
@@ -11615,6 +11891,155 @@
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "C48",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2024-10-15",
+          "products": [
+            {
+              "productName": "Vynl Powder Free Gloves Medium",
+              "productCategory": "Gloves",
+              "quantity": 3,
+              "rate": 16.25,
+              "total": 48.75
+            },
+            {
+              "productName": "Dinner Napkin 2 Ply 3000/Case",
+              "productCategory": "Paper Towels",
+              "quantity": 10,
+              "rate": 24.5,
+              "total": 245
+            },
+            {
+              "productName": "Aluminum Half Size Deep Pan XHD",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 17,
+              "total": 51
+            },
+            {
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 4,
+              "rate": 12.75,
+              "total": 51
+            }
+          ],
+          "subtotal": 395.75,
+          "salesTax": 0,
+          "totalAmount": 395.75,
+          "totalBalance": 395.75,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "C49",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2024-10-16",
+          "products": [
+            {
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 5,
+              "rate": 19,
+              "total": 95
+            },
+            {
+              "productName": "Paper Bags 13x7x17 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 5,
+              "rate": 28.5,
+              "total": 142.5
+            },
+            {
+              "productName": "Paper Bags 18x7x18.5 Twisted Handle (250pcs)",
+              "productCategory": "Paper Bags",
+              "quantity": 2,
+              "rate": 30,
+              "total": 60
+            }
+          ],
+          "subtotal": 297.5,
+          "salesTax": 0,
+          "totalAmount": 297.5,
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 297.5,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "C50",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2024-10-16",
+          "products": [
+            {
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 160,
+              "rate": 12.5,
+              "total": 2000
+            }
+          ],
+          "subtotal": 2000,
+          "salesTax": 0,
+          "totalAmount": 2000,
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 2000,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "C51",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2024-10-18",
+          "products": [
+            {
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 10,
+              "rate": 12.75,
+              "total": 127.5
+            },
+            {
+              "productName": "Aluminum Half Size Deep Pan XHD",
+              "productCategory": "Aluminum Pans",
+              "quantity": 20,
+              "rate": 17,
+              "total": 340
+            }
+          ],
+          "subtotal": 467.5,
+          "salesTax": 0,
+          "totalAmount": 467.5,
+          "totalBalance": 467.5,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
         }
       ]
     },
@@ -11805,7 +12230,7 @@
           "city": "Clifton",
           "state": "NJ",
           "zipCode": "07013",
-          "dateCreated": "7/15/2024",
+          "dateCreated": "2024-07-15",
           "products": [
             {
               "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
@@ -11822,21 +12247,21 @@
               "total": 255
             },
             {
-              "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 10,
               "rate": 19,
               "total": 190
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 20,
               "rate": 21,
               "total": 420
             },
             {
-              "productName": "16-24 oz PET Cup Flat Lids",
+              "productName": "98mm PET Cup Flat Lids (1000pcs)",
               "productCategory": "Plastic PET Cups",
               "quantity": 10,
               "rate": 16.25,
@@ -11875,7 +12300,10 @@
           "paid": true,
           "totalAmount": 1968.75,
           "CashPayment": 1968.75,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 1968.75
         },
         {
           "invoiceNumber": "GFSML02",
@@ -11885,7 +12313,7 @@
           "city": "Clifton",
           "state": "NJ",
           "zipCode": "07013",
-          "dateCreated": "7/26/2024",
+          "dateCreated": "2024-07-26",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -11916,7 +12344,7 @@
               "total": 385
             },
             {
-              "productName": "16-24 oz PET Cup Flat Lids",
+              "productName": "98mm PET Cup Flat Lids (1000pcs)",
               "productCategory": "Plastic PET Cups",
               "quantity": 9,
               "rate": 16.25,
@@ -11951,7 +12379,7 @@
               "total": 42.75
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 10,
               "rate": 13.25,
@@ -11961,8 +12389,11 @@
           "totalBalance": 0,
           "paid": true,
           "totalAmount": 1528.75,
-          "CashPayment": 1000,
-          "AccountPayment": 528.75
+          "CashPayment": 999,
+          "AccountPayment": 529.75,
+          "notes": "zelle 07/26/24",
+          "salesTax": 0,
+          "subtotal": 1528.75
         },
         {
           "invoiceNumber": "GFSML03",
@@ -11972,7 +12403,7 @@
           "city": "Clifton",
           "state": "NJ",
           "zipCode": "07013",
-          "dateCreated": "10/10/2024",
+          "dateCreated": "2024-10-11",
           "products": [
             {
               "productName": "7\" Aluminum Pan",
@@ -11996,7 +12427,7 @@
               "total": 207.5
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 20,
               "rate": 12.75,
@@ -12045,11 +12476,14 @@
               "total": 140
             }
           ],
-          "totalBalance": 1989.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 1989.5,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 1989.5,
+          "notes": "zelle 10/11/24",
+          "salesTax": 0,
+          "subtotal": 1989.5
         }
       ]
     },
@@ -12122,7 +12556,7 @@
           "city": "Wallington",
           "state": "NJ",
           "zipCode": "07057",
-          "dateCreated": "7/17/2024",
+          "dateCreated": "2024-07-17",
           "products": [
             {
               "productName": "7\" Aluminum Pan Dome Lid",
@@ -12139,7 +12573,7 @@
               "total": 34.5
             },
             {
-              "productName": "Meal Kit 4pcs 250ct",
+              "productName": "Meal Kit 4pcs 250/CS",
               "productCategory": "Utensils",
               "quantity": 1,
               "rate": 12.5,
@@ -12150,7 +12584,10 @@
           "paid": true,
           "totalAmount": 97,
           "CashPayment": 0,
-          "AccountPayment": 97
+          "AccountPayment": 97,
+          "notes": "zelle 07/17/24",
+          "salesTax": 0,
+          "subtotal": 97
         },
         {
           "invoiceNumber": "GCU02",
@@ -12160,7 +12597,7 @@
           "city": "Wallington",
           "state": "NJ",
           "zipCode": "07057",
-          "dateCreated": "8/2/2024",
+          "dateCreated": "2024-08-02",
           "products": [
             {
               "productName": "Dinner Napkin 2 Ply 3000/Case",
@@ -12188,7 +12625,10 @@
           "paid": true,
           "totalAmount": 176.75,
           "CashPayment": 0,
-          "AccountPayment": 176.75
+          "AccountPayment": 176.75,
+          "notes": "zelle 08/02/24",
+          "salesTax": 0,
+          "subtotal": 176.75
         },
         {
           "invoiceNumber": "GCU03",
@@ -12198,7 +12638,7 @@
           "city": "Wallington",
           "state": "NJ",
           "zipCode": "07057",
-          "dateCreated": "8/15/2024",
+          "dateCreated": "2024-08-16",
           "products": [
             {
               "productName": "7\" Aluminum Pan Dome Lid",
@@ -12250,11 +12690,14 @@
               "total": 84.5
             }
           ],
-          "totalBalance": 336.25,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 336.25,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 336.25,
+          "notes": "zelle 08/16/24",
+          "salesTax": 0,
+          "subtotal": 336.25
         },
         {
           "invoiceNumber": "GCU04",
@@ -12295,16 +12738,21 @@
               "total": 33.5
             },
             {
-              "productName": "18x2000 Plastic Film Wrap",
+              "productName": "18x2000 Plastic Film Wrap Cling Classic",
               "productCategory": "Film Wrap",
               "quantity": 5,
               "rate": 16,
               "total": 80
             }
           ],
-          "totalBalance": 623.25,
-          "paid": false,
-          "totalAmount": 623.25
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 623.25,
+          "notes": "zelle 09/03/24",
+          "CashPayment": 0,
+          "AccountPayment": 623.25,
+          "salesTax": 0,
+          "subtotal": 623.25
         },
         {
           "invoiceNumber": "GCU05",
@@ -12345,9 +12793,14 @@
               "total": 70.5
             }
           ],
-          "totalBalance": 296.75,
-          "paid": false,
-          "totalAmount": 296.75
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 296.75,
+          "notes": "zelle",
+          "CashPayment": 0,
+          "AccountPayment": 296.75,
+          "salesTax": 0,
+          "subtotal": 296.75
         },
         {
           "invoiceNumber": "GCU06",
@@ -12437,7 +12890,7 @@
           "city": "Newark",
           "state": "NJ",
           "zipCode": "07103",
-          "dateCreated": "10/10/2024",
+          "dateCreated": "2024-10-10",
           "products": [
             {
               "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
@@ -12451,7 +12904,10 @@
           "paid": true,
           "totalAmount": 3300,
           "CashPayment": 300,
-          "AccountPayment": 3000
+          "AccountPayment": 3000,
+          "notes": "10/14/24 check # 1346",
+          "salesTax": 0,
+          "subtotal": 3300
         }
       ]
     },
@@ -12470,28 +12926,31 @@
       "role": "customer",
       "invoices": [
         {
-          "invoiceNumber": "RD01",
+          "invoiceNumber": "RD02",
           "companyName": "Rivas Distribution",
           "addressLine1": "po box 172",
           "addressLine2": "",
           "city": "Elmwood Park",
           "state": "NJ",
           "zipCode": "07407",
-          "dateCreated": "7/23/2024",
+          "dateCreated": "2024-07-23",
           "products": [
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
               "productCategory": "Aluminum Foil Roll",
-              "quantity": 15,
+              "quantity": 40,
               "rate": 13.25,
-              "total": 198.75
+              "total": 530
             }
           ],
-          "totalBalance": 198.75,
+          "totalBalance": 530,
           "paid": false,
-          "totalAmount": 198.75,
+          "totalAmount": 530,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 530
         }
       ]
     },
@@ -13085,14 +13544,14 @@
           "dateCreated": "2024-08-28",
           "products": [
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 2,
               "rate": 21,
               "total": 42
             },
             {
-              "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 13x7x17 Twisted Handle 250pcs",
               "productCategory": "Paper Bags",
               "quantity": 2,
               "rate": 28.5,
@@ -13106,9 +13565,14 @@
               "total": 137.5
             }
           ],
-          "totalBalance": 236.5,
-          "paid": false,
-          "totalAmount": 236.5
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 236.5,
+          "notes": "zelle 236.50",
+          "CashPayment": 0,
+          "AccountPayment": 236.5,
+          "salesTax": 0,
+          "subtotal": 236.5
         },
         {
           "invoiceNumber": "TLG03",
@@ -13128,9 +13592,14 @@
               "total": 168
             }
           ],
-          "totalBalance": 168,
-          "paid": false,
-          "totalAmount": 168
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 168,
+          "notes": "zelle",
+          "CashPayment": 0,
+          "AccountPayment": 168,
+          "salesTax": 0,
+          "subtotal": 168
         },
         {
           "invoiceNumber": "TLG04",
@@ -13185,9 +13654,14 @@
               "total": 16
             }
           ],
-          "totalBalance": 302.25,
-          "paid": false,
-          "totalAmount": 302.25
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 302.25,
+          "notes": "zelle09/16/24",
+          "CashPayment": 0,
+          "AccountPayment": 302.25,
+          "salesTax": 0,
+          "subtotal": 302.25
         },
         {
           "invoiceNumber": "TLG05",
@@ -13207,9 +13681,14 @@
               "total": 165
             }
           ],
-          "totalBalance": 165,
-          "paid": false,
-          "totalAmount": 165
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 165,
+          "notes": "zelle",
+          "CashPayment": 0,
+          "AccountPayment": 165,
+          "salesTax": 0,
+          "subtotal": 165
         }
       ]
     },
@@ -13501,13 +13980,14 @@
               "total": 80
             }
           ],
-          "totalBalance": 892,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 892,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "salesTax": null,
-          "subtotal": 892
+          "AccountPayment": 892,
+          "salesTax": 0,
+          "subtotal": 892,
+          "notes": "08/05/24 check # 3773"
         },
         {
           "invoiceNumber": "BH02",
@@ -13562,13 +14042,14 @@
               "total": 192
             }
           ],
-          "totalBalance": 411.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 411.5,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "salesTax": null,
-          "subtotal": 411.5
+          "AccountPayment": 411.5,
+          "salesTax": 0,
+          "subtotal": 411.5,
+          "notes": "08/31/24 check # 3736"
         },
         {
           "invoiceNumber": "BH03",
@@ -13578,7 +14059,7 @@
           "city": "Waldwick",
           "state": "New Jersey",
           "zipCode": "07463",
-          "dateCreated": "9/20/2024",
+          "dateCreated": "2024-09-20",
           "products": [
             {
               "productName": "Pactiv 16 oz Deli Container",
@@ -13623,11 +14104,14 @@
               "total": 51
             }
           ],
-          "totalBalance": 482,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 482,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 482,
+          "notes": "09/23/24 check # 3750",
+          "salesTax": 0,
+          "subtotal": 482
         },
         {
           "invoiceNumber": "BH04",
@@ -14395,13 +14879,14 @@
               "total": 50
             }
           ],
-          "totalBalance": 245,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 245,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "salesTax": null,
-          "subtotal": 245
+          "AccountPayment": 245,
+          "salesTax": 0,
+          "subtotal": 245,
+          "notes": "08/05/24 Check # 1134 "
         },
         {
           "invoiceNumber": "SP02",
@@ -14456,13 +14941,14 @@
               "total": 70
             }
           ],
-          "totalBalance": 330,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 330,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "salesTax": null,
-          "subtotal": 330
+          "AccountPayment": 330,
+          "salesTax": 0,
+          "subtotal": 330,
+          "notes": "08/12/24 check # 1138"
         },
         {
           "invoiceNumber": "SP04",
@@ -14510,13 +14996,14 @@
               "total": 25
             }
           ],
-          "totalBalance": 247,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 247,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "salesTax": null,
-          "subtotal": 247
+          "AccountPayment": 247,
+          "salesTax": 0,
+          "subtotal": 247,
+          "notes": "08/26/24 check # 1136"
         },
         {
           "invoiceNumber": "SP05",
@@ -14571,13 +15058,14 @@
               "total": 70
             }
           ],
-          "totalBalance": 346,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 346,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "salesTax": null,
-          "subtotal": 346
+          "AccountPayment": 346,
+          "salesTax": 0,
+          "subtotal": 346,
+          "notes": "09/04/24 check # 1118"
         },
         {
           "invoiceNumber": "SP06",
@@ -14632,13 +15120,14 @@
               "total": 42
             }
           ],
-          "totalBalance": 272,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 272,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "salesTax": null,
-          "subtotal": 272
+          "AccountPayment": 272,
+          "salesTax": 0,
+          "subtotal": 272,
+          "notes": "09/09/24 check # 1124"
         },
         {
           "invoiceNumber": "SP07",
@@ -14707,13 +15196,14 @@
               "total": 19
             }
           ],
-          "totalBalance": 336,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 336,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "salesTax": null,
-          "subtotal": 336
+          "AccountPayment": 336,
+          "salesTax": 0,
+          "subtotal": 336,
+          "notes": "09/16/24 check # 1130"
         },
         {
           "invoiceNumber": "SP08",
@@ -14768,13 +15258,14 @@
               "total": 38
             }
           ],
-          "totalBalance": 220,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 220,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "salesTax": null,
-          "subtotal": 220
+          "AccountPayment": 220,
+          "salesTax": 0,
+          "subtotal": 220,
+          "notes": "09/23/24 check # 1131"
         },
         {
           "invoiceNumber": "SP03",
@@ -14839,11 +15330,11 @@
           "subtotal": 228,
           "salesTax": 0,
           "totalAmount": 228,
-          "totalBalance": 228,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 228,
+          "notes": "08/19/24 check # 1137"
         },
         {
           "invoiceNumber": "SP09",
@@ -14915,11 +15406,11 @@
           "subtotal": 294,
           "salesTax": 0,
           "totalAmount": 294,
-          "totalBalance": 294,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 294,
+          "notes": "10/01/24 check # 1142"
         },
         {
           "invoiceNumber": "SP10",
@@ -15065,13 +15556,14 @@
               "total": 48
             }
           ],
-          "totalBalance": 90.17,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 90.17,
           "CashPayment": 0,
-          "AccountPayment": 0,
+          "AccountPayment": 90.17,
           "salesTax": 4.17,
-          "subtotal": 86
+          "subtotal": 86,
+          "notes": "08/16/24 check # 6596"
         },
         {
           "invoiceNumber": "BCHJC08",
@@ -15081,7 +15573,7 @@
           "city": "Jersey City",
           "state": "New Jersey",
           "zipCode": "07302",
-          "dateCreated": "9/20/2024",
+          "dateCreated": "2024-09-20",
           "products": [
             {
               "productName": "Paper Bags 13x7x17 Twisted Handle",
@@ -15091,7 +15583,7 @@
               "total": 48
             },
             {
-              "productName": "Plastic Reusable Bag 1/6 150",
+              "productName": "1/6 Plastic Reusable Bag 150pcs",
               "productCategory": "Plastic Bag",
               "quantity": 1,
               "rate": 20,
@@ -15126,12 +15618,14 @@
               "total": 48
             }
           ],
-          "totalBalance": 215,
-          "paid": false,
-          "totalAmount": 215,
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 226.06,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 226.06,
+          "notes": "09/25/24 check # 6787",
+          "salesTax": 11.06,
+          "subtotal": 215
         },
         {
           "invoiceNumber": "BCHJC01",
@@ -15175,11 +15669,11 @@
           "subtotal": 87,
           "salesTax": 3.91,
           "totalAmount": 90.91,
-          "totalBalance": 90.91,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 90.91,
+          "notes": "08/07/24 check # 6549"
         },
         {
           "invoiceNumber": "BCHJC03",
@@ -15237,11 +15731,11 @@
           "subtotal": 160.5,
           "salesTax": 10.63,
           "totalAmount": 171.13,
-          "totalBalance": 171.13,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 171.13,
+          "notes": "08/23/24 check # 6631"
         },
         {
           "invoiceNumber": "BCHJC04",
@@ -15306,11 +15800,11 @@
           "subtotal": 197,
           "salesTax": 10.4,
           "totalAmount": 207.4,
-          "totalBalance": 207.4,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 207.4,
+          "notes": "08/30/24 check # 6662"
         },
         {
           "invoiceNumber": "BCHJC05",
@@ -15340,29 +15834,29 @@
               "productName": "8 oz Hot Cup 1000ct",
               "productCategory": "Paper Hot Cups",
               "quantity": 1,
-              "rate": 35.25,
-              "total": 35.25
+              "rate": 45,
+              "total": 45
             },
             {
               "productName": "8 oz Hot Cup Lid",
               "productCategory": "Paper Hot Cups",
               "quantity": 1,
-              "rate": 24.75,
-              "total": 24.75
+              "rate": 25,
+              "total": 25
             },
             {
               "productName": "18x3000 Plastic Film Wrap",
               "productCategory": "Film Wrap",
               "quantity": 1,
-              "rate": 17,
-              "total": 17
+              "rate": 23,
+              "total": 23
             },
             {
               "productName": "Lapaco 8\" Normandy Lace Doilie Paper 5000ct",
               "productCategory": "Miscellaneous",
               "quantity": 0.2,
-              "rate": 126.67,
-              "total": 25.33
+              "rate": 140,
+              "total": 28
             },
             {
               "productName": "9\" Paper Plates (1000pcs)",
@@ -15374,54 +15868,220 @@
             {
               "productName": "1/6 Plastic Reusable Bag 150pcs",
               "productCategory": "Plastic Bag",
-              "quantity": 1,
-              "rate": 17.75,
-              "total": 17.75
+              "quantity": 2,
+              "rate": 20,
+              "total": 40
             },
             {
               "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
               "productCategory": "Plastic Garbage Bag",
               "quantity": 1,
-              "rate": 16.5,
-              "total": 16.5
+              "rate": 20,
+              "total": 20
             },
             {
               "productName": "Scotch Brite 84CC 72 Pack",
               "productCategory": "Janitorial",
               "quantity": 0.167,
-              "rate": 54.3,
-              "total": 9.07
+              "rate": 81,
+              "total": 13.53
             },
             {
               "productName": "Starco Bleach 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 12.5,
-              "total": 12.5
+              "rate": 14.97,
+              "total": 14.97
             },
             {
               "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
+              "rate": 24,
+              "total": 24
             }
           ],
-          "subtotal": 277.15,
-          "salesTax": 0,
-          "totalAmount": 277.15,
-          "totalBalance": 277.15,
-          "paid": false,
+          "subtotal": 336,
+          "salesTax": 8.91,
+          "totalAmount": 344.91,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": "cash"
+          "AccountPayment": 344.91,
+          "notes": "09/04/24 check # 6691"
+        },
+        {
+          "invoiceNumber": "BCHJC06",
+          "companyName": "Bricklane Curry House, Jersey City",
+          "addressLine1": "136 Newark Ave",
+          "addressLine2": "",
+          "city": "Jersey City",
+          "state": "New Jersey",
+          "zipCode": "07302",
+          "dateCreated": "2024-09-06",
+          "products": [
+            {
+              "productName": "Aluminum BBQ Bag Quart Size",
+              "productCategory": "Aluminum BBQ Bags",
+              "quantity": 1,
+              "rate": 74.98,
+              "total": 74.98
+            },
+            {
+              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
+              "productCategory": "Aluminum Foil Sheets",
+              "quantity": 0.167,
+              "rate": 72,
+              "total": 12.02
+            },
+            {
+              "productName": "Lapaco 8\" Normandy Lace Doilie Paper 5000ct",
+              "productCategory": "Miscellaneous",
+              "quantity": 0.2,
+              "rate": 140,
+              "total": 28
+            },
+            {
+              "productName": "Scotch Brite 84CC 72 Pack",
+              "productCategory": "Janitorial",
+              "quantity": 0.167,
+              "rate": 81,
+              "total": 13.53
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 14.97,
+              "total": 14.97
+            },
+            {
+              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 22,
+              "total": 22
+            },
+            {
+              "productName": "1/6 Plastic Reusable Bag 150pcs",
+              "productCategory": "Plastic Bag",
+              "quantity": 2,
+              "rate": 20,
+              "total": 40
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 24,
+              "total": 48
+            }
+          ],
+          "subtotal": 253.5,
+          "salesTax": 9.17,
+          "totalAmount": 262.67,
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 0,
+          "AccountPayment": 262.67,
+          "notes": "09/11/24 check # 6721"
+        },
+        {
+          "invoiceNumber": "BCHJC07",
+          "companyName": "Bricklane Curry House, Jersey City",
+          "addressLine1": "136 Newark Ave",
+          "addressLine2": "",
+          "city": "Jersey City",
+          "state": "New Jersey",
+          "zipCode": "07302",
+          "dateCreated": "2024-09-13",
+          "products": [
+            {
+              "productName": "18x3000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 1,
+              "rate": 23,
+              "total": 23
+            },
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 1,
+              "rate": 20,
+              "total": 20
+            },
+            {
+              "productName": "Toilet Roll 2 Ply 96 Rolls",
+              "productCategory": "Paper Towels",
+              "quantity": 1,
+              "rate": 48,
+              "total": 48
+            },
+            {
+              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
+              "productCategory": "Aluminum Foil Sheets",
+              "quantity": 0.167,
+              "rate": 71.85,
+              "total": 12
+            },
+            {
+              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
+              "productCategory": "Plastic Garbage Bag",
+              "quantity": 1,
+              "rate": 20,
+              "total": 20
+            },
+            {
+              "productName": "1/6 Plastic Reusable Bag 150pcs",
+              "productCategory": "Plastic Bag",
+              "quantity": 2,
+              "rate": 20,
+              "total": 40
+            },
+            {
+              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 22,
+              "total": 22
+            },
+            {
+              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 22,
+              "total": 22
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 15,
+              "total": 30
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 3,
+              "rate": 24,
+              "total": 72
+            }
+          ],
+          "subtotal": 309,
+          "salesTax": 13.65,
+          "totalAmount": 322.65,
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 0,
+          "AccountPayment": 322.65,
+          "notes": "09/18/24 check # 6750"
         },
         {
           "invoiceNumber": "BCHJC09",
@@ -15431,236 +16091,73 @@
           "city": "Jersey City",
           "state": "New Jersey",
           "zipCode": "07302",
-          "dateCreated": "2024-10-14",
-          "products": [
-            {
-              "productName": "Aluminum BBQ Bag Quart Size",
-              "productCategory": "Aluminum BBQ Bags",
-              "quantity": 1,
-              "rate": 109,
-              "total": 109
-            },
-            {
-              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
-              "productCategory": "Aluminum Foil Sheets",
-              "quantity": 0.167,
-              "rate": 41,
-              "total": 6.847
-            },
-            {
-              "productName": "Lapaco 8\" Normandy Lace Doilie Paper 5000ct",
-              "productCategory": "Miscellaneous",
-              "quantity": 0.2,
-              "rate": 126.67,
-              "total": 25.334000000000003
-            },
-            {
-              "productName": "Scotch Brite 84CC 72 Pack",
-              "productCategory": "Janitorial",
-              "quantity": 0.167,
-              "rate": 54.3,
-              "total": 9.0681
-            },
-            {
-              "productName": "Starco Bleach 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 12.5,
-              "total": 12.5
-            },
-            {
-              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
-            },
-            {
-              "productName": "1/6 Plastic Reusable Bag 150pcs",
-              "productCategory": "Plastic Bag",
-              "quantity": 2,
-              "rate": 17.75,
-              "total": 35.5
-            },
-            {
-              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 19.25,
-              "total": 38.5
-            }
-          ],
-          "subtotal": 255.99909999999997,
-          "salesTax": 0,
-          "totalAmount": 255.99909999999997,
-          "totalBalance": 255.99909999999997,
-          "paid": false,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
-          "invoiceNumber": "BCHJC10",
-          "companyName": "Bricklane Curry House, Jersey City",
-          "addressLine1": "136 Newark Ave",
-          "addressLine2": "",
-          "city": "Jersey City",
-          "state": "New Jersey",
-          "zipCode": "07302",
-          "dateCreated": "2024-10-14",
-          "products": [
-            {
-              "productName": "18x3000 Plastic Film Wrap",
-              "productCategory": "Film Wrap",
-              "quantity": 1,
-              "rate": 17,
-              "total": 17
-            },
-            {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 1,
-              "rate": 18.5,
-              "total": 18.5
-            },
-            {
-              "productName": "Toilet Roll 2 Ply 96 Rolls",
-              "productCategory": "Paper Towels",
-              "quantity": 0.5,
-              "rate": 38,
-              "total": 19
-            },
-            {
-              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
-              "productCategory": "Aluminum Foil Sheets",
-              "quantity": 0.167,
-              "rate": 41,
-              "total": 6.847
-            },
-            {
-              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
-              "productCategory": "Plastic Garbage Bag",
-              "quantity": 1,
-              "rate": 16.5,
-              "total": 16.5
-            },
-            {
-              "productName": "1/6 Plastic Reusable Bag 150pcs",
-              "productCategory": "Plastic Bag",
-              "quantity": 2,
-              "rate": 17.75,
-              "total": 35.5
-            },
-            {
-              "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
-            },
-            {
-              "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 1,
-              "rate": 21,
-              "total": 21
-            },
-            {
-              "productName": "Starco Bleach 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 2,
-              "rate": 12.5,
-              "total": 25
-            },
-            {
-              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
-              "productCategory": "Janitorial",
-              "quantity": 3,
-              "rate": 19.25,
-              "total": 57.75
-            }
-          ],
-          "subtotal": 236.347,
-          "salesTax": 0,
-          "totalAmount": 236.347,
-          "totalBalance": 236.347,
-          "paid": false,
-          "CashPayment": 0,
-          "AccountPayment": 0
-        },
-        {
-          "invoiceNumber": "BCHJC11",
-          "companyName": "Bricklane Curry House, Jersey City",
-          "addressLine1": "136 Newark Ave",
-          "addressLine2": "",
-          "city": "Jersey City",
-          "state": "New Jersey",
-          "zipCode": "07302",
-          "dateCreated": "2024-10-14",
+          "dateCreated": "2024-09-27",
           "products": [
             {
               "productName": "16 oz PET Cup (1000pcs)",
               "productCategory": "Plastic PET Cups",
               "quantity": 1,
-              "rate": 44,
-              "total": 44
+              "rate": 52,
+              "total": 52
             },
             {
               "productName": "98mm PET Cup Flat Lids (1000pcs)",
               "productCategory": "Plastic PET Cups",
               "quantity": 1,
-              "rate": 19.5,
-              "total": 19.5
+              "rate": 35,
+              "total": 35
             },
             {
               "productName": "1/6 Plastic Reusable Bag 150pcs",
               "productCategory": "Plastic Bag",
               "quantity": 2,
-              "rate": 17.75,
-              "total": 35.5
+              "rate": 20,
+              "total": 40
             },
             {
               "productName": "Starco Bleach 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 12.5,
-              "total": 12.5
+              "rate": 15,
+              "total": 15
             },
             {
               "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 21,
-              "total": 21
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
               "productCategory": "Plastic Garbage Bag",
               "quantity": 1,
-              "rate": 16.5,
-              "total": 16.5
+              "rate": 20,
+              "total": 20
             },
             {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 19.25,
-              "total": 38.5
+              "rate": 24,
+              "total": 48
             }
           ],
-          "subtotal": 206.75,
-          "salesTax": 0,
-          "totalAmount": 206.75,
-          "totalBalance": 206.75,
-          "paid": false,
+          "subtotal": 254,
+          "salesTax": 11.06,
+          "totalAmount": 265.06,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 265.06,
+          "notes": "10/02/24 check # 6819"
         }
       ]
     },
@@ -15686,7 +16183,7 @@
           "city": "New York City",
           "state": "New York",
           "zipCode": "10003",
-          "dateCreated": "8/31/2024",
+          "dateCreated": "2024-08-31",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -15696,11 +16193,14 @@
               "total": 900
             }
           ],
-          "totalBalance": 900,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 900,
-          "CashPayment": 0,
-          "AccountPayment": 0
+          "CashPayment": 900,
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 900
         }
       ]
     },
@@ -15726,15 +16226,8 @@
           "city": "Clifton",
           "state": "NJ",
           "zipCode": "07011",
-          "dateCreated": "9/3/2024",
+          "dateCreated": "2024-09-03",
           "products": [
-            {
-              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty (Red Blue)",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 243,
-              "rate": 12.5,
-              "total": 3037.5
-            },
             {
               "productName": "Freight",
               "productCategory": "Industrial",
@@ -15743,11 +16236,14 @@
               "total": 10
             }
           ],
-          "totalBalance": 3047.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 3047.5,
-          "CashPayment": 0,
-          "AccountPayment": 0
+          "CashPayment": 3047.5,
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 3047.5
         }
       ]
     },
@@ -15879,7 +16375,7 @@
           "city": "Elmwood Park",
           "state": "NJ",
           "zipCode": "07407",
-          "dateCreated": "7/25/2024",
+          "dateCreated": "2024-07-25",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -15889,18 +16385,21 @@
               "total": 35
             },
             {
-              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 1,
               "rate": 19,
               "total": 19
             }
           ],
-          "totalBalance": 54,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 54,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 54,
+          "notes": "08/23/24 check # 147",
+          "salesTax": 0,
+          "subtotal": 54
         },
         {
           "invoiceNumber": "BT02",
@@ -15910,7 +16409,7 @@
           "city": "Elmwood Park",
           "state": "NJ",
           "zipCode": "07407",
-          "dateCreated": "8/12/2024",
+          "dateCreated": "2024-08-12",
           "products": [
             {
               "productName": "Pactiv NC723B 24 oz Black Round Container",
@@ -15948,11 +16447,14 @@
               "total": 65
             }
           ],
-          "totalBalance": 211.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 211.5,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 211.5,
+          "notes": "08/23/24 check # 147",
+          "salesTax": 0,
+          "subtotal": 211.5
         },
         {
           "invoiceNumber": "BT03",
@@ -16112,7 +16614,7 @@
           "city": "Newton",
           "state": "NJ",
           "zipCode": "07860",
-          "dateCreated": "9/13/2024",
+          "dateCreated": "2024-09-13",
           "products": [
             {
               "productName": "Pactiv NC723B 24 oz Black Round Container",
@@ -16164,14 +16666,14 @@
               "total": 23
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 1,
               "rate": 19,
               "total": 19
             },
             {
-              "productName": "Win Sone/Wellchoice Aluminum Full Size Deep Pan XHD",
+              "productName": "Aluminum Full Size Deep Pan 125g",
               "productCategory": "Aluminum Pans",
               "quantity": 1,
               "rate": 45,
@@ -16189,7 +16691,10 @@
           "paid": false,
           "totalAmount": 1122,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 1122
         }
       ]
     },
@@ -16458,7 +16963,7 @@
           "city": "Saddle Brook",
           "state": "NJ",
           "zipCode": "07663",
-          "dateCreated": "9/10/2024",
+          "dateCreated": "2024-09-10",
           "products": [
             {
               "productName": "Import 8 oz Soup Container 240pc Combo",
@@ -16482,14 +16987,14 @@
               "total": 140
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 3,
               "rate": 17,
               "total": 51
             },
             {
-              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty (Red Blue)",
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 3,
               "rate": 17,
@@ -16517,8 +17022,8 @@
               "total": 46
             },
             {
-              "productName": "PP901 Plastic Plates 400pcs",
-              "productCategory": "Plastic Plates",
+              "productName": "PP901 PP091 Plastic Plates 400pcs",
+              "productCategory": "Plastic Containers",
               "quantity": 5,
               "rate": 26,
               "total": 130
@@ -16535,7 +17040,10 @@
           "paid": false,
           "totalAmount": 673,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 0,
+          "subtotal": 673
         }
       ]
     },
@@ -16686,7 +17194,7 @@
           "city": "Denville",
           "state": "NJ",
           "zipCode": "07834",
-          "dateCreated": "9/18/2024",
+          "dateCreated": "2024-09-18",
           "products": [
             {
               "productName": "Pactiv NC729B 32 oz Black Round Container",
@@ -16731,7 +17239,7 @@
               "total": 190
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 4,
               "rate": 20,
@@ -16815,18 +17323,21 @@
               "total": 22
             },
             {
-              "productName": "Aluminum Half Size Shallow Pan XHD 100/CS",
+              "productName": "Aluminum Half Size Shallow Pan XHD",
               "productCategory": "Aluminum Pans",
               "quantity": 5,
               "rate": 31,
               "total": 155
             }
           ],
-          "totalBalance": 1989,
+          "totalBalance": 1990.45,
           "paid": false,
-          "totalAmount": 1989,
+          "totalAmount": 1990.45,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 1.45,
+          "subtotal": 1989
         }
       ]
     },
@@ -16883,12 +17394,12 @@
               "total": 22
             }
           ],
-          "totalBalance": 153.54,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 153.54,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": "",
+          "AccountPayment": 153.54,
+          "notes": "08/30/24 check # 2051",
           "salesTax": 9.54,
           "subtotal": 144
         },
@@ -16900,7 +17411,7 @@
           "city": "Jersey City",
           "state": "NJ",
           "zipCode": "07306",
-          "dateCreated": "9/13/2024",
+          "dateCreated": "2024-09-13",
           "products": [
             {
               "productName": "Paper Bags 13x7x17 Twisted Handle",
@@ -16931,7 +17442,7 @@
               "total": 75
             },
             {
-              "productName": "Plastic Reusable Bag 1/6 150",
+              "productName": "1/6 Plastic Reusable Bag 150pcs",
               "productCategory": "Plastic Bag",
               "quantity": 1,
               "rate": 20,
@@ -16973,12 +17484,14 @@
               "total": 48
             }
           ],
-          "totalBalance": 391,
-          "paid": false,
-          "totalAmount": 391,
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 403.05,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 403.05,
+          "notes": "09/25/24 check # 2202",
+          "salesTax": 12.05,
+          "subtotal": 391
         },
         {
           "invoiceNumber": "PJ01",
@@ -17043,11 +17556,11 @@
           "subtotal": 152.97,
           "salesTax": 6.49,
           "totalAmount": 159.46,
-          "totalBalance": 159.46,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 159.46,
+          "notes": "08/23/24 check # 2072"
         },
         {
           "invoiceNumber": "PJ03",
@@ -17119,11 +17632,11 @@
           "subtotal": 217,
           "salesTax": 10.73,
           "totalAmount": 227.73,
-          "totalBalance": 227.73,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 227.73,
+          "notes": "09/04/24 check # 2122"
         },
         {
           "invoiceNumber": "PJ04",
@@ -17133,73 +17646,73 @@
           "city": "Jersey City",
           "state": "NJ",
           "zipCode": "07306",
-          "dateCreated": "2024-10-14",
+          "dateCreated": "2024-08-30",
           "products": [
             {
               "productName": "9 in Jumbo Bathroom Tissue",
               "productCategory": "Paper Towels",
               "quantity": 1,
-              "rate": 22.5,
-              "total": 22.5
+              "rate": 29,
+              "total": 29
             },
             {
               "productName": "Norpak Interfolded Sheet 8\" x 10.75",
               "productCategory": "Wax Paper",
               "quantity": 0.083,
-              "rate": 48.25,
-              "total": 4.0047500000000005
+              "rate": 72,
+              "total": 5.98
             },
             {
               "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
               "productCategory": "Plastic Garbage Bag",
               "quantity": 2,
-              "rate": 16.5,
-              "total": 33
+              "rate": 20,
+              "total": 40
             },
             {
               "productName": "1/6 Plastic Reusable Bag 150pcs",
               "productCategory": "Plastic Bag",
               "quantity": 1,
-              "rate": 17.75,
-              "total": 17.75
+              "rate": 20.02,
+              "total": 20.02
             },
             {
               "productName": "Starco Bleach 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 12.5,
-              "total": 25
+              "rate": 15,
+              "total": 30
             },
             {
               "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 21,
-              "total": 21
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 19.25,
-              "total": 38.5
+              "rate": 24,
+              "total": 48
             }
           ],
-          "subtotal": 181.00475,
-          "salesTax": 0,
-          "totalAmount": 181.00475,
-          "totalBalance": 181.00475,
-          "paid": false,
+          "subtotal": 217,
+          "salesTax": 12.06,
+          "totalAmount": 229.06,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 229.06,
+          "notes": "09/11/24 check # 2158"
         },
         {
           "invoiceNumber": "PJ05",
@@ -17209,73 +17722,73 @@
           "city": "Jersey City",
           "state": "NJ",
           "zipCode": "07306",
-          "dateCreated": "2024-10-14",
+          "dateCreated": "2024-09-06",
           "products": [
             {
               "productName": "Norpak Interfolded Sheet 8\" x 10.75",
               "productCategory": "Wax Paper",
               "quantity": 0.083,
-              "rate": 48.25,
-              "total": 4.0047500000000005
+              "rate": 72,
+              "total": 5.98
             },
             {
               "productName": "18x3000 Plastic Film Wrap",
               "productCategory": "Film Wrap",
               "quantity": 1,
-              "rate": 17,
-              "total": 17
+              "rate": 23.02,
+              "total": 23.02
             },
             {
               "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 21,
-              "total": 21
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Starco Bleach 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 12.5,
-              "total": 25
+              "rate": 15,
+              "total": 30
             },
             {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 19.25,
-              "total": 38.5
+              "rate": 24,
+              "total": 48
             },
             {
               "productName": "1/6 Plastic Reusable Bag 150pcs",
               "productCategory": "Plastic Bag",
               "quantity": 2,
-              "rate": 17.75,
-              "total": 35.5
+              "rate": 20,
+              "total": 40
             },
             {
               "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
               "productCategory": "Plastic Garbage Bag",
               "quantity": 2,
-              "rate": 16.5,
-              "total": 33
+              "rate": 20,
+              "total": 40
             }
           ],
-          "subtotal": 193.25475,
-          "salesTax": 0,
-          "totalAmount": 193.25475,
-          "totalBalance": 193.25475,
-          "paid": false,
+          "subtotal": 231,
+          "salesTax": 13.38,
+          "totalAmount": 244.38,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 244.38,
+          "notes": "09/18/24 check # 2191"
         },
         {
           "invoiceNumber": "PJ07",
@@ -17285,14 +17798,14 @@
           "city": "Jersey City",
           "state": "NJ",
           "zipCode": "07306",
-          "dateCreated": "2024-10-14",
+          "dateCreated": "2024-09-20",
           "products": [
             {
               "productName": "Norpak Interfolded Sheet 8\" x 10.75",
               "productCategory": "Wax Paper",
               "quantity": 0.083,
               "rate": 48.25,
-              "total": 4.0047500000000005
+              "total": 4
             },
             {
               "productName": "18x3000 Plastic Film Wrap",
@@ -17309,13 +17822,14 @@
               "total": 66
             }
           ],
-          "subtotal": 87.00475,
+          "subtotal": 87,
           "salesTax": 0,
-          "totalAmount": 87.00475,
-          "totalBalance": 87.00475,
+          "totalAmount": 87,
+          "totalBalance": 87,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
           "invoiceNumber": "PJ08",
@@ -17325,93 +17839,94 @@
           "city": "Jersey City",
           "state": "NJ",
           "zipCode": "07306",
-          "dateCreated": "2024-10-14",
+          "dateCreated": "2024-09-27",
           "products": [
             {
               "productName": "Paper Bags 13x7x17 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 1,
-              "rate": 32,
-              "total": 32
+              "rate": 49,
+              "total": 49
             },
             {
               "productName": "Aluminum BBQ Bag Quart Size",
               "productCategory": "Aluminum BBQ Bags",
               "quantity": 1,
-              "rate": 109,
-              "total": 109
+              "rate": 75,
+              "total": 75
             },
             {
               "productName": "Norpak Interfolded Sheet 8\" x 10.75",
               "productCategory": "Wax Paper",
               "quantity": 0.332,
-              "rate": 48.25,
-              "total": 16.019000000000002
+              "rate": 72.3,
+              "total": 24
             },
             {
               "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
               "productCategory": "Aluminum Foil Sheets",
               "quantity": 0.249,
-              "rate": 41,
-              "total": 10.209
+              "rate": 72.3,
+              "total": 18
             },
             {
               "productName": "Paper Bags 1/8 BBL 100/bundle",
               "productCategory": "Paper Bags",
               "quantity": 5,
-              "rate": 6.75,
-              "total": 33.75
+              "rate": 8.5,
+              "total": 42.5
             },
             {
               "productName": "12x3000 Plastic Film Wrap",
               "productCategory": "Film Wrap",
               "quantity": 1,
-              "rate": 14,
-              "total": 14
+              "rate": 23,
+              "total": 23
             },
             {
               "productName": "Starco So-Kleen Oven Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 21,
-              "total": 21
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Starco So-Kleen Pine Deodorant Multi Purpose All Purpose Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
+              "rate": 22,
+              "total": 22
             },
             {
               "productName": "Starco Bleach 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 12.5,
-              "total": 25
+              "rate": 15,
+              "total": 30
             },
             {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 2,
-              "rate": 19.25,
-              "total": 38.5
+              "rate": 24,
+              "total": 48
             },
             {
               "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
               "productCategory": "Plastic Garbage Bag",
               "quantity": 2,
-              "rate": 16.5,
-              "total": 33
+              "rate": 20,
+              "total": 40
             }
           ],
-          "subtotal": 351.728,
-          "salesTax": 0,
-          "totalAmount": 351.728,
-          "totalBalance": 351.728,
-          "paid": false,
+          "subtotal": 393.5,
+          "salesTax": 10.73,
+          "totalAmount": 404.23,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 404.23,
+          "notes": "10/09/24 check # 2237"
         }
       ]
     },
@@ -17437,7 +17952,7 @@
           "city": "557 Cedar Ln",
           "state": "NJ",
           "zipCode": " 07666",
-          "dateCreated": "8/30/2024",
+          "dateCreated": "2024-08-30",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -17468,11 +17983,14 @@
               "total": 55
             }
           ],
-          "totalBalance": 229,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 229,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 229,
+          "notes": "08/30/24 check # 4220",
+          "salesTax": 0,
+          "subtotal": 229
         }
       ]
     },
@@ -17498,7 +18016,7 @@
           "city": "Fair Lawn",
           "state": "NJ",
           "zipCode": "07410",
-          "dateCreated": "8/30/2024",
+          "dateCreated": "2024-08-30",
           "products": [
             {
               "productName": "Pactiv NC723B 24 oz Black Round Container",
@@ -17564,7 +18082,7 @@
               "total": 23
             },
             {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty (Red Blue)",
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 1,
               "rate": 19,
@@ -17583,13 +18101,23 @@
               "quantity": 2,
               "rate": 24,
               "total": 48
+            },
+            {
+              "productName": "Toilet Roll 2 Ply 96 Rolls",
+              "productCategory": "Paper Towels",
+              "quantity": 0.5,
+              "rate": 56,
+              "total": 28
             }
           ],
-          "totalBalance": 450,
+          "totalBalance": 482.5,
           "paid": false,
-          "totalAmount": 450,
+          "totalAmount": 482.5,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": "",
+          "salesTax": 4.5,
+          "subtotal": 478
         },
         {
           "invoiceNumber": "MIF02",
@@ -17599,107 +18127,108 @@
           "city": "Fair Lawn",
           "state": "NJ",
           "zipCode": "07410",
-          "dateCreated": "2024-10-14",
+          "dateCreated": "2024-09-28",
           "products": [
             {
               "productName": "Pactiv NC723B 24 oz Black Round Container",
               "productCategory": "Plastic Containers",
               "quantity": 3,
-              "rate": 34.75,
-              "total": 104.25
+              "rate": 29,
+              "total": 87
             },
             {
               "productName": "Pactiv NC729B 32 oz Black Round Container",
               "productCategory": "Plastic Containers",
               "quantity": 2,
-              "rate": 39,
-              "total": 78
+              "rate": 31,
+              "total": 62
             },
             {
               "productName": "Pactiv 8 oz Deli Container",
               "productCategory": "Plastic Containers",
               "quantity": 2,
-              "rate": 29.5,
-              "total": 59
+              "rate": 28,
+              "total": 56
             },
             {
               "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
               "productCategory": "Aluminum Foil Roll",
               "quantity": 1,
-              "rate": 18.5,
-              "total": 18.5
+              "rate": 19,
+              "total": 19
             },
             {
               "productName": "8\" 350' Hardwound Towel White",
               "productCategory": "Paper Towels",
               "quantity": 1,
-              "rate": 27.75,
-              "total": 27.75
+              "rate": 28,
+              "total": 28
             },
             {
               "productName": "Aluminum Half Size Shallow Pan XHD",
               "productCategory": "Aluminum Pans",
               "quantity": 1,
-              "rate": 18.25,
-              "total": 18.25
+              "rate": 31,
+              "total": 31
             },
             {
               "productName": "Toilet Roll 2 Ply 96 Rolls",
               "productCategory": "Paper Towels",
               "quantity": 1,
-              "rate": 38,
-              "total": 38
+              "rate": 48,
+              "total": 48
             },
             {
               "productName": "7\" Aluminum Pan Dome Lid",
               "productCategory": "Aluminum Pans",
               "quantity": 1,
-              "rate": 11.25,
-              "total": 11.25
+              "rate": 15,
+              "total": 15
             },
             {
               "productName": "PP Hinged Container PP91 9\"x9\"x3 150pcs",
               "productCategory": "Plastic PP Container",
               "quantity": 1,
-              "rate": 27,
-              "total": 27
+              "rate": 28,
+              "total": 28
             },
             {
               "productName": "18x3000 Plastic Film Wrap",
               "productCategory": "Film Wrap",
               "quantity": 1,
-              "rate": 17,
-              "total": 17
+              "rate": 23,
+              "total": 23
             },
             {
               "productName": "Starco Bleach 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 12.5,
-              "total": 12.5
+              "rate": 15,
+              "total": 15
             },
             {
               "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
               "productCategory": "Janitorial",
               "quantity": 1,
-              "rate": 19.25,
-              "total": 19.25
+              "rate": 24,
+              "total": 24
             },
             {
               "productName": "Vynl Powder Free Gloves Large",
               "productCategory": "Gloves",
               "quantity": 1,
-              "rate": 19,
-              "total": 19
+              "rate": 28,
+              "total": 28
             }
           ],
-          "subtotal": 449.75,
-          "salesTax": 0.828125,
-          "totalAmount": 450.578125,
-          "totalBalance": 450.578125,
+          "subtotal": 464,
+          "salesTax": 4.44,
+          "totalAmount": 468.44,
+          "totalBalance": 468.44,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         }
       ],
       "taxable": true
@@ -17815,8 +18344,8 @@
             {
               "productName": "Plastic Straws (7200 pcs)",
               "productCategory": "Utensils",
-              "quantity": 0.08,
-              "rate": 87.5,
+              "quantity": 0.083,
+              "rate": 84.3,
               "total": 7
             }
           ],
@@ -17909,7 +18438,7 @@
           "city": "Bogota",
           "state": "NJ",
           "zipCode": "07603",
-          "dateCreated": "9/19/2024",
+          "dateCreated": "2024-09-19",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -17919,11 +18448,14 @@
               "total": 380
             }
           ],
-          "totalBalance": 380,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 380,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 380,
+          "notes": "zelle 09/19/24",
+          "salesTax": 0,
+          "subtotal": 380
         },
         {
           "invoiceNumber": "PAPNI02",
@@ -17933,7 +18465,7 @@
           "city": "Bogota",
           "state": "NJ",
           "zipCode": "07603",
-          "dateCreated": "9/24/2024",
+          "dateCreated": "2024-09-24",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -17943,18 +18475,21 @@
               "total": 190
             },
             {
-              "productName": "Paper Bags 18x7x18 Twisted Handle (200 pcs)",
+              "productName": "Paper Bags 18x7x18.5 Twisted Handle (200pcs)",
               "productCategory": "Paper Bags",
               "quantity": 2,
               "rate": 29,
               "total": 58
             }
           ],
-          "totalBalance": 248,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 248,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 248,
+          "notes": "zelle 09/24/24",
+          "salesTax": 0,
+          "subtotal": 248
         },
         {
           "invoiceNumber": "PAPNI03",
@@ -17964,7 +18499,7 @@
           "city": "Bogota",
           "state": "NJ",
           "zipCode": "07603",
-          "dateCreated": "9/24/2024",
+          "dateCreated": "2024-09-24",
           "products": [
             {
               "productName": "Paper Bags 10x7x12 Twisted Handle",
@@ -17981,11 +18516,14 @@
               "total": 170
             }
           ],
-          "totalBalance": 2070,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 2070,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 2070,
+          "notes": "09/25/24 check 0359",
+          "salesTax": 0,
+          "subtotal": 2070
         },
         {
           "invoiceNumber": "PAPNI04",
@@ -18005,9 +18543,14 @@
               "total": 277.5
             }
           ],
-          "totalBalance": 277.5,
-          "paid": false,
-          "totalAmount": 277.5
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 277.5,
+          "notes": "zelle 09/25/24",
+          "CashPayment": 0,
+          "AccountPayment": 277.5,
+          "salesTax": 0,
+          "subtotal": 277.5
         },
         {
           "invoiceNumber": "PAPNI05",
@@ -18017,7 +18560,7 @@
           "city": "Bogota",
           "state": "NJ",
           "zipCode": "07603",
-          "dateCreated": "9/27/2024",
+          "dateCreated": "2024-09-27",
           "products": [
             {
               "productName": "Pactiv 32 oz Deli Container",
@@ -18027,9 +18570,45 @@
               "total": 1824
             }
           ],
-          "totalBalance": 1824,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "totalAmount": 1824,
+          "CashPayment": 0,
+          "AccountPayment": 1824,
+          "notes": "10/08/24 check 0379",
+          "salesTax": 0,
+          "subtotal": 1824
+        },
+        {
+          "invoiceNumber": "PAPNI06",
+          "companyName": "Paper and Plastic Needs Inc.",
+          "addressLine1": "187 W Shore Ave",
+          "addressLine2": "",
+          "city": "Bogota",
+          "state": "NJ",
+          "zipCode": "07603",
+          "dateCreated": "2024-10-14",
+          "products": [
+            {
+              "productName": "9\" Paper Plates (1000pcs)",
+              "productCategory": "Paper Plates",
+              "quantity": 50,
+              "rate": 17,
+              "total": 850
+            },
+            {
+              "productName": "Paper Bags 18x7x18.5 Twisted Handle (250pcs)",
+              "productCategory": "Paper Bags",
+              "quantity": 10,
+              "rate": 28,
+              "total": 280
+            }
+          ],
+          "subtotal": 1130,
+          "salesTax": 0,
+          "totalAmount": 1130,
+          "totalBalance": 1130,
+          "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0
         }
@@ -18270,21 +18849,21 @@
           "city": "Hicksville",
           "state": "NY",
           "zipCode": "11801",
-          "dateCreated": "2024-10-07",
+          "dateCreated": "2024-10-02",
           "products": [
             {
               "productName": "Aluminum Oblong Pan 1 lb (1000pcs)",
               "productCategory": "Aluminum Pans",
               "quantity": 5,
-              "rate": 34,
-              "total": 170
+              "rate": 33.5,
+              "total": 167.5
             },
             {
-              "productName": "Aluminum Oblong Pan 2.25 lb (1000pcs)",
+              "productName": "Aluminum Oblong Pan 2.25 lb (500pcs)",
               "productCategory": "Aluminum Pans",
               "quantity": 5,
-              "rate": 41,
-              "total": 205
+              "rate": 31.5,
+              "total": 157.5
             },
             {
               "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
@@ -18297,20 +18876,25 @@
               "productName": "Aluminum Full Size Lids 50pcs",
               "productCategory": "Aluminum Pans",
               "quantity": 10,
-              "rate": 17.25,
-              "total": 172.5
+              "rate": 12.5,
+              "total": 125
             },
             {
               "productName": "Pactiv NC729B 32 oz Black Round Container",
               "productCategory": "Plastic Containers",
               "quantity": 40,
-              "rate": 33,
-              "total": 1320
+              "rate": 25,
+              "total": 1000
             }
           ],
-          "totalBalance": 1925.5,
-          "paid": false,
-          "totalAmount": 1925.5
+          "totalBalance": 0,
+          "paid": true,
+          "totalAmount": 1508,
+          "notes": "1508-980 (Trupac to SS Invoice1489) = Remaining 528 TD Zelle Received",
+          "CashPayment": 0,
+          "AccountPayment": 1508,
+          "salesTax": 0,
+          "subtotal": 1508
         },
         {
           "invoiceNumber": "TPN02",
@@ -18320,24 +18904,24 @@
           "city": "Hicksville",
           "state": "NY",
           "zipCode": "11801",
-          "dateCreated": "10/7/2024",
+          "dateCreated": "2024-10-07",
           "products": [
             {
-              "productName": "Paper Bags 10x5x13 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 50,
               "rate": 17,
               "total": 850
             },
             {
-              "productName": "Paper Bags 10x7x12 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 15,
               "rate": 18,
               "total": 270
             },
             {
-              "productName": "Paper Bags 13x7x17 Twisted Handle (250pcs)",
+              "productName": "Paper Bags 13x7x17 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 42,
               "rate": 25,
@@ -18351,11 +18935,14 @@
               "total": 160
             }
           ],
-          "totalBalance": 2330,
+          "totalBalance": 160,
           "paid": false,
           "totalAmount": 2330,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 2170,
+          "notes": "2330-672 (Trupac to SS Invoice1517) = Remaining 1658 - 1498  Zelle Received",
+          "salesTax": 0,
+          "subtotal": 2330
         },
         {
           "invoiceNumber": "TPN03",
@@ -18620,9 +19207,9 @@
           "totalAmount": 600,
           "CashPayment": 0,
           "AccountPayment": 600,
-          "salesTax": null,
+          "salesTax": 0,
           "subtotal": 600,
-          "notes": ""
+          "notes": "zelle 10/11/24"
         }
       ]
     },
@@ -18649,51 +19236,277 @@
           "city": "Mahwah",
           "state": "NJ",
           "zipCode": "07430",
-          "dateCreated": "2024-10-14",
+          "dateCreated": "2024-09-05",
           "products": [
             {
               "productName": "Fabri Kal 8 oz Deli Container",
               "productCategory": "Plastic Containers",
               "quantity": 1,
-              "rate": 27.5,
-              "total": 27.5
+              "rate": 23,
+              "total": 23
             },
             {
               "productName": "5 Comp Bagasse Plate 500/Case",
               "productCategory": "Bagasse",
               "quantity": 1,
-              "rate": 57.75,
-              "total": 57.75
+              "rate": 53.5,
+              "total": 53.5
             },
             {
               "productName": "8 oz White Bowl with Lid A08 500pcs",
               "productCategory": "Plastic PP Container",
               "quantity": 1,
-              "rate": 35,
-              "total": 35
+              "rate": 36,
+              "total": 36
             },
             {
               "productName": "Garbage Bag 46 Gallon Blue 50pcs XXXHD",
               "productCategory": "Plastic Garbage Bag",
               "quantity": 1,
-              "rate": 15.25,
-              "total": 15.25
+              "rate": 15,
+              "total": 15
             },
             {
               "productName": "16-32oz Deli Container Lids 500pcs",
               "productCategory": "Plastic Containers",
               "quantity": 1,
-              "rate": 14.5,
-              "total": 14.5
+              "rate": 13.51,
+              "total": 13.51
             }
           ],
-          "subtotal": 150,
-          "salesTax": 0,
-          "totalAmount": 150,
-          "totalBalance": 150,
+          "subtotal": 141.01,
+          "salesTax": 0.99,
+          "totalAmount": 142,
+          "totalBalance": 142,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "email": "hurleymountaininn@gmail.com",
+      "password": "$2a$10$croFh7QaeEPir0xeM26kZuksRt9RqlmieAUy1f5YNIWuhyYMW3gUe",
+      "company": "Hurley Mountain Inn",
+      "phone": "4015676192",
+      "addressLine1": "106 Old Rte 209",
+      "addressLine2": "",
+      "city": "Hurley",
+      "state": "NY",
+      "zipCode": "12443",
+      "priceLevel": 2,
+      "taxable": false,
+      "role": "customer",
+      "invoices": [
+        {
+          "invoiceNumber": "HMI01",
+          "companyName": "Hurley Mountain Inn",
+          "addressLine1": "106 Old Rte 209",
+          "addressLine2": "",
+          "city": "Hurley",
+          "state": "NY",
+          "zipCode": "12443",
+          "dateCreated": "2024-10-15",
+          "products": [
+            {
+              "productName": "Dinner Napkin 2 Ply 3000/Case",
+              "productCategory": "Paper Towels",
+              "quantity": 20,
+              "rate": 24.5,
+              "total": 490
+            },
+            {
+              "productName": "Toilet Roll 2 Ply 96 Rolls",
+              "productCategory": "Paper Towels",
+              "quantity": 25,
+              "rate": 33.5,
+              "total": 837.5
+            },
+            {
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 20,
+              "rate": 12.75,
+              "total": 255
+            },
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 20,
+              "rate": 12.75,
+              "total": 255
+            },
+            {
+              "productName": "Garbage Bag 58 Gallon 1.6 mil 50pcs",
+              "productCategory": "Plastic Garbage Bag",
+              "quantity": 30,
+              "rate": 14.25,
+              "total": 427.5
+            },
+            {
+              "productName": "Import 32 oz Soup Container  240pc Combo",
+              "productCategory": "Plastic Containers",
+              "quantity": 25,
+              "rate": 32.75,
+              "total": 818.75
+            }
+          ],
+          "subtotal": 3083.75,
+          "salesTax": 0,
+          "totalAmount": 3083.75,
+          "totalBalance": 3083.75,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "email": "usawarehousingservices@gmail.com",
+      "password": "$2a$10$vHeMEjv58Ik8ict0kEtkmu.DjF5FeZRWd1q2XHPcnKNL7SBNrHbyu",
+      "company": "Habib Georges",
+      "phone": "9735176226",
+      "addressLine1": "456 Paxton St.",
+      "addressLine2": "",
+      "city": "Patterson",
+      "state": "NJ",
+      "zipCode": "07503",
+      "priceLevel": 1,
+      "taxable": false,
+      "role": "customer",
+      "invoices": [
+        {
+          "invoiceNumber": "HG01",
+          "companyName": "Habib Georges",
+          "addressLine1": "456 Paxton St.",
+          "addressLine2": "",
+          "city": "Patterson",
+          "state": "NJ",
+          "zipCode": "07503",
+          "dateCreated": "2024-10-17",
+          "products": [
+            {
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 264,
+              "rate": 12.5,
+              "total": 3300
+            }
+          ],
+          "subtotal": 3300,
+          "salesTax": 0,
+          "totalAmount": 3300,
+          "totalBalance": 3300,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "email": "billing@gmail.com",
+      "password": "$2a$10$hVA4/mGJ36M9yrQwRWefGev2YrlpS/80sJRJdOo6ebVg7f9kKWBWu",
+      "company": "Billing",
+      "phone": "-",
+      "addressLine1": "-",
+      "addressLine2": "-",
+      "city": "-",
+      "state": "-",
+      "zipCode": "-",
+      "priceLevel": 2,
+      "taxable": true,
+      "role": "customer",
+      "invoices": [
+        {
+          "invoiceNumber": "B01",
+          "companyName": "Billing",
+          "addressLine1": "-",
+          "addressLine2": "-",
+          "city": "-",
+          "state": "-",
+          "zipCode": "-",
+          "dateCreated": "2024-10-17",
+          "products": [
+            {
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 12,
+              "rate": 12.75,
+              "total": 153
+            },
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 37.5,
+              "total": 37.5
+            },
+            {
+              "productName": "12x3000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 6,
+              "rate": 10,
+              "total": 60
+            }
+          ],
+          "subtotal": 250.5,
+          "salesTax": 0,
+          "totalAmount": 250.5,
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 250.5,
+          "AccountPayment": 0,
+          "notes": "paid cashapp personal"
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "email": "northstarpackagingllc@gmail.com",
+      "password": "$2a$10$kOJM/l9dJTud8/QRcGHGyup7HbZqDX5BQDZ62S1SzTZ3lXRwIhT3G",
+      "company": "Northstar Packaging LLC",
+      "phone": "3322603743",
+      "addressLine1": "16 Passaic Avenue",
+      "addressLine2": "Unit 6",
+      "city": "Fairfield",
+      "state": "NJ",
+      "zipCode": "07004",
+      "priceLevel": 2,
+      "taxable": false,
+      "role": "customer",
+      "invoices": [
+        {
+          "invoiceNumber": "NPL01",
+          "companyName": "Northstar Packaging LLC",
+          "addressLine1": "16 Passaic Avenue",
+          "addressLine2": "Unit 6",
+          "city": "Fairfield",
+          "state": "NJ",
+          "zipCode": "07004",
+          "dateCreated": "2024-10-18",
+          "products": [
+            {
+              "productName": "9\" Paper Plates (1000pcs)",
+              "productCategory": "Paper Plates",
+              "quantity": 25,
+              "rate": 17,
+              "total": 425
+            }
+          ],
+          "subtotal": 425,
+          "salesTax": 0,
+          "totalAmount": 425,
+          "totalBalance": 425,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
         }
       ]
     }
@@ -18990,7 +19803,7 @@
     },
     {
       "id": 16,
-      "itemName": "Paper Bags 18x7x18.5 Twisted Handle (250pcs)",
+      "itemName": "Paper Bags 18x7x18.5 Twisted Handle (200pcs)",
       "itemCategory": "Paper Bags",
       "cost": 15,
       "priceLevel1": 28,
@@ -19004,7 +19817,8 @@
       "width": 0,
       "height": 0,
       "weight": 0,
-      "palletqty": 0
+      "palletqty": 0,
+      "taxableItem": false
     },
     {
       "id": 17,
@@ -19639,7 +20453,7 @@
     },
     {
       "id": 52,
-      "itemName": "Aluminum Half Size Shallow Pan XHD",
+      "itemName": "Aluminum Half Size Shallow Pan 29g",
       "itemCategory": "Aluminum Pans",
       "cost": 12.7,
       "priceLevel1": 15.75,
@@ -19653,11 +20467,12 @@
       "width": 0,
       "height": 0,
       "weight": 0,
-      "palletqty": 0
+      "palletqty": 0,
+      "taxableItem": false
     },
     {
       "id": 53,
-      "itemName": "Aluminum Half Size Medium Pan XHD",
+      "itemName": "Aluminum Half Size Medium Pan 29g",
       "itemCategory": "Aluminum Pans",
       "cost": 13,
       "priceLevel1": 15.75,
@@ -19671,7 +20486,8 @@
       "width": 0,
       "height": 0,
       "weight": 0,
-      "palletqty": 0
+      "palletqty": 0,
+      "taxableItem": false
     },
     {
       "id": 54,
@@ -19693,7 +20509,7 @@
     },
     {
       "id": 55,
-      "itemName": "Aluminum Half Size Deep Pan XHD",
+      "itemName": "Aluminum Half Size Deep Pan 29g",
       "itemCategory": "Aluminum Pans",
       "cost": 17.75,
       "priceLevel1": 16.5,
@@ -19707,7 +20523,8 @@
       "width": 0,
       "height": 0,
       "weight": 0,
-      "palletqty": 0
+      "palletqty": 0,
+      "taxableItem": false
     },
     {
       "id": 56,
@@ -19728,6 +20545,24 @@
       "palletqty": 0
     },
     {
+      "id": 63,
+      "itemName": "Aluminum Full Size Shallow Pan 96g",
+      "itemCategory": "Aluminum Pans",
+      "cost": 28,
+      "quantity": 100,
+      "priceLevel1": 26.25,
+      "priceLevel2": 26.25,
+      "priceLevel3": 37.5,
+      "rank": 57,
+      "imageUrl": "/uploads/image-1720043654404.jpg",
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0
+    },
+    {
       "id": 57,
       "itemName": "Aluminum Oblong Pan 1 lb (1000pcs)",
       "itemCategory": "Aluminum Pans",
@@ -19736,7 +20571,7 @@
       "priceLevel2": 33.49,
       "priceLevel3": 40,
       "imageUrl": "/uploads/23.jpg",
-      "rank": 57,
+      "rank": 58,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -19755,7 +20590,7 @@
       "priceLevel2": 11.5,
       "priceLevel3": 13.25,
       "imageUrl": "/uploads/24.jpg",
-      "rank": 58,
+      "rank": 59,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -19769,7 +20604,7 @@
       "itemName": "Aluminum Oblong Pan 1.5 lb (500pcs)",
       "itemCategory": "Aluminum Pans",
       "cost": 28,
-      "rank": 59,
+      "rank": 60,
       "quantity": 100,
       "priceLevel1": 29.25,
       "priceLevel2": 29.25,
@@ -19787,7 +20622,7 @@
       "itemName": "Aluminum Oblong Pan 2.25 lb (500pcs)",
       "itemCategory": "Aluminum Pans",
       "cost": 25,
-      "rank": 60,
+      "rank": 61,
       "quantity": 100,
       "priceLevel1": 31.5,
       "priceLevel2": 31.5,
@@ -19805,7 +20640,7 @@
       "itemName": "Aluminum Oblong Pan 2.25 lb Dome Lid",
       "itemCategory": "Aluminum Pans",
       "cost": 12.5,
-      "rank": 61,
+      "rank": 62,
       "quantity": 100,
       "priceLevel1": 13.75,
       "priceLevel2": 14.75,
@@ -19823,30 +20658,12 @@
       "itemName": "Aluminum Oblong Pan 4 lb (500pcs)",
       "itemCategory": "Aluminum Pans",
       "cost": 25,
-      "rank": 62,
+      "rank": 63,
       "quantity": 100,
       "priceLevel1": 32.5,
       "priceLevel2": 32.5,
       "priceLevel3": 46,
       "imageUrl": "/uploads/image-1712590567461.jpg",
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0
-    },
-    {
-      "id": 63,
-      "itemName": "Aluminum Full Size Shallow Pan 96g",
-      "itemCategory": "Aluminum Pans",
-      "cost": 28,
-      "quantity": 100,
-      "priceLevel1": 26.25,
-      "priceLevel2": 26.25,
-      "priceLevel3": 37.5,
-      "rank": 63,
-      "imageUrl": "/uploads/image-1720043654404.jpg",
       "vendors": null,
       "length": 0,
       "width": 0,
@@ -20779,168 +21596,6 @@
       "palletqty": 0
     },
     {
-      "id": 115,
-      "itemName": "Fabri Kal 8 oz Deli Container",
-      "itemCategory": "Plastic Containers",
-      "cost": 19.6,
-      "priceLevel1": 21.75,
-      "priceLevel2": 23,
-      "priceLevel3": 27.5,
-      "imageUrl": "/uploads/69.jpg",
-      "rank": 115,
-      "quantity": 100,
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0
-    },
-    {
-      "id": 116,
-      "itemName": "Fabri Kal 16 oz Deli Container",
-      "itemCategory": "Plastic Containers",
-      "cost": 30.97,
-      "priceLevel1": 34.25,
-      "priceLevel2": 36,
-      "priceLevel3": 41.25,
-      "imageUrl": "/uploads/69.jpg",
-      "rank": 116,
-      "quantity": 100,
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0
-    },
-    {
-      "id": 117,
-      "itemName": "Fabri Kal 32 oz Deli Container",
-      "itemCategory": "Plastic Containers",
-      "cost": 35,
-      "priceLevel1": 38.75,
-      "priceLevel2": 40.75,
-      "priceLevel3": 48.25,
-      "imageUrl": "/uploads/70.jpg",
-      "rank": 117,
-      "quantity": 100,
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0
-    },
-    {
-      "id": 118,
-      "itemName": "Import 24 oz Black Round Container",
-      "itemCategory": "Plastic Containers",
-      "cost": 15,
-      "quantity": 100,
-      "priceLevel1": 16.75,
-      "priceLevel2": 17.75,
-      "priceLevel3": 20.5,
-      "rank": 118,
-      "imageUrl": "/uploads/image-1722040953716.jpg",
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0
-    },
-    {
-      "id": 119,
-      "itemName": "Import 16 oz White Round Container",
-      "itemCategory": "Plastic Containers",
-      "cost": 14,
-      "quantity": 100,
-      "priceLevel1": 15.5,
-      "priceLevel2": 16.5,
-      "priceLevel3": 19.25,
-      "rank": 119,
-      "imageUrl": "/uploads/image-1720042517766.jpg",
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0
-    },
-    {
-      "id": 120,
-      "itemName": "Import 24 oz White Round Container",
-      "itemCategory": "Plastic Containers",
-      "cost": 15,
-      "quantity": 100,
-      "priceLevel1": 16.75,
-      "priceLevel2": 17.75,
-      "priceLevel3": 20.5,
-      "rank": 120,
-      "imageUrl": "/uploads/image-1720042605243.jpg",
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0
-    },
-    {
-      "id": 121,
-      "itemName": "Import 28 oz White Rectangle Container",
-      "itemCategory": "Plastic Containers",
-      "cost": 15,
-      "quantity": 100,
-      "priceLevel1": 16.75,
-      "priceLevel2": 17.75,
-      "priceLevel3": 20.5,
-      "rank": 121,
-      "imageUrl": "/uploads/image-1720042699155.jpg",
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0
-    },
-    {
-      "id": 122,
-      "itemName": "Import 32 oz White Rectangle Container",
-      "itemCategory": "Plastic Containers",
-      "cost": 17,
-      "quantity": 100,
-      "priceLevel1": 19,
-      "priceLevel2": 20,
-      "priceLevel3": 23,
-      "rank": 122,
-      "imageUrl": "/uploads/image-1720042740067.jpg",
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0
-    },
-    {
-      "id": 123,
-      "itemName": "Import 38 oz White Rectangle Container",
-      "itemCategory": "Plastic Containers",
-      "cost": 22,
-      "quantity": 100,
-      "priceLevel1": 24.5,
-      "priceLevel2": 25.75,
-      "priceLevel3": 29.5,
-      "rank": 123,
-      "imageUrl": "/uploads/image-1720042789934.jpg",
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0
-    },
-    {
       "id": 124,
       "itemName": "Pactiv 8 oz Deli Container",
       "itemCategory": "Plastic Containers",
@@ -20949,7 +21604,7 @@
       "priceLevel2": 24.75,
       "priceLevel3": 29.5,
       "imageUrl": "/uploads/71.jpg",
-      "rank": 124,
+      "rank": 115,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -20967,7 +21622,7 @@
       "priceLevel2": 30.75,
       "priceLevel3": 36.5,
       "imageUrl": "/uploads/72.jpg",
-      "rank": 125,
+      "rank": 116,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -20985,7 +21640,7 @@
       "priceLevel2": 30.75,
       "priceLevel3": 36.5,
       "imageUrl": "/uploads/73.jpg",
-      "rank": 126,
+      "rank": 117,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -21003,8 +21658,170 @@
       "priceLevel2": 46.25,
       "priceLevel3": 54.75,
       "imageUrl": "/uploads/74.jpg",
-      "rank": 127,
+      "rank": 118,
       "quantity": 100,
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0
+    },
+    {
+      "id": 115,
+      "itemName": "Fabri Kal 8 oz Deli Container",
+      "itemCategory": "Plastic Containers",
+      "cost": 19.6,
+      "priceLevel1": 21.75,
+      "priceLevel2": 23,
+      "priceLevel3": 27.5,
+      "imageUrl": "/uploads/69.jpg",
+      "rank": 119,
+      "quantity": 100,
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0
+    },
+    {
+      "id": 116,
+      "itemName": "Fabri Kal 16 oz Deli Container",
+      "itemCategory": "Plastic Containers",
+      "cost": 30.97,
+      "priceLevel1": 34.25,
+      "priceLevel2": 36,
+      "priceLevel3": 41.25,
+      "imageUrl": "/uploads/69.jpg",
+      "rank": 120,
+      "quantity": 100,
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0
+    },
+    {
+      "id": 117,
+      "itemName": "Fabri Kal 32 oz Deli Container",
+      "itemCategory": "Plastic Containers",
+      "cost": 35,
+      "priceLevel1": 38.75,
+      "priceLevel2": 40.75,
+      "priceLevel3": 48.25,
+      "imageUrl": "/uploads/70.jpg",
+      "rank": 121,
+      "quantity": 100,
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0
+    },
+    {
+      "id": 118,
+      "itemName": "Import 24 oz Black Round Container",
+      "itemCategory": "Plastic Containers",
+      "cost": 15,
+      "quantity": 100,
+      "priceLevel1": 16.75,
+      "priceLevel2": 17.75,
+      "priceLevel3": 20.5,
+      "rank": 122,
+      "imageUrl": "/uploads/image-1722040953716.jpg",
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0
+    },
+    {
+      "id": 119,
+      "itemName": "Import 16 oz White Round Container",
+      "itemCategory": "Plastic Containers",
+      "cost": 14,
+      "quantity": 100,
+      "priceLevel1": 15.5,
+      "priceLevel2": 16.5,
+      "priceLevel3": 19.25,
+      "rank": 123,
+      "imageUrl": "/uploads/image-1720042517766.jpg",
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0
+    },
+    {
+      "id": 120,
+      "itemName": "Import 24 oz White Round Container",
+      "itemCategory": "Plastic Containers",
+      "cost": 15,
+      "quantity": 100,
+      "priceLevel1": 16.75,
+      "priceLevel2": 17.75,
+      "priceLevel3": 20.5,
+      "rank": 124,
+      "imageUrl": "/uploads/image-1720042605243.jpg",
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0
+    },
+    {
+      "id": 121,
+      "itemName": "Import 28 oz White Rectangle Container",
+      "itemCategory": "Plastic Containers",
+      "cost": 15,
+      "quantity": 100,
+      "priceLevel1": 16.75,
+      "priceLevel2": 17.75,
+      "priceLevel3": 20.5,
+      "rank": 125,
+      "imageUrl": "/uploads/image-1720042699155.jpg",
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0
+    },
+    {
+      "id": 122,
+      "itemName": "Import 32 oz White Rectangle Container",
+      "itemCategory": "Plastic Containers",
+      "cost": 17,
+      "quantity": 100,
+      "priceLevel1": 19,
+      "priceLevel2": 20,
+      "priceLevel3": 23,
+      "rank": 126,
+      "imageUrl": "/uploads/image-1720042740067.jpg",
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0
+    },
+    {
+      "id": 123,
+      "itemName": "Import 38 oz White Rectangle Container",
+      "itemCategory": "Plastic Containers",
+      "cost": 22,
+      "quantity": 100,
+      "priceLevel1": 24.5,
+      "priceLevel2": 25.75,
+      "priceLevel3": 29.5,
+      "rank": 127,
+      "imageUrl": "/uploads/image-1720042789934.jpg",
       "vendors": null,
       "length": 0,
       "width": 0,
@@ -22444,7 +23261,7 @@
       "priceLevel1": 45.35,
       "priceLevel2": 47.65,
       "priceLevel3": 54.3,
-      "rank": 0,
+      "rank": 205,
       "imageUrl": "/uploads/image-1728873523940.jpg",
       "taxableItem": true
     },
@@ -22457,7 +23274,7 @@
       "priceLevel2": 10.5,
       "priceLevel3": 12.5,
       "imageUrl": "/uploads/image-1719456487291.jpeg",
-      "rank": 205,
+      "rank": 206,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22476,7 +23293,7 @@
       "priceLevel2": 16,
       "priceLevel3": 18.5,
       "imageUrl": "/uploads/image-1722041469443.jpeg",
-      "rank": 206,
+      "rank": 207,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22495,7 +23312,7 @@
       "priceLevel2": 16,
       "priceLevel3": 19.25,
       "imageUrl": "/uploads/image-1719456614910.jpg",
-      "rank": 207,
+      "rank": 208,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22513,7 +23330,7 @@
       "priceLevel1": 16,
       "priceLevel2": 17,
       "priceLevel3": 20.25,
-      "rank": 208,
+      "rank": 209,
       "imageUrl": "/uploads/image-1720219673401.jpg",
       "vendors": null,
       "length": 0,
@@ -22531,7 +23348,7 @@
       "priceLevel2": 17.5,
       "priceLevel3": 21,
       "imageUrl": "/uploads/image-1719456651329.jpg",
-      "rank": 209,
+      "rank": 210,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22549,7 +23366,7 @@
       "priceLevel2": 16,
       "priceLevel3": 19.25,
       "imageUrl": "/uploads/35.jpg",
-      "rank": 210,
+      "rank": 211,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22563,7 +23380,7 @@
       "itemName": "6\" Paper Plates (1000pcs)",
       "itemCategory": "Paper Plates",
       "cost": 6,
-      "rank": 211,
+      "rank": 212,
       "quantity": 100,
       "priceLevel1": 11.5,
       "priceLevel2": 12.5,
@@ -22581,7 +23398,7 @@
       "itemName": "9\" Paper Plates (1000pcs)",
       "itemCategory": "Paper Plates",
       "cost": 13,
-      "rank": 212,
+      "rank": 213,
       "quantity": 100,
       "priceLevel1": 17,
       "priceLevel2": 18,
@@ -22603,7 +23420,7 @@
       "priceLevel2": 9.25,
       "priceLevel3": 10.75,
       "imageUrl": "/uploads/image-1728504878571.jpg",
-      "rank": 213,
+      "rank": 214,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22621,7 +23438,7 @@
       "priceLevel2": 15,
       "priceLevel3": 17.75,
       "imageUrl": "/uploads/110.jpg",
-      "rank": 214,
+      "rank": 215,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22639,7 +23456,7 @@
       "priceLevel2": 15,
       "priceLevel3": 17.75,
       "imageUrl": "/uploads/111.jpg",
-      "rank": 215,
+      "rank": 216,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22657,7 +23474,7 @@
       "priceLevel2": 16.75,
       "priceLevel3": 19.75,
       "imageUrl": "/uploads/61.jpg",
-      "rank": 216,
+      "rank": 217,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22675,7 +23492,7 @@
       "priceLevel2": 32.75,
       "priceLevel3": 38.75,
       "imageUrl": "/uploads/62.jpg",
-      "rank": 217,
+      "rank": 218,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22693,7 +23510,7 @@
       "priceLevel2": 20,
       "priceLevel3": 24,
       "imageUrl": "/uploads/63.jpg",
-      "rank": 218,
+      "rank": 219,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22711,7 +23528,7 @@
       "priceLevel1": 22.75,
       "priceLevel2": 24,
       "priceLevel3": 28.5,
-      "rank": 219,
+      "rank": 220,
       "imageUrl": "/uploads/image-1719456975227.jpg",
       "vendors": null,
       "length": 0,
@@ -22729,7 +23546,7 @@
       "priceLevel2": 38,
       "priceLevel3": 45,
       "imageUrl": "/uploads/64.jpg",
-      "rank": 220,
+      "rank": 221,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22747,7 +23564,7 @@
       "priceLevel1": 6.75,
       "priceLevel2": 7.5,
       "priceLevel3": 8.75,
-      "rank": 221,
+      "rank": 222,
       "imageUrl": "/uploads/image-1720043228479.jpg",
       "vendors": null,
       "length": 0,
@@ -22765,7 +23582,7 @@
       "priceLevel1": 6.75,
       "priceLevel2": 7.5,
       "priceLevel3": 8.75,
-      "rank": 222,
+      "rank": 223,
       "imageUrl": "/uploads/image-1720043216923.jpg",
       "vendors": null,
       "length": 0,
@@ -22783,7 +23600,7 @@
       "priceLevel1": 6.75,
       "priceLevel2": 7.5,
       "priceLevel3": 8.75,
-      "rank": 223,
+      "rank": 224,
       "imageUrl": "/uploads/image-1720043143793.jpg",
       "vendors": null,
       "length": 0,
@@ -22801,7 +23618,7 @@
       "priceLevel1": 6.75,
       "priceLevel2": 7.5,
       "priceLevel3": 8.75,
-      "rank": 224,
+      "rank": 225,
       "imageUrl": "/uploads/image-1720043180148.jpg",
       "vendors": null,
       "length": 0,
@@ -22819,7 +23636,7 @@
       "priceLevel2": 13,
       "priceLevel3": 15.25,
       "imageUrl": "/uploads/134.jpg",
-      "rank": 225,
+      "rank": 226,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22837,7 +23654,7 @@
       "priceLevel2": 13,
       "priceLevel3": 15.25,
       "imageUrl": "/uploads/135.jpg",
-      "rank": 226,
+      "rank": 227,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22855,7 +23672,7 @@
       "priceLevel2": 13,
       "priceLevel3": 15.25,
       "imageUrl": "/uploads/137.jpg",
-      "rank": 227,
+      "rank": 228,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22873,7 +23690,7 @@
       "priceLevel2": 14,
       "priceLevel3": 16.25,
       "imageUrl": "/uploads/image-1722623184342.jpg",
-      "rank": 228,
+      "rank": 229,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22891,7 +23708,7 @@
       "priceLevel2": 14.25,
       "priceLevel3": 16.5,
       "imageUrl": "/uploads/image-1722623139073.jpg",
-      "rank": 229,
+      "rank": 230,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22909,7 +23726,7 @@
       "priceLevel2": 16.5,
       "priceLevel3": 19,
       "imageUrl": "/uploads/138.jpg",
-      "rank": 230,
+      "rank": 231,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22927,7 +23744,7 @@
       "priceLevel2": 16.5,
       "priceLevel3": 19,
       "imageUrl": "/uploads/image-1728858657929.jpg",
-      "rank": 231,
+      "rank": 232,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22946,7 +23763,7 @@
       "priceLevel2": 16.5,
       "priceLevel3": 19,
       "imageUrl": "/uploads/image-1728858657929.jpg",
-      "rank": 232,
+      "rank": 233,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22965,7 +23782,7 @@
       "priceLevel2": 12.5,
       "priceLevel3": 15.15,
       "imageUrl": "/uploads/176.jpg",
-      "rank": 233,
+      "rank": 234,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -22983,7 +23800,7 @@
       "priceLevel1": 14.5,
       "priceLevel2": 15.25,
       "priceLevel3": 18.25,
-      "rank": 234,
+      "rank": 235,
       "imageUrl": "/uploads/image-1719457117380.jpg",
       "vendors": null,
       "length": 0,
@@ -23001,7 +23818,7 @@
       "priceLevel1": 17.25,
       "priceLevel2": 18.25,
       "priceLevel3": 21,
-      "rank": 235,
+      "rank": 236,
       "imageUrl": "/uploads/image-1719457117380.jpg",
       "vendors": null,
       "length": 0,
@@ -23019,7 +23836,7 @@
       "priceLevel1": 30,
       "priceLevel2": 31.5,
       "priceLevel3": 37.5,
-      "rank": 236,
+      "rank": 237,
       "imageUrl": "/uploads/image-1719457177210.jpg",
       "vendors": null,
       "length": 0,
@@ -23037,7 +23854,7 @@
       "priceLevel1": 17.25,
       "priceLevel2": 18.25,
       "priceLevel3": 22,
-      "rank": 237,
+      "rank": 238,
       "imageUrl": "/uploads/image-1719457222839.png",
       "vendors": null,
       "length": 0,
@@ -23055,7 +23872,7 @@
       "priceLevel1": 14,
       "priceLevel2": 15,
       "priceLevel3": 17.25,
-      "rank": 238,
+      "rank": 239,
       "imageUrl": "/uploads/image-1722922799572.jpg",
       "vendors": null,
       "length": 0,
@@ -23073,7 +23890,7 @@
       "priceLevel1": 15,
       "priceLevel2": 16,
       "priceLevel3": 18.25,
-      "rank": 239,
+      "rank": 240,
       "imageUrl": "/uploads/image-1722922818368.jpg",
       "vendors": null,
       "length": 0,
@@ -23091,7 +23908,7 @@
       "priceLevel1": 30,
       "priceLevel2": 31.5,
       "priceLevel3": 36,
-      "rank": 240,
+      "rank": 241,
       "imageUrl": "/uploads/image-1722044783081.jpg",
       "vendors": null,
       "length": 0,
@@ -23109,7 +23926,7 @@
       "priceLevel1": 25.5,
       "priceLevel2": 27,
       "priceLevel3": 31,
-      "rank": 241,
+      "rank": 242,
       "imageUrl": "/uploads/image-1722044783081.jpg",
       "vendors": null,
       "length": 0,
@@ -23127,7 +23944,7 @@
       "priceLevel1": 10.75,
       "priceLevel2": 11.5,
       "priceLevel3": 13.25,
-      "rank": 242,
+      "rank": 243,
       "imageUrl": "/uploads/image-1722269841278.png"
     },
     {
@@ -23139,7 +23956,7 @@
       "priceLevel2": 48.5,
       "priceLevel3": 55.5,
       "imageUrl": "/uploads/146.jpg",
-      "rank": 243,
+      "rank": 244,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23157,7 +23974,7 @@
       "priceLevel2": 68.5,
       "priceLevel3": 81,
       "imageUrl": "/uploads/147.jpg",
-      "rank": 244,
+      "rank": 245,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23175,7 +23992,7 @@
       "priceLevel2": 55.25,
       "priceLevel3": 63,
       "imageUrl": "/uploads/148.jpg",
-      "rank": 245,
+      "rank": 246,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23193,7 +24010,7 @@
       "priceLevel2": 73.5,
       "priceLevel3": 87,
       "imageUrl": "/uploads/149.jpg",
-      "rank": 246,
+      "rank": 247,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23211,7 +24028,7 @@
       "priceLevel2": 57.5,
       "priceLevel3": 65.25,
       "imageUrl": "/uploads/150.jpg",
-      "rank": 247,
+      "rank": 248,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23229,7 +24046,7 @@
       "priceLevel2": 53.75,
       "priceLevel3": 63.75,
       "imageUrl": "/uploads/151.jpg",
-      "rank": 248,
+      "rank": 249,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23247,7 +24064,7 @@
       "priceLevel2": 96.75,
       "priceLevel3": 113.75,
       "imageUrl": "/uploads/152.jpg",
-      "rank": 249,
+      "rank": 250,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23265,7 +24082,7 @@
       "priceLevel2": 67,
       "priceLevel3": 79,
       "imageUrl": "/uploads/153.jpg",
-      "rank": 250,
+      "rank": 251,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23283,7 +24100,7 @@
       "priceLevel2": 62,
       "priceLevel3": 73.25,
       "imageUrl": "/uploads/154.jpg",
-      "rank": 251,
+      "rank": 252,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23301,7 +24118,7 @@
       "priceLevel2": 76,
       "priceLevel3": 89.5,
       "imageUrl": "/uploads/155.jpg",
-      "rank": 252,
+      "rank": 253,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23319,7 +24136,7 @@
       "priceLevel2": 99.75,
       "priceLevel3": 117.25,
       "imageUrl": "/uploads/156.jpg",
-      "rank": 253,
+      "rank": 254,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23337,7 +24154,7 @@
       "priceLevel2": 97,
       "priceLevel3": 114.25,
       "imageUrl": "/uploads/157.jpg",
-      "rank": 254,
+      "rank": 255,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23355,7 +24172,7 @@
       "priceLevel2": 102.25,
       "priceLevel3": 120.5,
       "imageUrl": "/uploads/158.jpg",
-      "rank": 255,
+      "rank": 256,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23373,7 +24190,7 @@
       "priceLevel2": 107.75,
       "priceLevel3": 127,
       "imageUrl": "/uploads/159.jpg",
-      "rank": 256,
+      "rank": 257,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23391,7 +24208,7 @@
       "priceLevel2": 87,
       "priceLevel3": 102.5,
       "imageUrl": "/uploads/160.jpg",
-      "rank": 257,
+      "rank": 258,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23409,7 +24226,7 @@
       "priceLevel2": 65,
       "priceLevel3": 76.75,
       "imageUrl": "/uploads/161.jpg",
-      "rank": 258,
+      "rank": 259,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23427,7 +24244,7 @@
       "priceLevel1": 42,
       "priceLevel2": 44,
       "priceLevel3": 48,
-      "rank": 259,
+      "rank": 260,
       "imageUrl": "/uploads/image-1721708588175.jpg",
       "vendors": null,
       "length": 0,
@@ -23445,7 +24262,7 @@
       "priceLevel1": 30.5,
       "priceLevel2": 32,
       "priceLevel3": 40,
-      "rank": 260,
+      "rank": 261,
       "imageUrl": "/uploads/image-1719456881263.jpg",
       "vendors": null,
       "length": 0,
@@ -23463,7 +24280,7 @@
       "priceLevel1": 1,
       "priceLevel2": 1,
       "priceLevel3": 1,
-      "rank": 261,
+      "rank": 262,
       "imageUrl": "/uploads/image-1720816212429.jpeg"
     },
     {
@@ -23475,7 +24292,7 @@
       "priceLevel1": 2.5,
       "priceLevel2": 2.75,
       "priceLevel3": 3.5,
-      "rank": 262,
+      "rank": 263,
       "imageUrl": "/uploads/image-1719806501329.jpg",
       "vendors": null,
       "length": 0,
@@ -23493,7 +24310,7 @@
       "priceLevel2": 51.25,
       "priceLevel3": 60.75,
       "imageUrl": "/uploads/173.jpg",
-      "rank": 263,
+      "rank": 264,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23511,7 +24328,7 @@
       "priceLevel2fg": 40.75,
       "priceLevel3": 48.25,
       "imageUrl": "/uploads/174.jpg",
-      "rank": 264,
+      "rank": 265,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23529,7 +24346,7 @@
       "priceLevel2": 26.25,
       "priceLevel3": 31.25,
       "imageUrl": "/uploads/163.jpg",
-      "rank": 265,
+      "rank": 266,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23547,7 +24364,7 @@
       "priceLevel2": 29.25,
       "priceLevel3": 34.75,
       "imageUrl": "/uploads/167.jpg",
-      "rank": 266,
+      "rank": 267,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23565,7 +24382,7 @@
       "priceLevel2": 25,
       "priceLevel3": 30,
       "imageUrl": "/uploads/165.jpg",
-      "rank": 267,
+      "rank": 268,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23583,7 +24400,7 @@
       "priceLevel2": 41,
       "priceLevel3": 48.75,
       "imageUrl": "/uploads/166.jpg",
-      "rank": 268,
+      "rank": 269,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23601,7 +24418,7 @@
       "priceLevel2": 18.75,
       "priceLevel3": 22.25,
       "imageUrl": "/uploads/169.jpg",
-      "rank": 269,
+      "rank": 270,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23619,7 +24436,7 @@
       "priceLevel2": 25,
       "priceLevel3": 29.75,
       "imageUrl": "/uploads/162.jpg",
-      "rank": 270,
+      "rank": 271,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23637,7 +24454,7 @@
       "priceLevel2": 24.75,
       "priceLevel3": 29.25,
       "imageUrl": "/uploads/164.jpg",
-      "rank": 271,
+      "rank": 272,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23655,7 +24472,7 @@
       "priceLevel2": 26.75,
       "priceLevel3": 31.75,
       "imageUrl": "/uploads/168.jpg",
-      "rank": 272,
+      "rank": 273,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23673,7 +24490,7 @@
       "priceLevel2": 14,
       "priceLevel3": 17,
       "imageUrl": "/uploads/171.jpg",
-      "rank": 273,
+      "rank": 274,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23691,7 +24508,7 @@
       "priceLevel2": 42.5,
       "priceLevel3": 50.5,
       "imageUrl": "/uploads/172.jpg",
-      "rank": 274,
+      "rank": 275,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23709,7 +24526,7 @@
       "priceLevel2": 57,
       "priceLevel3": 67.5,
       "imageUrl": "/uploads/170.jpg",
-      "rank": 275,
+      "rank": 276,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23727,7 +24544,7 @@
       "priceLevel1": 106.59,
       "priceLevel2": 111.67,
       "priceLevel3": 126.67,
-      "rank": 0,
+      "rank": 277,
       "imageUrl": "/uploads/image-1728876382733.jpg",
       "taxableItem": false
     },
@@ -23740,7 +24557,7 @@
       "priceLevel2": 42.25,
       "priceLevel3": 48.25,
       "imageUrl": "/uploads/4.jpg",
-      "rank": 276,
+      "rank": 278,
       "quantity": 100,
       "vendors": [
         {
@@ -23775,7 +24592,7 @@
       "priceLevel2": 42.25,
       "priceLevel3": 48.25,
       "imageUrl": "/uploads/4.jpg",
-      "rank": 277,
+      "rank": 279,
       "quantity": 100,
       "vendors": [
         {
@@ -23810,7 +24627,7 @@
       "priceLevel2": 51,
       "priceLevel3": 58,
       "imageUrl": "/uploads/5.jpg",
-      "rank": 278,
+      "rank": 280,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23828,7 +24645,7 @@
       "priceLevel2": 61,
       "priceLevel3": 69.25,
       "imageUrl": "/uploads/6.jpg",
-      "rank": 279,
+      "rank": 281,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23846,7 +24663,7 @@
       "priceLevel2": 68,
       "priceLevel3": 80.25,
       "imageUrl": "/uploads/7.jpg",
-      "rank": 280,
+      "rank": 282,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -23864,7 +24681,7 @@
       "priceLevel1": 25.75,
       "priceLevel2": 27.25,
       "priceLevel3": 31.25,
-      "rank": 281,
+      "rank": 283,
       "imageUrl": "/uploads/image-1722922694862.jpg",
       "vendors": [
         {
@@ -23888,7 +24705,7 @@
       "priceLevel1": 39.5,
       "priceLevel2": 41.5,
       "priceLevel3": 47.5,
-      "rank": 282,
+      "rank": 284,
       "imageUrl": "/uploads/image-1722922705329.jpg",
       "vendors": [
         {
@@ -23912,7 +24729,7 @@
       "priceLevel1": 39.75,
       "priceLevel2": 42,
       "priceLevel3": 47.75,
-      "rank": 283,
+      "rank": 285,
       "imageUrl": "/uploads/image-1722870661183.jpg"
     }
   ],

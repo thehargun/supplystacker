@@ -14,6 +14,7 @@ let users = []; // To include both admin and customer users
 let inventory = [
     { id: 1, itemName: "Item One", quantity: 100, priceLevel1: 10, priceLevel2: 9, priceLevel3: 8, rank: 0, imageUrl: "/path/to/image1.jpg" },
 ];
+let vendorsList = [];
 let purchases = []
 
 app.set('view engine', 'ejs');
@@ -64,11 +65,11 @@ function loadData() {
         const data = fs.readFileSync('data.json', 'utf8');
         const json = JSON.parse(data);
 
-        if (json && Array.isArray(json.users) && Array.isArray(json.inventory) && Array.isArray(json.purchases)) {
+        if (json && Array.isArray(json.users) && Array.isArray(json.inventory)) {
             users = json.users;
             inventory = json.inventory;
             purchases = json.purchases;
-
+            vendorsList = json.vendors
             // Load category ranks
             if (json.ItemsCategory) {
                 json.ItemsCategory.forEach(category => {
@@ -638,6 +639,7 @@ app.post('/admin/invoices/:invoiceNumber', (req, res) => {
 app.post('/admin/invoices/print/:invoiceNumber', (req, res) => {
     const invoiceNumber = req.params.invoiceNumber;
     const orderDetails = req.body;
+    console.log(orderDetails)
 
     pdfService.generateInvoicePdf(orderDetails, (filePath) => {
         emailService.sendOrderConfirmationWithInvoice(orderDetails.companyName, orderDetails, filePath);

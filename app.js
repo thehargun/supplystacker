@@ -8,6 +8,7 @@ const fs = require('fs');
 const multer = require('multer');
 const path = require('path');
 const app = express();
+const moment = require('moment');
 
 let categoryRanks = {};
 let users = []; // To include both admin and customer users
@@ -1370,7 +1371,113 @@ app.post('/delete-cart-item', (req, res) => {
     });
 });
 
+function getAvailableQuarters(invoiceDates) {
+    const minYear = moment.min(invoiceDates).year();
+    const currentYear = moment().year();
+    let quarters = [];
 
+    // Create the four quarters for each year from the minimum year to the current year
+    for (let year = minYear; year <= currentYear; year++) {
+        quarters.push({
+            label: `Jan 1 - Mar 31, ${year}`,
+            start: `${year}-01-01`,
+            end: `${year}-03-31`
+        });
+        quarters.push({
+            label: `Apr 1 - Jun 30, ${year}`,
+            start: `${year}-04-01`,
+            end: `${year}-06-30`
+        });
+        quarters.push({
+            label: `Jul 1 - Sep 30, ${year}`,
+            start: `${year}-07-01`,
+            end: `${year}-09-30`
+        });
+        quarters.push({
+            label: `Oct 1 - Dec 31, ${year}`,
+            start: `${year}-10-01`,
+            end: `${year}-12-31`
+        });
+    }
+
+    // Reverse to show the latest quarters first
+    return quarters.reverse();
+}
+
+// Admin Sales Tax Report Page - GET Route
+app.get('/admin/salestaxreport', (req, res) => {
+    // Admin access check
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+
+    // Determine the available quarters
+    let invoiceDates = [];
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            user.invoices.forEach(invoice => {
+                invoiceDates.push(moment(invoice.dateCreated, ["MM/DD/YYYY", "YYYY-MM-DD"]));
+            });
+        }
+    });
+
+    if (invoiceDates.length === 0) {
+        return res.render('salestaxreport', { quarters: [], invoices: [], selectedQuarter: null, totalSalesTax: 0 });
+    }
+
+    const quarters = getAvailableQuarters(invoiceDates);
+    
+    res.render('salestaxreport', { quarters: quarters, invoices: [], selectedQuarter: null, totalSalesTax: 0 });
+});
+
+// Admin Sales Tax Report Page - POST Route
+app.post('/admin/salestaxreport', (req, res) => {
+    // Admin access check
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+
+    const { quarter } = req.body;
+    const [start, end] = quarter.split('|');
+
+    let filteredInvoices = [];
+    let totalSalesTax = 0;
+
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            user.invoices.forEach(invoice => {
+                const invoiceDate = moment(invoice.dateCreated, ["MM/DD/YYYY", "YYYY-MM-DD"]);
+                if (invoiceDate.isBetween(start, end, undefined, '[]') && invoice.salesTax > 0) {
+                    filteredInvoices.push({
+                        invoiceNumber: invoice.invoiceNumber,
+                        date: invoiceDate.format("YYYY-MM-DD"),
+                        salesTax: invoice.salesTax
+                    });
+                    totalSalesTax += invoice.salesTax;
+                }
+            });
+        }
+    });
+
+    // Retrieve quarters again to ensure dropdown remains populated
+    let invoiceDates = [];
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            user.invoices.forEach(invoice => {
+                invoiceDates.push(moment(invoice.dateCreated, ["MM/DD/YYYY", "YYYY-MM-DD"]));
+            });
+        }
+    });
+    const quarters = getAvailableQuarters(invoiceDates);
+
+    // Render the updated page with the selected quarter's invoices
+    res.render('salestaxreport', {
+        quarters: quarters,
+        invoices: filteredInvoices,
+        selectedQuarter: quarter,
+        totalSalesTax: totalSalesTax.toFixed(2)
+    });
+});
 
 
 

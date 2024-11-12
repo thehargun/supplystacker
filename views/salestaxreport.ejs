@@ -32,6 +32,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 20px;
         }
         table, th, td {
             border: 1px solid #ddd;
@@ -76,6 +77,7 @@
                         <th>Invoice Number</th>
                         <th>Date</th>
                         <th>Sales Tax</th>
+                        <th>Total Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,11 +86,14 @@
                             <td><a href="/admin/invoices/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
                             <td><%= invoice.date %></td>
                             <td>$<%= invoice.salesTax %></td>
+                            <td>$<%= invoice.totalAmount %></td>
                         </tr>
                     <% }); %>
                 </tbody>
             </table>
-            <h3>Total Sales Tax: $<%= totalSalesTax %></h3>
+            <h3>Total Gross Receipts from All Sales: $<%= totalGrossReceipts %></h3>
+            <h3>Receipts Not Subject to Sales Tax: $<%= receiptsNotSubjectToSalesTax %></h3>
+            <h3>Sales Tax Collected: $<%= totalSalesTax %></h3>
         <% } %>
     </div>
 </body>

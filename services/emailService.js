@@ -6,7 +6,7 @@ let transporter = nodemailer.createTransport({
     secure: false, // True for 465, false for other ports
     auth: {
         user: 'sales@supplystacker.com', // Your SMTP username
-        pass: 'Wheninusa16!', // Your SMTP password
+        pass: '^08dGboaM', // Your SMTP password
     },
     tls: {
         // Do not fail on invalid certs if your server uses self-signed certificates
@@ -17,7 +17,7 @@ let transporter = nodemailer.createTransport({
 function sendOrderConfirmationWithInvoice(email, orderDetails, filePath) {
     const mailOptions = {
         from: 'sales@supplystacker.com',
-        to: 'hargunsawhney@gmail.com',
+        to: 'sales@supplystacker.com',
         subject: 'Order Confirmation',
         text: 'Here is your invoice.',
         attachments: [

@@ -1442,22 +1442,38 @@ app.post('/admin/salestaxreport', (req, res) => {
 
     let filteredInvoices = [];
     let totalSalesTax = 0;
+    let totalGrossReceipts = 0;
 
     users.forEach(user => {
         if (user.invoices && user.invoices.length > 0) {
             user.invoices.forEach(invoice => {
                 const invoiceDate = moment(invoice.dateCreated, ["MM/DD/YYYY", "YYYY-MM-DD"]);
-                if (invoiceDate.isBetween(start, end, undefined, '[]') && invoice.salesTax > 0) {
-                    filteredInvoices.push({
-                        invoiceNumber: invoice.invoiceNumber,
-                        date: invoiceDate.format("YYYY-MM-DD"),
-                        salesTax: invoice.salesTax
-                    });
-                    totalSalesTax += invoice.salesTax;
+                
+                // Calculate total gross receipts from all invoices, regardless of sales tax
+                if (invoiceDate.isBetween(start, end, undefined, '[]')) {
+                    totalGrossReceipts += invoice.totalAmount;
+
+                    // Only add to filtered list if sales tax is greater than 0
+                    if (invoice.salesTax > 0) {
+                        filteredInvoices.push({
+                            invoiceNumber: invoice.invoiceNumber,
+                            date: invoiceDate.format("YYYY-MM-DD"),
+                            salesTax: invoice.salesTax,
+                            totalAmount: invoice.totalAmount
+                        });
+                        totalSalesTax += invoice.salesTax;
+                    }
                 }
             });
         }
     });
+
+    // Calculating receipts not subject to sales tax using total gross receipts
+    const receiptsNotSubjectToSalesTax = totalGrossReceipts - (totalSalesTax / 0.06625);
+
+    // Rounding values to the nearest dollar
+    const roundedGrossReceipts = Math.round(totalGrossReceipts);
+    const roundedReceiptsNotSubjectToSalesTax = Math.round(receiptsNotSubjectToSalesTax);
 
     // Retrieve quarters again to ensure dropdown remains populated
     let invoiceDates = [];
@@ -1470,14 +1486,78 @@ app.post('/admin/salestaxreport', (req, res) => {
     });
     const quarters = getAvailableQuarters(invoiceDates);
 
-    // Render the updated page with the selected quarter's invoices
+    // Render the updated page with the selected quarter's invoices and calculated values
     res.render('salestaxreport', {
         quarters: quarters,
         invoices: filteredInvoices,
         selectedQuarter: quarter,
+        totalGrossReceipts: roundedGrossReceipts,
+        receiptsNotSubjectToSalesTax: roundedReceiptsNotSubjectToSalesTax,
         totalSalesTax: totalSalesTax.toFixed(2)
     });
 });
+
+// Route for Admin Sales By Product Report
+app.get('/admin/salesbyproductreport', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+    res.render('salesreport', { reportData: null, month: null });
+});
+
+app.post('/admin/salesbyproductreport', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+
+    const selectedMonth = req.body.month; // Format: YYYY-MM
+    const startOfMonth = moment(selectedMonth, 'YYYY-MM').startOf('month');
+    const endOfMonth = moment(selectedMonth, 'YYYY-MM').endOf('month');
+    const startOfLastMonth = moment(selectedMonth, 'YYYY-MM').subtract(1, 'month').startOf('month');
+    const endOfLastMonth = moment(selectedMonth, 'YYYY-MM').subtract(1, 'month').endOf('month');
+
+    let reportData = {};
+
+    // Iterate through all users and their invoices to gather sales data
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            user.invoices.forEach(invoice => {
+                const invoiceDate = moment(invoice.dateCreated, 'YYYY-MM-DD');
+                const isCurrentMonth = invoiceDate.isBetween(startOfMonth, endOfMonth, undefined, '[]');
+                const isLastMonth = invoiceDate.isBetween(startOfLastMonth, endOfLastMonth, undefined, '[]');
+
+                invoice.products.forEach(product => {
+                    if (!reportData[product.productName]) {
+                        reportData[product.productName] = {
+                            productName: product.productName,
+                            quantitySold: 0,
+                            quantitySoldLastMonth: 0,
+                            totalAmount: 0,
+                            totalAmountLastMonth: 0,
+                            rate: product.rate
+                        };
+                    }
+
+                    if (isCurrentMonth) {
+                        reportData[product.productName].quantitySold += product.quantity;
+                        reportData[product.productName].totalAmount += product.total;
+                    }
+
+                    if (isLastMonth) {
+                        reportData[product.productName].quantitySoldLastMonth += product.quantity;
+                        reportData[product.productName].totalAmountLastMonth += product.total;
+                    }
+                });
+            });
+        }
+    });
+
+    // Convert reportData object to an array and sort by totalAmount
+    const reportDataArray = Object.values(reportData).sort((a, b) => b.totalAmount - a.totalAmount);
+
+    res.render('salesreport', { reportData: reportDataArray, month: selectedMonth });
+});
+
 
 
 

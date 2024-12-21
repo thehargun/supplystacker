@@ -46,7 +46,7 @@ const storage = multer.diskStorage({
 // Update file filter to allow HEIF images
 const multerUpload = multer({
     storage: storage,
-    limits: { fileSize: 1000000 }, // 1 MB
+    limits: { fileSize: 1000000000 }, // 1 MB
     fileFilter: function (req, file, cb) {
         const filetypes = /jpeg|jpg|png|gif|heic|heif/; // Add heic and heif
         const extname = filetypes.test(path.extname(file.originalname).toLowerCase());

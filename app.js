@@ -35,6 +35,7 @@ app.use((req, res, next) => {
     next();
 });
 
+// Configure multer storage
 const storage = multer.diskStorage({
     destination: './public/uploads/',
     filename: function (req, file, cb) {
@@ -42,18 +43,18 @@ const storage = multer.diskStorage({
     }
 });
 
-// Initialize multer
+// Update file filter to allow HEIF images
 const multerUpload = multer({
     storage: storage,
     limits: { fileSize: 1000000 }, // 1 MB
     fileFilter: function (req, file, cb) {
-        const filetypes = /jpeg|jpg|png|gif/;
+        const filetypes = /jpeg|jpg|png|gif|heic|heif/; // Add heic and heif
         const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
         const mimetype = filetypes.test(file.mimetype);
         if (mimetype && extname) {
             return cb(null, true);
         } else {
-            cb(new Error('Error: Images only!'));
+            cb(new Error('Error: Only images (JPEG, PNG, GIF, HEIC, HEIF) are allowed!'));
         }
     }
 });

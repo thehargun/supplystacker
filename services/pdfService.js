@@ -88,7 +88,7 @@ const formattedBalanceDue = `$${balanceDue.toFixed(2)}`;
 
 doc.fontSize(12)
    .font('Helvetica-Bold')
-   .text(`Balance Due: ` + formattedBalanceDue, 50, tableTop + 20);
+   .text(`Total Including Tax: ` + formattedBalanceDue, 50, tableTop + 20);
 
     // Draw lines for the table
     doc.strokeColor('#000')

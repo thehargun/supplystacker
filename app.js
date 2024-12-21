@@ -9,12 +9,14 @@ const multer = require('multer');
 const path = require('path');
 const app = express();
 const moment = require('moment');
+const archiver = require('archiver');
 
 let categoryRanks = {};
 let users = []; // To include both admin and customer users
 let inventory = [
     { id: 1, itemName: "Item One", quantity: 100, priceLevel1: 10, priceLevel2: 9, priceLevel3: 8, rank: 0, imageUrl: "/path/to/image1.jpg" },
 ];
+let returns = [];
 let vendorsList = [];
 let purchases = []
 
@@ -40,14 +42,21 @@ const storage = multer.diskStorage({
     }
 });
 
-// Init upload
-const upload = multer({
+// Initialize multer
+const multerUpload = multer({
     storage: storage,
     limits: { fileSize: 1000000 }, // 1 MB
     fileFilter: function (req, file, cb) {
-        checkFileType(file, cb);
+        const filetypes = /jpeg|jpg|png|gif/;
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = filetypes.test(file.mimetype);
+        if (mimetype && extname) {
+            return cb(null, true);
+        } else {
+            cb(new Error('Error: Images only!'));
+        }
     }
-}).single('image');
+});
 
 // Check file type
 function checkFileType(file, cb) {
@@ -70,7 +79,9 @@ function loadData() {
             users = json.users;
             inventory = json.inventory;
             purchases = json.purchases;
-            vendorsList = json.vendors
+            vendorsList = json.vendors;
+            returns = json.returns || []; // Initialize returns if not present
+
             // Load category ranks
             if (json.ItemsCategory) {
                 json.ItemsCategory.forEach(category => {
@@ -82,8 +93,10 @@ function loadData() {
         }
     } catch (error) {
         console.log('Error reading data.json, starting with empty arrays.');
+        returns = []; // Initialize returns array if reading fails
     }
 }
+
 
 
 loadData();
@@ -106,6 +119,7 @@ function saveData() {
         users: users,
         inventory: inventory,
         purchases: purchases,
+        returns: returns, // Save the returns array
         ItemsCategory: Object.keys(categoryRanks).map(category => ({
             Category: category,
             Rank: categoryRanks[category]
@@ -113,6 +127,7 @@ function saveData() {
     };
     fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
 }
+
 
 
 
@@ -191,7 +206,7 @@ app.get('/admin/add-inventory', (req, res) => {
     res.render('add-inventory', { inventory });
 });
 
-app.post('/admin/add-inventory', upload, (req, res) => {
+app.post('/admin/add-inventory', multerUpload.single('image'), (req, res) => {
     if (req.file == undefined) {
         return res.send('Error: No file selected!');
     }
@@ -230,6 +245,7 @@ app.post('/admin/add-inventory', upload, (req, res) => {
 });
 
 
+
 app.get('/admin/edit-inventory/:id', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.send('Unauthorized access.');
@@ -238,7 +254,7 @@ app.get('/admin/edit-inventory/:id', (req, res) => {
     res.render('edit-inventory', { item });
 });
 
-app.post('/admin/edit-inventory/:id', upload, async (req, res) => {
+app.post('/admin/edit-inventory/:id', multerUpload.single('image'), async (req, res) => {
     const itemId = parseInt(req.params.id);
     const itemIndex = inventory.findIndex(item => item.id === itemId);
 
@@ -1558,8 +1574,93 @@ app.post('/admin/salesbyproductreport', (req, res) => {
     res.render('salesreport', { reportData: reportDataArray, month: selectedMonth });
 });
 
+app.get('/admin/returns', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+    res.render('returns-form');
+});
+
+app.post('/admin/returns', multerUpload.array('images', 10), (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+
+    try {
+        // Create a new return object
+        const newReturn = {
+            returnNumber: returns.length > 0
+                ? String(returns.length + 1).padStart(3, '0')
+                : "001",
+            date: req.body.date || moment().format('YYYY-MM-DD'),
+            classification: req.body.classification,
+            damaged: req.body.damaged === 'true',
+            trackingNumber: req.body.trackingNumber || "",
+            processed: false,
+            images: req.files.map(file => file.filename) // Save file names
+        };
+
+        // Add the new return to the returns array
+        returns.push(newReturn);
+
+        // Save to data.json
+        saveData();
+
+        res.redirect('/admin/returns'); // Redirect back to the form for repeated submissions
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while processing the return.');
+    }
+});
 
 
+
+
+app.get('/admin/manageReturns', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    res.render('manage-returns', { returns: data.returns || [] });
+});
+
+app.get('/admin/manageReturns/:id', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
+
+    // Find the specific return
+    const returnData = returns.find(r => r.returnNumber === req.params.id);
+
+    if (!returnData) {
+        return res.status(404).send('Return not found.');
+    }
+
+    res.render('return-details', { returnData });
+});
+
+
+
+
+app.get('/admin/manageReturns/:id/download', (req, res) => {
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    const ret = data.returns.find(r => r.returnNumber === req.params.id);
+
+    if (!ret || !ret.images || ret.images.length === 0) {
+        return res.status(404).send('No images found for this return.');
+    }
+
+    const archive = archiver('zip', { zlib: { level: 9 } });
+    res.attachment(`${ret.returnNumber}.zip`);
+
+    archive.pipe(res);
+    ret.images.forEach(img => {
+        archive.file(`./public/uploads/${img}`, { name: img });
+    });
+
+    archive.finalize();
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

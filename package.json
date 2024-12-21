@@ -12,6 +12,7 @@
     "ansi-styles": "^4.3.0",
     "append-field": "^1.0.0",
     "aproba": "^2.0.0",
+    "archiver": "^7.0.1",
     "are-we-there-yet": "^2.0.0",
     "array-buffer-byte-length": "^1.0.1",
     "array-flatten": "^1.1.1",

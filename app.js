@@ -1468,7 +1468,8 @@ app.post('/admin/salestaxreport', (req, res) => {
                 
                 // Calculate total gross receipts from all invoices, regardless of sales tax
                 if (invoiceDate.isBetween(start, end, undefined, '[]')) {
-                    totalGrossReceipts += invoice.totalAmount;
+                    console.log(invoice)
+                    totalGrossReceipts += (invoice.totalAmount - invoice.CashPayment) || 0;
 
                     // Only add to filtered list if sales tax is greater than 0
                     if (invoice.salesTax > 0) {

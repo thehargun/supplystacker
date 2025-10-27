@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Sales By Product Report</title>
+    <link rel="stylesheet" href="/path/to/your/styles.css">
+</head>
+<body>
+    <h1>Admin Sales By Product Report</h1>
+
+    <form action="/admin/salesbyproductreport" method="POST">
+        <label for="month">Select Month:</label>
+        <input type="month" id="month" name="month" required>
+        <button type="submit">Generate Report</button>
+    </form>
+
+    <% if (reportData) { %>
+        <h2>Sales Report for <%= month %></h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity Sold</th>
+                    <th>Quantity Sold Last Month</th>
+                    <th>Average Price Sold ($)</th>
+                    <th>Total Amount ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% reportData.forEach(product => { %>
+                    <tr>
+                        <td><%= product.productName %></td>
+                        <td><%= product.quantitySold %></td>
+                        <td><%= product.quantitySoldLastMonth %></td>
+                        <td><%= (product.totalAmount / product.quantitySold).toFixed(2) %></td>
+                        <td><%= product.totalAmount.toFixed(2) %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+</body>
+</html>

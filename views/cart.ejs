@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin-left: 0;
+        }
+
+        @media only screen and (max-width: 600px) {
+            table {
+                width: 100%;
+            }
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .edit-save-button {
+            margin-left: 10px;
+        }
+
+        .edit-quantity-input {
+            width: 60px;
+            padding: 4px;
+            font-size: 0.9em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <% if (cart.length > 0) { %>
+        <table>
+            <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Price (per unit)</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+            <% cart.forEach(item => { %>
+                <tr id="cart-item-<%= item.id %>">
+                    <td><%= item.itemName %></td>
+                    <td>
+                        <span id="quantity_<%= item.id %>"><%= (item.quantity != null ? item.quantity.toFixed(2) : '0.00') %></span>
+                        <input type="number" id="edit-quantity-<%= item.id %>" class="edit-quantity-input" style="display: none;" min="0.01" step="0.01" value="<%= (item.quantity != null ? item.quantity.toFixed(2) : '0.00') %>">
+                        <button onclick="editQuantity('<%= item.id %>')" id="edit-button-<%= item.id %>" class="edit-save-button">Edit</button>
+                        <button onclick="saveQuantity('<%= item.id %>')" id="save-button-<%= item.id %>" class="edit-save-button" style="display: none;">Save</button>
+                    </td>
+                    <td>$<%= (item.price != null ? item.price.toFixed(2) : '0.00') %></td>
+                    <td id="total_<%= item.id %>" data-price="<%= (item.price != null ? item.price : 0) %>" data-taxable="<%= item.taxableItem %>">$<%= ((item.quantity != null && item.price != null) ? (item.quantity * item.price).toFixed(2) : '0.00') %></td>
+                    <td><button onclick="removeItem('<%= item.id %>')" class="edit-save-button">Remove</button></td>
+                </tr>
+            <% }); %>
+        </table>
+        <!-- Totals Section -->
+        <p>Subtotal: $<span id="subtotal"><%= (typeof subtotal === 'number' ? subtotal.toFixed(2) : '0.00') %></span></p>
+        <p>Sales Tax: $<span id="salesTax"><%= (typeof salesTax === 'number' ? salesTax.toFixed(2) : '0.00') %></span></p>
+        <h4>Total Amount: $<span id="totalAmount"><%= (typeof totalAmount === 'number' ? totalAmount.toFixed(2) : '0.00') %></span></h4>
+
+        <!-- Checkout button -->
+        <form action="/checkout" method="get">
+            <button type="submit">Checkout</button>
+        </form>
+
+    <% } else { %>
+        <p>Your cart is empty.</p>
+    <% } %>
+    
+    <!-- Continue Shopping button -->
+    <form action="/products" method="get">
+        <button type="submit">Continue Shopping</button>
+    </form>
+
+    <script>
+    // Get user's taxable status from server-side
+    const userTaxable = <%= userTaxable %>;
+
+    // Function to calculate subtotal, sales tax, and total amount
+    function calculateCartTotals() {
+        let subtotal = 0;
+        let salesTax = 0;
+
+        document.querySelectorAll('[id^="total_"]').forEach(totalElement => {
+            const totalText = totalElement.textContent.replace('$', '');
+            const total = parseFloat(totalText);
+            const isTaxable = totalElement.getAttribute('data-taxable') === 'true';
+
+            subtotal += total;
+
+            // Apply sales tax only if both user is taxable and item is taxable
+            if (userTaxable && isTaxable) {
+                salesTax += total * 0.06625; // Apply 6.625% sales tax only to taxable items
+            }
+        });
+
+        const totalAmount = subtotal + salesTax;
+
+        // Update the values on the page
+        document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+        document.getElementById('salesTax').textContent = salesTax.toFixed(2);
+        document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+    }
+
+    // Initial update of total amount
+    calculateCartTotals();
+        // Function to remove item from cart
+        function removeItem(itemId) {
+        fetch('/delete-cart-item', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ itemId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Remove item from the UI
+                document.getElementById('cart-item-' + itemId).remove();
+
+                // Update the subtotal, sales tax, and total amounts in the UI
+                document.getElementById('subtotal').textContent = data.subtotal.toFixed(2);
+                document.getElementById('salesTax').textContent = data.salesTax.toFixed(2);
+                document.getElementById('totalAmount').textContent = data.totalAmount.toFixed(2);
+            } else {
+                console.error('Failed to remove item from cart:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error removing item from cart:', error);
+        });
+    }
+
+        // Function to update quantity of item in cart and update UI
+        function saveQuantity(itemId) {
+        const newQuantity = parseFloat(document.getElementById(`edit-quantity-${itemId}`).value);
+        
+        if (isNaN(newQuantity) || newQuantity <= 0) {
+            alert('Please enter a valid quantity.');
+            return;
+        }
+
+        // Send an update to the server (example of AJAX call)
+        fetch('/update-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                itemId: itemId,
+                quantity: newQuantity
+            })
+        }).then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  // Update the displayed quantity
+                  document.getElementById(`quantity_${itemId}`).textContent = newQuantity.toFixed(2);
+
+                  // Update the item total
+                  const itemPrice = parseFloat(document.getElementById(`total_${itemId}`).getAttribute('data-price'));
+                  if (!isNaN(itemPrice)) {
+                      const newTotal = (newQuantity * itemPrice).toFixed(2);
+                      document.getElementById(`total_${itemId}`).textContent = `$${newTotal}`;
+                  } else {
+                      console.error('Price data not found for item:', itemId);
+                  }
+
+                  // Update the grand total
+                  document.getElementById('subtotal').textContent = data.subtotal.toFixed(2);
+                  document.getElementById('salesTax').textContent = data.salesTax.toFixed(2);
+                  document.getElementById('totalAmount').textContent = data.totalAmount.toFixed(2);
+              } else {
+                  alert('Failed to update the quantity on the server.');
+              }
+          }).catch(err => {
+              console.error('Error updating cart:', err);
+          });
+
+        // Hide input and switch buttons back
+        document.getElementById(`edit-quantity-${itemId}`).style.display = 'none';
+        document.getElementById(`quantity_${itemId}`).style.display = 'inline';
+        document.getElementById(`save-button-${itemId}`).style.display = 'none';
+        document.getElementById(`edit-button-${itemId}`).style.display = 'inline';
+    }
+
+        // Function to switch quantity to editable textbox
+        function editQuantity(itemId) {
+            document.getElementById(`quantity_${itemId}`).style.display = 'none';
+            document.getElementById(`edit-quantity-${itemId}`).style.display = 'inline';
+            document.getElementById(`edit-button-${itemId}`).style.display = 'none';
+            document.getElementById(`save-button-${itemId}`).style.display = 'inline';
+        }
+    </script>
+</body>
+</html>

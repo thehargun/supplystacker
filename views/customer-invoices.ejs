@@ -1,0 +1,34 @@
+<!-- customer-invoices.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Invoices</title>
+</head>
+
+<body>
+    <h1>Customer Invoices</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Invoice Number</th>
+                <th>Date</th>
+                <th>Total Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% invoices.forEach(invoice => { %>
+            <tr>
+                <td><a href="/admin/invoices/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
+                <td><%= invoice.dateCreated %></td>
+                <td><%= invoice.totalBalance %></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+
+</html>

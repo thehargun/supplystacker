@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Submitted</title>
+    <style>
+        /* Add your styles here */
+    </style>
+</head>
+<body>
+    <h1>Thank you for your order!</h1>
+    <p>Your order has been successfully submitted. Below are your order details:</p>
+
+    <h2>Invoice Details</h2>
+    <p><strong>Invoice Number:</strong> <%= invoice.invoiceNumber %></p>
+    <p><strong>Company Name:</strong> <%= invoice.companyName %></p>
+    <p><strong>Date Created:</strong> <%= invoice.dateCreated %></p>
+    
+    <h3>Products:</h3>
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Rate</th>
+            <th>Total</th>
+        </tr>
+        <% invoice.products.forEach(product => { %>
+            <tr>
+                <td><%= product.productName %></td>
+                <td><%= product.productCategory %></td>
+                <td><%= product.quantity %></td>
+                <td>$<%= product.rate.toFixed(2) %></td>
+                <td>$<%= product.total %></td>
+            </tr>
+        <% }); %>
+    </table>
+    
+    <h3>Payment Summary:</h3>
+    <p><strong>Subtotal:</strong> $<%= invoice.subtotal %></p>
+    <p><strong>Sales Tax:</strong> $<%= invoice.salesTax %></p>
+    <h4><strong>Total Amount:</strong> $<%= invoice.totalAmount %></h4>
+    
+    <form action="/products" method="get">
+        <button type="submit">Continue Shopping</button>
+    </form>
+    
+</body>
+</html>

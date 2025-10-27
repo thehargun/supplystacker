@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Sales Tax Report</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .dropdown {
+            margin-bottom: 20px;
+        }
+        .button {
+            background-color: #66b3ff; /* Updated color */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Sales Tax Report</h1>
+        <form action="/admin/salestaxreport" method="POST">
+            <div class="dropdown">
+                <label for="quarter">Select Quarter:</label>
+                <select name="quarter" id="quarter" required>
+                    <% quarters.forEach(function(quarter) { %>
+                        <option value="<%= quarter.start %>|<%= quarter.end %>" <%= selectedQuarter === (quarter.start + '|' + quarter.end) ? 'selected' : '' %>>
+                            <%= quarter.label %>
+                        </option>
+                    <% }); %>
+                </select>
+            </div>
+            <button type="submit" class="button">Generate Report</button>
+        </form>
+
+        <% if (invoices.length > 0) { %>
+            <h2>Sales Tax Report for <%= selectedQuarter %></h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Invoice Number</th>
+                        <th>Date</th>
+                        <th>Sales Tax</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% invoices.forEach(function(invoice) { %>
+                        <tr>
+                            <td><a href="/admin/invoices/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
+                            <td><%= invoice.date %></td>
+                            <td>$<%= invoice.salesTax %></td>
+                            <td>$<%= invoice.totalAmount %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <h3>Total Gross Receipts from All Sales: $<%= totalGrossReceipts %></h3>
+            <h3>Receipts Not Subject to Sales Tax: $<%= receiptsNotSubjectToSalesTax %></h3>
+            <h3>Sales Tax Collected: $<%= totalSalesTax %></h3>
+        <% } %>
+    </div>
+</body>
+</html>

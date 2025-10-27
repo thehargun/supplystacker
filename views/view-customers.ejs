@@ -1,0 +1,195 @@
+<!-- views/view-customers.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Customers</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        /* Override global styles completely */
+        html, body {
+            height: auto !important;
+            display: block !important;
+            justify-content: initial !important;
+            align-items: initial !important;
+            overflow: auto !important;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        h1 {
+            margin: 0 0 20px 0;
+            color: #333;
+        }
+        
+        .action-buttons {
+            margin: 20px 0;
+        }
+        
+        .action-buttons a {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .action-buttons a:hover {
+            background-color: #0056b3;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+            max-height: none;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        
+        td a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        
+        td a:hover {
+            text-decoration: underline;
+        }
+        
+        .delete-btn {
+            background-color: #dc3545 !important;
+            color: white !important;
+            padding: 5px 10px;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        .delete-btn:hover {
+            background-color: #c82333 !important;
+            text-decoration: none;
+        }
+        
+        /* Ensure no conflicting positioning */
+        * {
+            position: static;
+        }
+        
+        .container {
+            position: relative;
+        }
+        
+        th {
+            position: sticky;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>View Customers</h1>
+        
+        <div class="action-buttons">
+            <a href="/admin">Back to Admin Home</a>
+            <a href="/admin/add-customer">Add Customer</a>
+        </div>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% 
+                    // Filter out admin users and sort by company name
+                    const customerList = customers
+                        .filter(customer => customer.role !== 'admin')
+                        .sort((a, b) => {
+                            const companyA = (a.company || '').toLowerCase();
+                            const companyB = (b.company || '').toLowerCase();
+                            return companyA.localeCompare(companyB);
+                        });
+                    %>
+                    <% customerList.forEach(customer => { %>
+                    <tr>
+                        <td><%= customer.company %></td>
+                        <td><%= customer.email %></td>
+                        <td>
+                            <a href="/admin/customer-invoices/<%= customer.id %>">View Invoices</a> |
+                            <a href="/admin/edit-customer/<%= customer.id %>">Edit</a> |
+                            <button class="delete-btn" onclick="deleteCustomer(<%= customer.id %>)">Delete</button>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function deleteCustomer(customerId) {
+            if (confirm('Are you sure you want to delete this customer? This action cannot be undone and will remove all customer data including invoices.')) {
+                // Create a form and submit it
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/delete-customer/${customerId}`;
+                
+                // Add CSRF token if needed (not implemented in your current setup)
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+</body>
+</html>

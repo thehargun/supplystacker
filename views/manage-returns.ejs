@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Returns</title>
+</head>
+<body>
+    <h1>Returns</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Return Number</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% returns.forEach(r => { %>
+                <tr>
+                    <td><a href="/admin/manageReturns/<%= r.returnNumber %>"><%= r.returnNumber %></a></td>
+                    <td><%= r.date %></td>
+                    <td><%= r.processed ? "Processed" : "Not Processed" %></td>
+                    <td><a href="/admin/manageReturns/<%= r.returnNumber %>">View</a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

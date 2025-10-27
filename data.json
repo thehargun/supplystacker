@@ -17611,22 +17611,6 @@
       ]
     },
     {
-      "id": 8,
-      "email": "eastcoastpaper@gmail.com",
-      "password": "$2b$10$HauUZ15o7gHsXuwl.zxjAuT2UJhiVoYk.lm63uq8PgN.A.A.SrXtW",
-      "company": "East Coast Paper ",
-      "phone": "5166435923",
-      "addressLine1": "3500 Hampton Rd",
-      "addressLine2": "",
-      "city": "Oceanside",
-      "state": "NY",
-      "zipCode": "11572",
-      "priceLevel": 2,
-      "role": "customer",
-      "invoices": [],
-      "taxable": false
-    },
-    {
       "id": 9,
       "email": "mariamwholesalellc@gmail.com",
       "password": "$2b$10$LPQ5GIrkqJhmOOiuth4h4uatt3/QRO2qWmzEhgK.KA0bHDl8uqtmu",
@@ -62683,38 +62667,6 @@
           "notes": ""
         }
       ]
-    },
-    {
-      "id": 77,
-      "email": "eastcoastpaper@gmail.com",
-      "password": "$2a$10$ItBxcxgwsCqXblSnPa9w9.2ZJ38MIMo7YElrmDBQgVcDB2xSErK3y",
-      "company": "East Coast Paper",
-      "phone": "5166435923",
-      "addressLine1": "3500 Hampton Rd",
-      "addressLine2": "",
-      "city": "Oceanside",
-      "state": "NY",
-      "zipCode": "11572",
-      "priceLevel": 2,
-      "taxable": false,
-      "role": "customer",
-      "invoices": []
-    },
-    {
-      "id": 78,
-      "email": "eastcoastpaper@gmail.com",
-      "password": "$2a$10$dcKTkLpRs1vhSgS2gGJPx.35dXRfoCCB2cP1RUQHo18.u6qVc3YP.",
-      "company": "East Coast Paper",
-      "phone": "5166435923",
-      "addressLine1": "3500 Hampton Rd",
-      "addressLine2": "",
-      "city": "Oceanside",
-      "state": "NY",
-      "zipCode": "11572",
-      "priceLevel": 2,
-      "taxable": false,
-      "role": "customer",
-      "invoices": []
     },
     {
       "id": 79,

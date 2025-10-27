@@ -420,7 +420,30 @@ app.get('/cart', (req, res) => {
         userTaxable: user.taxable // Pass user's taxable status to the template
     });
 });
+// Add this route after your existing customer routes (around line 400-500)
+app.post('/admin/delete-customer/:id', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(403).send('Access denied.');
+    }
 
+    const customerId = parseInt(req.params.id);
+    
+    // Find the index of the customer to delete
+    const customerIndex = users.findIndex(user => user.id === customerId);
+    
+    if (customerIndex === -1) {
+        return res.status(404).send('Customer not found.');
+    }
+    
+    // Remove the customer from the users array
+    users.splice(customerIndex, 1);
+    
+    // Save the updated data
+    saveData();
+    
+    // Redirect back to the customers view
+    res.redirect('/admin/view-customers');
+});
 
 
 app.get('/register', (req, res) => {

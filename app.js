@@ -752,45 +752,34 @@ app.delete('/remove-from-cart/:id', (req, res) => {
     req.session.cart = req.session.cart.filter(item => item.id !== itemId);
     res.sendStatus(204);
 });
-
-app.post('/update-cart', (req, res) => {
-    if (!req.session.cart) {
-        req.session.cart = [];
+function parseInvoiceNumber(invoiceNumber) {
+    if (!invoiceNumber) {
+        return { prefix: '', number: 0 };
     }
-
-    const { itemId, quantity } = req.body;
-
-    // Find the item in the cart and update its quantity
-    const itemIndex = req.session.cart.findIndex(item => item.id == itemId);
-    if (itemIndex !== -1) {
-        req.session.cart[itemIndex].quantity = parseFloat(quantity);
-
-        // Recalculate the subtotal, sales tax, and total amount
-        let subtotal = 0;
-        let salesTax = 0;
-
-        req.session.cart.forEach(item => {
-            let itemTotal = item.price * item.quantity;
-            subtotal += itemTotal;
-
-            if (item.taxableItem) {
-                salesTax += itemTotal * 0.06625; // 6.625% tax
-            }
-        });
-
-        let totalAmount = subtotal + salesTax;
-
-        // Send the updated totals back to the client
-        res.json({
-            success: true,
-            subtotal,
-            salesTax,
-            totalAmount
-        });
-    } else {
-        res.status(404).send({ success: false, message: 'Item not found in cart.' });
+    
+    // Match pattern like "AWL001", "BWL123", etc.
+    const match = invoiceNumber.match(/^([A-Za-z]+)(\d+)$/);
+    
+    if (match) {
+        return {
+            prefix: match[1],
+            number: parseInt(match[2], 10)
+        };
     }
-});
+    
+    // If no match, try to extract any numbers
+    const numericMatch = invoiceNumber.match(/\d+/);
+    if (numericMatch) {
+        return {
+            prefix: invoiceNumber.replace(/\d+/, ''),
+            number: parseInt(numericMatch[0], 10)
+        };
+    }
+    
+    // Default fallback
+    return { prefix: invoiceNumber, number: 0 };
+}
+
 
 
 app.get('/get-total-amount', (req, res) => {
@@ -836,23 +825,138 @@ function generateInvoiceNumber(company) {
 }
 
 
-
-
-
-
-app.get('/checkout', (req, res) => {
+app.get('/cart', (req, res) => {
+    console.log('=== CART DEBUG START ===');
+    
     if (!req.session.loggedIn) {
-        return res.redirect('/login'); // Redirect to login if not logged in
+        console.log('User not logged in');
+        return res.send('Please log in.');
     }
 
+    console.log('User logged in:', req.session.user.email);
+    
     let cart = req.session.cart || [];
     let user = req.session.user;
+
+    console.log('Cart contents:', JSON.stringify(cart, null, 2));
+    console.log('User taxable status:', user.taxable);
+    console.log('Cart length:', cart.length);
+
+    // Debug each cart item
+    cart.forEach((item, index) => {
+        console.log(`Cart item ${index}:`, {
+            id: item.id,
+            itemName: item.itemName,
+            quantity: item.quantity,
+            price: item.price,
+            taxableItem: item.taxableItem
+        });
+    });
+
+    console.log('=== CART DEBUG END ===');
+
+    res.render('cart', {
+        cart: cart,
+        userTaxable: user.taxable || false
+    });
+});
+
+app.post('/update-cart', (req, res) => {
+    console.log('=== UPDATE CART DEBUG START ===');
+    console.log('Request body:', req.body);
+    
+    if (!req.session.cart) {
+        req.session.cart = [];
+    }
+
+    const { itemId, quantity } = req.body;
+    console.log('Item ID to update:', itemId);
+    console.log('New quantity:', quantity);
+    console.log('Current cart before update:', JSON.stringify(req.session.cart, null, 2));
+
+    // Find the item in the cart and update its quantity
+    const itemIndex = req.session.cart.findIndex(item => item.id == itemId);
+    console.log('Found item at index:', itemIndex);
+    
+    if (itemIndex !== -1) {
+        console.log('Item found, updating quantity from', req.session.cart[itemIndex].quantity, 'to', parseFloat(quantity));
+        req.session.cart[itemIndex].quantity = parseFloat(quantity);
+        console.log('Cart after update:', JSON.stringify(req.session.cart, null, 2));
+
+        // Send success response
+        res.json({
+            success: true,
+            message: 'Cart updated successfully'
+        });
+    } else {
+        console.log('Item not found in cart');
+        res.status(404).json({ success: false, message: 'Item not found in cart.' });
+    }
+    
+    console.log('=== UPDATE CART DEBUG END ===');
+});
+
+app.post('/delete-cart-item', (req, res) => {
+    console.log('=== DELETE CART ITEM DEBUG START ===');
+    console.log('Request body:', req.body);
+    
+    if (!req.session.cart) {
+        req.session.cart = [];
+    }
+
+    const { itemId } = req.body;
+    console.log('Item ID to delete:', itemId);
+    console.log('Current cart before deletion:', JSON.stringify(req.session.cart, null, 2));
+
+    // Remove the item from the cart
+    const originalLength = req.session.cart.length;
+    req.session.cart = req.session.cart.filter(item => {
+        console.log('Comparing item.id:', item.id, 'with itemId:', itemId, 'Equal?', item.id == itemId);
+        return item.id != itemId;
+    });
+
+    console.log('Cart after deletion:', JSON.stringify(req.session.cart, null, 2));
+    console.log('Original length:', originalLength, 'New length:', req.session.cart.length);
+
+    if (req.session.cart.length < originalLength) {
+        console.log('Item successfully removed');
+        res.json({
+            success: true,
+            message: 'Item removed from cart'
+        });
+    } else {
+        console.log('Item was not found/removed');
+        res.status(404).json({ success: false, message: 'Item not found in cart.' });
+    }
+    
+    console.log('=== DELETE CART ITEM DEBUG END ===');
+});
+
+
+
+
+
+
+
+
+
+
+
+app.post('/checkout', async (req, res) => {
+    if (!req.session.cart || !req.session.user) {
+        return res.send('No items in cart or user not logged in.');
+    }
+
+    let user = req.session.user;
+
+    // Generate the next invoice number using the generateInvoiceNumber function
+    const invoiceNumber = generateInvoiceNumber(user.company);
 
     // Calculate subtotal, sales tax, and total
     let subtotal = 0;
     let salesTax = 0;
 
-    cart.forEach(item => {
+    req.session.cart.forEach(item => {
         let itemTotal = item.price * item.quantity;
         subtotal += itemTotal;
 
@@ -864,15 +968,122 @@ app.get('/checkout', (req, res) => {
 
     let totalAmount = subtotal + salesTax;
 
-    // Render the checkout page with these values
-    res.render('checkout', {
-        cart: cart,
-        subtotal: subtotal.toFixed(2),
-        salesTax: salesTax.toFixed(2),
-        totalAmount: totalAmount.toFixed(2)
+    // Create the invoice details, ensuring all values are numbers, not strings
+    const invoiceDetails = {
+        invoiceNumber,
+        companyName: user.company,
+        addressLine1: user.addressLine1,
+        addressLine2: user.addressLine2,
+        city: user.city,
+        state: user.state,
+        zipCode: user.zipCode,
+        dateCreated: new Date().toISOString().split('T')[0],
+        products: req.session.cart.map(item => ({
+            productName: item.itemName,
+            productCategory: item.itemCategory,
+            quantity: item.quantity,  // Numeric value
+            rate: item.price,         // Numeric value
+            total: item.quantity * item.price  // Numeric value
+        })),
+        subtotal: subtotal,            // Numeric value
+        salesTax: salesTax,            // Numeric value
+        totalAmount: totalAmount,      // Numeric value
+        totalBalance: totalAmount,     // Numeric value
+        paid: false,
+        CashPayment: 0,                // Default as a numeric value
+        AccountPayment: 0              // Default as a numeric value
+    };
+
+    // Push the new invoice to the user's invoice list
+    if (!user.invoices) {
+        user.invoices = [];
+    }
+    user.invoices.push(invoiceDetails);
+
+    // Update the users array with the modified user object
+    const userIndex = users.findIndex(u => u.id === user.id);
+    if (userIndex !== -1) {
+        users[userIndex] = user;
+    } else {
+        console.error("User not found in users array.");
+        return res.status(404).send('User not found.');
+    }
+
+    // Update session user data to reflect the new invoice
+    req.session.user = user;
+
+    // Save data to data.json
+    saveData();
+
+    // Generate PDF and send email
+    pdfService.generateInvoicePdf(invoiceDetails, (filePath) => {
+        // Send email with PDF attachment
+        emailService.sendOrderConfirmationWithInvoice(invoiceDetails.companyName, invoiceDetails, filePath);
+        
+        // Clear the cart after checkout
+        req.session.cart = [];
+
+        // Render the order submission page with invoice details and PDF info
+        res.render('order-submitted', { 
+            invoice: invoiceDetails,
+            pdfUrl: `/download-invoice/${invoiceDetails.invoiceNumber}`
+        });
     });
 });
+// Add this route after your existing routes
+app.get('/download-invoice/:invoiceNumber', (req, res) => {
+    const invoiceNumber = req.params.invoiceNumber;
+    const filePath = `./invoices/invoice-${invoiceNumber}.pdf`;
+    
+    // Check if file exists
+    if (fs.existsSync(filePath)) {
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'inline; filename=' + `invoice-${invoiceNumber}.pdf`);
+        
+        // Stream the PDF file to the response
+        const fileStream = fs.createReadStream(filePath);
+        fileStream.pipe(res);
+    } else {
+        res.status(404).send('PDF not found.');
+    }
+});
+// Add this GET route for displaying the checkout page
+app.get('/checkout', (req, res) => {
+    if (!req.session.loggedIn) {
+        return res.redirect('/login');
+    }
 
+    if (!req.session.cart || req.session.cart.length === 0) {
+        return res.redirect('/cart');
+    }
+
+    let cart = req.session.cart;
+    let user = req.session.user;
+
+    // Calculate totals for display
+    let subtotal = 0;
+    let salesTax = 0;
+
+    cart.forEach(item => {
+        let itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        // Apply tax if both user and item are taxable
+        if (user.taxable && item.taxableItem) {
+            salesTax += itemTotal * 0.06625; // 6.625% tax
+        }
+    });
+
+    let totalAmount = subtotal + salesTax;
+
+    res.render('checkout', {
+        cart: cart,
+        user: user,
+        subtotal: subtotal,
+        salesTax: salesTax,
+        totalAmount: totalAmount
+    });
+});
 app.post('/checkout', async (req, res) => {
     if (!req.session.cart || !req.session.user) {
         return res.send('No items in cart or user not logged in.');
@@ -1372,39 +1583,7 @@ app.post('/admin/purchases/delete/:purchaseID', (req, res) => {
 
     res.redirect('/admin/vendor-portal');
 });
-app.post('/delete-cart-item', (req, res) => {
-    if (!req.session.cart) {
-        req.session.cart = [];
-    }
 
-    const { itemId } = req.body;
-
-    // Remove the item from the cart
-    req.session.cart = req.session.cart.filter(item => item.id != itemId);
-
-    // Recalculate the subtotal, sales tax, and total amount
-    let subtotal = 0;
-    let salesTax = 0;
-
-    req.session.cart.forEach(item => {
-        let itemTotal = item.price * item.quantity;
-        subtotal += itemTotal;
-
-        if (item.taxableItem) {
-            salesTax += itemTotal * 0.06625; // 6.625% tax
-        }
-    });
-
-    let totalAmount = subtotal + salesTax;
-
-    // Send the updated totals back to the client
-    res.json({
-        success: true,
-        subtotal,
-        salesTax,
-        totalAmount
-    });
-});
 
 function getAvailableQuarters(invoiceDates) {
     const minYear = moment.min(invoiceDates).year();
@@ -1438,6 +1617,107 @@ function getAvailableQuarters(invoiceDates) {
     // Reverse to show the latest quarters first
     return quarters.reverse();
 }
+// Add these routes after your existing routes
+// Special route for PDF generation - bypasses login for PDF generation only
+// Special route for PDF generation - bypasses login for PDF generation only
+app.get('/products-pdf/:userId', (req, res) => {
+    const userId = parseInt(req.params.userId);
+    const user = users.find(u => u.id === userId);
+    
+    if (!user) {
+        return res.status(404).send('User not found');
+    }
+
+    const userPriceLevel = `priceLevel${user.priceLevel}`;
+    const finalPriceMultiplier = user.finalPrice || 1;
+
+    // Adjust inventory prices based on user's price level
+    const adjustedInventory = inventory.map(item => ({
+        ...item,
+        price: (Math.floor((item[userPriceLevel] * finalPriceMultiplier) * 4) / 4)
+    }));
+
+    // Sort inventory based on category rank
+    adjustedInventory.sort((a, b) => {
+        const rankA = categoryRanks[a.itemCategory] || Infinity;
+        const rankB = categoryRanks[b.itemCategory] || Infinity;
+        return rankA === rankB ? a.rank - b.rank : rankA - rankB;
+    });
+
+    // Create a fake session object for the template
+    const fakeReq = {
+        session: {
+            user: user,
+            loggedIn: true
+        }
+    };
+
+    res.render('products-pdf', {
+        inventory: adjustedInventory,
+        req: fakeReq
+    });
+});
+
+// Route to generate products PDF
+app.post('/generate-products-pdf', (req, res) => {
+    if (!req.session.loggedIn) {
+        return res.status(403).send('Access denied.');
+    }
+
+    const user = req.session.user;
+
+    const productsPdfData = {
+        companyName: user.company,
+        userId: user.id,
+        dateGenerated: new Date().toISOString().split('T')[0]
+    };
+
+    pdfService.generateProductsPdf(productsPdfData, (filePath, error) => {
+        if (error) {
+            console.error('PDF generation failed:', error);
+            return res.status(500).json({ success: false, message: 'PDF generation failed' });
+        }
+        
+        if (filePath) {
+            res.json({ success: true, message: 'PDF generated successfully' });
+        } else {
+            res.status(500).json({ success: false, message: 'PDF generation failed' });
+        }
+    });
+});
+
+// Route to download the generated products PDF
+app.get('/download-products-pdf', (req, res) => {
+    if (!req.session.loggedIn) {
+        return res.status(403).send('Access denied.');
+    }
+
+    const user = req.session.user;
+    const filePath = `./pdfs/products-${user.company.replace(/\s+/g, '-')}.pdf`;
+    
+    // Check if file exists
+    if (fs.existsSync(filePath)) {
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'inline; filename=' + `products-${user.company.replace(/\s+/g, '-')}.pdf`);
+        
+        // Stream the PDF file to the response
+        const fileStream = fs.createReadStream(filePath);
+        fileStream.pipe(res);
+    } else {
+        res.status(404).send('PDF not found.');
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
 
 // Admin Sales Tax Report Page - GET Route
 app.get('/admin/salestaxreport', (req, res) => {

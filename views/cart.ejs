@@ -9,27 +9,30 @@
             width: 50%;
             margin-left: 0;
         }
-
         @media only screen and (max-width: 600px) {
-            table {
-                width: 100%;
-            }
+            table { width: 100%; }
         }
-
         th, td {
             padding: 8px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-        
-        th {
-            background-color: #f2f2f2;
-        }
-        
+        th { background-color: #f2f2f2; }
         .edit-save-button {
             margin-left: 10px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            cursor: pointer;
         }
-
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
         .edit-quantity-input {
             width: 60px;
             padding: 4px;
@@ -54,155 +57,193 @@
                 <tr id="cart-item-<%= item.id %>">
                     <td><%= item.itemName %></td>
                     <td>
-                        <span id="quantity_<%= item.id %>"><%= (item.quantity != null ? item.quantity.toFixed(2) : '0.00') %></span>
-                        <input type="number" id="edit-quantity-<%= item.id %>" class="edit-quantity-input" style="display: none;" min="0.01" step="0.01" value="<%= (item.quantity != null ? item.quantity.toFixed(2) : '0.00') %>">
+                        <span id="quantity_<%= item.id %>"><%= (item.quantity || 0).toFixed(2) %></span>
+                        <input type="number" id="edit-quantity-<%= item.id %>" class="edit-quantity-input" style="display: none;" min="0" step="0.01" value="<%= (item.quantity || 0).toFixed(2) %>">
                         <button onclick="editQuantity('<%= item.id %>')" id="edit-button-<%= item.id %>" class="edit-save-button">Edit</button>
                         <button onclick="saveQuantity('<%= item.id %>')" id="save-button-<%= item.id %>" class="edit-save-button" style="display: none;">Save</button>
                     </td>
-                    <td>$<%= (item.price != null ? item.price.toFixed(2) : '0.00') %></td>
-                    <td id="total_<%= item.id %>" data-price="<%= (item.price != null ? item.price : 0) %>" data-taxable="<%= item.taxableItem %>">$<%= ((item.quantity != null && item.price != null) ? (item.quantity * item.price).toFixed(2) : '0.00') %></td>
-                    <td><button onclick="removeItem('<%= item.id %>')" class="edit-save-button">Remove</button></td>
+                    <td>$<%= (item.price || 0).toFixed(2) %></td>
+                    <td id="total_<%= item.id %>" data-price="<%= (item.price || 0) %>" data-taxable="<%= item.taxableItem %>">$<%= ((item.quantity || 0) * (item.price || 0)).toFixed(2) %></td>
+                    <td><button onclick="removeItem('<%= item.id %>')" class="delete-btn">Remove</button></td>
                 </tr>
             <% }); %>
         </table>
-        <!-- Totals Section -->
-        <p>Subtotal: $<span id="subtotal"><%= (typeof subtotal === 'number' ? subtotal.toFixed(2) : '0.00') %></span></p>
-        <p>Sales Tax: $<span id="salesTax"><%= (typeof salesTax === 'number' ? salesTax.toFixed(2) : '0.00') %></span></p>
-        <h4>Total Amount: $<span id="totalAmount"><%= (typeof totalAmount === 'number' ? totalAmount.toFixed(2) : '0.00') %></span></h4>
+        
+        <div style="margin-top: 20px;">
+            <p><strong>Subtotal: $<span id="subtotal">0.00</span></strong></p>
+            <p><strong>Sales Tax: $<span id="salesTax">0.00</span></strong></p>
+            <h4><strong>Total Amount: $<span id="totalAmount">0.00</span></strong></h4>
+        </div>
 
-        <!-- Checkout button -->
-        <form action="/checkout" method="get">
-            <button type="submit">Checkout</button>
+        <form action="/checkout" method="get" style="margin-top: 20px;">
+            <button type="submit" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Checkout</button>
         </form>
 
     <% } else { %>
         <p>Your cart is empty.</p>
     <% } %>
     
-    <!-- Continue Shopping button -->
-    <form action="/products" method="get">
-        <button type="submit">Continue Shopping</button>
+    <form action="/products" method="get" style="margin-top: 10px;">
+        <button type="submit" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Continue Shopping</button>
     </form>
 
+    <!-- Move JavaScript to the end of body and use a different approach -->
     <script>
-    // Get user's taxable status from server-side
-    const userTaxable = <%= userTaxable %>;
-
-    // Function to calculate subtotal, sales tax, and total amount
-    function calculateCartTotals() {
-        let subtotal = 0;
-        let salesTax = 0;
-
-        document.querySelectorAll('[id^="total_"]').forEach(totalElement => {
-            const totalText = totalElement.textContent.replace('$', '');
-            const total = parseFloat(totalText);
-            const isTaxable = totalElement.getAttribute('data-taxable') === 'true';
-
-            subtotal += total;
-
-            // Apply sales tax only if both user is taxable and item is taxable
-            if (userTaxable && isTaxable) {
-                salesTax += total * 0.06625; // Apply 6.625% sales tax only to taxable items
-            }
-        });
-
-        const totalAmount = subtotal + salesTax;
-
-        // Update the values on the page
-        document.getElementById('subtotal').textContent = subtotal.toFixed(2);
-        document.getElementById('salesTax').textContent = salesTax.toFixed(2);
-        document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
-    }
-
-    // Initial update of total amount
-    calculateCartTotals();
-        // Function to remove item from cart
-        function removeItem(itemId) {
-        fetch('/delete-cart-item', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ itemId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Remove item from the UI
-                document.getElementById('cart-item-' + itemId).remove();
-
-                // Update the subtotal, sales tax, and total amounts in the UI
-                document.getElementById('subtotal').textContent = data.subtotal.toFixed(2);
-                document.getElementById('salesTax').textContent = data.salesTax.toFixed(2);
-                document.getElementById('totalAmount').textContent = data.totalAmount.toFixed(2);
-            } else {
-                console.error('Failed to remove item from cart:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error removing item from cart:', error);
-        });
-    }
-
-        // Function to update quantity of item in cart and update UI
-        function saveQuantity(itemId) {
-        const newQuantity = parseFloat(document.getElementById(`edit-quantity-${itemId}`).value);
+        console.log('Loading cart script...');
         
-        if (isNaN(newQuantity) || newQuantity <= 0) {
-            alert('Please enter a valid quantity.');
-            return;
+        // Global variables
+        var userTaxable = false; // Default value
+        
+        // Get userTaxable from the server safely
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, setting up cart...');
+            
+            // Try to get userTaxable value from a hidden input or data attribute
+            var userTaxableElement = document.getElementById('userTaxableData');
+            if (userTaxableElement) {
+                userTaxable = userTaxableElement.value === 'true';
+            }
+            console.log('User taxable status:', userTaxable);
+            
+            // Calculate totals after getting the value
+            calculateCartTotals();
+        });
+        
+        function calculateCartTotals() {
+            console.log('Calculating cart totals...');
+            
+            var subtotal = 0;
+            var salesTax = 0;
+            
+            var totalElements = document.querySelectorAll('[id^="total_"]');
+            console.log('Found', totalElements.length, 'total elements');
+            
+            for (var i = 0; i < totalElements.length; i++) {
+                var element = totalElements[i];
+                var totalText = element.textContent.replace('$', '');
+                var total = parseFloat(totalText) || 0;
+                var isTaxable = element.getAttribute('data-taxable') === 'true';
+                
+                console.log('Item', i, '- Total:', total, 'Taxable:', isTaxable);
+                
+                subtotal += total;
+                
+                if (userTaxable && isTaxable) {
+                    var itemTax = total * 0.06625;
+                    salesTax += itemTax;
+                    console.log('Adding tax:', itemTax);
+                }
+            }
+            
+            var totalAmount = subtotal + salesTax;
+            
+            console.log('Final totals - Subtotal:', subtotal, 'Tax:', salesTax, 'Total:', totalAmount);
+            
+            // Update display
+            var subtotalEl = document.getElementById('subtotal');
+            var salesTaxEl = document.getElementById('salesTax');
+            var totalAmountEl = document.getElementById('totalAmount');
+            
+            if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
+            if (salesTaxEl) salesTaxEl.textContent = salesTax.toFixed(2);
+            if (totalAmountEl) totalAmountEl.textContent = totalAmount.toFixed(2);
         }
 
-        // Send an update to the server (example of AJAX call)
-        fetch('/update-cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                itemId: itemId,
-                quantity: newQuantity
+        function removeItem(itemId) {
+            console.log('Removing item:', itemId);
+            
+            fetch('/delete-cart-item', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ itemId: itemId })
             })
-        }).then(response => response.json())
-          .then(data => {
-              if (data.success) {
-                  // Update the displayed quantity
-                  document.getElementById(`quantity_${itemId}`).textContent = newQuantity.toFixed(2);
-
-                  // Update the item total
-                  const itemPrice = parseFloat(document.getElementById(`total_${itemId}`).getAttribute('data-price'));
-                  if (!isNaN(itemPrice)) {
-                      const newTotal = (newQuantity * itemPrice).toFixed(2);
-                      document.getElementById(`total_${itemId}`).textContent = `$${newTotal}`;
-                  } else {
-                      console.error('Price data not found for item:', itemId);
-                  }
-
-                  // Update the grand total
-                  document.getElementById('subtotal').textContent = data.subtotal.toFixed(2);
-                  document.getElementById('salesTax').textContent = data.salesTax.toFixed(2);
-                  document.getElementById('totalAmount').textContent = data.totalAmount.toFixed(2);
-              } else {
-                  alert('Failed to update the quantity on the server.');
-              }
-          }).catch(err => {
-              console.error('Error updating cart:', err);
-          });
-
-        // Hide input and switch buttons back
-        document.getElementById(`edit-quantity-${itemId}`).style.display = 'none';
-        document.getElementById(`quantity_${itemId}`).style.display = 'inline';
-        document.getElementById(`save-button-${itemId}`).style.display = 'none';
-        document.getElementById(`edit-button-${itemId}`).style.display = 'inline';
-    }
-
-        // Function to switch quantity to editable textbox
-        function editQuantity(itemId) {
-            document.getElementById(`quantity_${itemId}`).style.display = 'none';
-            document.getElementById(`edit-quantity-${itemId}`).style.display = 'inline';
-            document.getElementById(`edit-button-${itemId}`).style.display = 'none';
-            document.getElementById(`save-button-${itemId}`).style.display = 'inline';
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                if (data.success) {
+                    var itemElement = document.getElementById('cart-item-' + itemId);
+                    if (itemElement) {
+                        itemElement.remove();
+                    }
+                    calculateCartTotals();
+                    
+                    if (document.querySelectorAll('[id^="cart-item-"]').length === 0) {
+                        location.reload();
+                    }
+                } else {
+                    alert('Failed to remove item');
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+                alert('Error removing item');
+            });
         }
+
+        function editQuantity(itemId) {
+            console.log('Editing quantity for item:', itemId);
+            
+            document.getElementById('quantity_' + itemId).style.display = 'none';
+            document.getElementById('edit-quantity-' + itemId).style.display = 'inline';
+            document.getElementById('edit-button-' + itemId).style.display = 'none';
+            document.getElementById('save-button-' + itemId).style.display = 'inline';
+            
+            document.getElementById('edit-quantity-' + itemId).focus();
+        }
+
+        function saveQuantity(itemId) {
+            console.log('Saving quantity for item:', itemId);
+            
+            var newQuantity = parseFloat(document.getElementById('edit-quantity-' + itemId).value);
+            
+            if (isNaN(newQuantity) || newQuantity < 0) {
+                alert('Please enter a valid quantity.');
+                return;
+            }
+
+            if (newQuantity === 0) {
+                removeItem(itemId);
+                return;
+            }
+
+            fetch('/update-cart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ itemId: itemId, quantity: newQuantity })
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                if (data.success) {
+                    document.getElementById('quantity_' + itemId).textContent = newQuantity.toFixed(2);
+                    
+                    var itemPrice = parseFloat(document.getElementById('total_' + itemId).getAttribute('data-price')) || 0;
+                    var newTotal = (newQuantity * itemPrice).toFixed(2);
+                    document.getElementById('total_' + itemId).textContent = '$' + newTotal;
+                    
+                    calculateCartTotals();
+                } else {
+                    alert('Failed to update quantity');
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+                alert('Error updating cart');
+            });
+
+            // Reset UI
+            document.getElementById('edit-quantity-' + itemId).style.display = 'none';
+            document.getElementById('quantity_' + itemId).style.display = 'inline';
+            document.getElementById('save-button-' + itemId).style.display = 'none';
+            document.getElementById('edit-button-' + itemId).style.display = 'inline';
+        }
+
+        console.log('All cart functions defined');
     </script>
+
+    <!-- Hidden input to pass userTaxable value safely -->
+    <input type="hidden" id="userTaxableData" value="<%= userTaxable %>">
 </body>
 </html>

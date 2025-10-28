@@ -4,46 +4,76 @@
     <meta charset="UTF-8">
     <title>Order Submitted</title>
     <style>
-        /* Add your styles here */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .success-message {
+            color: #28a745;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .invoice-details {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .pdf-actions {
+            margin: 20px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
     </style>
 </head>
 <body>
-    <h1>Thank you for your order!</h1>
-    <p>Your order has been successfully submitted. Below are your order details:</p>
+    <div class="success-message">
+        ✅ Order Submitted Successfully!
+    </div>
+    
+    <div class="invoice-details">
+        <h3>Invoice Details</h3>
+        <p><strong>Invoice Number:</strong> <%= invoice.invoiceNumber %></p>
+        <p><strong>Company:</strong> <%= invoice.companyName %></p>
+        <p><strong>Date:</strong> <%= invoice.dateCreated %></p>
+        <p><strong>Total Amount:</strong> $<%= invoice.totalAmount.toFixed(2) %></p>
+    </div>
 
-    <h2>Invoice Details</h2>
-    <p><strong>Invoice Number:</strong> <%= invoice.invoiceNumber %></p>
-    <p><strong>Company Name:</strong> <%= invoice.companyName %></p>
-    <p><strong>Date Created:</strong> <%= invoice.dateCreated %></p>
-    
-    <h3>Products:</h3>
-    <table>
-        <tr>
-            <th>Product Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-            <th>Rate</th>
-            <th>Total</th>
-        </tr>
-        <% invoice.products.forEach(product => { %>
-            <tr>
-                <td><%= product.productName %></td>
-                <td><%= product.productCategory %></td>
-                <td><%= product.quantity %></td>
-                <td>$<%= product.rate.toFixed(2) %></td>
-                <td>$<%= product.total %></td>
-            </tr>
-        <% }); %>
-    </table>
-    
-    <h3>Payment Summary:</h3>
-    <p><strong>Subtotal:</strong> $<%= invoice.subtotal %></p>
-    <p><strong>Sales Tax:</strong> $<%= invoice.salesTax %></p>
-    <h4><strong>Total Amount:</strong> $<%= invoice.totalAmount %></h4>
-    
-    <form action="/products" method="get">
-        <button type="submit">Continue Shopping</button>
-    </form>
-    
+    <div class="pdf-actions">
+        <a href="<%= pdfUrl %>" target="_blank" class="btn" id="viewPdfBtn">View Invoice PDF</a>
+        <a href="/products" class="btn btn-secondary">Continue Shopping</a>
+    </div>
+
+    <p>A copy of your invoice has been emailed to our sales team.</p>
+
+    <script>
+        // Automatically open PDF in new tab when page loads
+        window.addEventListener('load', function() {
+            // Small delay to ensure page has loaded completely
+            setTimeout(function() {
+                window.open('<%= pdfUrl %>', '_blank');
+            }, 1000);
+        });
+    </script>
 </body>
 </html>

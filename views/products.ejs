@@ -12,29 +12,41 @@
             padding: 10px;
         }
 
-/* Cart button styles */
-.cart-button {
-    background-color: #2196F3; /* Blue color theme */
-    color: white;
-    padding: 10px 20px; /* Increase padding for bigger button */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    margin-right: 10px; /* Add margin to the right for spacing */
-}
+        /* Generate PDF button styles */
+        .generate-pdf-button {
+            background-color: #28a745; /* Green color theme */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 10px;
+        }
 
-/* Logout button styles */
-.logout-button {
-    background-color: #2196F3; /* Blue color theme */
-    color: white;
-    padding: 10px 20px; /* Increase padding for bigger button */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    margin-left: 10px; /* Add margin to the left for spacing */
-}
+        /* Cart button styles */
+        .cart-button {
+            background-color: #2196F3; /* Blue color theme */
+            color: white;
+            padding: 10px 20px; /* Increase padding for bigger button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 10px; /* Add margin to the right for spacing */
+        }
+
+        /* Logout button styles */
+        .logout-button {
+            background-color: #2196F3; /* Blue color theme */
+            color: white;
+            padding: 10px 20px; /* Increase padding for bigger button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-left: 10px; /* Add margin to the left for spacing */
+        }
 
         /* Product container styles */
         .product-container {
@@ -84,7 +96,7 @@
         /* Responsive layout */
         @media only screen and (min-width: 600px) {
             .top-bar {
-                justify-content: flex-end; /* Align cart button to the right */
+                justify-content: space-between; /* Space between left and right buttons */
             }
             .product {
                 width: calc(50% - 20px); /* Adjust to fit 2 items per row */
@@ -107,7 +119,7 @@
         margin: 0;
         padding: 0;
     }
-    .top-bar, .cart-button, .logout-button, #overlay, .backorder-form {
+    .top-bar, .cart-button, .logout-button, .generate-pdf-button, #overlay, .backorder-form {
         display: none; /* Hide elements that are not relevant for printing */
     }
     .product-container {
@@ -137,14 +149,17 @@
         font-size: 12px; /* Increase font size slightly for better readability */
     }
 }
-
-
     </style>
 </head>
 <body>
     <div class="top-bar">
-        <a href="/cart" class="cart-button">Cart</a>
-        <a href="/logout" class="logout-button">Logout</a>
+        <div>
+            <button onclick="generatePDF()" class="generate-pdf-button">Generate PDF</button>
+        </div>
+        <div>
+            <a href="/cart" class="cart-button">Cart</a>
+            <a href="/logout" class="logout-button">Logout</a>
+        </div>
     </div>
     <h1>Products</h1>
 
@@ -177,6 +192,29 @@
     </div>
 
     <script>
+        function generatePDF() {
+            // Send request to generate PDF
+            fetch('/generate-products-pdf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Open PDF in new tab
+                    window.open('/download-products-pdf', '_blank');
+                } else {
+                    console.error('Failed to generate PDF');
+                    alert('Failed to generate PDF');
+                }
+            })
+            .catch(error => {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF');
+            });
+        }
+
         function addToCart(itemId) {
             var quantity = document.getElementById('quantity_' + itemId).value;
             var data = {

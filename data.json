@@ -21964,21 +21964,6 @@
       ]
     },
     {
-      "id": 20,
-      "email": "arleen@gmail.com",
-      "password": "$2b$10$vus0inRf2Pi1CKTYuOpWQOb68IJziGHBJBpZE1yETA33J2PKjWpSe",
-      "company": "arleen",
-      "phone": "2012816418",
-      "addressLine1": "90 Dayton Ave",
-      "addressLine2": "",
-      "city": "Passaic",
-      "state": "NJ",
-      "zipCode": "07055",
-      "priceLevel": "2",
-      "role": "customer",
-      "invoices": []
-    },
-    {
       "id": 21,
       "email": "jqnational@gmail.com",
       "password": "$2b$10$0T/Vr7vnd1877Bmjt.i0KOf4ll.mXhYuu98BsSAHZRXp8cEcwHPcC",
@@ -40104,21 +40089,6 @@
           "notes": ""
         }
       ]
-    },
-    {
-      "id": 42,
-      "email": "adammahouk@gmail.com",
-      "password": "$2a$10$cUBWjjG4kLZP/mOnZVI5neVD06lZkNnoruTyiZdLNsfex7qgpwWES",
-      "company": "Aam",
-      "phone": "9736537093",
-      "addressLine1": "62 midland ave ",
-      "addressLine2": "",
-      "city": "Garfield ",
-      "state": "New Jersey ",
-      "zipCode": "07026",
-      "role": "customer",
-      "priceLevel": 3,
-      "invoices": []
     },
     {
       "id": 43,
@@ -58999,21 +58969,6 @@
       ]
     },
     {
-      "id": 66,
-      "email": "koshernosh@gmail.com",
-      "password": "$2a$10$H/h8hdRr5H2R9E3V1PjO7OgLSs/Pv02UhYyFH7fuxVzWmHdUMMocS",
-      "company": " Kosher Nosh Deli Restaurant & Catering",
-      "phone": "7273891410",
-      "addressLine1": "894 Prospect St",
-      "addressLine2": "",
-      "city": "Glen Rock",
-      "state": "NJ",
-      "zipCode": "07452",
-      "priceLevel": "2",
-      "role": "customer",
-      "invoices": []
-    },
-    {
       "id": 67,
       "email": "touchofindia@gmail.com",
       "password": "$2a$10$TYPeUk7axon9fiJQtUpUc.di2dGUaGXkYHvEfvwTg5tSWDt8e3lvK",
@@ -67671,22 +67626,6 @@
       ]
     },
     {
-      "id": 94,
-      "email": "kashanindiankitchen@gmail.com",
-      "password": "$2a$10$6oPKJCIxN6ONUH4weCpxrOSsaFkeVfaGOLewxcCamRQ6Ltj.I2f1i",
-      "company": " Kashan Indian Kitchen & Bar",
-      "phone": "9734723663",
-      "addressLine1": "50 Market St",
-      "addressLine2": "",
-      "city": "Clifton",
-      "state": "NJ",
-      "zipCode": "07012",
-      "priceLevel": 3,
-      "taxable": true,
-      "role": "customer",
-      "invoices": []
-    },
-    {
       "id": 95,
       "email": "Rk1904@gmail.com",
       "password": "$2a$10$XPK8phDNu.o42KQbS9FCx.CgEvvNEf67uc.IIj1jwFLvvJeFrbN9u",
@@ -70269,22 +70208,6 @@
           "notes": "BOFA Zelle 04/01/2025 ($1500)04/01/2025($200) 04/02/2025($1165.63)"
         }
       ]
-    },
-    {
-      "id": 105,
-      "email": "A&GPlasticBags@gmail.com",
-      "password": "$2a$10$5GsJRTb1DyOjukcQJkE4Feifav4uOH7PbY675c00Hzm.unOxws8L.",
-      "company": "A&G Plastic Bags LLc ",
-      "phone": "201 290 3751",
-      "addressLine1": "3107 central ave",
-      "addressLine2": "",
-      "city": "union city",
-      "state": "NJ",
-      "zipCode": "07087",
-      "priceLevel": 2,
-      "taxable": false,
-      "role": "customer",
-      "invoices": []
     },
     {
       "id": 106,
@@ -78184,66 +78107,6 @@
       ]
     },
     {
-      "id": 132,
-      "email": "truck01@gmail.com",
-      "password": "$2a$10$tdTf9dV76fUhyJuqoxjs3u9e/dKvuMIQgq9Cubuek1v/hMEfPowWy",
-      "company": "AMWARE FREIGHT, LLC.",
-      "phone": "4407992036",
-      "addressLine1": "19100 HOLLAND ROAD",
-      "addressLine2": "",
-      "city": "BROOKPARK",
-      "state": "OH",
-      "zipCode": "44142",
-      "priceLevel": 1,
-      "taxable": true,
-      "role": "customer",
-      "invoices": [
-        {
-          "invoiceNumber": "AFL01",
-          "companyName": "AMWARE FREIGHT, LLC.",
-          "addressLine1": "19100 HOLLAND ROAD",
-          "addressLine2": "",
-          "city": "BROOKPARK",
-          "state": "OH",
-          "zipCode": "44142",
-          "dateCreated": "2025-09-18",
-          "products": [
-            {
-              "productName": "Freight",
-              "productCategory": "Industrial",
-              "quantity": 1,
-              "rate": 450,
-              "total": 450
-            }
-          ],
-          "subtotal": 450,
-          "salesTax": 0,
-          "totalAmount": 450,
-          "totalBalance": 450,
-          "paid": false,
-          "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
-        }
-      ]
-    },
-    {
-      "id": 133,
-      "email": "trucking@gmail.com",
-      "password": "$2a$10$fimzAccbdtrabDbyDjbCiuC.oh3X4fwICZ1EzaPQGjXV15KuMj4.a",
-      "company": "Trucking",
-      "phone": "5512241891",
-      "addressLine1": "35 8th Street",
-      "addressLine2": "",
-      "city": "Passaic",
-      "state": "NJ",
-      "zipCode": "07055",
-      "priceLevel": 1,
-      "taxable": false,
-      "role": "customer",
-      "invoices": []
-    },
-    {
       "id": 134,
       "email": "truckingloads@gmail.com",
       "password": "$2a$10$DOHb8qcd42CTzQXmFUAbc.wIGF0P2v0eD3NEaIQZDwf1w7C5nZGMW",
@@ -78588,6 +78451,58 @@
           "CashPayment": 0,
           "AccountPayment": 0,
           "notes": ""
+        },
+        {
+          "invoiceNumber": "TL14",
+          "companyName": "Trucking Loads",
+          "addressLine1": "35 8th Street",
+          "addressLine2": "",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-10-28",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 1,
+              "total": 1
+            }
+          ],
+          "subtotal": 1,
+          "salesTax": 0,
+          "totalAmount": 1,
+          "totalBalance": 1,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "TL15",
+          "companyName": "Trucking Loads",
+          "addressLine1": "35 8th Street",
+          "addressLine2": "",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-10-28",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 1,
+              "total": 1
+            }
+          ],
+          "subtotal": 1,
+          "salesTax": 0,
+          "totalAmount": 1,
+          "totalBalance": 1,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
         }
       ]
     },

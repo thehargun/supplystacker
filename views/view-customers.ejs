@@ -152,25 +152,52 @@
                 </thead>
                 <tbody>
                     <% 
-                    // Filter out admin users and sort by company name
-                    const customerList = customers
-                        .filter(customer => customer.role !== 'admin')
-                        .sort((a, b) => {
-                            const companyA = (a.company || '').toLowerCase();
-                            const companyB = (b.company || '').toLowerCase();
-                            return companyA.localeCompare(companyB);
-                        });
+                    // Filter out admin users
+                    const allCustomers = customers.filter(customer => customer.role !== 'admin');
+                    
+                    // Define pinned companies
+                    const pinnedCompanies = ['Trucking Loads', 'Billing', 'Cash'];
+                    
+                    // Separate pinned and regular customers
+                    const pinnedCustomers = [];
+                    const regularCustomers = [];
+                    
+                    allCustomers.forEach(customer => {
+                        if (pinnedCompanies.includes(customer.company)) {
+                            pinnedCustomers.push(customer);
+                        } else {
+                            regularCustomers.push(customer);
+                        }
+                    });
+                    
+                    // Sort pinned customers by the order in pinnedCompanies array
+                    pinnedCustomers.sort((a, b) => {
+                        const indexA = pinnedCompanies.indexOf(a.company);
+                        const indexB = pinnedCompanies.indexOf(b.company);
+                        return indexA - indexB;
+                    });
+                    
+                    // Sort regular customers alphabetically by company name
+                    regularCustomers.sort((a, b) => {
+                        const companyA = (a.company || '').toLowerCase();
+                        const companyB = (b.company || '').toLowerCase();
+                        return companyA.localeCompare(companyB);
+                    });
+                    
+                    // Combine pinned customers first, then regular customers
+                    const customerList = [...pinnedCustomers, ...regularCustomers];
                     %>
+                    
                     <% customerList.forEach(customer => { %>
-                    <tr>
-                        <td><%= customer.company %></td>
-                        <td><%= customer.email %></td>
-                        <td>
-                            <a href="/admin/customer-invoices/<%= customer.id %>">View Invoices</a> |
-                            <a href="/admin/edit-customer/<%= customer.id %>">Edit</a> |
-                            <button class="delete-btn" onclick="deleteCustomer(<%= customer.id %>)">Delete</button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td><%= customer.company %></td>
+                            <td><%= customer.email %></td>
+                            <td>
+                                <a href="/admin/customer-invoices/<%= customer.id %>">View Invoices</a> |
+                                <a href="/admin/edit-customer/<%= customer.id %>">Edit</a> |
+                                <button class="delete-btn" onclick="deleteCustomer(<%= customer.id %>)">Delete</button>
+                            </td>
+                        </tr>
                     <% }); %>
                 </tbody>
             </table>

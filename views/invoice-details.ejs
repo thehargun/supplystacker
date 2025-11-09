@@ -448,58 +448,76 @@
         updateProductTotal(index);
     }
 
-    function printInvoice() {
-        const formData = new FormData(document.getElementById('invoiceForm'));
-        const products = [];
-        document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
-            const productName = row.querySelector(`select[name='productName']`) ? row.querySelector(`select[name='productName']`).value : row.cells[0].textContent;
-            const productCategory = row.cells[1].textContent;
-            const quantity = row.querySelector(`input[name='quantity']`).value;
-            const rate = row.querySelector(`input[name='rate']`).value;
-            const total = quantity * rate;
-            products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
-        });
+function printInvoice() {
+    const formData = new FormData(document.getElementById('invoiceForm'));
+    const products = [];
+    document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
+        const productName = row.querySelector(`select[name='productName']`) ? row.querySelector(`select[name='productName']`).value : row.cells[0].textContent;
+        const productCategory = row.cells[1].textContent;
+        const quantity = row.querySelector(`input[name='quantity']`).value;
+        const rate = row.querySelector(`input[name='rate']`).value;
+        const total = quantity * rate;
+        products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
+    });
 
-        const totalAmount = parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0;
-        
-        let dateCreated = new Date(formData.get('dateCreated'));
-        dateCreated.setDate(dateCreated.getDate());
-        const formattedDate = dateCreated.toISOString().split('T')[0];
-        const invoiceDetails = {
-            invoiceNumber: formData.get('invoiceNumber'),
-            companyName: formData.get('companyName'),
-            addressLine1: formData.get('addressLine1'),
-            addressLine2: formData.get('addressLine2'),
-            city: formData.get('city'),
-            state: formData.get('state'),
-            zipCode: formData.get('zipCode'),
-            dateCreated: formattedDate,
-            CashPayment: formData.get('CashPayment'),
-            AccountPayment: formData.get('AccountPayment'),
-            products: products,
-            totalBalance: totalAmount,
-        };
+    const totalAmount = parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0;
+    
+    let dateCreated = new Date(formData.get('dateCreated'));
+    dateCreated.setDate(dateCreated.getDate());
+    const formattedDate = dateCreated.toISOString().split('T')[0];
+    const invoiceDetails = {
+        invoiceNumber: formData.get('invoiceNumber'),
+        companyName: formData.get('companyName'),
+        addressLine1: formData.get('addressLine1'),
+        addressLine2: formData.get('addressLine2'),
+        city: formData.get('city'),
+        state: formData.get('state'),
+        zipCode: formData.get('zipCode'),
+        dateCreated: formattedDate,
+        CashPayment: formData.get('CashPayment'),
+        AccountPayment: formData.get('AccountPayment'),
+        products: products,
+        totalBalance: totalAmount,
+        salesTax: parseFloat(document.getElementById('salesTax').value) || 0,
+        subtotal: parseFloat(document.getElementById('subtotal').textContent.replace('$', '')) || 0,
+        totalAmount: parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0
+    };
 
-        fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(invoiceDetails)
-        }).then(response => {
-            if (response.ok) {
-                alert('Invoice PDF generated and emailed successfully.');
-            } else {
-                response.text().then(text => {
-                    alert('Error printing invoice: ' + text);
-                });
-            }
-        }).catch(error => {
-            alert('Error printing invoice: ' + error);
-     
-        });
-    }
+    // Show loading message
+    const printButton = document.querySelector('button[onclick="printInvoice()"]');
+    const originalButtonText = printButton.innerText;
+    printButton.innerText = 'Generating PDF...';
+    printButton.disabled = true;
 
+    fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(invoiceDetails)
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to generate PDF');
+        }
+    }).then(data => {
+        if (data.success) {
+            // Open PDF in new tab
+            window.open(`/download-invoice/${invoiceDetails.invoiceNumber}`, '_blank');
+            alert('Invoice PDF generated and emailed successfully.');
+        } else {
+            alert('Error: ' + data.message);
+        }
+    }).catch(error => {
+        console.error('Error printing invoice:', error);
+        alert('Error printing invoice: ' + error.message);
+    }).finally(() => {
+        // Reset button
+        printButton.innerText = originalButtonText;
+        printButton.disabled = false;
+    });
+}
     // Initial calculation when the page loads
     updateTotal();
     </script>

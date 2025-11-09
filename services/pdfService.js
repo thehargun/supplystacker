@@ -124,11 +124,47 @@ async function generateProductsPdf(productData, callback) {
         await page.setViewport({ 
             width: 1200, 
             height: 800,
-            deviceScaleFactor: 1 // Reduce from default 2 to save space
+            deviceScaleFactor: 1
         });
         
-        // Navigate to the PDF page
-        await page.goto(`http://localhost:3000/products-pdf/${productData.userId}`, {
+        const ejs = require('ejs');
+        
+        // Read the template file
+        const templatePath = path.join(__dirname, '../views/products-pdf.ejs');
+        const template = fs.readFileSync(templatePath, 'utf8');
+        
+        // Convert image paths to server URLs that Puppeteer can access
+        const inventoryWithLocalUrls = productData.inventory.map(item => {
+            if (item.imageUrl) {
+                // Use environment-aware base URL
+                const baseUrl = process.env.NODE_ENV === 'production' 
+                    ? 'https://supplystacker.onrender.com' 
+                    : 'http://localhost:3000';
+                const localUrl = `${baseUrl}${item.imageUrl}`;
+                
+                // Verify the file exists
+                const imagePath = item.imageUrl.replace(/^\//, '');
+                const absolutePath = path.join(process.cwd(), 'public', imagePath);
+                
+                if (fs.existsSync(absolutePath)) {
+                    item.imageUrl = localUrl;
+                    console.log(`✓ Image found: ${localUrl}`);
+                } else {
+                    item.imageUrl = ''; // Empty if file doesn't exist
+                    console.log(`✗ Image missing: ${absolutePath}`);
+                }
+            }
+            return item;
+        });
+        
+        // Generate HTML with localhost image URLs
+        const html = ejs.render(template, {
+            inventory: inventoryWithLocalUrls,
+            req: { session: { user: productData.user } }
+        });
+        
+        // Set the HTML content directly
+        await page.setContent(html, {
             waitUntil: 'networkidle2',
             timeout: 30000
         });
@@ -136,11 +172,11 @@ async function generateProductsPdf(productData, callback) {
         const filePath = `./pdfs/products-${productData.companyName.replace(/\s+/g, '-')}.pdf`;
         fs.mkdirSync('./pdfs', { recursive: true });
         
-        // Generate PDF with optimized settings for smaller file size
+        // Generate PDF
         await page.pdf({
             path: filePath,
             format: 'A4',
-            printBackground: false, // This alone can reduce size by 30-50%
+            printBackground: false,
             preferCSSPageSize: true,
             displayHeaderFooter: false,
             margin: { 
@@ -149,18 +185,11 @@ async function generateProductsPdf(productData, callback) {
                 bottom: '15mm', 
                 left: '15mm' 
             },
-            // Quality and compression settings
-            tagged: false, // Disable accessibility tags to reduce size
-            outline: false, // Disable PDF outline/bookmarks
-            // Use default quality (don't specify quality to let Puppeteer optimize)
+            tagged: false,
+            outline: false,
         });
         
         await browser.close();
-        
-        // Log file size for monitoring
-        const stats = fs.statSync(filePath);
-        const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
-        console.log(`PDF generated: ${fileSizeInMB}MB - ${filePath}`);
         
         callback(filePath);
         

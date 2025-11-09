@@ -180,14 +180,14 @@ app.get('/logout', (req, res) => {
 
 app.get('/admin', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
     res.render('admin');
 });
 
 app.get('/admin/view-inventory', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.send('Unauthorized access.');
+        return res.redirect('/');
     }
 
     // Sort inventory based on category rank
@@ -202,7 +202,7 @@ app.get('/admin/view-inventory', (req, res) => {
 
 app.get('/admin/add-inventory', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.send('Unauthorized access.');
+        return res.redirect('/');
     }
     res.render('add-inventory', { inventory });
 });
@@ -249,7 +249,7 @@ app.post('/admin/add-inventory', multerUpload.single('image'), (req, res) => {
 
 app.get('/admin/edit-inventory/:id', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.send('Unauthorized access.');
+        return res.redirect('/');
     }
     const item = inventory.find(item => item.id === parseInt(req.params.id));
     res.render('edit-inventory', { item });
@@ -291,7 +291,7 @@ app.post('/admin/edit-inventory/:id', multerUpload.single('image'), async (req, 
 
 app.get('/admin/delete-inventory/:id', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.send('Unauthorized access.');
+        return res.redirect('/');
     }
     inventory = inventory.filter(item => item.id !== parseInt(req.params.id));
     res.redirect('/admin/view-inventory');
@@ -299,14 +299,14 @@ app.get('/admin/delete-inventory/:id', (req, res) => {
 
 app.get('/admin/view-customers', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
     res.render('view-customers', { customers: users });
 });
 
 app.get('/admin/add-customer', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
     res.render('add-customer');
 });
@@ -343,7 +343,7 @@ app.post('/admin/add-customer', async (req, res) => {
 
 app.get('/products', (req, res) => {
     if (!req.session.loggedIn) {
-        return res.send('Please log in.');
+        return res.redirect('/');
     }
     inventory.sort((a, b) => {
         const rankA = categoryRanks[a.itemCategory] || Infinity;
@@ -390,7 +390,9 @@ app.post('/add-to-cart', (req, res) => {
 
 
 app.get('/cart', (req, res) => {
-    if (!req.session.loggedIn) return res.send('Please log in.');
+    if (!req.session.loggedIn) {
+        return res.redirect('/');
+    }
 
     let cart = req.session.cart || [];
     let user = req.session.user;
@@ -423,7 +425,7 @@ app.get('/cart', (req, res) => {
 // Add this route after your existing customer routes (around line 400-500)
 app.post('/admin/delete-customer/:id', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     const customerId = parseInt(req.params.id);
@@ -511,7 +513,7 @@ app.post('/admin/edit-customer/:id', async (req, res) => {
 // Add this route for the main invoices listing page
 app.get('/admin/invoices', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     // Collect all invoices from all users
@@ -548,7 +550,7 @@ app.get('/admin/invoices', (req, res) => {
 // Route to render invoice details page
 app.get('/admin/invoices/:invoiceNumber', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     const invoiceNumber = req.params.invoiceNumber;
@@ -600,8 +602,7 @@ app.get('/admin/invoices/:invoiceNumber', (req, res) => {
 
 app.post('/admin/invoices/:invoiceNumber', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        console.log("Unauthorized access attempt");
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     console.log("Received data for updating invoice:", req.body);
@@ -675,21 +676,9 @@ app.post('/admin/invoices/:invoiceNumber', (req, res) => {
 });
 
 
-app.post('/admin/invoices/print/:invoiceNumber', (req, res) => {
-    const invoiceNumber = req.params.invoiceNumber;
-    const orderDetails = req.body;
-    console.log(orderDetails)
-
-    pdfService.generateInvoicePdf(orderDetails, (filePath) => {
-        emailService.sendOrderConfirmationWithInvoice(orderDetails.companyName, orderDetails, filePath);
-        res.status(200).send('Invoice PDF generated and sent successfully.');
-    });
-});
-
-
 app.get('/admin/invoices/delete/:invoiceNumber', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     const invoiceNumber = req.params.invoiceNumber;
@@ -714,10 +703,55 @@ app.get('/admin/invoices/delete/:invoiceNumber', (req, res) => {
 
     res.redirect('/admin/invoices');
 });
+// Route to handle invoice printing from admin panel
+app.post('/admin/invoices/print/:invoiceNumber', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+
+    try {
+        const invoiceDetails = req.body;
+        
+        // Generate PDF
+        pdfService.generateInvoicePdf(invoiceDetails, (filePath) => {
+            if (filePath) {
+                // Send email with PDF attachment
+                try {
+                    emailService.sendOrderConfirmationWithInvoice(
+                        invoiceDetails.companyName, 
+                        invoiceDetails, 
+                        filePath
+                    );
+                    console.log('Invoice PDF generated and emailed successfully');
+                } catch (emailError) {
+                    console.error('Email sending failed:', emailError);
+                    // Continue anyway - don't fail the request for email issues
+                }
+                
+                res.json({ 
+                    success: true, 
+                    message: 'Invoice PDF generated and emailed successfully',
+                    pdfUrl: `/download-invoice/${invoiceDetails.invoiceNumber}`
+                });
+            } else {
+                res.status(500).json({ 
+                    success: false, 
+                    message: 'Failed to generate PDF' 
+                });
+            }
+        });
+    } catch (error) {
+        console.error('Error in invoice printing:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error processing invoice: ' + error.message 
+        });
+    }
+});
 
 app.get('/admin/manage-payment/invoices/delete/:invoiceNumber', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     const invoiceNumber = req.params.invoiceNumber;
@@ -788,40 +822,57 @@ app.get('/get-total-amount', (req, res) => {
 });
 
 function generateInvoiceNumber(company) {
-    // Locate the user by company name
-    const user = users.find(user => user.company === company);
-    if (!user) {
-        throw new Error('User company information is missing.');
-    }
-
-    // Extract invoices for the user
-    const userInvoices = user.invoices || [];
-
-    if (userInvoices.length === 0) {
-        // If no invoices exist, start with 01
-        const initials = company.split(' ').map(word => word[0]).join('').toUpperCase();
-        return `${initials}01`;
-    }
-
-    // Extract the highest invoice number from user's invoices
-    const invoiceNumbers = userInvoices.map(inv => {
-        const { prefix, number } = parseInvoiceNumber(inv.invoiceNumber);
-        return { prefix, number };
-    });
-
-    const companyInitials = company.split(' ').map(word => word[0]).join('').toUpperCase();
-    let highestNumber = 0;
-
-    // Find the highest number for the same prefix
-    invoiceNumbers.forEach(inv => {
-        if (inv.prefix === companyInitials && inv.number > highestNumber) {
-            highestNumber = inv.number;
+    try {
+        // Check if company is defined
+        if (!company || typeof company !== 'string') {
+            console.error('Invalid company name provided to generateInvoiceNumber:', company);
+            // Return a default invoice number with timestamp
+            return `INV${Date.now().toString().slice(-6)}`;
         }
-    });
 
-    // Generate the next invoice number
-    const newInvoiceNumber = `${companyInitials}${String(highestNumber + 1).padStart(2, '0')}`;
-    return newInvoiceNumber;
+        // Locate the user by company name
+        const user = users.find(user => user.company === company);
+        if (!user) {
+            console.error('User company information is missing for:', company);
+            // Return a fallback invoice number
+            const initials = company.split(' ').map(word => word[0]).join('').toUpperCase();
+            return `${initials}01`;
+        }
+
+        // Extract invoices for the user
+        const userInvoices = user.invoices || [];
+
+        if (userInvoices.length === 0) {
+            // If no invoices exist, start with 01
+            const initials = company.split(' ').map(word => word[0]).join('').toUpperCase();
+            return `${initials}01`;
+        }
+
+        // Extract the highest invoice number from user's invoices
+        const invoiceNumbers = userInvoices.map(inv => {
+            const { prefix, number } = parseInvoiceNumber(inv.invoiceNumber);
+            return { prefix, number };
+        });
+
+        const companyInitials = company.split(' ').map(word => word[0]).join('').toUpperCase();
+        let highestNumber = 0;
+
+        // Find the highest number for the same prefix
+        invoiceNumbers.forEach(inv => {
+            if (inv.prefix === companyInitials && inv.number > highestNumber) {
+                highestNumber = inv.number;
+            }
+        });
+
+        // Generate the next invoice number
+        const newInvoiceNumber = `${companyInitials}${String(highestNumber + 1).padStart(2, '0')}`;
+        return newInvoiceNumber;
+        
+    } catch (error) {
+        console.error('Error in generateInvoiceNumber:', error);
+        // Return a safe fallback invoice number
+        return `ERR${Date.now().toString().slice(-6)}`;
+    }
 }
 
 
@@ -943,93 +994,120 @@ app.post('/delete-cart-item', (req, res) => {
 
 
 app.post('/checkout', async (req, res) => {
-    if (!req.session.cart || !req.session.user) {
-        return res.send('No items in cart or user not logged in.');
-    }
-
-    let user = req.session.user;
-
-    // Generate the next invoice number using the generateInvoiceNumber function
-    const invoiceNumber = generateInvoiceNumber(user.company);
-
-    // Calculate subtotal, sales tax, and total
-    let subtotal = 0;
-    let salesTax = 0;
-
-    req.session.cart.forEach(item => {
-        let itemTotal = item.price * item.quantity;
-        subtotal += itemTotal;
-
-        // If the user is taxable and the item is taxable, calculate the sales tax
-        if (user.taxable && item.taxableItem) {
-            salesTax += itemTotal * 0.06625; // 6.625% tax
+    try {
+        if (!req.session.cart || !req.session.user) {
+            console.error('Checkout failed: No items in cart or user not logged in');
+            return res.redirect('/cart');
         }
-    });
 
-    let totalAmount = subtotal + salesTax;
+        let user = req.session.user;
 
-    // Create the invoice details, ensuring all values are numbers, not strings
-    const invoiceDetails = {
-        invoiceNumber,
-        companyName: user.company,
-        addressLine1: user.addressLine1,
-        addressLine2: user.addressLine2,
-        city: user.city,
-        state: user.state,
-        zipCode: user.zipCode,
-        dateCreated: new Date().toISOString().split('T')[0],
-        products: req.session.cart.map(item => ({
-            productName: item.itemName,
-            productCategory: item.itemCategory,
-            quantity: item.quantity,  // Numeric value
-            rate: item.price,         // Numeric value
-            total: item.quantity * item.price  // Numeric value
-        })),
-        subtotal: subtotal,            // Numeric value
-        salesTax: salesTax,            // Numeric value
-        totalAmount: totalAmount,      // Numeric value
-        totalBalance: totalAmount,     // Numeric value
-        paid: false,
-        CashPayment: 0,                // Default as a numeric value
-        AccountPayment: 0              // Default as a numeric value
-    };
+        // Validate user has required properties
+        if (!user.company) {
+            console.error('Checkout failed: User missing company information', user);
+            return res.status(400).render('error', { 
+                message: 'Your account is missing company information. Please contact support.' 
+            });
+        }
 
-    // Push the new invoice to the user's invoice list
-    if (!user.invoices) {
-        user.invoices = [];
-    }
-    user.invoices.push(invoiceDetails);
+        // Generate the next invoice number using the generateInvoiceNumber function
+        const invoiceNumber = generateInvoiceNumber(user.company);
 
-    // Update the users array with the modified user object
-    const userIndex = users.findIndex(u => u.id === user.id);
-    if (userIndex !== -1) {
-        users[userIndex] = user;
-    } else {
-        console.error("User not found in users array.");
-        return res.status(404).send('User not found.');
-    }
+        // Calculate subtotal, sales tax, and total
+        let subtotal = 0;
+        let salesTax = 0;
 
-    // Update session user data to reflect the new invoice
-    req.session.user = user;
+        req.session.cart.forEach(item => {
+            let itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
 
-    // Save data to data.json
-    saveData();
-
-    // Generate PDF and send email
-    pdfService.generateInvoicePdf(invoiceDetails, (filePath) => {
-        // Send email with PDF attachment
-        emailService.sendOrderConfirmationWithInvoice(invoiceDetails.companyName, invoiceDetails, filePath);
-        
-        // Clear the cart after checkout
-        req.session.cart = [];
-
-        // Render the order submission page with invoice details and PDF info
-        res.render('order-submitted', { 
-            invoice: invoiceDetails,
-            pdfUrl: `/download-invoice/${invoiceDetails.invoiceNumber}`
+            // If the user is taxable and the item is taxable, calculate the sales tax
+            if (user.taxable && item.taxableItem) {
+                salesTax += itemTotal * 0.06625; // 6.625% tax
+            }
         });
-    });
+
+        let totalAmount = subtotal + salesTax;
+
+        // Create the invoice details, ensuring all values are numbers, not strings
+        const invoiceDetails = {
+            invoiceNumber,
+            companyName: user.company || 'Unknown Company',
+            addressLine1: user.addressLine1 || '',
+            addressLine2: user.addressLine2 || '',
+            city: user.city || '',
+            state: user.state || '',
+            zipCode: user.zipCode || '',
+            dateCreated: new Date().toISOString().split('T')[0],
+            products: req.session.cart.map(item => ({
+                productName: item.itemName || 'Unknown Product',
+                productCategory: item.itemCategory || 'Unknown Category',
+                quantity: item.quantity || 0,
+                rate: item.price || 0,
+                total: (item.quantity || 0) * (item.price || 0)
+            })),
+            subtotal: subtotal,
+            salesTax: salesTax,
+            totalAmount: totalAmount,
+            totalBalance: totalAmount,
+            paid: false,
+            CashPayment: 0,
+            AccountPayment: 0
+        };
+
+        // Push the new invoice to the user's invoice list
+        if (!user.invoices) {
+            user.invoices = [];
+        }
+        user.invoices.push(invoiceDetails);
+
+        // Update the users array with the modified user object
+        const userIndex = users.findIndex(u => u.id === user.id);
+        if (userIndex !== -1) {
+            users[userIndex] = user;
+        } else {
+            console.error("User not found in users array during checkout");
+            return res.status(404).render('error', { 
+                message: 'User account error. Please try logging in again.' 
+            });
+        }
+
+        // Update session user data to reflect the new invoice
+        req.session.user = user;
+
+        // Save data to data.json
+        saveData();
+
+        // Generate PDF and send email
+        pdfService.generateInvoicePdf(invoiceDetails, (filePath) => {
+            try {
+                // Send email with PDF attachment
+                emailService.sendOrderConfirmationWithInvoice(invoiceDetails.companyName, invoiceDetails, filePath);
+            } catch (emailError) {
+                console.error('Email sending failed:', emailError);
+                // Continue anyway - don't fail checkout for email issues
+            }
+            
+            // Clear the cart after checkout
+            req.session.cart = [];
+
+            // Render the order submission page with invoice details and PDF info
+            res.render('order-submitted', { 
+                invoice: invoiceDetails,
+                pdfUrl: `/download-invoice/${invoiceDetails.invoiceNumber}`
+            });
+        });
+
+    } catch (error) {
+        console.error('Checkout process failed:', error);
+        res.status(500).render('error', { 
+            message: 'Checkout failed. Please try again or contact support.' 
+        });
+    }
 });
+
+
+
 // Add this route after your existing routes
 app.get('/download-invoice/:invoiceNumber', (req, res) => {
     const invoiceNumber = req.params.invoiceNumber;
@@ -1050,7 +1128,7 @@ app.get('/download-invoice/:invoiceNumber', (req, res) => {
 // Add this GET route for displaying the checkout page
 app.get('/checkout', (req, res) => {
     if (!req.session.loggedIn) {
-        return res.redirect('/login');
+        return res.redirect('/');
     }
 
     if (!req.session.cart || req.session.cart.length === 0) {
@@ -1244,7 +1322,7 @@ app.post('/submit-order', async (req, res) => {
 
 app.get('/admin/manage-payment', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     // Get all unpaid invoices
@@ -1380,7 +1458,7 @@ app.post('/admin/delete-vendor/:id', (req, res) => {
 
 app.get('/admin/purchases', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
     res.render('purchases', { inventory });
 });
@@ -1512,7 +1590,7 @@ app.post('/admin/purchases', (req, res) => {
 
 app.get('/admin/vendor-portal', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
@@ -1617,8 +1695,6 @@ function getAvailableQuarters(invoiceDates) {
     // Reverse to show the latest quarters first
     return quarters.reverse();
 }
-// Add these routes after your existing routes
-// Special route for PDF generation - bypasses login for PDF generation only
 // Special route for PDF generation - bypasses login for PDF generation only
 app.get('/products-pdf/:userId', (req, res) => {
     const userId = parseInt(req.params.userId);
@@ -1661,15 +1737,25 @@ app.get('/products-pdf/:userId', (req, res) => {
 // Route to generate products PDF
 app.post('/generate-products-pdf', (req, res) => {
     if (!req.session.loggedIn) {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     const user = req.session.user;
+    const userPriceLevel = `priceLevel${user.priceLevel}`;
+    const finalPriceMultiplier = user.finalPrice || 1;
+
+    // Prepare inventory data
+    const adjustedInventory = inventory.map(item => ({
+        ...item,
+        price: (Math.floor((item[userPriceLevel] * finalPriceMultiplier) * 4) / 4)
+    }));
 
     const productsPdfData = {
         companyName: user.company,
         userId: user.id,
-        dateGenerated: new Date().toISOString().split('T')[0]
+        dateGenerated: new Date().toISOString().split('T')[0],
+        user: user,
+        inventory: adjustedInventory
     };
 
     pdfService.generateProductsPdf(productsPdfData, (filePath, error) => {
@@ -1689,7 +1775,7 @@ app.post('/generate-products-pdf', (req, res) => {
 // Route to download the generated products PDF
 app.get('/download-products-pdf', (req, res) => {
     if (!req.session.loggedIn) {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     const user = req.session.user;
@@ -1721,9 +1807,8 @@ app.get('/download-products-pdf', (req, res) => {
 
 // Admin Sales Tax Report Page - GET Route
 app.get('/admin/salestaxreport', (req, res) => {
-    // Admin access check
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     // Determine the available quarters
@@ -1747,9 +1832,8 @@ app.get('/admin/salestaxreport', (req, res) => {
 
 // Admin Sales Tax Report Page - POST Route
 app.post('/admin/salestaxreport', (req, res) => {
-    // Admin access check
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     const { quarter } = req.body;
@@ -1816,14 +1900,14 @@ app.post('/admin/salestaxreport', (req, res) => {
 // Route for Admin Sales By Product Report
 app.get('/admin/salesbyproductreport', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
     res.render('salesreport', { reportData: null, month: null });
 });
 
 app.post('/admin/salesbyproductreport', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     const selectedMonth = req.body.month; // Format: YYYY-MM
@@ -1876,14 +1960,14 @@ app.post('/admin/salesbyproductreport', (req, res) => {
 
 app.get('/admin/returns', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
     res.render('returns-form');
 });
 
 app.post('/admin/returns', multerUpload.array('images', 10), (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     try {
@@ -1913,12 +1997,9 @@ app.post('/admin/returns', multerUpload.array('images', 10), (req, res) => {
     }
 });
 
-
-
-
 app.get('/admin/manageReturns', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
@@ -1927,7 +2008,7 @@ app.get('/admin/manageReturns', (req, res) => {
 
 app.get('/admin/manageReturns/:id', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.status(403).send('Access denied.');
+        return res.redirect('/');
     }
 
     // Find the specific return

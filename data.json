@@ -19833,6 +19833,33 @@
           "CashPayment": 0,
           "AccountPayment": 0,
           "notes": ""
+        },
+        {
+          "invoiceNumber": "KP42",
+          "companyName": "Keyserman Packaging",
+          "addressLine1": "1906 Ave R",
+          "addressLine2": "",
+          "city": "Brooklyn",
+          "state": "NY",
+          "zipCode": "11229",
+          "dateCreated": "2025-11-05",
+          "products": [
+            {
+              "productName": "10\" TAD Towel",
+              "productCategory": "Paper Towels",
+              "quantity": 98,
+              "rate": 33.5,
+              "total": 3283
+            }
+          ],
+          "subtotal": 3283,
+          "salesTax": 0,
+          "totalAmount": 3283,
+          "totalBalance": 3283,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
         }
       ]
     },
@@ -35598,6 +35625,80 @@
           "CashPayment": 1254,
           "AccountPayment": 0,
           "notes": ""
+        },
+        {
+          "invoiceNumber": "C224",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-11-07",
+          "products": [
+            {
+              "productName": "PP Hinged Container PP81 8\"x8\"x3 150pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 50,
+              "rate": 18.5,
+              "total": 925
+            },
+            {
+              "productName": "PP Hinged Container PP225 / PP61 6\"x6\"x3 250pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 50,
+              "rate": 16.5,
+              "total": 825
+            }
+          ],
+          "subtotal": 1750,
+          "salesTax": 0,
+          "totalAmount": 1750,
+          "totalBalance": 1750,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "C225",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-11-08",
+          "products": [
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 5,
+              "rate": 18.5,
+              "total": 92.5
+            },
+            {
+              "productName": "Paper Bags 10x5x13 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 2,
+              "rate": 20.99,
+              "total": 41.98
+            },
+            {
+              "productName": "7\" Aluminum Pan 7.6g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 4,
+              "rate": 32,
+              "total": 128
+            }
+          ],
+          "subtotal": 262.48,
+          "salesTax": 0,
+          "totalAmount": 262.48,
+          "totalBalance": 262.48,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
         }
       ],
       "taxable": false
@@ -37909,27 +38010,12 @@
           "state": "NJ",
           "zipCode": "07057",
           "dateCreated": "2025-10-27",
-          "products": [
-            {
-              "productName": "10\" TAD Towel",
-              "productCategory": "Paper Towels",
-              "quantity": 5,
-              "rate": 36.75,
-              "total": 183.75
-            },
-            {
-              "productName": "8\" Aluminum Pan 11.2g",
-              "productCategory": "Aluminum Pans",
-              "quantity": 2,
-              "rate": 46.5,
-              "total": 93
-            }
-          ],
-          "subtotal": 276.75,
+          "products": [],
+          "subtotal": 0,
           "salesTax": 0,
-          "totalAmount": 276.75,
-          "totalBalance": 276.75,
-          "paid": false,
+          "totalAmount": 0,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
           "AccountPayment": 0,
           "notes": ""
@@ -37963,6 +38049,88 @@
           "salesTax": 0,
           "totalAmount": 276.75,
           "totalBalance": 276.75,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "GCU30",
+          "companyName": "Global Crossing USA",
+          "addressLine1": "5 IVY Lane",
+          "addressLine2": "",
+          "city": "Wallington",
+          "state": "NJ",
+          "zipCode": "07057",
+          "dateCreated": "2025-11-03",
+          "products": [
+            {
+              "productName": "8\" Aluminum Pan 11.2g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 4,
+              "rate": 46.5,
+              "total": 186
+            },
+            {
+              "productName": "7\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 2,
+              "rate": 12,
+              "total": 24
+            },
+            {
+              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16 (1000/Case)",
+              "productCategory": "Aluminum Foil Sheets",
+              "quantity": 2,
+              "rate": 34.5,
+              "total": 69
+            }
+          ],
+          "subtotal": 279,
+          "salesTax": 0,
+          "totalAmount": 279,
+          "totalBalance": 279,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "GCU31",
+          "companyName": "Global Crossing USA",
+          "addressLine1": "5 IVY Lane",
+          "addressLine2": "",
+          "city": "Wallington",
+          "state": "NJ",
+          "zipCode": "07057",
+          "dateCreated": "2025-11-07",
+          "products": [
+            {
+              "productName": "8\" Aluminum Pan 11.2g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 46.5,
+              "total": 139.5
+            },
+            {
+              "productName": "7\" Aluminum Pan 7.6g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 32,
+              "total": 96
+            },
+            {
+              "productName": "7\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 12,
+              "total": 36
+            }
+          ],
+          "subtotal": 271.5,
+          "salesTax": 0,
+          "totalAmount": 271.5,
+          "totalBalance": 271.5,
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
@@ -39207,6 +39375,74 @@
           "salesTax": 0,
           "totalAmount": 20871,
           "totalBalance": 20871,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "ATI16",
+          "companyName": "Alisons Trading Inc",
+          "addressLine1": "10510 Rockley Rd",
+          "addressLine2": "",
+          "city": "Houston",
+          "state": "TX",
+          "zipCode": "77099",
+          "dateCreated": "2025-11-05",
+          "products": [
+            {
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 1056,
+              "rate": 18,
+              "total": 19008
+            },
+            {
+              "productName": "7\" Aluminum Pan 7.6g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 150,
+              "rate": 29,
+              "total": 4350
+            },
+            {
+              "productName": "9\" Aluminum Pan 13g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 80,
+              "rate": 53,
+              "total": 4240
+            }
+          ],
+          "subtotal": 27598,
+          "salesTax": 0,
+          "totalAmount": 27598,
+          "totalBalance": 27598,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "ATI17",
+          "companyName": "Alisons Trading Inc",
+          "addressLine1": "10510 Rockley Rd",
+          "addressLine2": "",
+          "city": "Houston",
+          "state": "TX",
+          "zipCode": "77099",
+          "dateCreated": "2025-11-05",
+          "products": [
+            {
+              "productName": "Aluminum Half Size Deep Pan 38-42g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 86,
+              "rate": 28,
+              "total": 2408
+            }
+          ],
+          "subtotal": 2408,
+          "salesTax": 0,
+          "totalAmount": 2408,
+          "totalBalance": 2408,
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
@@ -58288,6 +58524,33 @@
           "CashPayment": 0,
           "AccountPayment": 0,
           "notes": ""
+        },
+        {
+          "invoiceNumber": "SU16",
+          "companyName": "SuperPak USA",
+          "addressLine1": "10197 Northeast ave",
+          "addressLine2": "",
+          "city": "Philadelphia",
+          "state": "PA",
+          "zipCode": "19116",
+          "dateCreated": "2025-11-07",
+          "products": [
+            {
+              "productName": "Aluminum Full Size Shallow Pan 96g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 17,
+              "rate": 36,
+              "total": 612
+            }
+          ],
+          "subtotal": 612,
+          "salesTax": 0,
+          "totalAmount": 612,
+          "totalBalance": 612,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
         }
       ]
     },
@@ -59710,6 +59973,82 @@
           "CashPayment": 0,
           "AccountPayment": 1007.5,
           "notes": "Zelle BOFA"
+        },
+        {
+          "invoiceNumber": "BP10",
+          "companyName": "Baybun Packaging",
+          "addressLine1": "---",
+          "addressLine2": "---",
+          "city": "---",
+          "state": "New Jersey",
+          "zipCode": "---",
+          "dateCreated": "2025-11-06",
+          "products": [
+            {
+              "productName": "Import Souffle Cup 1oz Lid PL1N",
+              "productCategory": "Plastic Souffle Cups",
+              "quantity": 3,
+              "rate": 8.5,
+              "total": 25.5
+            },
+            {
+              "productName": "Import Souffle Cup 2oz P200N",
+              "productCategory": "Plastic Souffle Cups",
+              "quantity": 3,
+              "rate": 21.25,
+              "total": 63.75
+            },
+            {
+              "productName": "#4 Kraft SOS Bag 500pcs",
+              "productCategory": "SOS Bags",
+              "quantity": 3,
+              "rate": 6,
+              "total": 18
+            },
+            {
+              "productName": "#8 Kraft SOS Bag 500pcs",
+              "productCategory": "SOS Bags",
+              "quantity": 3,
+              "rate": 9,
+              "total": 27
+            },
+            {
+              "productName": "#12 Kraft SOS Bag 500pcs",
+              "productCategory": "SOS Bags",
+              "quantity": 3,
+              "rate": 11.6,
+              "total": 34.8
+            },
+            {
+              "productName": "#16 Kraft SOS Bag 500pcs",
+              "productCategory": "SOS Bags",
+              "quantity": 3,
+              "rate": 14,
+              "total": 42
+            },
+            {
+              "productName": "Dinner Napkin 2 Ply 3000/Case",
+              "productCategory": "Paper Towels",
+              "quantity": 3,
+              "rate": 27,
+              "total": 81
+            },
+            {
+              "productName": "Import Souffle Cup 1oz P100N",
+              "productCategory": "Plastic Souffle Cups",
+              "quantity": 1,
+              "rate": 12,
+              "total": 12
+            }
+          ],
+          "subtotal": 304.05,
+          "salesTax": 0,
+          "totalAmount": 304.05,
+          "totalBalance": 304.05,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
         }
       ],
       "taxable": false
@@ -64490,108 +64829,6 @@
           "notes": ""
         },
         {
-          "invoiceNumber": "cancel",
-          "companyName": "East Coast Paper",
-          "addressLine1": "3500 Hampton Rd",
-          "addressLine2": "",
-          "city": "Oceanside",
-          "state": "NY",
-          "zipCode": "11572",
-          "dateCreated": "2025-10-17",
-          "products": [
-            {
-              "productName": "Aluminum Full Size Medium Pan 96g",
-              "productCategory": "Aluminum Pans",
-              "quantity": 80,
-              "rate": 37,
-              "total": 2960
-            },
-            {
-              "productName": "Aluminum Full Size Deep Pan 100-110g",
-              "productCategory": "Aluminum Pans",
-              "quantity": 84,
-              "rate": 36,
-              "total": 3024
-            },
-            {
-              "productName": "Aluminum Half Size Deep Pan 30g",
-              "productCategory": "Aluminum Pans",
-              "quantity": 98,
-              "rate": 25,
-              "total": 2450
-            },
-            {
-              "productName": "Aluminum Oblong Pan 1 lb (1000pcs)",
-              "productCategory": "Aluminum Pans",
-              "quantity": 30,
-              "rate": 55,
-              "total": 1650
-            },
-            {
-              "productName": "Aluminum Oblong Pan 1.5lb 768 (500pcs)",
-              "productCategory": "Aluminum Pans",
-              "quantity": 30,
-              "rate": 50,
-              "total": 1500
-            },
-            {
-              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 20,
-              "rate": 18.5,
-              "total": 370
-            },
-            {
-              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
-              "productCategory": "Aluminum Foil Roll",
-              "quantity": 198,
-              "rate": 20,
-              "total": 3960
-            },
-            {
-              "productName": "12\" x 10.75\" Pop Up Foil Sheets 200/pk 12/cs",
-              "productCategory": "Aluminum Foil Sheets",
-              "quantity": 15,
-              "rate": 48.5,
-              "total": 727.5
-            },
-            {
-              "productName": "Freight",
-              "productCategory": "Industrial",
-              "quantity": 1,
-              "rate": 200,
-              "total": 200
-            }
-          ],
-          "subtotal": 16841.5,
-          "salesTax": 0,
-          "totalAmount": 16841.5,
-          "totalBalance": 16841.5,
-          "paid": false,
-          "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
-        },
-        {
-          "invoiceNumber": "cancel again",
-          "companyName": "East Coast Paper",
-          "addressLine1": "3500 Hampton Rd",
-          "addressLine2": "",
-          "city": "Oceanside",
-          "state": "NY",
-          "zipCode": "11572",
-          "dateCreated": "2025-10-24",
-          "products": [],
-          "subtotal": 0,
-          "salesTax": 0,
-          "totalAmount": 0,
-          "totalBalance": 0,
-          "paid": true,
-          "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
-        },
-        {
           "invoiceNumber": "ECP15",
           "companyName": "East Coast Paper",
           "addressLine1": "3500 Hampton Rd",
@@ -64684,6 +64921,103 @@
           "totalAmount": 0,
           "totalBalance": 0,
           "paid": true,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "ECP16",
+          "companyName": "East Coast Paper",
+          "addressLine1": "3500 Hampton Rd",
+          "addressLine2": "",
+          "city": "Oceanside",
+          "state": "NY",
+          "zipCode": "11572",
+          "dateCreated": "2025-11-05",
+          "products": [
+            {
+              "productName": "Aluminum Full Size Deep Pan 100-110g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 84,
+              "rate": 36,
+              "total": 3024
+            },
+            {
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 50,
+              "rate": 21,
+              "total": 1050
+            },
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 198,
+              "rate": 17.5,
+              "total": 3465
+            },
+            {
+              "productName": "Aluminum Half Size Deep Pan 30g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 108,
+              "rate": 25,
+              "total": 2700
+            },
+            {
+              "productName": "Aluminum Oblong Pan 1 lb (1000pcs)",
+              "productCategory": "Aluminum Pans",
+              "quantity": 10,
+              "rate": 48,
+              "total": 480
+            },
+            {
+              "productName": "Aluminum Oblong Pan 1.5lb 768 (500pcs)",
+              "productCategory": "Aluminum Pans",
+              "quantity": 20,
+              "rate": 41,
+              "total": 820
+            },
+            {
+              "productName": "Aluminum Oblong Pan 2.25 lb (500pcs)",
+              "productCategory": "Aluminum Pans",
+              "quantity": 20,
+              "rate": 47,
+              "total": 940
+            },
+            {
+              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 10 3/4 (2000/Case)",
+              "productCategory": "Aluminum Foil Sheets",
+              "quantity": 5,
+              "rate": 49.5,
+              "total": 247.5
+            },
+            {
+              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16 (1000/Case)",
+              "productCategory": "Aluminum Foil Sheets",
+              "quantity": 10,
+              "rate": 33.5,
+              "total": 335
+            },
+            {
+              "productName": "16 oz PET Cup (1000pcs)",
+              "productCategory": "Plastic PET Cups",
+              "quantity": 0.1,
+              "rate": 0,
+              "total": 0
+            },
+            {
+              "productName": "20 oz PET Cup (600pcs)",
+              "productCategory": "Plastic PET Cups",
+              "quantity": 0.1,
+              "rate": 0,
+              "total": 0
+            }
+          ],
+          "subtotal": 13061.5,
+          "salesTax": 0,
+          "totalAmount": 13061.5,
+          "totalBalance": 13061.5,
+          "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
           "notes": ""
@@ -75624,6 +75958,80 @@
           "CashPayment": 0,
           "AccountPayment": 0,
           "notes": ""
+        },
+        {
+          "invoiceNumber": "AWC74",
+          "companyName": "AAM WHOLESALE C&Z",
+          "addressLine1": "62 Midland Ave",
+          "addressLine2": "",
+          "city": "Garfield",
+          "state": "NJ",
+          "zipCode": "07026",
+          "dateCreated": "2025-11-07",
+          "products": [
+            {
+              "productName": "PP Hinged Container PP225 / PP61 6\"x6\"x3 250pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 50,
+              "rate": 16.5,
+              "total": 825
+            },
+            {
+              "productName": "PP Hinged Container PP81 8\"x8\"x3 150pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 50,
+              "rate": 18.5,
+              "total": 925
+            },
+            {
+              "productName": "8\" Aluminum Pan 13g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 10,
+              "rate": 45.5,
+              "total": 455
+            }
+          ],
+          "subtotal": 2205,
+          "salesTax": 0,
+          "totalAmount": 2205,
+          "totalBalance": 2205,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "AWC75",
+          "companyName": "AAM WHOLESALE C&Z",
+          "addressLine1": "62 Midland Ave",
+          "addressLine2": "",
+          "city": "Garfield",
+          "state": "NJ",
+          "zipCode": "07026",
+          "dateCreated": "2025-11-08",
+          "products": [
+            {
+              "productName": "Vynl Powder Free Gloves Large",
+              "productCategory": "Gloves",
+              "quantity": 10,
+              "rate": 15.75,
+              "total": 157.5
+            },
+            {
+              "productName": "Import 48 oz Black Round Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 3,
+              "rate": 32.5,
+              "total": 97.5
+            }
+          ],
+          "subtotal": 255,
+          "salesTax": 0,
+          "totalAmount": 255,
+          "totalBalance": 255,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
         }
       ]
     },
@@ -76789,6 +77197,89 @@
           "salesTax": 0,
           "totalAmount": 1742,
           "totalBalance": 1742,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "MSL11",
+          "companyName": "Martinez Supply LLC",
+          "addressLine1": "1305 Liberty ",
+          "addressLine2": "",
+          "city": "Hillside ",
+          "state": "NJ",
+          "zipCode": "07205",
+          "dateCreated": "2025-11-06",
+          "products": [
+            {
+              "productName": "Starco So-Kleen Lavender Floor Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 48,
+              "rate": 17,
+              "total": 816
+            },
+            {
+              "productName": "Starco So-Kleen Degreaser 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 48,
+              "rate": 16,
+              "total": 768
+            },
+            {
+              "productName": "Meal Kit 4pcs 250/CS",
+              "productCategory": "Utensils",
+              "quantity": 10,
+              "rate": 13.5,
+              "total": 135
+            },
+            {
+              "productName": "#4 White SOS Bag 500pcs",
+              "productCategory": "SOS Bags",
+              "quantity": 10,
+              "rate": 9,
+              "total": 90
+            },
+            {
+              "productName": "#6 White SOS Bag 500pcs",
+              "productCategory": "SOS Bags",
+              "quantity": 10,
+              "rate": 12.25,
+              "total": 122.5
+            },
+            {
+              "productName": "Aluminum Oblong Pan 4 lb (250pcs)",
+              "productCategory": "Aluminum Pans",
+              "quantity": 4,
+              "rate": 58,
+              "total": 232
+            },
+            {
+              "productName": "Aluminum Oblong Pan 4lb Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 4,
+              "rate": 38,
+              "total": 152
+            },
+            {
+              "productName": "Tall Fold Napkin 10000/Case",
+              "productCategory": "Paper Towels",
+              "quantity": 3,
+              "rate": 25,
+              "total": 75
+            },
+            {
+              "productName": "#8 Kraft SOS Bag 500pcs",
+              "productCategory": "SOS Bags",
+              "quantity": 10,
+              "rate": 9,
+              "total": 90
+            }
+          ],
+          "subtotal": 2480.5,
+          "salesTax": 0,
+          "totalAmount": 2480.5,
+          "totalBalance": 2480.5,
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
@@ -78169,11 +78660,11 @@
           "subtotal": 700,
           "salesTax": 0,
           "totalAmount": 700,
-          "totalBalance": 700,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 700,
+          "notes": "Check Delivered to Passaic Old Warehouse. Deposit done"
         },
         {
           "invoiceNumber": "TL03",
@@ -78254,7 +78745,7 @@
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
-          "notes": ""
+          "notes": "payment pending. sent second email on Nov 7th"
         },
         {
           "invoiceNumber": "TL06",
@@ -78281,7 +78772,7 @@
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
-          "notes": ""
+          "notes": "payment pending. sent second email on Nov 7th"
         },
         {
           "invoiceNumber": "TL07",
@@ -78308,7 +78799,7 @@
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
-          "notes": ""
+          "notes": "submitted too late on Nov 7, maybe no payment. Check again"
         },
         {
           "invoiceNumber": "TL08",
@@ -78400,26 +78891,26 @@
         },
         {
           "invoiceNumber": "TL12",
-          "companyName": "Trucking Loads",
-          "addressLine1": "35 8th Street",
+          "companyName": "Trinity Logistics, Inc.",
+          "addressLine1": "P.O. BOX 1620",
           "addressLine2": "",
-          "city": "Passaic",
-          "state": "NJ",
-          "zipCode": "07055",
+          "city": "Seaford",
+          "state": "DE",
+          "zipCode": "19973",
           "dateCreated": "2025-10-15",
           "products": [
             {
               "productName": "Freight",
               "productCategory": "Industrial",
               "quantity": 1,
-              "rate": 650,
-              "total": 650
+              "rate": 550,
+              "total": 550
             }
           ],
-          "subtotal": 650,
+          "subtotal": 550,
           "salesTax": 0,
-          "totalAmount": 650,
-          "totalBalance": 650,
+          "totalAmount": 550,
+          "totalBalance": 550,
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
@@ -78487,6 +78978,296 @@
           "state": "NJ",
           "zipCode": "07055",
           "dateCreated": "2025-10-28",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 1,
+              "total": 1
+            }
+          ],
+          "subtotal": 1,
+          "salesTax": 0,
+          "totalAmount": 1,
+          "totalBalance": 1,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "TL16",
+          "companyName": "Trinity Logistics, Inc.",
+          "addressLine1": "P.O. BOX 1620",
+          "addressLine2": "",
+          "city": "Seaford",
+          "state": "DE",
+          "zipCode": "19973",
+          "dateCreated": "2025-10-21",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 300,
+              "total": 300
+            }
+          ],
+          "subtotal": 300,
+          "salesTax": 0,
+          "totalAmount": 300,
+          "totalBalance": 300,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "TL17",
+          "companyName": "Dimexco INC",
+          "addressLine1": "8000 NW 31 ST Suite 13",
+          "addressLine2": "",
+          "city": "MIAMI",
+          "state": "FL",
+          "zipCode": "33122",
+          "dateCreated": "2025-10-22",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 620,
+              "total": 620
+            }
+          ],
+          "subtotal": 620,
+          "salesTax": 0,
+          "totalAmount": 620,
+          "totalBalance": 620,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "TL18",
+          "companyName": "Trucking Loads",
+          "addressLine1": "35 8th Street",
+          "addressLine2": "",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-11-07",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 1,
+              "total": 1
+            }
+          ],
+          "subtotal": 1,
+          "salesTax": 0,
+          "totalAmount": 1,
+          "totalBalance": 1,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "TL19",
+          "companyName": "Trucking Loads",
+          "addressLine1": "35 8th Street",
+          "addressLine2": "",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-11-07",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 1,
+              "total": 1
+            }
+          ],
+          "subtotal": 1,
+          "salesTax": 0,
+          "totalAmount": 1,
+          "totalBalance": 1,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "TL20",
+          "companyName": "Trinity Logistics, Inc.",
+          "addressLine1": "P.O. BOX 1620",
+          "addressLine2": "",
+          "city": "Seaford",
+          "state": "DE",
+          "zipCode": "19973",
+          "dateCreated": "2025-10-24",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 400,
+              "total": 400
+            }
+          ],
+          "subtotal": 400,
+          "salesTax": 0,
+          "totalAmount": 400,
+          "totalBalance": 400,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "TL21",
+          "companyName": "Fast Freight",
+          "addressLine1": "101 S Madison Ave",
+          "addressLine2": "",
+          "city": "Spring Valley",
+          "state": "NY",
+          "zipCode": "10977",
+          "dateCreated": "2025-10-24",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 400,
+              "total": 400
+            }
+          ],
+          "subtotal": 400,
+          "salesTax": 0,
+          "totalAmount": 400,
+          "totalBalance": 400,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "TL22",
+          "companyName": "Trucking Loads",
+          "addressLine1": "35 8th Street",
+          "addressLine2": "",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-11-07",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 1,
+              "total": 1
+            }
+          ],
+          "subtotal": 1,
+          "salesTax": 0,
+          "totalAmount": 1,
+          "totalBalance": 1,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "TL23",
+          "companyName": "Trucking Loads",
+          "addressLine1": "35 8th Street",
+          "addressLine2": "",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-11-07",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 1,
+              "total": 1
+            }
+          ],
+          "subtotal": 1,
+          "salesTax": 0,
+          "totalAmount": 1,
+          "totalBalance": 1,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "TL24",
+          "companyName": "Trucking Loads",
+          "addressLine1": "35 8th Street",
+          "addressLine2": "",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-11-07",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 1,
+              "total": 1
+            }
+          ],
+          "subtotal": 1,
+          "salesTax": 0,
+          "totalAmount": 1,
+          "totalBalance": 1,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "TL25",
+          "companyName": "Trucking Loads",
+          "addressLine1": "35 8th Street",
+          "addressLine2": "",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-11-07",
+          "products": [
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 1,
+              "total": 1
+            }
+          ],
+          "subtotal": 1,
+          "salesTax": 0,
+          "totalAmount": 1,
+          "totalBalance": 1,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0
+        },
+        {
+          "invoiceNumber": "TL26",
+          "companyName": "Trucking Loads",
+          "addressLine1": "35 8th Street",
+          "addressLine2": "",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2025-11-07",
           "products": [
             {
               "productName": "Freight",
@@ -78789,7 +79570,7 @@
       "itemCategory": "Aluminum Foil Roll",
       "cost": 12,
       "priceLevel1": 17.5,
-      "priceLevel2": 20,
+      "priceLevel2": 18.5,
       "priceLevel3": 22,
       "imageUrl": "/uploads/3.jpg",
       "rank": 2,

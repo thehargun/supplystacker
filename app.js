@@ -1735,10 +1735,15 @@ app.get('/products-pdf/:userId', (req, res) => {
 });
 
 // Route to generate products PDF
+// Route to generate products PDF
 app.post('/generate-products-pdf', (req, res) => {
     if (!req.session.loggedIn) {
         return res.redirect('/');
     }
+
+    console.log('=== PDF Generation Started ===');
+    console.log('BASE_URL env:', process.env.BASE_URL);
+    console.log('NODE_ENV:', process.env.NODE_ENV);
 
     const user = req.session.user;
     const userPriceLevel = `priceLevel${user.priceLevel}`;
@@ -1758,15 +1763,26 @@ app.post('/generate-products-pdf', (req, res) => {
         inventory: adjustedInventory
     };
 
+    console.log('PDF Data prepared:', { 
+        companyName: productsPdfData.companyName, 
+        userId: productsPdfData.userId,
+        inventoryCount: adjustedInventory.length
+    });
+
     pdfService.generateProductsPdf(productsPdfData, (filePath, error) => {
         if (error) {
             console.error('PDF generation failed:', error);
-            return res.status(500).json({ success: false, message: 'PDF generation failed' });
+            return res.status(500).json({ 
+                success: false, 
+                message: 'PDF generation failed: ' + error.message 
+            });
         }
         
         if (filePath) {
+            console.log('PDF generated successfully:', filePath);
             res.json({ success: true, message: 'PDF generated successfully' });
         } else {
+            console.error('PDF generation failed: No file path returned');
             res.status(500).json({ success: false, message: 'PDF generation failed' });
         }
     });

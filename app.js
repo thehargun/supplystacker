@@ -1784,8 +1784,10 @@ app.post('/generate-products-pdf', (req, res) => {
         const baseUrl = `${protocol}://${host}`;
         console.log('[APP-ROUTE] Constructed baseUrl:', baseUrl);
         console.log('[APP-ROUTE] About to call pdfService.generateProductsPdf');
-        pdfService.generateProductsPdf(productsPdfData, baseUrl, (filePath, error) => {
+        pdfService.generateProductsPdf(productsPdfData, baseUrl, (error, filePath) => {
             console.log('[APP-CALLBACK] PDF generation callback received');
+            console.log('[APP-CALLBACK] error:', error);
+            console.log('[APP-CALLBACK] filePath:', filePath);
             
             if (error) {
                 console.error('[APP-CALLBACK] ERROR: PDF generation failed:', error);

@@ -193,7 +193,7 @@ async function generateProductsPdf(productData, baseUrl, callback) {
         }
 
         console.log('DEBUG 20: Calling callback with filePath');
-        callback(filePath);
+        callback(null, filePath);
         
     } catch (error) {
         console.error('DEBUG ERROR: Exception caught in generateProductsPdf');
@@ -201,7 +201,7 @@ async function generateProductsPdf(productData, baseUrl, callback) {
         console.error('ERROR MESSAGE:', error.message);
         console.error('ERROR STACK:', error.stack);
         console.error('FULL ERROR:', JSON.stringify(error, null, 2));
-        callback(null, error);
+        callback(error, null);
     }
 }
 

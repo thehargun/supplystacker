@@ -127,44 +127,13 @@ async function generateProductsPdf(productData, callback) {
             deviceScaleFactor: 1
         });
         
-        const ejs = require('ejs');
+        // Use environment-aware base URL
+        const baseUrl = process.env.NODE_ENV === 'production' 
+            ? 'https://supplystacker.onrender.com' 
+            : 'http://localhost:3000';
         
-        // Read the template file
-        const templatePath = path.join(__dirname, '../views/products-pdf.ejs');
-        const template = fs.readFileSync(templatePath, 'utf8');
-        
-        // Convert image paths to server URLs that Puppeteer can access
-        const inventoryWithLocalUrls = productData.inventory.map(item => {
-            if (item.imageUrl) {
-                // Use environment-aware base URL
-                const baseUrl = process.env.NODE_ENV === 'production' 
-                    ? 'https://supplystacker.onrender.com' 
-                    : 'http://localhost:3000';
-                const localUrl = `${baseUrl}${item.imageUrl}`;
-                
-                // Verify the file exists
-                const imagePath = item.imageUrl.replace(/^\//, '');
-                const absolutePath = path.join(process.cwd(), 'public', imagePath);
-                
-                if (fs.existsSync(absolutePath)) {
-                    item.imageUrl = localUrl;
-                    console.log(`✓ Image found: ${localUrl}`);
-                } else {
-                    item.imageUrl = ''; // Empty if file doesn't exist
-                    console.log(`✗ Image missing: ${absolutePath}`);
-                }
-            }
-            return item;
-        });
-        
-        // Generate HTML with localhost image URLs
-        const html = ejs.render(template, {
-            inventory: inventoryWithLocalUrls,
-            req: { session: { user: productData.user } }
-        });
-        
-        // Set the HTML content directly
-        await page.setContent(html, {
+        // Navigate to the PDF page with correct URL
+        await page.goto(`${baseUrl}/products-pdf/${productData.userId}`, {
             waitUntil: 'networkidle2',
             timeout: 30000
         });
@@ -172,7 +141,7 @@ async function generateProductsPdf(productData, callback) {
         const filePath = `./pdfs/products-${productData.companyName.replace(/\s+/g, '-')}.pdf`;
         fs.mkdirSync('./pdfs', { recursive: true });
         
-        // Generate PDF
+        // Generate PDF with optimized settings for smaller file size
         await page.pdf({
             path: filePath,
             format: 'A4',
@@ -186,10 +155,15 @@ async function generateProductsPdf(productData, callback) {
                 left: '15mm' 
             },
             tagged: false,
-            outline: false,
+            outline: false
         });
         
         await browser.close();
+        
+        // Log file size for monitoring
+        const stats = fs.statSync(filePath);
+        const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
+        console.log(`PDF generated: ${fileSizeInMB}MB - ${filePath}`);
         
         callback(filePath);
         

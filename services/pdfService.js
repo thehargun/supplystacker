@@ -107,6 +107,19 @@ function generateInvoicePdf(orderDetails, callback) {
 
 async function generateProductsPdf(productData, callback) {
     try {
+        console.log('DEBUG 1: generateProductsPdf started');
+        console.log('DEBUG 2: productData:', {
+            companyName: productData.companyName,
+            userId: productData.userId,
+            inventoryCount: productData.inventory ? productData.inventory.length : 0,
+            userPriceLevel: productData.user?.priceLevel
+        });
+
+        const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
+        console.log('DEBUG 3: baseUrl =', baseUrl);
+        console.log('DEBUG 4: NODE_ENV =', process.env.NODE_ENV);
+
+        console.log('DEBUG 5: Launching puppeteer browser...');
         const browser = await puppeteer.launch({
             headless: true,
             args: [
@@ -117,31 +130,37 @@ async function generateProductsPdf(productData, callback) {
                 '--disable-extensions'
             ]
         });
-        
+        console.log('DEBUG 6: Browser launched successfully');
+
         const page = await browser.newPage();
-        
+        console.log('DEBUG 7: Page created');
+
         // Set viewport for better rendering
         await page.setViewport({ 
             width: 1200, 
             height: 800,
             deviceScaleFactor: 1
         });
+        console.log('DEBUG 8: Viewport set');
+
+        const pdfUrl = `${baseUrl}/products-pdf/${productData.userId}`;
+        console.log('DEBUG 9: PDF URL =', pdfUrl);
         
-        // Use environment-aware base URL
-        const baseUrl = process.env.NODE_ENV === 'production' 
-            ? 'https://supplystacker.onrender.com' 
-            : 'http://localhost:3000';
-        
-        // Navigate to the PDF page with correct URL
-        await page.goto(`${baseUrl}/products-pdf/${productData.userId}`, {
+        console.log('DEBUG 10: Navigating to PDF page...');
+        await page.goto(pdfUrl, {
             waitUntil: 'networkidle2',
-            timeout: 30000
+            timeout: 60000
         });
-        
+        console.log('DEBUG 11: Navigation successful');
+
         const filePath = `./pdfs/products-${productData.companyName.replace(/\s+/g, '-')}.pdf`;
+        console.log('DEBUG 12: File path =', filePath);
+
+        console.log('DEBUG 13: Creating pdfs directory...');
         fs.mkdirSync('./pdfs', { recursive: true });
-        
-        // Generate PDF with optimized settings for smaller file size
+        console.log('DEBUG 14: Directory created');
+
+        console.log('DEBUG 15: Generating PDF...');
         await page.pdf({
             path: filePath,
             format: 'A4',
@@ -157,18 +176,30 @@ async function generateProductsPdf(productData, callback) {
             tagged: false,
             outline: false
         });
-        
+        console.log('DEBUG 16: PDF generated to file');
+
         await browser.close();
-        
+        console.log('DEBUG 17: Browser closed');
+
         // Log file size for monitoring
-        const stats = fs.statSync(filePath);
-        const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
-        console.log(`PDF generated: ${fileSizeInMB}MB - ${filePath}`);
-        
+        if (fs.existsSync(filePath)) {
+            const stats = fs.statSync(filePath);
+            const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
+            console.log('DEBUG 18: PDF file created successfully - Size:', fileSizeInMB, 'MB');
+            console.log('DEBUG 19: Full file path:', path.resolve(filePath));
+        } else {
+            console.error('DEBUG ERROR: PDF file does not exist at', filePath);
+        }
+
+        console.log('DEBUG 20: Calling callback with filePath');
         callback(filePath);
         
     } catch (error) {
-        console.error('Error generating PDF:', error);
+        console.error('DEBUG ERROR: Exception caught in generateProductsPdf');
+        console.error('ERROR NAME:', error.name);
+        console.error('ERROR MESSAGE:', error.message);
+        console.error('ERROR STACK:', error.stack);
+        console.error('FULL ERROR:', JSON.stringify(error, null, 2));
         callback(null, error);
     }
 }

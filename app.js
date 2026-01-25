@@ -1689,7 +1689,8 @@ app.get('/generate-products-pdf-download', async (req, res) => {
         // Inline PDF generation using puppeteer
         console.log('[PDF-GEN] Starting puppeteer...');
         const puppeteer = require('puppeteer');
-        const browser = await puppeteer.launch({
+        
+        const browserOptions = {
             headless: true,
             args: [
                 '--no-sandbox', 
@@ -1698,7 +1699,19 @@ app.get('/generate-products-pdf-download', async (req, res) => {
                 '--disable-gpu',
                 '--disable-extensions'
             ]
-        });
+        };
+
+        // Try to use system Chrome on Render, fallback to bundled
+        try {
+            console.log('[PDF-GEN] Attempting to launch with executablePath...');
+            const executablePath = await puppeteer.executablePath();
+            console.log('[PDF-GEN] Executable path:', executablePath);
+            browserOptions.executablePath = executablePath;
+        } catch (e) {
+            console.log('[PDF-GEN] No executablePath available, using default');
+        }
+
+        const browser = await puppeteer.launch(browserOptions);
         console.log('[PDF-GEN] Browser launched');
 
         const page = await browser.newPage();

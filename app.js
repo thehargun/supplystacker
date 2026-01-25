@@ -1736,33 +1736,25 @@ app.get('/products-pdf/:userId', (req, res) => {
 
 // Route to generate products PDF
 // Route to generate products PDF
-app.post('/generate-products-pdf', (req, res) => {
-    console.log('[APP-ROUTE] POST /generate-products-pdf - Request received');
+app.post('/generate-products-pdf', async (req, res) => {
+    console.log('[PDF-ROUTE] POST /generate-products-pdf - Request received');
     
     if (!req.session.loggedIn) {
-        console.log('[APP-ROUTE] Not logged in, redirecting');
-        return res.redirect('/');
+        console.log('[PDF-ROUTE] Not logged in');
+        return res.status(401).json({ success: false, message: 'Not logged in' });
     }
 
     try {
-        console.log('[APP-ROUTE] User is logged in');
-        console.log('[APP-ROUTE] BASE_URL env:', process.env.BASE_URL);
-        console.log('[APP-ROUTE] NODE_ENV:', process.env.NODE_ENV);
-
+        console.log('[PDF-ROUTE] Starting PDF generation process');
         const user = req.session.user;
-        console.log('[APP-ROUTE] User:', { id: user.id, company: user.company, priceLevel: user.priceLevel });
-
         const userPriceLevel = `priceLevel${user.priceLevel}`;
         const finalPriceMultiplier = user.finalPrice || 1;
-        console.log('[APP-ROUTE] userPriceLevel:', userPriceLevel, 'finalPriceMultiplier:', finalPriceMultiplier);
 
         // Prepare inventory data
-        console.log('[APP-ROUTE] Preparing inventory data...');
         const adjustedInventory = inventory.map(item => ({
             ...item,
             price: (Math.floor((item[userPriceLevel] * finalPriceMultiplier) * 4) / 4)
         }));
-        console.log('[APP-ROUTE] Inventory prepared, count:', adjustedInventory.length);
 
         const productsPdfData = {
             companyName: user.company,
@@ -1772,48 +1764,29 @@ app.post('/generate-products-pdf', (req, res) => {
             inventory: adjustedInventory
         };
 
-        console.log('[APP-ROUTE] productsPdfData prepared:', { 
-            companyName: productsPdfData.companyName, 
-            userId: productsPdfData.userId,
-            inventoryCount: adjustedInventory.length
-        });
-
-        // Construct the base URL from the request
+        // Get base URL from request
         const protocol = req.get('x-forwarded-proto') || req.protocol;
         const host = req.get('host');
         const baseUrl = `${protocol}://${host}`;
-        console.log('[APP-ROUTE] Constructed baseUrl:', baseUrl);
-        console.log('[APP-ROUTE] About to call pdfService.generateProductsPdf');
-        pdfService.generateProductsPdf(productsPdfData, baseUrl, (error, filePath) => {
-            console.log('[APP-CALLBACK] PDF generation callback received');
-            console.log('[APP-CALLBACK] error:', error);
-            console.log('[APP-CALLBACK] filePath:', filePath);
-            
-            if (error) {
-                console.error('[APP-CALLBACK] ERROR: PDF generation failed:', error);
-                console.error('[APP-CALLBACK] Error message:', error.message);
-                console.error('[APP-CALLBACK] Error stack:', error.stack);
-                return res.status(500).json({ 
-                    success: false, 
-                    message: 'PDF generation failed: ' + error.message 
-                });
-            }
-            
-            if (filePath) {
-                console.log('[APP-CALLBACK] SUCCESS: PDF generated at:', filePath);
-                res.json({ success: true, message: 'PDF generated successfully' });
-            } else {
-                console.error('[APP-CALLBACK] ERROR: No file path returned');
-                res.status(500).json({ success: false, message: 'PDF generation failed' });
-            }
+        console.log('[PDF-ROUTE] Using baseUrl:', baseUrl);
+
+        // Use await to wait for PDF generation
+        console.log('[PDF-ROUTE] Calling pdfService.generateProductsPdfAsync');
+        const filePath = await pdfService.generateProductsPdfAsync(productsPdfData, baseUrl);
+        
+        console.log('[PDF-ROUTE] PDF generated successfully:', filePath);
+        res.json({ 
+            success: true, 
+            message: 'PDF generated successfully',
+            downloadUrl: '/download-products-pdf'
         });
+        
     } catch (err) {
-        console.error('[APP-ROUTE] CATCH ERROR:', err);
-        console.error('[APP-ROUTE] Error message:', err.message);
-        console.error('[APP-ROUTE] Error stack:', err.stack);
+        console.error('[PDF-ROUTE] ERROR:', err.message);
+        console.error('[PDF-ROUTE] Stack:', err.stack);
         res.status(500).json({ 
             success: false, 
-            message: 'Route error: ' + err.message 
+            message: 'PDF generation failed: ' + err.message 
         });
     }
 });

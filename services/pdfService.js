@@ -205,4 +205,72 @@ async function generateProductsPdf(productData, baseUrl, callback) {
     }
 }
 
-module.exports = { generateInvoicePdf, generateProductsPdf };
+// Promise-based version of PDF generation (async/await compatible)
+async function generateProductsPdfAsync(productData, baseUrl) {
+    console.log('[PDF-SERVICE] Starting async PDF generation');
+    console.log('[PDF-SERVICE] Company:', productData.companyName, 'UserId:', productData.userId);
+    
+    const finalBaseUrl = baseUrl || process.env.BASE_URL || 'http://localhost:3000';
+    console.log('[PDF-SERVICE] Using baseUrl:', finalBaseUrl);
+
+    try {
+        console.log('[PDF-SERVICE] Launching puppeteer browser...');
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: [
+                '--no-sandbox', 
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--disable-extensions'
+            ]
+        });
+        console.log('[PDF-SERVICE] Browser launched');
+
+        const page = await browser.newPage();
+        await page.setViewport({ width: 1200, height: 800, deviceScaleFactor: 1 });
+
+        const pdfUrl = `${finalBaseUrl}/products-pdf/${productData.userId}`;
+        console.log('[PDF-SERVICE] Navigating to:', pdfUrl);
+        
+        await page.goto(pdfUrl, {
+            waitUntil: 'networkidle2',
+            timeout: 60000
+        });
+        console.log('[PDF-SERVICE] Page loaded successfully');
+
+        const filePath = `./pdfs/products-${productData.companyName.replace(/\s+/g, '-')}.pdf`;
+        fs.mkdirSync('./pdfs', { recursive: true });
+
+        console.log('[PDF-SERVICE] Generating PDF to:', filePath);
+        await page.pdf({
+            path: filePath,
+            format: 'A4',
+            printBackground: false,
+            preferCSSPageSize: true,
+            displayHeaderFooter: false,
+            margin: { top: '15mm', right: '15mm', bottom: '15mm', left: '15mm' },
+            tagged: false,
+            outline: false
+        });
+        console.log('[PDF-SERVICE] PDF generated successfully');
+
+        await browser.close();
+        console.log('[PDF-SERVICE] Browser closed');
+
+        if (fs.existsSync(filePath)) {
+            const stats = fs.statSync(filePath);
+            const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
+            console.log('[PDF-SERVICE] File size:', fileSizeInMB, 'MB');
+        }
+
+        return filePath;
+
+    } catch (error) {
+        console.error('[PDF-SERVICE] ERROR:', error.message);
+        console.error('[PDF-SERVICE] Stack:', error.stack);
+        throw error;
+    }
+}
+
+module.exports = { generateInvoicePdf, generateProductsPdf, generateProductsPdfAsync };

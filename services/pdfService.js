@@ -105,7 +105,7 @@ function generateInvoicePdf(orderDetails, callback) {
     callback(filePath);
 }
 
-async function generateProductsPdf(productData, callback) {
+async function generateProductsPdf(productData, baseUrl, callback) {
     try {
         console.log('DEBUG 1: generateProductsPdf started');
         console.log('DEBUG 2: productData:', {
@@ -115,8 +115,9 @@ async function generateProductsPdf(productData, callback) {
             userPriceLevel: productData.user?.priceLevel
         });
 
-        const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
-        console.log('DEBUG 3: baseUrl =', baseUrl);
+        // Use the passed baseUrl, fallback to env or localhost
+        const finalBaseUrl = baseUrl || process.env.BASE_URL || 'http://localhost:3000';
+        console.log('DEBUG 3: finalBaseUrl =', finalBaseUrl);
         console.log('DEBUG 4: NODE_ENV =', process.env.NODE_ENV);
 
         console.log('DEBUG 5: Launching puppeteer browser...');
@@ -143,7 +144,7 @@ async function generateProductsPdf(productData, callback) {
         });
         console.log('DEBUG 8: Viewport set');
 
-        const pdfUrl = `${baseUrl}/products-pdf/${productData.userId}`;
+        const pdfUrl = `${finalBaseUrl}/products-pdf/${productData.userId}`;
         console.log('DEBUG 9: PDF URL =', pdfUrl);
         
         console.log('DEBUG 10: Navigating to PDF page...');

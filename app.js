@@ -1778,8 +1778,13 @@ app.post('/generate-products-pdf', (req, res) => {
             inventoryCount: adjustedInventory.length
         });
 
+        // Construct the base URL from the request
+        const protocol = req.get('x-forwarded-proto') || req.protocol;
+        const host = req.get('host');
+        const baseUrl = `${protocol}://${host}`;
+        console.log('[APP-ROUTE] Constructed baseUrl:', baseUrl);
         console.log('[APP-ROUTE] About to call pdfService.generateProductsPdf');
-        pdfService.generateProductsPdf(productsPdfData, (filePath, error) => {
+        pdfService.generateProductsPdf(productsPdfData, baseUrl, (filePath, error) => {
             console.log('[APP-CALLBACK] PDF generation callback received');
             
             if (error) {

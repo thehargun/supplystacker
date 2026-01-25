@@ -1658,6 +1658,104 @@ app.get('/products-pdf/:userId', (req, res) => {
 
 // Route to generate products PDF
 // Route to generate products PDF
+// Direct PDF generation and download route - no pdfService, no async complications
+app.get('/generate-products-pdf-download', async (req, res) => {
+    console.log('[PDF-GEN] Request received for PDF download');
+    
+    if (!req.session.loggedIn) {
+        console.log('[PDF-GEN] Not logged in, redirecting');
+        return res.redirect('/');
+    }
+
+    try {
+        const user = req.session.user;
+        const userPriceLevel = `priceLevel${user.priceLevel}`;
+        const finalPriceMultiplier = user.finalPrice || 1;
+
+        console.log('[PDF-GEN] Preparing inventory for:', user.company);
+
+        // Prepare inventory data
+        const adjustedInventory = inventory.map(item => ({
+            ...item,
+            price: (Math.floor((item[userPriceLevel] * finalPriceMultiplier) * 4) / 4)
+        }));
+
+        // Get base URL from request
+        const protocol = req.get('x-forwarded-proto') || req.protocol;
+        const host = req.get('host');
+        const baseUrl = `${protocol}://${host}`;
+        console.log('[PDF-GEN] Base URL:', baseUrl);
+
+        // Inline PDF generation using puppeteer
+        console.log('[PDF-GEN] Starting puppeteer...');
+        const puppeteer = require('puppeteer');
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: [
+                '--no-sandbox', 
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--disable-extensions'
+            ]
+        });
+        console.log('[PDF-GEN] Browser launched');
+
+        const page = await browser.newPage();
+        await page.setViewport({ width: 1200, height: 800, deviceScaleFactor: 1 });
+
+        const pdfUrl = `${baseUrl}/products-pdf/${user.id}`;
+        console.log('[PDF-GEN] Navigating to:', pdfUrl);
+        
+        await page.goto(pdfUrl, {
+            waitUntil: 'networkidle2',
+            timeout: 60000
+        });
+        console.log('[PDF-GEN] Page loaded');
+
+        const fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
+        const filePath = `./pdfs/${fileName}`;
+        
+        fs.mkdirSync('./pdfs', { recursive: true });
+        console.log('[PDF-GEN] Generating PDF to:', filePath);
+        
+        await page.pdf({
+            path: filePath,
+            format: 'A4',
+            printBackground: false,
+            preferCSSPageSize: true,
+            displayHeaderFooter: false,
+            margin: { top: '15mm', right: '15mm', bottom: '15mm', left: '15mm' },
+            tagged: false,
+            outline: false
+        });
+        console.log('[PDF-GEN] PDF generated');
+
+        await browser.close();
+        console.log('[PDF-GEN] Browser closed');
+
+        // Check file size
+        if (fs.existsSync(filePath)) {
+            const stats = fs.statSync(filePath);
+            const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
+            console.log('[PDF-GEN] File size:', fileSizeInMB, 'MB');
+        }
+
+        // Send file to client
+        console.log('[PDF-GEN] Sending file to client');
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+        
+        const fileStream = fs.createReadStream(filePath);
+        fileStream.pipe(res);
+        
+    } catch (err) {
+        console.error('[PDF-GEN] ERROR:', err.message);
+        console.error('[PDF-GEN] Stack:', err.stack);
+        res.status(500).send('Error generating PDF: ' + err.message);
+    }
+});
+
 app.post('/generate-products-pdf', async (req, res) => {
     console.log('[PDF-ROUTE] POST /generate-products-pdf - Request received');
     

@@ -193,26 +193,8 @@
 
     <script>
         function generatePDF() {
-            // Send request to generate PDF
-            fetch('/generate-products-pdf', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Open PDF in new tab
-                    window.open('/download-products-pdf', '_blank');
-                } else {
-                    console.error('Failed to generate PDF');
-                    alert('Failed to generate PDF');
-                }
-            })
-            .catch(error => {
-                console.error('Error generating PDF:', error);
-                alert('Error generating PDF');
-            });
+            // Simply redirect to the generation route which will generate and download
+            window.location.href = '/generate-products-pdf-download';
         }
 
         function addToCart(itemId) {

@@ -94,6 +94,7 @@
     "has-tostringtag": "^1.0.2",
     "has-unicode": "^2.0.1",
     "hasown": "^2.0.0",
+    "html2pdf.js": "^0.14.0",
     "http-errors": "^2.0.0",
     "https-proxy-agent": "^5.0.1",
     "iconv-lite": "^0.4.24",

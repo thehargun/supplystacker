@@ -14,113 +14,146 @@ const app = express();
 const moment = require('moment');
 const archiver = require('archiver');
 
-// PDF Compression Utility Function
+// PDF Compression Utility Function with timeout and file size check
 async function compressPdfFile(inputPath) {
     try {
         console.log('[PDF-COMPRESS] Starting compression for:', inputPath);
         
         const publicKey = process.env.ILOVE_PUBLIC_KEY || process.env.ILOVE_PROJECT_ID;
-        console.log('[PDF-COMPRESS] Public key check - exists:', !!publicKey);
         if (!publicKey) {
             console.warn('[PDF-COMPRESS] No iLovePDF public key found, skipping compression');
-            return inputPath; // Return original file if no API key
+            return inputPath;
         }
 
+        // Skip compression for smaller files (under 20MB)
+        if (fs.existsSync(inputPath)) {
+            const stats = fs.statSync(inputPath);
+            const fileSizeInMB = stats.size / (1024 * 1024);
+            console.log('[PDF-COMPRESS] File size:', fileSizeInMB.toFixed(2), 'MB');
+            if (fileSizeInMB < 20) {
+                console.log('[PDF-COMPRESS] File is small, skipping compression');
+                return inputPath;
+            }
+        }
+        
         console.log('[PDF-COMPRESS] Public key found, proceeding with compression...');
 
-        // 1) Auth: Get signed token
-        const authRes = await fetch("https://api.ilovepdf.com/v1/auth", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ public_key: publicKey })
+        // Create a timeout promise
+        const compressionWithTimeout = new Promise((resolve, reject) => {
+            const timeoutId = setTimeout(() => {
+                reject(new Error('Compression timeout - taking too long'));
+            }, 30000); // 30 second timeout
+
+            // Perform actual compression
+            performCompressionAsync(inputPath, publicKey)
+                .then(result => {
+                    clearTimeout(timeoutId);
+                    resolve(result);
+                })
+                .catch(err => {
+                    clearTimeout(timeoutId);
+                    reject(err);
+                });
         });
-        
-        if (!authRes.ok) throw new Error(`Auth failed: ${authRes.status}`);
-        const authJson = await authRes.json();
-        const token = authJson.token;
-        if (!token) throw new Error('No token received from auth');
 
-        const authHeader = { Authorization: `Bearer ${token}` };
-
-        // 2) Start: Initialize compression task
-        const startRes = await fetch("https://api.ilovepdf.com/v1/start/compress/us", {
-            method: "GET",
-            headers: authHeader
-        });
-        
-        if (!startRes.ok) throw new Error(`Start failed: ${startRes.status}`);
-        const startJson = await startRes.json();
-        const server = startJson.server;
-        const task = startJson.task;
-        if (!server || !task) throw new Error('No server or task from start response');
-
-        // 3) Upload: Send PDF file to server
-        console.log('[PDF-COMPRESS] Reading file:', inputPath);
-        if (!fs.existsSync(inputPath)) {
-            throw new Error(`File not found: ${inputPath}`);
-        }
-        
-        const fileBuf = fs.readFileSync(inputPath);
-        console.log('[PDF-COMPRESS] File read successfully, size:', (fileBuf.length / (1024 * 1024)).toFixed(2), 'MB');
-        
-        const form = new FormData();
-        form.append("task", task);
-        form.append("file", new Blob([fileBuf], { type: "application/pdf" }), path.basename(inputPath));
-
-        console.log('[PDF-COMPRESS] Uploading file to:', `https://${server}/v1/upload`);
-        const uploadRes = await fetch(`https://${server}/v1/upload`, {
-            method: "POST",
-            headers: authHeader,
-            body: form
-        });
-        
-        if (!uploadRes.ok) throw new Error(`Upload failed: ${uploadRes.status}`);
-        const uploadJson = await uploadRes.json();
-        const serverFilename = uploadJson.server_filename;
-        if (!serverFilename) throw new Error('No server filename from upload');
-        console.log('[PDF-COMPRESS] Upload successful, server filename:', serverFilename);
-
-        // 4) Process: Start compression
-        const processBody = {
-            task,
-            tool: "compress",
-            compression_level: "recommended",
-            files: [{ server_filename: serverFilename, filename: path.basename(inputPath) }]
-        };
-
-        console.log('[PDF-COMPRESS] Processing compression...');
-        const processRes = await fetch(`https://${server}/v1/process`, {
-            method: "POST",
-            headers: { ...authHeader, "Content-Type": "application/json" },
-            body: JSON.stringify(processBody)
-        });
-        
-        if (!processRes.ok) throw new Error(`Process failed: ${processRes.status}`);
-        console.log('[PDF-COMPRESS] Process completed successfully');
-
-        // 5) Download: Get compressed PDF
-        console.log('[PDF-COMPRESS] Downloading compressed file...');
-        const downloadRes = await fetch(`https://${server}/v1/download/${task}`, {
-            method: "GET",
-            headers: authHeader
-        });
-        
-        if (!downloadRes.ok) throw new Error(`Download failed: ${downloadRes.status}`);
-
-        // Save compressed file
-        const compressedBuf = Buffer.from(await downloadRes.arrayBuffer());
-        const compressedPath = inputPath.replace('.pdf', '-compressed.pdf');
-        console.log('[PDF-COMPRESS] Downloaded compressed file, size:', (compressedBuf.length / (1024 * 1024)).toFixed(2), 'MB');
-        
-        fs.writeFileSync(compressedPath, compressedBuf);
-        console.log('[PDF-COMPRESS] Compression successful, saved to:', compressedPath);
-        return compressedPath;
+        return await compressionWithTimeout;
 
     } catch (error) {
         console.error('[PDF-COMPRESS] Error during compression:', error.message);
         console.log('[PDF-COMPRESS] Returning original file');
-        return inputPath; // Return original file if compression fails
+        return inputPath;
     }
+}
+
+// Helper function for actual compression logic
+async function performCompressionAsync(inputPath, publicKey) {
+    // 1) Auth: Get signed token
+    const authRes = await fetch("https://api.ilovepdf.com/v1/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ public_key: publicKey })
+    });
+    
+    if (!authRes.ok) throw new Error(`Auth failed: ${authRes.status}`);
+    const authJson = await authRes.json();
+    const token = authJson.token;
+    if (!token) throw new Error('No token received from auth');
+
+    const authHeader = { Authorization: `Bearer ${token}` };
+
+    // 2) Start: Initialize compression task
+    const startRes = await fetch("https://api.ilovepdf.com/v1/start/compress/us", {
+        method: "GET",
+        headers: authHeader
+    });
+    
+    if (!startRes.ok) throw new Error(`Start failed: ${startRes.status}`);
+    const startJson = await startRes.json();
+    const server = startJson.server;
+    const task = startJson.task;
+    if (!server || !task) throw new Error('No server or task from start response');
+
+    // 3) Upload: Send PDF file to server
+    console.log('[PDF-COMPRESS] Reading file:', inputPath);
+    if (!fs.existsSync(inputPath)) {
+        throw new Error(`File not found: ${inputPath}`);
+    }
+    
+    const fileBuf = fs.readFileSync(inputPath);
+    console.log('[PDF-COMPRESS] File read successfully, size:', (fileBuf.length / (1024 * 1024)).toFixed(2), 'MB');
+    
+    const form = new FormData();
+    form.append("task", task);
+    form.append("file", new Blob([fileBuf], { type: "application/pdf" }), path.basename(inputPath));
+
+    console.log('[PDF-COMPRESS] Uploading file to:', `https://${server}/v1/upload`);
+    const uploadRes = await fetch(`https://${server}/v1/upload`, {
+        method: "POST",
+        headers: authHeader,
+        body: form
+    });
+    
+    if (!uploadRes.ok) throw new Error(`Upload failed: ${uploadRes.status}`);
+    const uploadJson = await uploadRes.json();
+    const serverFilename = uploadJson.server_filename;
+    if (!serverFilename) throw new Error('No server filename from upload');
+    console.log('[PDF-COMPRESS] Upload successful, server filename:', serverFilename);
+
+    // 4) Process: Start compression
+    const processBody = {
+        task,
+        tool: "compress",
+        compression_level: "recommended",
+        files: [{ server_filename: serverFilename, filename: path.basename(inputPath) }]
+    };
+
+    console.log('[PDF-COMPRESS] Processing compression...');
+    const processRes = await fetch(`https://${server}/v1/process`, {
+        method: "POST",
+        headers: { ...authHeader, "Content-Type": "application/json" },
+        body: JSON.stringify(processBody)
+    });
+    
+    if (!processRes.ok) throw new Error(`Process failed: ${processRes.status}`);
+    console.log('[PDF-COMPRESS] Process completed successfully');
+
+    // 5) Download: Get compressed PDF
+    console.log('[PDF-COMPRESS] Downloading compressed file...');
+    const downloadRes = await fetch(`https://${server}/v1/download/${task}`, {
+        method: "GET",
+        headers: authHeader
+    });
+    
+    if (!downloadRes.ok) throw new Error(`Download failed: ${downloadRes.status}`);
+
+    // Save compressed file
+    const compressedBuf = Buffer.from(await downloadRes.arrayBuffer());
+    const compressedPath = inputPath.replace('.pdf', '-compressed.pdf');
+    console.log('[PDF-COMPRESS] Downloaded compressed file, size:', (compressedBuf.length / (1024 * 1024)).toFixed(2), 'MB');
+    
+    fs.writeFileSync(compressedPath, compressedBuf);
+    console.log('[PDF-COMPRESS] Compression successful, saved to:', compressedPath);
+    return compressedPath;
 }
 
 let categoryRanks = {};

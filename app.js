@@ -1658,7 +1658,7 @@ app.get('/products-pdf/:userId', (req, res) => {
 
 // Route to generate products PDF
 // Route to generate products PDF
-// Direct PDF generation and download route - using PDFKit (no browser needed)
+// Direct PDF generation and download route - using Puppeteer with EJS template (with images)
 app.get('/generate-products-pdf-download', async (req, res) => {
     console.log('[PDF-GEN] Request received for PDF download');
     
@@ -1680,84 +1680,91 @@ app.get('/generate-products-pdf-download', async (req, res) => {
             price: (Math.floor((item[userPriceLevel] * finalPriceMultiplier) * 4) / 4)
         }));
 
-        console.log('[PDF-GEN] Creating PDF document');
-        const PDFDocument = require('pdfkit');
+        // Get base URL from request
+        const protocol = req.get('x-forwarded-proto') || req.protocol;
+        const host = req.get('host');
+        const baseUrl = `${protocol}://${host}`;
+        console.log('[PDF-GEN] Base URL:', baseUrl);
+
+        // Convert image paths to absolute URLs
+        const inventoryWithUrls = adjustedInventory.map(item => ({
+            ...item,
+            imageUrl: item.imageUrl ? `${baseUrl}${item.imageUrl}` : ''
+        }));
+
+        console.log('[PDF-GEN] Starting puppeteer...');
+        const puppeteer = require('puppeteer');
+        const ejs = require('ejs');
         
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: [
+                '--no-sandbox', 
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--disable-extensions'
+            ]
+        });
+        console.log('[PDF-GEN] Browser launched');
+
+        const page = await browser.newPage();
+        await page.setViewport({ width: 1200, height: 800, deviceScaleFactor: 1 });
+
+        // Read and render the EJS template
+        console.log('[PDF-GEN] Reading EJS template...');
+        const templatePath = path.join(__dirname, 'views/products-pdf.ejs');
+        const template = fs.readFileSync(templatePath, 'utf8');
+        
+        const html = ejs.render(template, {
+            inventory: inventoryWithUrls,
+            req: { session: { user: user } }
+        });
+        console.log('[PDF-GEN] HTML rendered');
+
+        // Set HTML content
+        console.log('[PDF-GEN] Setting page content...');
+        await page.setContent(html, {
+            waitUntil: 'networkidle2',
+            timeout: 60000
+        });
+        console.log('[PDF-GEN] Page content set');
+
         const fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
         const filePath = `./pdfs/${fileName}`;
         
         fs.mkdirSync('./pdfs', { recursive: true });
-
-        const doc = new PDFDocument({ margin: 40 });
-        const stream = fs.createWriteStream(filePath);
+        console.log('[PDF-GEN] Generating PDF to:', filePath);
         
-        doc.pipe(stream);
+        await page.pdf({
+            path: filePath,
+            format: 'A4',
+            printBackground: true,
+            preferCSSPageSize: true,
+            displayHeaderFooter: false,
+            margin: { top: '15mm', right: '15mm', bottom: '15mm', left: '15mm' },
+            tagged: false,
+            outline: false
+        });
+        console.log('[PDF-GEN] PDF generated');
 
-        // Title
-        doc.fontSize(20).font('Helvetica-Bold').text('Product Catalog', { align: 'center' });
-        doc.fontSize(12).font('Helvetica').text(user.company, { align: 'center' });
-        doc.fontSize(10).text(`Generated: ${new Date().toLocaleDateString()}`, { align: 'center' });
-        doc.moveDown();
+        await browser.close();
+        console.log('[PDF-GEN] Browser closed');
 
-        // Create products table
-        doc.fontSize(10).font('Helvetica-Bold');
-        doc.text('Item Name', 50, doc.y);
-        doc.text('Category', 250, doc.y, { width: 80 });
-        doc.text('Price', 350, doc.y, { width: 80, align: 'right' });
-        doc.text('Qty', 450, doc.y, { width: 60, align: 'right' });
+        // Check file size
+        if (fs.existsSync(filePath)) {
+            const stats = fs.statSync(filePath);
+            const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
+            console.log('[PDF-GEN] File size:', fileSizeInMB, 'MB');
+        }
+
+        // Send file to client
+        console.log('[PDF-GEN] Sending file to client');
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
         
-        doc.moveTo(50, doc.y + 5).lineTo(550, doc.y + 5).stroke();
-        doc.moveDown();
-
-        // Add products
-        doc.fontSize(9).font('Helvetica');
-        let itemsPerPage = 0;
-        const maxItemsPerPage = 45;
-
-        adjustedInventory.forEach((item, index) => {
-            if (itemsPerPage >= maxItemsPerPage) {
-                doc.addPage();
-                itemsPerPage = 0;
-            }
-
-            const itemName = item.itemName || 'N/A';
-            const category = item.itemCategory || 'N/A';
-            const price = `$${item.price.toFixed(2)}`;
-            const qty = item.quantity || 0;
-
-            doc.text(itemName.substring(0, 30), 50, doc.y, { width: 200 });
-            doc.text(category.substring(0, 15), 250, doc.y, { width: 80 });
-            doc.text(price, 350, doc.y, { width: 80, align: 'right' });
-            doc.text(qty.toString(), 450, doc.y, { width: 60, align: 'right' });
-            
-            doc.moveDown(0.5);
-            itemsPerPage++;
-        });
-
-        console.log('[PDF-GEN] Finalizing PDF');
-        doc.end();
-
-        // After stream finishes, send the file
-        stream.on('finish', () => {
-            console.log('[PDF-GEN] PDF created, sending to client');
-            
-            if (fs.existsSync(filePath)) {
-                const stats = fs.statSync(filePath);
-                const fileSizeInKB = (stats.size / 1024).toFixed(2);
-                console.log('[PDF-GEN] File size:', fileSizeInKB, 'KB');
-            }
-
-            res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
-            
-            const fileStream = fs.createReadStream(filePath);
-            fileStream.pipe(res);
-        });
-
-        stream.on('error', (err) => {
-            console.error('[PDF-GEN] Stream error:', err);
-            res.status(500).send('Error generating PDF');
-        });
+        const fileStream = fs.createReadStream(filePath);
+        fileStream.pipe(res);
         
     } catch (err) {
         console.error('[PDF-GEN] ERROR:', err.message);

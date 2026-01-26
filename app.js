@@ -36,32 +36,16 @@ async function compressPdfFile(inputPath) {
             }
         }
         
-        console.log('[PDF-COMPRESS] Public key found, proceeding with compression...');
+        console.log('[PDF-COMPRESS] Public key found, proceeding with compression (no timeout)...');
 
-        // Create a timeout promise
-        const compressionWithTimeout = new Promise((resolve, reject) => {
-            const timeoutId = setTimeout(() => {
-                reject(new Error('Compression timeout - taking too long'));
-            }, 30000); // 30 second timeout
-
-            // Perform actual compression
-            performCompressionAsync(inputPath, publicKey)
-                .then(result => {
-                    clearTimeout(timeoutId);
-                    resolve(result);
-                })
-                .catch(err => {
-                    clearTimeout(timeoutId);
-                    reject(err);
-                });
-        });
-
-        return await compressionWithTimeout;
+        // No timeout - wait as long as needed for compression to complete
+        const result = await performCompressionAsync(inputPath, publicKey);
+        return result;
 
     } catch (error) {
         console.error('[PDF-COMPRESS] Error during compression:', error.message);
-        console.log('[PDF-COMPRESS] Returning original file');
-        return inputPath;
+        console.error('[PDF-COMPRESS] Stack:', error.stack);
+        throw error; // Throw error instead of silently returning original
     }
 }
 
@@ -1842,7 +1826,8 @@ app.get('/generate-products-pdf-download', async (req, res) => {
         const ejs = require('ejs');
         
         let filePath;
-        let browser;
+        let fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
+        filePath = `./pdfs/${fileName}`;
         
         try {
             const browser = await puppeteer.launch({
@@ -1906,8 +1891,6 @@ app.get('/generate-products-pdf-download', async (req, res) => {
             
             // Fallback: Use PDFKit for simple PDF generation
             const PDFDocument = require('pdfkit');
-            const fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
-            filePath = `./pdfs/${fileName}`;
             
             fs.mkdirSync('./pdfs', { recursive: true });
             
@@ -1957,7 +1940,16 @@ app.get('/generate-products-pdf-download', async (req, res) => {
 
         // Compress PDF using iLovePDF API
         console.log('[PDF-GEN] Starting PDF compression...');
-        const compressedFilePath = await compressPdfFile(filePath);
+        let compressedFilePath = filePath; // Default to original
+        
+        try {
+            compressedFilePath = await compressPdfFile(filePath);
+            console.log('[PDF-GEN] Compression successful');
+        } catch (compressionErr) {
+            console.error('[PDF-GEN] Compression failed:', compressionErr.message);
+            console.log('[PDF-GEN] Will send uncompressed PDF');
+            compressedFilePath = filePath;
+        }
         
         // Check compressed file size
         if (fs.existsSync(compressedFilePath)) {

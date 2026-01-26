@@ -1841,60 +1841,112 @@ app.get('/generate-products-pdf-download', async (req, res) => {
         const puppeteer = require('puppeteer');
         const ejs = require('ejs');
         
-        const browser = await puppeteer.launch({
-            headless: true,
-            args: [
-                '--no-sandbox', 
-                '--disable-setuid-sandbox',
-                '--disable-dev-shm-usage',
-                '--disable-gpu',
-                '--disable-extensions'
-            ]
-        });
-        console.log('[PDF-GEN] Browser launched');
-
-        const page = await browser.newPage();
-        await page.setViewport({ width: 1200, height: 800, deviceScaleFactor: 1 });
-
-        // Read and render the EJS template
-        console.log('[PDF-GEN] Reading EJS template...');
-        const templatePath = path.join(__dirname, 'views/products-pdf.ejs');
-        const template = fs.readFileSync(templatePath, 'utf8');
+        let filePath;
+        let browser;
         
-        const html = ejs.render(template, {
-            inventory: inventoryWithUrls,
-            req: { session: { user: user } }
-        });
-        console.log('[PDF-GEN] HTML rendered');
+        try {
+            const browser = await puppeteer.launch({
+                headless: true,
+                args: [
+                    '--no-sandbox', 
+                    '--disable-setuid-sandbox',
+                    '--disable-dev-shm-usage',
+                    '--disable-gpu',
+                    '--disable-extensions'
+                ]
+            });
+            console.log('[PDF-GEN] Browser launched');
 
-        // Set HTML content
-        console.log('[PDF-GEN] Setting page content...');
-        await page.setContent(html, {
-            waitUntil: 'networkidle2',
-            timeout: 60000
-        });
-        console.log('[PDF-GEN] Page content set');
+            const page = await browser.newPage();
+            await page.setViewport({ width: 1200, height: 800, deviceScaleFactor: 1 });
 
-        const fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
-        const filePath = `./pdfs/${fileName}`;
-        
-        fs.mkdirSync('./pdfs', { recursive: true });
-        console.log('[PDF-GEN] Generating PDF to:', filePath);
-        
-        await page.pdf({
-            path: filePath,
-            format: 'A4',
-            printBackground: true,
-            preferCSSPageSize: true,
-            displayHeaderFooter: false,
-            margin: { top: '15mm', right: '15mm', bottom: '15mm', left: '15mm' },
-            tagged: false,
-            outline: false
-        });
-        console.log('[PDF-GEN] PDF generated');
+            // Read and render the EJS template
+            console.log('[PDF-GEN] Reading EJS template...');
+            const templatePath = path.join(__dirname, 'views/products-pdf.ejs');
+            const template = fs.readFileSync(templatePath, 'utf8');
+            
+            const html = ejs.render(template, {
+                inventory: inventoryWithUrls,
+                req: { session: { user: user } }
+            });
+            console.log('[PDF-GEN] HTML rendered');
 
-        await browser.close();
-        console.log('[PDF-GEN] Browser closed');
+            // Set HTML content
+            console.log('[PDF-GEN] Setting page content...');
+            await page.setContent(html, {
+                waitUntil: 'networkidle2',
+                timeout: 60000
+            });
+            console.log('[PDF-GEN] Page content set');
+
+            const fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
+            filePath = `./pdfs/${fileName}`;
+            
+            fs.mkdirSync('./pdfs', { recursive: true });
+            console.log('[PDF-GEN] Generating PDF to:', filePath);
+            
+            await page.pdf({
+                path: filePath,
+                format: 'A4',
+                printBackground: true,
+                preferCSSPageSize: true,
+                displayHeaderFooter: false,
+                margin: { top: '15mm', right: '15mm', bottom: '15mm', left: '15mm' },
+                tagged: false,
+                outline: false
+            });
+            console.log('[PDF-GEN] PDF generated');
+
+            await browser.close();
+            console.log('[PDF-GEN] Browser closed');
+            
+        } catch (puppeteerErr) {
+            console.error('[PDF-GEN] Puppeteer error:', puppeteerErr.message);
+            console.log('[PDF-GEN] Chrome not available, falling back to PDFKit...');
+            
+            // Fallback: Use PDFKit for simple PDF generation
+            const PDFDocument = require('pdfkit');
+            const fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
+            filePath = `./pdfs/${fileName}`;
+            
+            fs.mkdirSync('./pdfs', { recursive: true });
+            
+            const doc = new PDFDocument({ margin: 40 });
+            const fileStream = fs.createWriteStream(filePath);
+            doc.pipe(fileStream);
+            
+            // Title
+            doc.fontSize(16).font('Helvetica-Bold').text('Product List', { align: 'center' });
+            doc.fontSize(12).text(`Company: ${user.company}`, { align: 'center' });
+            doc.moveDown();
+            
+            // Table header
+            doc.fontSize(10).font('Helvetica-Bold');
+            doc.text('Item Name', 50, doc.y);
+            doc.text('Price', 300, doc.y);
+            doc.text('Qty', 450, doc.y);
+            doc.moveDown();
+            
+            // Table data
+            doc.font('Helvetica').fontSize(9);
+            adjustedInventory.forEach(item => {
+                const y = doc.y;
+                doc.text(item.itemName.substring(0, 40), 50, y, { width: 240 });
+                doc.text(`$${item.price.toFixed(2)}`, 300, y);
+                doc.text(item.quantity ? item.quantity.toFixed(2) : '0', 450, y);
+                doc.moveDown(1.5);
+            });
+            
+            doc.end();
+            
+            // Wait for file to be written
+            await new Promise((resolve, reject) => {
+                fileStream.on('finish', resolve);
+                fileStream.on('error', reject);
+            });
+            
+            console.log('[PDF-GEN] PDF generated using PDFKit fallback');
+        }
 
         // Check file size before compression
         if (fs.existsSync(filePath)) {

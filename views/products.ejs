@@ -165,17 +165,19 @@
 
     <div class="product-container">
         <% inventory.forEach(item => { %>
+            <% const q = Number(item && item.quantity) || 0; %>
+            <% if (q <= 0) { return; } %>
             <div class="product">
                 <img src="<%= item.imageUrl %>" alt="<%= item.itemName %>">
                 <div class="product-details">
                     <h3><%= item.itemName %></h3>
-                    <p>$<%= item[`priceLevel${req.session.user.priceLevel}`] ? item[`priceLevel${req.session.user.priceLevel}`].toFixed(2) : 'N/A' %></p>                    
-                    <% if (item.quantity && item.quantity.toFixed(2) > 0) { %>
+                    <p>$<%= item[`priceLevel${req.session.user.priceLevel}`] ? item[`priceLevel${req.session.user.priceLevel}`].toFixed(2) : 'N/A' %></p>
+                    <% if (q > 0) { %>
                         <div class="inline-form">
                             <input type="number" id="quantity_<%= item.id %>" name="quantity" step="0.01" min="0.01" value="1">
                             <button onclick="addToCart('<%= item.id %>')">Add to Cart</button>
                         </div>
-                    <% }else { %>
+                    <% } else { %>
                         <button onclick="showBackorderForm('<%= item.id %>')">Backorder</button>
                     <% } %>
                 </div>

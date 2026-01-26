@@ -1,5 +1,4 @@
 // Load environment variables from .env file
-//works
 require('dotenv').config();
 
 const express = require('express');
@@ -11,6 +10,7 @@ const emailService = require('./services/emailService');
 const fs = require('fs');
 const multer = require('multer');
 const path = require('path');
+const sharp = require('sharp');
 const app = express();
 const moment = require('moment');
 const archiver = require('archiver');
@@ -1236,8 +1236,6 @@ app.post('/checkout', async (req, res) => {
     }
 });
 
-
-
 // Add this route after your existing routes
 app.get('/download-invoice/:invoiceNumber', (req, res) => {
     const invoiceNumber = req.params.invoiceNumber;
@@ -1292,7 +1290,6 @@ app.get('/checkout', (req, res) => {
         totalAmount: totalAmount
     });
 });
-
 
 
 
@@ -1787,8 +1784,7 @@ app.get('/products-pdf/:userId', (req, res) => {
 });
 
 // Route to generate products PDF
-// Route to generate products PDF
-// Direct PDF generation and download route - using Puppeteer with EJS template (with images)
+// Direct PDF generation and download route - using PDFKit to create a grid layout with images
 app.get('/generate-products-pdf-download', async (req, res) => {
     console.log('[PDF-GEN] Request received for PDF download');
     
@@ -1804,133 +1800,216 @@ app.get('/generate-products-pdf-download', async (req, res) => {
 
         console.log('[PDF-GEN] Preparing inventory for:', user.company);
 
-        // Prepare inventory data
-        const adjustedInventory = inventory.map(item => ({
+        // Only include items that are in-stock (quantity > 0)
+        const visibleInventory = inventory.filter(it => {
+            // treat undefined/null as zero
+            const q = Number(it && it.quantity) || 0;
+            return q > 0;
+        });
+
+        // Auto-map images: if item.imageUrl missing but a file named <id>.(jpg|png|jpeg|gif|webp) exists in public/uploads, set it in-memory.
+        const uploadsDir = path.join(__dirname, 'public', 'uploads');
+        const commonExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+        let mappedCount = 0;
+        visibleInventory.forEach(item => {
+            if (!item) return;
+            // normalize existing imageUrl
+            if (item.imageUrl && typeof item.imageUrl === 'string' && item.imageUrl.length > 0) {
+                // ensure it starts with /uploads/
+                if (!item.imageUrl.startsWith('/uploads/') && item.imageUrl.startsWith('uploads/')) {
+                    item.imageUrl = '/' + item.imageUrl;
+                }
+                return; // already has imageUrl
+            }
+
+            // try mapping by id
+            if (item.id) {
+                for (const ext of commonExts) {
+                    const candidate = path.join(uploadsDir, String(item.id) + ext);
+                    if (fs.existsSync(candidate)) {
+                        item.imageUrl = '/uploads/' + String(item.id) + ext;
+                        mappedCount++;
+                        break;
+                    }
+                }
+            }
+
+            // fallback: try to match by itemName tokens (small heuristic)
+            if (!item.imageUrl && item.itemName) {
+                const nameTokens = item.itemName.toLowerCase().split(/[^a-z0-9]+/).filter(t => t.length >= 3);
+                if (nameTokens.length) {
+                    const files = fs.readdirSync(uploadsDir);
+                    const match = files.find(f => nameTokens.some(t => f.toLowerCase().includes(t)));
+                    if (match) {
+                        item.imageUrl = '/uploads/' + match;
+                        mappedCount++;
+                    }
+                }
+            }
+        });
+        console.log('[PDF-GEN] Auto-mapped images count:', mappedCount);
+
+        // Prepare inventory data (only visible items)
+        const adjustedInventory = visibleInventory.map(item => ({
             ...item,
             price: (Math.floor((item[userPriceLevel] * finalPriceMultiplier) * 4) / 4)
         }));
 
-        // Get base URL from request
-        const protocol = req.get('x-forwarded-proto') || req.protocol;
-        const host = req.get('host');
-        const baseUrl = `${protocol}://${host}`;
-        console.log('[PDF-GEN] Base URL:', baseUrl);
+        // Sort inventory based on category rank then item rank
+        adjustedInventory.sort((a, b) => {
+            const rankA = categoryRanks[a.itemCategory] || Infinity;
+            const rankB = categoryRanks[b.itemCategory] || Infinity;
+            if (rankA !== rankB) {
+                return rankA - rankB;
+            }
+            return (a.rank || 0) - (b.rank || 0);
+        });
 
-        // Convert image paths to absolute URLs
-        const inventoryWithUrls = adjustedInventory.map(item => ({
-            ...item,
-            imageUrl: item.imageUrl ? `${baseUrl}${item.imageUrl}` : ''
-        }));
+        const fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
+        const filePath = path.join(__dirname, 'pdfs', fileName);
+        fs.mkdirSync(path.dirname(filePath), { recursive: true });
 
-        console.log('[PDF-GEN] Starting puppeteer...');
-        const puppeteer = require('puppeteer');
-        const ejs = require('ejs');
-        
-        let filePath;
-        let fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
-        filePath = `./pdfs/${fileName}`;
-        
-        try {
-            const browser = await puppeteer.launch({
-                headless: true,
-                args: [
-                    '--no-sandbox', 
-                    '--disable-setuid-sandbox',
-                    '--disable-dev-shm-usage',
-                    '--disable-gpu',
-                    '--disable-extensions'
-                ]
+        console.log('[PDF-GEN] Starting PDF generation with PDFKit...');
+        const PDFDocument = require('pdfkit');
+        const doc = new PDFDocument({
+            size: 'A4',
+            margin: 40,
+            layout: 'portrait'
+        });
+
+        const writeStream = fs.createWriteStream(filePath);
+        doc.pipe(writeStream);
+
+        // --- PDF Content Generation ---
+
+        // Header (brand + month/year subtitle)
+        const now = new Date();
+        const monthYear = now.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+        doc.fontSize(18).font('Helvetica-Bold').text('Supply Stacker LLC', { align: 'center' });
+        doc.moveDown(0.3);
+        doc.fontSize(12).font('Helvetica').text(`${monthYear} - Product Catalog`, { align: 'center' });
+        doc.moveDown(1);
+
+        // Grid layout settings (4 columns x 3 rows), evenly distribute vertical space between rows
+        const itemsPerRow = 4;
+        const rowsPerPage = 3;
+        const itemsPerPage = itemsPerRow * rowsPerPage; // 12 items per page
+        const pageMargin = 40;
+        const gutter = 15;
+        const availableWidth = doc.page.width - (pageMargin * 2);
+        const cellWidth = (availableWidth - (gutter * (itemsPerRow - 1))) / itemsPerRow;
+
+        // Reserve header area height so subsequent pages leave the same top gap
+        const headerReservedTop = doc.y; // y position after drawing the main header
+
+        // Compute available height for the grid (between header and bottom margin)
+        const footerReserve = 30; // reserve for footer / page number area
+        const availableHeight = doc.page.height - pageMargin - headerReservedTop - pageMargin - footerReserve;
+        const cellHeight = (availableHeight - (gutter * (rowsPerPage - 1))) / rowsPerPage;
+
+        let pageItemIndex = 0; // index of item within the current page
+        let pageNumber = 1;
+
+        const addPageHeader = () => {
+            // Only print page number on subsequent pages (no company header)
+            doc.fontSize(8).font('Helvetica').text(`Page ${pageNumber}`, doc.page.width - pageMargin - 50, pageMargin / 2, {
+                align: 'right',
+                width: 50
             });
-            console.log('[PDF-GEN] Browser launched');
+            // Position the y cursor where the grid should start
+            doc.y = headerReservedTop;
+        };
 
-            const page = await browser.newPage();
-            await page.setViewport({ width: 1200, height: 800, deviceScaleFactor: 1 });
+        addPageHeader();
 
-            // Read and render the EJS template
-            console.log('[PDF-GEN] Reading EJS template...');
-            const templatePath = path.join(__dirname, 'views/products-pdf.ejs');
-            const template = fs.readFileSync(templatePath, 'utf8');
-            
-            const html = ejs.render(template, {
-                inventory: inventoryWithUrls,
-                req: { session: { user: user } }
-            });
-            console.log('[PDF-GEN] HTML rendered');
+        for (const item of adjustedInventory) {
+            // Start a new page when current page is full
+            if (pageItemIndex >= itemsPerPage) {
+                doc.addPage();
+                pageNumber++;
+                pageItemIndex = 0;
+                addPageHeader();
+            }
 
-            // Set HTML content
-            console.log('[PDF-GEN] Setting page content...');
-            await page.setContent(html, {
-                waitUntil: 'networkidle2',
-                timeout: 60000
-            });
-            console.log('[PDF-GEN] Page content set');
+            const col = pageItemIndex % itemsPerRow;
+            const row = Math.floor(pageItemIndex / itemsPerRow);
+            const x = pageMargin + (col * (cellWidth + gutter));
+            const y = headerReservedTop + (row * (cellHeight + gutter));
 
-            const fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
-            filePath = `./pdfs/${fileName}`;
-            
-            fs.mkdirSync('./pdfs', { recursive: true });
-            console.log('[PDF-GEN] Generating PDF to:', filePath);
-            
-            await page.pdf({
-                path: filePath,
-                format: 'A4',
-                printBackground: true,
-                preferCSSPageSize: true,
-                displayHeaderFooter: false,
-                margin: { top: '15mm', right: '15mm', bottom: '15mm', left: '15mm' },
-                tagged: false,
-                outline: false
-            });
-            console.log('[PDF-GEN] PDF generated');
 
-            await browser.close();
-            console.log('[PDF-GEN] Browser closed');
-            
-        } catch (puppeteerErr) {
-            console.error('[PDF-GEN] Puppeteer error:', puppeteerErr.message);
-            console.log('[PDF-GEN] Chrome not available, falling back to PDFKit...');
-            
-            // Fallback: Use PDFKit for simple PDF generation
-            const PDFDocument = require('pdfkit');
-            
-            fs.mkdirSync('./pdfs', { recursive: true });
-            
-            const doc = new PDFDocument({ margin: 40 });
-            const fileStream = fs.createWriteStream(filePath);
-            doc.pipe(fileStream);
-            
-            // Title
-            doc.fontSize(16).font('Helvetica-Bold').text('Product List', { align: 'center' });
-            doc.fontSize(12).text(`Company: ${user.company}`, { align: 'center' });
-            doc.moveDown();
-            
-            // Table header
-            doc.fontSize(10).font('Helvetica-Bold');
-            doc.text('Item Name', 50, doc.y);
-            doc.text('Price', 300, doc.y);
-            doc.text('Qty', 450, doc.y);
-            doc.moveDown();
-            
-            // Table data
-            doc.font('Helvetica').fontSize(9);
-            adjustedInventory.forEach(item => {
-                const y = doc.y;
-                doc.text(item.itemName.substring(0, 40), 50, y, { width: 240 });
-                doc.text(`$${item.price.toFixed(2)}`, 300, y);
-                doc.text(item.quantity ? item.quantity.toFixed(2) : '0', 450, y);
-                doc.moveDown(1.5);
-            });
-            
-            doc.end();
-            
-            // Wait for file to be written
-            await new Promise((resolve, reject) => {
-                fileStream.on('finish', resolve);
-                fileStream.on('error', reject);
-            });
-            
-            console.log('[PDF-GEN] PDF generated using PDFKit fallback');
+            // Draw image
+            const imagePath = path.join(__dirname, 'public', item.imageUrl.startsWith('/') ? item.imageUrl.substring(1) : item.imageUrl);
+            if (fs.existsSync(imagePath)) {
+                try {
+                    // Try direct embed first
+                    doc.image(imagePath, x, y, {
+                        fit: [cellWidth, cellHeight - 50],
+                        align: 'center',
+                        valign: 'center'
+                    });
+                } catch (imgErr) {
+                    console.error(`[PDF-GEN] Direct embed failed for ${imagePath}:`, imgErr.message);
+                    // Convert with sharp to PNG buffer and embed synchronously
+                    try {
+                        const buf = fs.readFileSync(imagePath);
+                        const pngBuf = await sharp(buf).png().toBuffer();
+                        try {
+                            doc.image(pngBuf, x, y, { fit: [cellWidth, cellHeight - 50] });
+                        } catch (e2) {
+                            console.error('[PDF-GEN] Failed to embed converted PNG buffer for', imagePath, e2.message);
+                            doc.rect(x, y, cellWidth, cellHeight - 50).stroke();
+                            doc.fontSize(8).text('Image Error', x + 5, y + 5);
+                        }
+                    } catch (convErr) {
+                        console.error('[PDF-GEN] Sharp conversion failed for', imagePath, convErr.message);
+                        doc.rect(x, y, cellWidth, cellHeight - 50).stroke();
+                        doc.fontSize(8).text('Image Error', x + 5, y + 5);
+                    }
+                }
+            } else {
+                console.error(`[PDF-GEN] Image file not found at path: ${imagePath}`);
+                // Draw an empty box if the file doesn't exist
+                doc.rect(x, y, cellWidth, cellHeight - 50).stroke();
+                doc.fontSize(8).text('Not Found', x + 5, y + 5);
+            }
+
+            // Product Name + Price (allow multi-line names)
+            try {
+                // Reserve image area height
+                const imageBoxHeight = cellHeight - 60; // leave space for name + price
+
+                // Ensure font settings for measuring
+                doc.font('Helvetica-Bold').fontSize(9);
+                const nameHeight = doc.heightOfString(String(item.itemName || ''), { width: cellWidth });
+                const nameY = y + imageBoxHeight + 6;
+
+                // Draw the name (allow wrapping across multiple lines)
+                doc.text(item.itemName || '', x, nameY, {
+                    width: cellWidth,
+                    align: 'center'
+                });
+
+                // Draw price below name
+                const priceY = nameY + nameHeight + 6;
+                doc.font('Helvetica').fontSize(10).text(`$${(item.price || 0).toFixed(2)}`, x, priceY, {
+                    width: cellWidth,
+                    align: 'center'
+                });
+            } catch (textErr) {
+                console.error('[PDF-GEN] Error drawing text for', item.itemName, textErr.message);
+            }
+
+            pageItemIndex++;
         }
+
+        doc.end();
+
+        await new Promise((resolve, reject) => {
+            writeStream.on('finish', resolve);
+            writeStream.on('error', reject);
+        });
+
+        console.log('[PDF-GEN] PDF generated successfully with PDFKit at', filePath);
 
         // Check file size before compression
         if (fs.existsSync(filePath)) {
@@ -1997,6 +2076,50 @@ app.post('/generate-products-pdf', async (req, res) => {
         const user = req.session.user;
         const userPriceLevel = `priceLevel${user.priceLevel}`;
         const finalPriceMultiplier = user.finalPrice || 1;
+
+        console.log('[PDF-ROUTE] Preparing inventory for:', user.company);
+
+        // Auto-map images: if item.imageUrl missing but a file named <id>.(jpg|png|jpeg|gif) exists in public/uploads, set it in-memory.
+        const uploadsDir = path.join(__dirname, 'public', 'uploads');
+        const commonExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+        let mappedCount = 0;
+        inventory.forEach(item => {
+            if (!item) return;
+            // normalize existing imageUrl
+            if (item.imageUrl && typeof item.imageUrl === 'string' && item.imageUrl.length > 0) {
+                // ensure it starts with /uploads/
+                if (!item.imageUrl.startsWith('/uploads/') && item.imageUrl.startsWith('uploads/')) {
+                    item.imageUrl = '/' + item.imageUrl;
+                }
+                return; // already has imageUrl
+            }
+
+            // try mapping by id
+            if (item.id) {
+                for (const ext of commonExts) {
+                    const candidate = path.join(uploadsDir, String(item.id) + ext);
+                    if (fs.existsSync(candidate)) {
+                        item.imageUrl = '/uploads/' + String(item.id) + ext;
+                        mappedCount++;
+                        break;
+                    }
+                }
+            }
+
+            // fallback: try to match by itemName tokens (small heuristic)
+            if (!item.imageUrl && item.itemName) {
+                const nameTokens = item.itemName.toLowerCase().split(/[^a-z0-9]+/).filter(t => t.length >= 3);
+                if (nameTokens.length) {
+                    const files = fs.readdirSync(uploadsDir);
+                    const match = files.find(f => nameTokens.some(t => f.toLowerCase().includes(t)));
+                    if (match) {
+                        item.imageUrl = '/uploads/' + match;
+                        mappedCount++;
+                    }
+                }
+            }
+        });
+        console.log('[PDF-ROUTE] Auto-mapped images count:', mappedCount);
 
         // Prepare inventory data
         const adjustedInventory = inventory.map(item => ({
@@ -2067,11 +2190,6 @@ app.get('/download-products-pdf', (req, res) => {
 
 
 
-
-
-
-
-
 // Admin Sales Tax Report Page - GET Route
 app.get('/admin/salestaxreport', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
@@ -2114,7 +2232,9 @@ app.post('/admin/salestaxreport', (req, res) => {
         if (user.invoices && user.invoices.length > 0) {
             user.invoices.forEach(invoice => {
                 const invoiceDate = moment(invoice.dateCreated, ["MM/DD/YYYY", "YYYY-MM-DD"]);
-                
+                const isCurrentMonth = invoiceDate.isBetween(start, end, undefined, '[]');
+                const isLastMonth = invoiceDate.isBetween(startOfLastMonth, endOfLastMonth, undefined, '[]');
+
                 // Calculate total gross receipts from all invoices, regardless of sales tax
                 if (invoiceDate.isBetween(start, end, undefined, '[]')) {
                     console.log(invoice)

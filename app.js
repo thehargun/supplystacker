@@ -1,3 +1,6 @@
+// Load environment variables from .env file
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -17,10 +20,13 @@ async function compressPdfFile(inputPath) {
         console.log('[PDF-COMPRESS] Starting compression for:', inputPath);
         
         const publicKey = process.env.ILOVE_PUBLIC_KEY || process.env.ILOVE_PROJECT_ID;
+        console.log('[PDF-COMPRESS] Public key check - exists:', !!publicKey);
         if (!publicKey) {
             console.warn('[PDF-COMPRESS] No iLovePDF public key found, skipping compression');
             return inputPath; // Return original file if no API key
         }
+
+        console.log('[PDF-COMPRESS] Public key found, proceeding with compression...');
 
         // 1) Auth: Get signed token
         const authRes = await fetch("https://api.ilovepdf.com/v1/auth", {
@@ -49,11 +55,19 @@ async function compressPdfFile(inputPath) {
         if (!server || !task) throw new Error('No server or task from start response');
 
         // 3) Upload: Send PDF file to server
+        console.log('[PDF-COMPRESS] Reading file:', inputPath);
+        if (!fs.existsSync(inputPath)) {
+            throw new Error(`File not found: ${inputPath}`);
+        }
+        
         const fileBuf = fs.readFileSync(inputPath);
+        console.log('[PDF-COMPRESS] File read successfully, size:', (fileBuf.length / (1024 * 1024)).toFixed(2), 'MB');
+        
         const form = new FormData();
         form.append("task", task);
         form.append("file", new Blob([fileBuf], { type: "application/pdf" }), path.basename(inputPath));
 
+        console.log('[PDF-COMPRESS] Uploading file to:', `https://${server}/v1/upload`);
         const uploadRes = await fetch(`https://${server}/v1/upload`, {
             method: "POST",
             headers: authHeader,
@@ -64,6 +78,7 @@ async function compressPdfFile(inputPath) {
         const uploadJson = await uploadRes.json();
         const serverFilename = uploadJson.server_filename;
         if (!serverFilename) throw new Error('No server filename from upload');
+        console.log('[PDF-COMPRESS] Upload successful, server filename:', serverFilename);
 
         // 4) Process: Start compression
         const processBody = {
@@ -73,6 +88,7 @@ async function compressPdfFile(inputPath) {
             files: [{ server_filename: serverFilename, filename: path.basename(inputPath) }]
         };
 
+        console.log('[PDF-COMPRESS] Processing compression...');
         const processRes = await fetch(`https://${server}/v1/process`, {
             method: "POST",
             headers: { ...authHeader, "Content-Type": "application/json" },
@@ -80,8 +96,10 @@ async function compressPdfFile(inputPath) {
         });
         
         if (!processRes.ok) throw new Error(`Process failed: ${processRes.status}`);
+        console.log('[PDF-COMPRESS] Process completed successfully');
 
         // 5) Download: Get compressed PDF
+        console.log('[PDF-COMPRESS] Downloading compressed file...');
         const downloadRes = await fetch(`https://${server}/v1/download/${task}`, {
             method: "GET",
             headers: authHeader
@@ -92,8 +110,9 @@ async function compressPdfFile(inputPath) {
         // Save compressed file
         const compressedBuf = Buffer.from(await downloadRes.arrayBuffer());
         const compressedPath = inputPath.replace('.pdf', '-compressed.pdf');
-        fs.writeFileSync(compressedPath, compressedBuf);
+        console.log('[PDF-COMPRESS] Downloaded compressed file, size:', (compressedBuf.length / (1024 * 1024)).toFixed(2), 'MB');
         
+        fs.writeFileSync(compressedPath, compressedBuf);
         console.log('[PDF-COMPRESS] Compression successful, saved to:', compressedPath);
         return compressedPath;
 
@@ -1868,6 +1887,16 @@ app.get('/generate-products-pdf-download', async (req, res) => {
         res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
         
         const fileStream = fs.createReadStream(compressedFilePath);
+        
+        fileStream.on('error', (err) => {
+            console.error('[PDF-GEN] File stream error:', err.message);
+            res.status(500).send('Error streaming PDF file: ' + err.message);
+        });
+        
+        res.on('error', (err) => {
+            console.error('[PDF-GEN] Response error:', err.message);
+        });
+        
         fileStream.pipe(res);
         
     } catch (err) {

@@ -10521,10 +10521,10 @@
           "subtotal": 54.25,
           "salesTax": 0,
           "totalAmount": 54.25,
-          "totalBalance": 0.02,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 54.23,
+          "AccountPayment": 54.25,
           "notes": "Check # 1083 -03/28/2025 Wells Fargo($3297.75)  INV -161 - 175"
         },
         {
@@ -14160,10 +14160,11 @@
           "subtotal": 133.75,
           "salesTax": 0,
           "totalAmount": 133.75,
-          "totalBalance": 133.75,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 133.75,
+          "notes": "Zelle BOFA"
         }
       ]
     },
@@ -16675,13 +16676,6 @@
               "total": 1000
             },
             {
-              "productName": "Paper Bags 8x4x10 Twisted Handle (250pcs)",
-              "productCategory": "Paper Bags",
-              "quantity": 72,
-              "rate": 15.5,
-              "total": 1116
-            },
-            {
               "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16 (1000/Case)",
               "productCategory": "Aluminum Foil Sheets",
               "quantity": 50,
@@ -16694,16 +16688,23 @@
               "quantity": 1,
               "rate": 0,
               "total": 0
+            },
+            {
+              "productName": "Paper Bags 8x4x10 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 72,
+              "rate": 15.5,
+              "total": 1116
             }
           ],
           "subtotal": 3816,
           "salesTax": 0,
           "totalAmount": 3816,
-          "totalBalance": 3816,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 3816,
+          "notes": "Check # 4921 01/26/2026 Wells Fargo "
         }
       ],
       "taxable": false
@@ -19394,13 +19395,6 @@
           "dateCreated": "2025-03-05",
           "products": [
             {
-              "productName": "Toilet Roll 2 Ply 96 Rolls",
-              "productCategory": "Paper Towels",
-              "quantity": 25,
-              "rate": 33,
-              "total": 825
-            },
-            {
               "productName": "7\" Aluminum Pan 7.6g",
               "productCategory": "Aluminum Pans",
               "quantity": 15,
@@ -19411,11 +19405,11 @@
           "subtotal": 1260,
           "salesTax": 0,
           "totalAmount": 1260,
-          "totalBalance": 1260,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 1260,
+          "notes": "KP26 - KP30 Clear with INVOICE 4 to 8"
         },
         {
           "invoiceNumber": "KP27",
@@ -19466,11 +19460,11 @@
           "subtotal": 1325,
           "salesTax": 0,
           "totalAmount": 1325,
-          "totalBalance": 1325,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 1325,
+          "notes": "KP26 - KP30 Clear with INVOICE 4 to 8"
         },
         {
           "invoiceNumber": "KP28",
@@ -19507,10 +19501,11 @@
           "subtotal": 1498,
           "salesTax": 0,
           "totalAmount": 1498,
-          "totalBalance": 1498,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 1498,
+          "notes": "KP26 - KP30 Clear with INVOICE 4 to 8"
         },
         {
           "invoiceNumber": "KP29",
@@ -19547,11 +19542,11 @@
           "subtotal": 760,
           "salesTax": 0,
           "totalAmount": 760,
-          "totalBalance": 760,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 760,
+          "notes": "KP26 - KP30 Clear with INVOICE 4 to 8"
         },
         {
           "invoiceNumber": "KP30",
@@ -19595,45 +19590,11 @@
           "subtotal": 882.5,
           "salesTax": 0,
           "totalAmount": 882.5,
-          "totalBalance": 882.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
-        },
-        {
-          "invoiceNumber": "KP31",
-          "companyName": "Keyserman Packaging",
-          "addressLine1": "1906 Ave R",
-          "addressLine2": "",
-          "city": "Brooklyn",
-          "state": "NY",
-          "zipCode": "11229",
-          "dateCreated": "2025-05-15",
-          "products": [
-            {
-              "productName": "#3 White SOS Bag 500pcs",
-              "productCategory": "SOS Bags",
-              "quantity": 140,
-              "rate": 8,
-              "total": 1120
-            },
-            {
-              "productName": "10\" TAD Towel",
-              "productCategory": "Paper Towels",
-              "quantity": 40,
-              "rate": 33.5,
-              "total": 1340
-            }
-          ],
-          "subtotal": 2460,
-          "salesTax": 0,
-          "totalAmount": 2460,
-          "totalBalance": 2460,
-          "paid": false,
-          "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 882.5,
+          "notes": "KP26 - KP30 Clear with INVOICE 4 to 8"
         },
         {
           "invoiceNumber": "KP32",
@@ -19656,17 +19617,18 @@
               "productName": "10\" TAD Towel",
               "productCategory": "Paper Towels",
               "quantity": 40,
-              "rate": 36.75,
-              "total": 1470
+              "rate": 33.5,
+              "total": 1340
             }
           ],
-          "subtotal": 2582,
+          "subtotal": 2452,
           "salesTax": 0,
-          "totalAmount": 2582,
-          "totalBalance": 2582,
+          "totalAmount": 2452,
+          "totalBalance": 2452,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
           "invoiceNumber": "KP33",
@@ -36691,10 +36653,11 @@
           "subtotal": 284.55,
           "salesTax": 0,
           "totalAmount": 284.55,
-          "totalBalance": 284.55,
-          "paid": false,
-          "CashPayment": 0,
-          "AccountPayment": 0
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 284.55,
+          "AccountPayment": 0,
+          "notes": ""
         },
         {
           "invoiceNumber": "C224.5",
@@ -37082,10 +37045,72 @@
           "subtotal": 1158.75,
           "salesTax": 0,
           "totalAmount": 1158.75,
-          "totalBalance": 1158.75,
-          "paid": false,
-          "CashPayment": 0,
-          "AccountPayment": 0
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 1158.75,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "C236",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2026-01-28",
+          "products": [
+            {
+              "productName": "9 in Jumbo Bathroom Tissue",
+              "productCategory": "Paper Towels",
+              "quantity": 2,
+              "rate": 18.75,
+              "total": 37.5
+            },
+            {
+              "productName": "10\" TAD Towel",
+              "productCategory": "Paper Towels",
+              "quantity": 6,
+              "rate": 36.75,
+              "total": 220.5
+            }
+          ],
+          "subtotal": 258,
+          "salesTax": 0,
+          "totalAmount": 258,
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 258,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "C237",
+          "companyName": "Cash",
+          "addressLine1": "90 Dayton Ave",
+          "addressLine2": "Bld 12",
+          "city": "Passaic",
+          "state": "NJ",
+          "zipCode": "07055",
+          "dateCreated": "2026-01-28",
+          "products": [
+            {
+              "productName": "18\" Pallet Wrap 4 Rolls (22 lb)",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": 24,
+              "total": 24
+            }
+          ],
+          "subtotal": 24,
+          "salesTax": 0,
+          "totalAmount": 24,
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 24,
+          "AccountPayment": 0,
+          "notes": ""
         }
       ],
       "taxable": false
@@ -43989,13 +44014,6 @@
               "total": 35
             },
             {
-              "productName": "Paper Bags 8x4x10 Twisted Handle (250pcs)",
-              "productCategory": "Paper Bags",
-              "quantity": 1,
-              "rate": 35,
-              "total": 35
-            },
-            {
               "productName": "12 oz PET Cup 92mm (1000pcs)",
               "productCategory": "Plastic PET Cups",
               "quantity": 1,
@@ -44008,13 +44026,6 @@
               "quantity": 1,
               "rate": 30,
               "total": 30
-            },
-            {
-              "productName": "Aluminum Oblong Pan 1 lb (1000pcs)",
-              "productCategory": "Aluminum Pans",
-              "quantity": 1,
-              "rate": 90,
-              "total": 90
             },
             {
               "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
@@ -44050,16 +44061,30 @@
               "quantity": 1,
               "rate": 28,
               "total": 28
+            },
+            {
+              "productName": "Aluminum Oblong Pan 1lb (1000pcs)",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 90,
+              "total": 90
+            },
+            {
+              "productName": "Paper Bags 8x4x10 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 1,
+              "rate": 35,
+              "total": 35
             }
           ],
           "subtotal": 838,
           "salesTax": 1.85,
           "totalAmount": 839.85,
-          "totalBalance": 839.85,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 839.85,
+          "notes": "Check # 2500 12/12/2025 TD"
         },
         {
           "invoiceNumber": "BH25",
@@ -44100,13 +44125,6 @@
               "total": 26
             },
             {
-              "productName": "Paper Bags 8x4x10 Twisted Handle (250pcs)",
-              "productCategory": "Paper Bags",
-              "quantity": 1,
-              "rate": 35,
-              "total": 35
-            },
-            {
               "productName": "Paper Bags 10x7x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 1,
@@ -44121,7 +44139,14 @@
               "total": 46
             },
             {
-              "productName": "Aluminum Oblong Pan 1 lb (1000pcs)",
+              "productName": "Paper Bags 8x4x10 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 1,
+              "rate": 35,
+              "total": 35
+            },
+            {
+              "productName": "Aluminum Oblong Pan 1lb (1000pcs)",
               "productCategory": "Aluminum Pans",
               "quantity": 1,
               "rate": 90,
@@ -44131,11 +44156,11 @@
           "subtotal": 369.5,
           "salesTax": 0,
           "totalAmount": 369.5,
-          "totalBalance": 369.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 369.5,
+          "notes": "Check # 2506 12/28/2025 TD"
         },
         {
           "invoiceNumber": "BH26",
@@ -44176,27 +44201,6 @@
               "total": 69
             },
             {
-              "productName": "Aluminum Oblong Pan 1 lb (1000pcs)",
-              "productCategory": "Aluminum Pans",
-              "quantity": 1,
-              "rate": 90,
-              "total": 90
-            },
-            {
-              "productName": "Aluminum Oblong Pan 1 lb Dome Lid",
-              "productCategory": "Aluminum Pans",
-              "quantity": 1,
-              "rate": 25,
-              "total": 25
-            },
-            {
-              "productName": "Paper Bags 8x4x10 Twisted Handle (250pcs)",
-              "productCategory": "Paper Bags",
-              "quantity": 1,
-              "rate": 35,
-              "total": 35
-            },
-            {
               "productName": "Paper Bags 10x7x13 Twisted Handle",
               "productCategory": "Paper Bags",
               "quantity": 2,
@@ -44228,11 +44232,11 @@
           "subtotal": 650.5,
           "salesTax": 0,
           "totalAmount": 650.5,
-          "totalBalance": 650.52,
-          "paid": false,
-          "CashPayment": -0.02,
-          "AccountPayment": 0,
-          "notes": ""
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 0,
+          "AccountPayment": 650.5,
+          "notes": "# 104 Wells Fargo 01/24/2026"
         }
       ]
     },
@@ -49144,11 +49148,11 @@
           "subtotal": 637,
           "salesTax": 0,
           "totalAmount": 637,
-          "totalBalance": 270,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 367,
-          "notes": "Check # 1221 01/16/2026 TD"
+          "AccountPayment": 637,
+          "notes": "Check # 1221 01/16/2026 TD, Check # 1220 12/29/2025 BOFA"
         },
         {
           "invoiceNumber": "SP55",
@@ -49234,11 +49238,11 @@
           "subtotal": 440,
           "salesTax": 0,
           "totalAmount": 440,
-          "totalBalance": 440,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 440,
+          "notes": "#1222 TD 01/21/2026"
         }
       ]
     },
@@ -54849,11 +54853,11 @@
           "subtotal": 1518,
           "salesTax": 0,
           "totalAmount": 1518,
-          "totalBalance": 1518,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 1518,
+          "notes": "Check # 566 12/18/2025 Wells Fargo, Check # 567 12/24/2025 TD"
         },
         {
           "invoiceNumber": "DABH29",
@@ -55050,11 +55054,11 @@
           "subtotal": 1085,
           "salesTax": 0,
           "totalAmount": 1085,
-          "totalBalance": 1085,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 1085,
+          "notes": "#631 TD 01/21/2026"
         },
         {
           "invoiceNumber": "DABH31",
@@ -55143,6 +55147,145 @@
           "totalBalance": 951.02,
           "paid": false,
           "CashPayment": -0.02,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "DABH32",
+          "companyName": "Dosa And Biryani House",
+          "addressLine1": "350 Market St",
+          "addressLine2": "",
+          "city": "Saddle Brook",
+          "state": "NJ",
+          "zipCode": "07663",
+          "dateCreated": "2026-02-01",
+          "products": [
+            {
+              "productName": "Pactiv NC8168B 16 oz Black Rectangle Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 3,
+              "rate": 35,
+              "total": 105
+            },
+            {
+              "productName": "Pactiv NC729B 32 oz Black Round Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 2,
+              "rate": 35,
+              "total": 70
+            },
+            {
+              "productName": "10\" Bagasse 3 Compartment Plates Heavy Duty (500 pcs)",
+              "productCategory": "Bagasse",
+              "quantity": 2,
+              "rate": 45,
+              "total": 90
+            },
+            {
+              "productName": "PP901 PP091 Plastic Plates 400pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 4,
+              "rate": 29,
+              "total": 116
+            },
+            {
+              "productName": "8 oz White Bowl with Lid A08 500pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 2,
+              "rate": 40,
+              "total": 80
+            },
+            {
+              "productName": "Import 16 oz Soup Container  240pc Combo",
+              "productCategory": "Plastic Containers",
+              "quantity": 2,
+              "rate": 27,
+              "total": 54
+            },
+            {
+              "productName": "7\" Aluminum Pan 7.6g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 2,
+              "rate": 45,
+              "total": 90
+            },
+            {
+              "productName": "7\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 15,
+              "total": 45
+            },
+            {
+              "productName": "PP Hinged Container PP91 9\"x9\"x3 150pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 2,
+              "rate": 29,
+              "total": 58
+            },
+            {
+              "productName": "PP Hinged Container PP206 9\"x6\"x3 150pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 2,
+              "rate": 26,
+              "total": 52
+            },
+            {
+              "productName": "18x2000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 2,
+              "rate": 27,
+              "total": 54
+            },
+            {
+              "productName": "12\" x 1000' Aluminum Foil Roll Standard Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 3,
+              "rate": 23,
+              "total": 69
+            },
+            {
+              "productName": "Norpak Interfolded Sheet 10\" x 10.75",
+              "productCategory": "Wax Paper",
+              "quantity": 1,
+              "rate": 56,
+              "total": 56
+            },
+            {
+              "productName": "Aluminum Full Size Deep Pan 135-140g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 2,
+              "rate": 60,
+              "total": 120
+            },
+            {
+              "productName": "Aluminum Full Size Medium Pan 96g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 55,
+              "total": 55
+            },
+            {
+              "productName": "Aluminum Half Size Deep Pan 38-42g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 45,
+              "total": 45
+            },
+            {
+              "productName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
+              "productCategory": "Aluminum Foil Roll",
+              "quantity": 3,
+              "rate": 23,
+              "total": 69
+            }
+          ],
+          "subtotal": 1228,
+          "salesTax": 0,
+          "totalAmount": 1228,
+          "totalBalance": 1228,
+          "paid": false,
+          "CashPayment": 0,
           "AccountPayment": 0,
           "notes": ""
         }
@@ -59036,6 +59179,110 @@
           "CashPayment": 0,
           "AccountPayment": 1168.8,
           "notes": "#140 12/01/2025 Wells Fargo"
+        },
+        {
+          "invoiceNumber": "MIF11",
+          "companyName": "Manjal Indian Fusion",
+          "addressLine1": "95 Lincoln Ave",
+          "addressLine2": "",
+          "city": "Fair Lawn",
+          "state": "NJ",
+          "zipCode": "07410",
+          "dateCreated": "2026-01-30",
+          "products": [
+            {
+              "productName": "Pactiv NC723B 24 oz Black Round Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 5,
+              "rate": 29.5,
+              "total": 147.5
+            },
+            {
+              "productName": "Dinner Napkin 2 Ply 3000/Case",
+              "productCategory": "Paper Towels",
+              "quantity": 1,
+              "rate": 45,
+              "total": 45
+            },
+            {
+              "productName": "18x2000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 2,
+              "rate": 27,
+              "total": 54
+            },
+            {
+              "productName": "8\" 350' Hardwound Towel White",
+              "productCategory": "Paper Towels",
+              "quantity": 1,
+              "rate": 30,
+              "total": 30
+            },
+            {
+              "productName": "Toilet Roll 2 Ply 96 Rolls ",
+              "productCategory": "Paper Towels",
+              "quantity": 1,
+              "rate": 45,
+              "total": 45
+            },
+            {
+              "productName": "PP Hinged Container PP91 9\"x9\"x3 150pcs",
+              "productCategory": "Plastic PP Container",
+              "quantity": 1,
+              "rate": 30,
+              "total": 30
+            },
+            {
+              "productName": "Pactiv 16 oz Deli Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 1,
+              "rate": 33,
+              "total": 33
+            },
+            {
+              "productName": "Aluminum Oblong Pan 1lb (1000pcs)",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 90,
+              "total": 90
+            },
+            {
+              "productName": "7\" Aluminum Pan 7.6g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 45,
+              "total": 45
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 15,
+              "total": 15
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 2,
+              "rate": 24,
+              "total": 48
+            },
+            {
+              "productName": "Vynl Powder Free Gloves Large",
+              "productCategory": "Gloves",
+              "quantity": 1,
+              "rate": 28,
+              "total": 28
+            }
+          ],
+          "subtotal": 610.5,
+          "salesTax": 6.028125,
+          "totalAmount": 616.53,
+          "totalBalance": 616.53,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
         }
       ],
       "taxable": true
@@ -60383,6 +60630,117 @@
           "salesTax": 0,
           "totalAmount": 973,
           "totalBalance": 973,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
+        },
+        {
+          "invoiceNumber": "MIC11",
+          "companyName": "MANJAL INDIAN CUISINE",
+          "addressLine1": "37 Godwin Ave",
+          "addressLine2": "",
+          "city": "Ridgewood",
+          "state": "NJ",
+          "zipCode": "07450",
+          "dateCreated": "2026-01-30",
+          "products": [
+            {
+              "productName": "Pactiv NC723B 24 oz Black Round Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 8,
+              "rate": 29.5,
+              "total": 236
+            },
+            {
+              "productName": "Pactiv NC718B 16 oz Black Round Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 3,
+              "rate": 26,
+              "total": 78
+            },
+            {
+              "productName": "Paper Bags 10x7x12 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 3,
+              "rate": 35,
+              "total": 105
+            },
+            {
+              "productName": "7\" Aluminum Pan 7.6g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 45,
+              "total": 45
+            },
+            {
+              "productName": "7\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 15,
+              "total": 15
+            },
+            {
+              "productName": "Aluminum Oblong Pan 1lb (1000pcs)",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 90,
+              "total": 90
+            },
+            {
+              "productName": "Aluminum Oblong Pan 1lb Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 26,
+              "total": 26
+            },
+            {
+              "productName": "18x2000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 1,
+              "rate": 27,
+              "total": 27
+            },
+            {
+              "productName": "Pactiv 8 oz Deli Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 1,
+              "rate": 28,
+              "total": 28
+            },
+            {
+              "productName": "Aluminum BBQ Bag Quart Size",
+              "productCategory": "Aluminum BBQ Bags",
+              "quantity": 1,
+              "rate": 75,
+              "total": 75
+            },
+            {
+              "productName": "Paper Bags 13x7x17 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 1,
+              "rate": 49,
+              "total": 49
+            },
+            {
+              "productName": "#8 Kraft SOS Bag 500pcs",
+              "productCategory": "SOS Bags",
+              "quantity": 1,
+              "rate": 13,
+              "total": 13
+            },
+            {
+              "productName": "Starco So-Kleen Green Dish Pot and Pan Cleaner 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 1,
+              "rate": 24,
+              "total": 24
+            }
+          ],
+          "subtotal": 811,
+          "salesTax": 1.59,
+          "totalAmount": 812.59,
+          "totalBalance": 812.59,
           "paid": false,
           "CashPayment": 0,
           "AccountPayment": 0,
@@ -62528,11 +62886,11 @@
           "subtotal": 1019.5,
           "salesTax": 0,
           "totalAmount": 1019.5,
-          "totalBalance": 1019.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 1019.5,
+          "notes": "$1085-$840 (Trupac to SS Invoice1666) = Remaining $245 BOFA Zelle Received"
         },
         {
           "invoiceNumber": "TPN06",
@@ -67658,11 +68016,11 @@
           "subtotal": 17788.75,
           "salesTax": 0,
           "totalAmount": 17788.75,
-          "totalBalance": 17788.75,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": "4500"
+          "AccountPayment": 17788.75,
+          "notes": "Check # 1018 07/08/2025, Check # 1025 07/23/2025, Check # 1021 07/23/2025 Wells Fargo"
         },
         {
           "invoiceNumber": "HGS12",
@@ -67682,7 +68040,7 @@
               "total": 725
             },
             {
-              "productName": "8\" Aluminum Pan 13g",
+              "productName": "8\" Aluminum Pan 11.2g",
               "productCategory": "Aluminum Pans",
               "quantity": 40,
               "rate": 46,
@@ -67790,11 +68148,11 @@
           "subtotal": 14933.15,
           "salesTax": 0,
           "totalAmount": 14933.15,
-          "totalBalance": 14933.15,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 14933.15,
+          "notes": "Return in INV #HGS12C $ 2149.90, Check # 1031 08/07/2025 $5283.25 Wells Fargo, Check # 1034 08/13/2025 $7500 Wells Fargo"
         },
         {
           "invoiceNumber": "HGS12C",
@@ -73864,6 +74222,33 @@
           "CashPayment": 0,
           "AccountPayment": 0,
           "notes": ""
+        },
+        {
+          "invoiceNumber": "TTS24",
+          "companyName": "Touch Tone Sales",
+          "addressLine1": "1754 57th Street",
+          "addressLine2": "",
+          "city": "Brooklyn",
+          "state": "NY",
+          "zipCode": "11204",
+          "dateCreated": "2026-01-27",
+          "products": [
+            {
+              "productName": "Aluminum Half Size Lids",
+              "productCategory": "Aluminum Pans",
+              "quantity": 90,
+              "rate": 16,
+              "total": 1440
+            }
+          ],
+          "subtotal": 1440,
+          "salesTax": 0,
+          "totalAmount": 1440,
+          "totalBalance": 1440,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
         }
       ]
     },
@@ -76723,30 +77108,16 @@
               "quantity": 2,
               "rate": 23,
               "total": 46
-            },
-            {
-              "productName": "Aluminum Oblong Pan 1 lb (1000pcs)",
-              "productCategory": "Aluminum Pans",
-              "quantity": 1,
-              "rate": 90,
-              "total": 90
-            },
-            {
-              "productName": "Aluminum Oblong Pan 1 lb Dome Lid",
-              "productCategory": "Aluminum Pans",
-              "quantity": 1,
-              "rate": 25,
-              "total": 25
             }
           ],
           "subtotal": 524.5,
           "salesTax": 0,
           "totalAmount": 524.5,
-          "totalBalance": 524.5,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 524.5,
+          "notes": "#529 BOFA 12/29/2025"
         },
         {
           "invoiceNumber": "K20",
@@ -76837,6 +77208,82 @@
           "CashPayment": 0,
           "AccountPayment": 440,
           "notes": "Check # 530 01/16/2026 TD"
+        },
+        {
+          "invoiceNumber": "K21",
+          "companyName": "KASHAN",
+          "addressLine1": "asd",
+          "addressLine2": "",
+          "city": "aa",
+          "state": "aa",
+          "zipCode": "11",
+          "dateCreated": "2026-01-21",
+          "products": [
+            {
+              "productName": "Pactiv NC723B 24 oz Black Round Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 4,
+              "rate": 29.5,
+              "total": 118
+            },
+            {
+              "productName": "Aluminum Oblong Pan 1lb (1000pcs)",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 90,
+              "total": 90
+            },
+            {
+              "productName": "Aluminum Oblong Pan 1lb Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 1,
+              "rate": 25,
+              "total": 25
+            },
+            {
+              "productName": "Pactiv 12 oz Deli Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 1,
+              "rate": 33,
+              "total": 33
+            },
+            {
+              "productName": "Pactiv 8 oz Deli Container",
+              "productCategory": "Plastic Containers",
+              "quantity": 1,
+              "rate": 28,
+              "total": 28
+            },
+            {
+              "productName": "18x2000 Plastic Film Wrap",
+              "productCategory": "Film Wrap",
+              "quantity": 2,
+              "rate": 27,
+              "total": 54
+            },
+            {
+              "productName": "8\" 350' Hardwound Towel Kraft",
+              "productCategory": "Paper Towels",
+              "quantity": 2,
+              "rate": 30,
+              "total": 60
+            },
+            {
+              "productName": "Toilet Roll 2 Ply 96 Rolls ",
+              "productCategory": "Paper Towels",
+              "quantity": 1,
+              "rate": 45,
+              "total": 45
+            }
+          ],
+          "subtotal": 453,
+          "salesTax": 0,
+          "totalAmount": 453,
+          "totalBalance": 453,
+          "paid": false,
+          "CashPayment": 0,
+          "AccountPayment": 0,
+          "notes": ""
         }
       ]
     },
@@ -81634,11 +82081,11 @@
           "subtotal": 599,
           "salesTax": 0,
           "totalAmount": 599,
-          "totalBalance": 599,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 599,
+          "notes": "Check # 1036 01/02/2026 Wells Fargo"
         },
         {
           "invoiceNumber": "AWC82",
@@ -81650,13 +82097,6 @@
           "zipCode": "07026",
           "dateCreated": "2026-01-05",
           "products": [
-            {
-              "productName": "Paper Bags 8x4x10 Twisted Handle (250pcs)",
-              "productCategory": "Paper Bags",
-              "quantity": 1,
-              "rate": 18.25,
-              "total": 18.25
-            },
             {
               "productName": "Paper Bags 18x7x18.5 Twisted Handle (200pcs)",
               "productCategory": "Paper Bags",
@@ -81703,11 +82143,11 @@
           "subtotal": 254.9,
           "salesTax": 0,
           "totalAmount": 254.9,
-          "totalBalance": 254.9,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": "10x7x12 mius from last invoice (coustmer complain about quality)"
+          "AccountPayment": 254.9,
+          "notes": "10x7x12 mius from last invoice (coustmer complain about quality) Zelle BOFA"
         },
         {
           "invoiceNumber": "AWC73.5",
@@ -81838,6 +82278,68 @@
           "CashPayment": 0,
           "AccountPayment": 480,
           "notes": "Zelle BOFA"
+        },
+        {
+          "invoiceNumber": "AWC83",
+          "companyName": "AAM WHOLESALE C&Z",
+          "addressLine1": "62 Midland Ave",
+          "addressLine2": "",
+          "city": "Garfield",
+          "state": "NJ",
+          "zipCode": "07026",
+          "dateCreated": "2026-01-29",
+          "products": [
+            {
+              "productName": "Paper Bags 8x4x10 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 10,
+              "rate": 16.5,
+              "total": 165
+            },
+            {
+              "productName": "Sandwich Wrap Insulated Cushion Foil 14\" x 16 (1000/Case)",
+              "productCategory": "Aluminum Foil Sheets",
+              "quantity": 5,
+              "rate": 34.5,
+              "total": 172.5
+            },
+            {
+              "productName": "7\" Aluminum Pan 7.6g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 3,
+              "rate": 29,
+              "total": 87
+            },
+            {
+              "productName": "7\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 5,
+              "rate": 12,
+              "total": 60
+            },
+            {
+              "productName": "Starco Bleach 4 Gallon",
+              "productCategory": "Janitorial",
+              "quantity": 3,
+              "rate": 10.5,
+              "total": 31.5
+            },
+            {
+              "productName": "Paper Bags 10x7x13 Twisted Handle",
+              "productCategory": "Paper Bags",
+              "quantity": 1,
+              "rate": 22,
+              "total": 22
+            }
+          ],
+          "subtotal": 538,
+          "salesTax": 0,
+          "totalAmount": 538,
+          "totalBalance": 0,
+          "paid": true,
+          "CashPayment": 0,
+          "AccountPayment": 538,
+          "notes": "Zelle BOFA 01/29/2026"
         }
       ]
     },
@@ -83499,11 +84001,11 @@
           "subtotal": 2499.25,
           "salesTax": 0,
           "totalAmount": 2499.25,
-          "totalBalance": 2499.25,
-          "paid": false,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
-          "AccountPayment": 0,
-          "notes": ""
+          "AccountPayment": 2499.25,
+          "notes": "Zelle BOFA"
         }
       ]
     },
@@ -87232,7 +87734,7 @@
       "itemCategory": "Aluminum Pans",
       "cost": 18,
       "priceLevel1": 27,
-      "priceLevel2": 29.5,
+      "priceLevel2": 29,
       "priceLevel3": 40,
       "imageUrl": "/uploads/10.jpg",
       "rank": 49,
@@ -87459,7 +87961,7 @@
       "itemName": "Aluminum Half Size Lids",
       "itemCategory": "Aluminum Pans",
       "cost": 12.65,
-      "priceLevel1": 17,
+      "priceLevel1": 16,
       "priceLevel2": 18,
       "priceLevel3": 26,
       "imageUrl": "/uploads/19.jpg",
@@ -90367,7 +90869,7 @@
       "priceLevel1": 22.25,
       "priceLevel2": 23.5,
       "priceLevel3": 27,
-      "rank": 215,
+      "rank": 214,
       "imageUrl": "/uploads/image-1719455111343.jpg",
       "vendors": null,
       "length": 0,
@@ -90386,7 +90888,7 @@
       "priceLevel2": 92.5,
       "priceLevel3": 109,
       "imageUrl": "/uploads/1.jpg",
-      "rank": 216,
+      "rank": 215,
       "quantity": 110,
       "vendors": null,
       "length": 0,
@@ -90404,7 +90906,7 @@
       "priceLevel2": 80.25,
       "priceLevel3": 91.25,
       "imageUrl": "/uploads/25.jpg",
-      "rank": 217,
+      "rank": 216,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90422,7 +90924,7 @@
       "priceLevel2": 40,
       "priceLevel3": 45,
       "imageUrl": "/uploads/25.jpg",
-      "rank": 218,
+      "rank": 217,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90441,7 +90943,7 @@
       "priceLevel2": 35.25,
       "priceLevel3": 40.25,
       "imageUrl": "/uploads/30.jpg",
-      "rank": 219,
+      "rank": 218,
       "quantity": 0,
       "vendors": null,
       "length": 0,
@@ -90460,7 +90962,7 @@
       "priceLevel1": 45.35,
       "priceLevel2": 47.65,
       "priceLevel3": 54.3,
-      "rank": 220,
+      "rank": 219,
       "imageUrl": "/uploads/image-1728873523940.jpg",
       "taxableItem": true
     },
@@ -90473,7 +90975,7 @@
       "priceLevel2": 10.5,
       "priceLevel3": 12.5,
       "imageUrl": "/uploads/image-1719456487291.jpeg",
-      "rank": 221,
+      "rank": 220,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90492,7 +90994,7 @@
       "priceLevel2": 16,
       "priceLevel3": 18.5,
       "imageUrl": "/uploads/image-1722041469443.jpeg",
-      "rank": 222,
+      "rank": 221,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90511,7 +91013,7 @@
       "priceLevel2": 16,
       "priceLevel3": 19.25,
       "imageUrl": "/uploads/image-1719456614910.jpg",
-      "rank": 223,
+      "rank": 222,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90529,7 +91031,7 @@
       "priceLevel2": 21.25,
       "priceLevel3": 24.5,
       "imageUrl": "/uploads/image-1719456614910.jpg",
-      "rank": 224,
+      "rank": 223,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90548,7 +91050,7 @@
       "priceLevel1": 16.25,
       "priceLevel2": 17.25,
       "priceLevel3": 19.75,
-      "rank": 225,
+      "rank": 224,
       "imageUrl": "/uploads/image-1720219673401.jpg",
       "vendors": null,
       "length": 0,
@@ -90567,7 +91069,7 @@
       "priceLevel1": 17.25,
       "priceLevel2": 18.25,
       "priceLevel3": 21,
-      "rank": 226,
+      "rank": 225,
       "imageUrl": "/uploads/image-1720219673401.jpg",
       "vendors": null,
       "length": 0,
@@ -90586,7 +91088,7 @@
       "priceLevel2": 17.5,
       "priceLevel3": 21,
       "imageUrl": "/uploads/image-1719456651329.jpg",
-      "rank": 227,
+      "rank": 226,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90604,7 +91106,7 @@
       "priceLevel2": 16,
       "priceLevel3": 19.25,
       "imageUrl": "/uploads/35.jpg",
-      "rank": 228,
+      "rank": 227,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90618,7 +91120,7 @@
       "itemName": "6\" Paper Plates (1000pcs)",
       "itemCategory": "Paper Plates",
       "cost": 6,
-      "rank": 229,
+      "rank": 228,
       "quantity": 100,
       "priceLevel1": 12.75,
       "priceLevel2": 13.75,
@@ -90637,7 +91139,7 @@
       "itemName": "9\" Paper Plates (1000pcs)",
       "itemCategory": "Paper Plates",
       "cost": 13,
-      "rank": 230,
+      "rank": 229,
       "quantity": 100,
       "priceLevel1": 17,
       "priceLevel2": 17,
@@ -90660,7 +91162,7 @@
       "priceLevel2": 8.25,
       "priceLevel3": 12.25,
       "imageUrl": "/uploads/image-1728504878571.jpg",
-      "rank": 231,
+      "rank": 230,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90679,7 +91181,7 @@
       "priceLevel2": 12,
       "priceLevel3": 14,
       "imageUrl": "/uploads/image-1728504878571.jpg",
-      "rank": 232,
+      "rank": 231,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90698,7 +91200,7 @@
       "priceLevel2": 15,
       "priceLevel3": 17.75,
       "imageUrl": "/uploads/110.jpg",
-      "rank": 233,
+      "rank": 232,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90716,7 +91218,7 @@
       "priceLevel2": 13.75,
       "priceLevel3": 16,
       "imageUrl": "/uploads/111.jpg",
-      "rank": 235,
+      "rank": 233,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90735,7 +91237,7 @@
       "priceLevel1": 6.75,
       "priceLevel2": 7.5,
       "priceLevel3": 8.75,
-      "rank": 242,
+      "rank": 234,
       "imageUrl": "/uploads/image-1720043228479.jpg",
       "vendors": null,
       "length": 0,
@@ -90753,7 +91255,7 @@
       "priceLevel1": 6.75,
       "priceLevel2": 7.5,
       "priceLevel3": 8.75,
-      "rank": 243,
+      "rank": 235,
       "imageUrl": "/uploads/image-1720043216923.jpg",
       "vendors": null,
       "length": 0,
@@ -90771,7 +91273,7 @@
       "priceLevel1": 6.75,
       "priceLevel2": 7.5,
       "priceLevel3": 8.75,
-      "rank": 244,
+      "rank": 236,
       "imageUrl": "/uploads/image-1720043143793.jpg",
       "vendors": null,
       "length": 0,
@@ -90789,7 +91291,7 @@
       "priceLevel1": 6.75,
       "priceLevel2": 7.5,
       "priceLevel3": 8.75,
-      "rank": 245,
+      "rank": 237,
       "imageUrl": "/uploads/image-1720043180148.jpg",
       "vendors": null,
       "length": 0,
@@ -90807,7 +91309,7 @@
       "priceLevel2": 13,
       "priceLevel3": 15.25,
       "imageUrl": "/uploads/134.jpg",
-      "rank": 246,
+      "rank": 238,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90826,7 +91328,7 @@
       "priceLevel2": 13,
       "priceLevel3": 15.25,
       "imageUrl": "/uploads/135.jpg",
-      "rank": 247,
+      "rank": 239,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90845,7 +91347,7 @@
       "priceLevel2": 13,
       "priceLevel3": 15.25,
       "imageUrl": "/uploads/137.jpg",
-      "rank": 248,
+      "rank": 240,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90864,7 +91366,7 @@
       "priceLevel2": 14,
       "priceLevel3": 16.25,
       "imageUrl": "/uploads/image-1722623184342.jpg",
-      "rank": 249,
+      "rank": 241,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90883,7 +91385,7 @@
       "priceLevel2": 14.25,
       "priceLevel3": 16.5,
       "imageUrl": "/uploads/image-1722623139073.jpg",
-      "rank": 250,
+      "rank": 242,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90901,7 +91403,7 @@
       "priceLevel2": 16.5,
       "priceLevel3": 19,
       "imageUrl": "/uploads/138.jpg",
-      "rank": 251,
+      "rank": 243,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90919,7 +91421,7 @@
       "priceLevel2": 16.5,
       "priceLevel3": 19,
       "imageUrl": "/uploads/image-1728858657929.jpg",
-      "rank": 252,
+      "rank": 244,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90938,7 +91440,7 @@
       "priceLevel2": 16.5,
       "priceLevel3": 19,
       "imageUrl": "/uploads/image-1728858657929.jpg",
-      "rank": 253,
+      "rank": 245,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90957,7 +91459,7 @@
       "priceLevel2": 13.5,
       "priceLevel3": 15.75,
       "imageUrl": "/uploads/176.jpg",
-      "rank": 254,
+      "rank": 246,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90976,7 +91478,7 @@
       "priceLevel2": 14.5,
       "priceLevel3": 17,
       "imageUrl": "/uploads/176.jpg",
-      "rank": 255,
+      "rank": 247,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -90995,7 +91497,7 @@
       "priceLevel1": 14.5,
       "priceLevel2": 15.25,
       "priceLevel3": 18.25,
-      "rank": 256,
+      "rank": 248,
       "imageUrl": "/uploads/image-1719457117380.jpg",
       "vendors": null,
       "length": 0,
@@ -91014,7 +91516,7 @@
       "priceLevel1": 16.5,
       "priceLevel2": 17.5,
       "priceLevel3": 20.25,
-      "rank": 257,
+      "rank": 249,
       "imageUrl": "/uploads/image-1719457117380.jpg",
       "vendors": null,
       "length": 0,
@@ -91033,7 +91535,7 @@
       "priceLevel1": 30,
       "priceLevel2": 31.5,
       "priceLevel3": 37.5,
-      "rank": 258,
+      "rank": 250,
       "imageUrl": "/uploads/image-1719457177210.jpg",
       "vendors": null,
       "length": 0,
@@ -91051,7 +91553,7 @@
       "priceLevel1": 17.25,
       "priceLevel2": 18.25,
       "priceLevel3": 22,
-      "rank": 259,
+      "rank": 251,
       "imageUrl": "/uploads/image-1719457222839.png",
       "vendors": null,
       "length": 0,
@@ -91069,7 +91571,7 @@
       "priceLevel1": 14,
       "priceLevel2": 15,
       "priceLevel3": 17.25,
-      "rank": 260,
+      "rank": 252,
       "imageUrl": "/uploads/image-1722922799572.jpg",
       "vendors": null,
       "length": 0,
@@ -91087,7 +91589,7 @@
       "priceLevel1": 16.75,
       "priceLevel2": 17.75,
       "priceLevel3": 20.5,
-      "rank": 261,
+      "rank": 253,
       "imageUrl": "/uploads/image-1722922818368.jpg",
       "vendors": null,
       "length": 0,
@@ -91106,7 +91608,7 @@
       "priceLevel1": 18.5,
       "priceLevel2": 19.5,
       "priceLevel3": 22.5,
-      "rank": 262,
+      "rank": 254,
       "imageUrl": "/uploads/image-1722922818368.jpg",
       "vendors": null,
       "length": 0,
@@ -91125,7 +91627,7 @@
       "priceLevel1": 38,
       "priceLevel2": 40,
       "priceLevel3": 45.75,
-      "rank": 263,
+      "rank": 255,
       "imageUrl": "/uploads/image-1722044783081.jpg",
       "vendors": null,
       "length": 0,
@@ -91144,7 +91646,7 @@
       "priceLevel1": 31,
       "priceLevel2": 32.75,
       "priceLevel3": 37.5,
-      "rank": 264,
+      "rank": 256,
       "imageUrl": "/uploads/image-1722044783081.jpg",
       "vendors": null,
       "length": 0,
@@ -91163,7 +91665,7 @@
       "priceLevel1": 37,
       "priceLevel2": 39,
       "priceLevel3": 44.5,
-      "rank": 265,
+      "rank": 257,
       "imageUrl": "/uploads/image-1722044783081.jpg",
       "vendors": null,
       "length": 0,
@@ -91182,7 +91684,7 @@
       "priceLevel1": 34.75,
       "priceLevel2": 36.5,
       "priceLevel3": 41.75,
-      "rank": 266,
+      "rank": 258,
       "imageUrl": "/uploads/image-1722044783081.jpg",
       "vendors": null,
       "length": 0,
@@ -91201,7 +91703,7 @@
       "priceLevel1": 10.75,
       "priceLevel2": 11.5,
       "priceLevel3": 13.25,
-      "rank": 267,
+      "rank": 259,
       "imageUrl": "/uploads/image-1722269841278.png"
     },
     {
@@ -91213,7 +91715,7 @@
       "priceLevel1": 42,
       "priceLevel2": 44,
       "priceLevel3": 48,
-      "rank": 268,
+      "rank": 260,
       "imageUrl": "/uploads/image-1721708588175.jpg",
       "vendors": null,
       "length": 0,
@@ -91232,7 +91734,7 @@
       "priceLevel1": 30.5,
       "priceLevel2": 32,
       "priceLevel3": 40,
-      "rank": 269,
+      "rank": 261,
       "imageUrl": "/uploads/image-1719456881263.jpg",
       "vendors": null,
       "length": 0,
@@ -91251,7 +91753,7 @@
       "priceLevel1": 19,
       "priceLevel2": 20,
       "priceLevel3": 24.5,
-      "rank": 270,
+      "rank": 262,
       "imageUrl": "/uploads/image-1719456881263.jpg",
       "vendors": null,
       "length": 0,
@@ -91270,7 +91772,7 @@
       "priceLevel1": 275,
       "priceLevel2": 275,
       "priceLevel3": 275,
-      "rank": 271,
+      "rank": 263,
       "imageUrl": "/uploads/image-1719456881263.jpg",
       "vendors": null,
       "length": 0,
@@ -91289,7 +91791,7 @@
       "priceLevel1": 38.75,
       "priceLevel2": 40.75,
       "priceLevel3": 46.5,
-      "rank": 272,
+      "rank": 264,
       "imageUrl": "/uploads/image-1729297407030.jpg",
       "vendors": null,
       "length": 0,
@@ -91308,7 +91810,7 @@
       "priceLevel1": 1,
       "priceLevel2": 1,
       "priceLevel3": 1,
-      "rank": 273,
+      "rank": 265,
       "imageUrl": "/uploads/image-1720816212429.jpeg",
       "taxableItem": false
     },
@@ -91321,7 +91823,7 @@
       "priceLevel2": 25,
       "priceLevel3": 29.75,
       "imageUrl": "/uploads/162.jpg",
-      "rank": 274,
+      "rank": 266,
       "quantity": 0,
       "vendors": null,
       "length": 0,
@@ -91340,7 +91842,7 @@
       "priceLevel1": 1,
       "priceLevel2": 1,
       "priceLevel3": 1,
-      "rank": 275,
+      "rank": 267,
       "imageUrl": "/uploads/image-1744410228855.jpeg",
       "taxableItem": false
     },
@@ -91353,7 +91855,7 @@
       "priceLevel2": 33.25,
       "priceLevel3": 39,
       "imageUrl": "/uploads/4.jpg",
-      "rank": 276,
+      "rank": 268,
       "quantity": 100,
       "vendors": [
         {
@@ -91389,7 +91891,7 @@
       "priceLevel2": 45,
       "priceLevel3": 51.25,
       "imageUrl": "/uploads/4.jpg",
-      "rank": 277,
+      "rank": 269,
       "quantity": 100,
       "vendors": [
         {
@@ -91425,7 +91927,7 @@
       "priceLevel2": 52,
       "priceLevel3": 59.25,
       "imageUrl": "/uploads/5.jpg",
-      "rank": 278,
+      "rank": 270,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -91444,7 +91946,7 @@
       "priceLevel2": 43,
       "priceLevel3": 50.25,
       "imageUrl": "/uploads/6.jpg",
-      "rank": 279,
+      "rank": 271,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -91463,7 +91965,7 @@
       "priceLevel2": 49.75,
       "priceLevel3": 58,
       "imageUrl": "/uploads/7.jpg",
-      "rank": 280,
+      "rank": 272,
       "quantity": 100,
       "vendors": null,
       "length": 0,
@@ -91482,7 +91984,7 @@
       "priceLevel1": 25.75,
       "priceLevel2": 27.25,
       "priceLevel3": 31.25,
-      "rank": 281,
+      "rank": 273,
       "imageUrl": "/uploads/image-1722922694862.jpg",
       "vendors": [
         {
@@ -91506,7 +92008,7 @@
       "priceLevel1": 39.5,
       "priceLevel2": 41.5,
       "priceLevel3": 47.5,
-      "rank": 282,
+      "rank": 274,
       "imageUrl": "/uploads/image-1722922705329.jpg",
       "vendors": [
         {
@@ -91530,7 +92032,7 @@
       "priceLevel1": 39.5,
       "priceLevel2": 41.5,
       "priceLevel3": 47.5,
-      "rank": 283,
+      "rank": 275,
       "imageUrl": "/uploads/image-1722922705329.jpg",
       "vendors": [
         {
@@ -91555,7 +92057,7 @@
       "priceLevel1": 39.75,
       "priceLevel2": 42,
       "priceLevel3": 47.75,
-      "rank": 284,
+      "rank": 276,
       "imageUrl": "/uploads/image-1722870661183.jpg"
     },
     {
@@ -91567,7 +92069,7 @@
       "priceLevel1": 39.75,
       "priceLevel2": 42,
       "priceLevel3": 47.75,
-      "rank": 285,
+      "rank": 277,
       "imageUrl": "/uploads/image-1722870661183.jpg",
       "taxableItem": false
     }

@@ -37,9 +37,9 @@ async function compressPdfFile(inputPath) {
             }
         }
         
-        console.log('[PDF-COMPRESS] Public key found, proceeding with compression (no timeout)...');
+        console.log('[PDF-COMPRESS] Public key found, proceeding with compression...');
 
-        // No timeout - wait as long as needed for compression to complete
+        // Proceed with compression (with timeouts)
         const result = await performCompressionAsync(inputPath, publicKey);
         return result;
 
@@ -52,12 +52,25 @@ async function compressPdfFile(inputPath) {
 
 // Helper function for actual compression logic
 async function performCompressionAsync(inputPath, publicKey) {
+    const timeoutMs = 60000; // 60 seconds timeout
+
     // 1) Auth: Get signed token
-    const authRes = await fetch("https://api.ilovepdf.com/v1/auth", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ public_key: publicKey })
-    });
+    const authController = new AbortController();
+    const authTimeout = setTimeout(() => authController.abort(), timeoutMs);
+    let authRes;
+    try {
+        authRes = await fetch("https://api.ilovepdf.com/v1/auth", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ public_key: publicKey }),
+            signal: authController.signal
+        });
+    } catch (err) {
+        if (err.name === 'AbortError') throw new Error('Auth request timed out');
+        throw err;
+    } finally {
+        clearTimeout(authTimeout);
+    }
     
     if (!authRes.ok) throw new Error(`Auth failed: ${authRes.status}`);
     const authJson = await authRes.json();
@@ -67,10 +80,21 @@ async function performCompressionAsync(inputPath, publicKey) {
     const authHeader = { Authorization: `Bearer ${token}` };
 
     // 2) Start: Initialize compression task
-    const startRes = await fetch("https://api.ilovepdf.com/v1/start/compress/us", {
-        method: "GET",
-        headers: authHeader
-    });
+    const startController = new AbortController();
+    const startTimeout = setTimeout(() => startController.abort(), timeoutMs);
+    let startRes;
+    try {
+        startRes = await fetch("https://api.ilovepdf.com/v1/start/compress/us", {
+            method: "GET",
+            headers: authHeader,
+            signal: startController.signal
+        });
+    } catch (err) {
+        if (err.name === 'AbortError') throw new Error('Start request timed out');
+        throw err;
+    } finally {
+        clearTimeout(startTimeout);
+    }
     
     if (!startRes.ok) throw new Error(`Start failed: ${startRes.status}`);
     const startJson = await startRes.json();
@@ -92,11 +116,22 @@ async function performCompressionAsync(inputPath, publicKey) {
     form.append("file", new Blob([fileBuf], { type: "application/pdf" }), path.basename(inputPath));
 
     console.log('[PDF-COMPRESS] Uploading file to:', `https://${server}/v1/upload`);
-    const uploadRes = await fetch(`https://${server}/v1/upload`, {
-        method: "POST",
-        headers: authHeader,
-        body: form
-    });
+    const uploadController = new AbortController();
+    const uploadTimeout = setTimeout(() => uploadController.abort(), timeoutMs * 2); // Longer for upload
+    let uploadRes;
+    try {
+        uploadRes = await fetch(`https://${server}/v1/upload`, {
+            method: "POST",
+            headers: authHeader,
+            body: form,
+            signal: uploadController.signal
+        });
+    } catch (err) {
+        if (err.name === 'AbortError') throw new Error('Upload request timed out');
+        throw err;
+    } finally {
+        clearTimeout(uploadTimeout);
+    }
     
     if (!uploadRes.ok) throw new Error(`Upload failed: ${uploadRes.status}`);
     const uploadJson = await uploadRes.json();
@@ -113,21 +148,43 @@ async function performCompressionAsync(inputPath, publicKey) {
     };
 
     console.log('[PDF-COMPRESS] Processing compression...');
-    const processRes = await fetch(`https://${server}/v1/process`, {
-        method: "POST",
-        headers: { ...authHeader, "Content-Type": "application/json" },
-        body: JSON.stringify(processBody)
-    });
+    const processController = new AbortController();
+    const processTimeout = setTimeout(() => processController.abort(), timeoutMs);
+    let processRes;
+    try {
+        processRes = await fetch(`https://${server}/v1/process`, {
+            method: "POST",
+            headers: { ...authHeader, "Content-Type": "application/json" },
+            body: JSON.stringify(processBody),
+            signal: processController.signal
+        });
+    } catch (err) {
+        if (err.name === 'AbortError') throw new Error('Process request timed out');
+        throw err;
+    } finally {
+        clearTimeout(processTimeout);
+    }
     
     if (!processRes.ok) throw new Error(`Process failed: ${processRes.status}`);
     console.log('[PDF-COMPRESS] Process completed successfully');
 
     // 5) Download: Get compressed PDF
     console.log('[PDF-COMPRESS] Downloading compressed file...');
-    const downloadRes = await fetch(`https://${server}/v1/download/${task}`, {
-        method: "GET",
-        headers: authHeader
-    });
+    const downloadController = new AbortController();
+    const downloadTimeout = setTimeout(() => downloadController.abort(), timeoutMs);
+    let downloadRes;
+    try {
+        downloadRes = await fetch(`https://${server}/v1/download/${task}`, {
+            method: "GET",
+            headers: authHeader,
+            signal: downloadController.signal
+        });
+    } catch (err) {
+        if (err.name === 'AbortError') throw new Error('Download request timed out');
+        throw err;
+    } finally {
+        clearTimeout(downloadTimeout);
+    }
     
     if (!downloadRes.ok) throw new Error(`Download failed: ${downloadRes.status}`);
 

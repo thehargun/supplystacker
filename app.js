@@ -1565,7 +1565,7 @@ app.post('/admin/add-vendor/:id', (req, res) => {
     res.json({ success: true });
 });
 
-app.post('/admin/delete-vendor/:id', (req, res) => {
+app.post('/admin/remove-vendor/:id', (req, res) => {
     const itemId = parseInt(req.params.id);
     const { vendorName } = req.body;
 

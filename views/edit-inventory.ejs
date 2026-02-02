@@ -294,7 +294,7 @@
         form.submit();
     }
     function deleteVendor(itemId, vendorName) {
-        fetch(`/admin/delete-vendor/${itemId}`, {
+        fetch(`/admin/remove-vendor/${itemId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

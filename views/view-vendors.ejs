@@ -165,7 +165,7 @@
                             <td><%= vendor.company %></td>
                             <td><%= vendor.email %></td>
                             <td>
-                                <a href="/admin/vendor-invoices/<%= vendor.id %>">View Invoices</a> |
+                                <a href="/admin/vendor-invoices?vendor=<%= encodeURIComponent(vendor.company) %>">View Invoices</a> |
                                 <a href="/admin/edit-vendor/<%= vendor.id %>">Edit</a> |
                                 <button class="delete-btn" onclick="deleteVendor(<%= vendor.id %>)">Delete</button>
                             </td>

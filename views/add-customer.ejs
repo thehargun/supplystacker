@@ -3,31 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Customer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background-color: #5a6268;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        button {
+            margin-top: 25px;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Add New Customer</h1>
-    <form action="/admin/add-customer" method="post">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="text" name="company" placeholder="Company Name" required>
-        <input type="text" name="phone" placeholder="Phone Number" required>
-        <input type="text" name="addressLine1" placeholder="Address Line 1" required>
-        <input type="text" name="addressLine2" placeholder="Address Line 2">
-        <input type="text" name="city" placeholder="City" required>
-        <input type="text" name="state" placeholder="State" required>
-        <input type="text" name="zipCode" placeholder="Zip Code" required>
-        <label for="priceLevel">Price Level:</label>
-        <select name="priceLevel" id="priceLevel">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        </select>
-        <label for="taxable">Taxable:</label>
-        <select name="taxable" id="taxable">
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-        </select>
-        <button type="submit">Add Customer</button>
-    </form>
+    <div class="container">
+        <a href="/admin/view-customers" class="back-link">Back to Customers</a>
+        <h1>Add New Customer</h1>
+        <form action="/admin/add-customer" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+
+            <label for="company">Company Name:</label>
+            <input type="text" id="company" name="company" placeholder="Company Name" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" placeholder="Phone Number" required>
+
+            <label for="addressLine1">Address Line 1:</label>
+            <input type="text" id="addressLine1" name="addressLine1" placeholder="Address Line 1" required>
+
+            <label for="addressLine2">Address Line 2:</label>
+            <input type="text" id="addressLine2" name="addressLine2" placeholder="Address Line 2">
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" placeholder="City" required>
+
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" placeholder="State" required>
+
+            <label for="zipCode">Zip Code:</label>
+            <input type="text" id="zipCode" name="zipCode" placeholder="Zip Code" required>
+
+            <label for="priceLevel">Price Level:</label>
+            <select name="priceLevel" id="priceLevel">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+
+            <label for="taxable">Taxable:</label>
+            <select name="taxable" id="taxable">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <button type="submit">Add Customer</button>
+        </form>
+    </div>
 </body>
 </html>

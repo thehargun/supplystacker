@@ -4,48 +4,50 @@
     <meta charset="UTF-8">
     <title>Products</title>
     <style>
-        /* Top bar styles */
-        .top-bar {
+        /* Top bar styles - removed */
+
+        /* Generate PDF button styles - moved */
+
+        /* Cart button styles - moved */
+
+        /* Logout button styles - moved */
+
+        /* Filters styles - removed */
+
+        /* Product header styles */
+        .product-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 10px;
         }
 
-        /* Generate PDF button styles */
-        .generate-pdf-button {
-            background-color: #28a745; /* Green color theme */
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .generate-pdf-button, .cart-button, .logout-button {
+            background-color: #28a745; /* Green for PDF */
             color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
-            margin-right: 10px;
         }
 
-        /* Cart button styles */
-        .cart-button {
-            background-color: #2196F3; /* Blue color theme */
-            color: white;
-            padding: 10px 20px; /* Increase padding for bigger button */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            margin-right: 10px; /* Add margin to the right for spacing */
+        .cart-button, .logout-button {
+            background-color: #2196F3; /* Blue */
         }
 
-        /* Logout button styles */
-        .logout-button {
-            background-color: #2196F3; /* Blue color theme */
-            color: white;
-            padding: 10px 20px; /* Increase padding for bigger button */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            margin-left: 10px; /* Add margin to the left for spacing */
+        /* Filters styles */
+        .filters {
+            max-width: 1000px;
+            margin: 20px auto;
+            text-align: center;
         }
 
         /* Product container styles */
@@ -53,6 +55,7 @@
             text-align: center;
             max-width: 1000px; /* Maximum width for product container */
             margin: 20px auto; /* Center align product container */
+            margin-top: 40px; /* Extra space below filters */
         }
 
         /* Product styles */
@@ -152,16 +155,18 @@
     </style>
 </head>
 <body>
-    <div class="top-bar">
-        <div>
+    <div class="product-header">
+        <h1>Products</h1>
+        <div class="header-buttons">
             <button onclick="generatePDF()" class="generate-pdf-button">Generate PDF</button>
-        </div>
-        <div>
             <a href="/cart" class="cart-button">Cart</a>
             <a href="/logout" class="logout-button">Logout</a>
         </div>
     </div>
-    <h1>Products</h1>
+
+    <div class="filters">
+        <input type="text" id="searchInput" placeholder="Search products..." style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    </div>
 
     <div class="product-container">
         <% inventory.forEach(item => { %>
@@ -194,6 +199,23 @@
     </div>
 
     <script>
+        const searchInput = document.getElementById('searchInput');
+        let currentSearch = '';
+
+        function filterProducts() {
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                const name = product.querySelector('h3').textContent.toLowerCase();
+                const matchesSearch = name.includes(currentSearch);
+                product.style.display = matchesSearch ? 'inline-block' : 'none';
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase();
+            filterProducts();
+        });
+
         function generatePDF() {
             // Simply redirect to the generation route which will generate and download
             window.location.href = '/generate-products-pdf-download';

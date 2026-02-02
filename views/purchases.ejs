@@ -2,20 +2,118 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Purchase Invoice</title>
+    <title>Add Purchase</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background-color: #5a6268;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            flex: 1;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin: 20px 0;
         }
-
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #ddd;
         }
-
         th, td {
-            padding: 8px;
+            padding: 10px;
             text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .rowTotal {
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #submitBtn {
+            margin-top: 20px;
+            width: auto;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .form-row {
+                flex-direction: column;
+            }
         }
     </style>
     <script>
@@ -120,6 +218,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            addProductRow(); // Add initial product row
             document.getElementById('addProductBtn').addEventListener('click', addProductRow);
             document.getElementById('cashPaid').addEventListener('input', updateAccountBalance);
             document.getElementById('accountPaid').addEventListener('input', updateAccountBalance);
@@ -171,56 +270,76 @@
     </script>
 </head>
 <body>
-    <h1>Purchase Invoice</h1>
-    <form action="/admin/purchases" method="post">
-        <label for="vendor">Vendor Name:</label>
-        <select id="vendor" name="vendor" onchange="toggleVendorInput()">
-            <% vendors.forEach(vendor => { %>
-                <option value="<%= vendor %>"><%= vendor %></option>
-            <% }) %>
-            <option value="other">Other</option>
-        </select>
-        <input type="text" id="newVendor" name="newVendor" style="display:none;" placeholder="Enter new vendor">
+    <div class="container">
+        <a href="/admin" class="back-link">Back to Admin Dashboard</a>
+        <h1>Add Purchase</h1>
+        <form action="/admin/purchases" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="vendor">Vendor Name:</label>
+                    <select id="vendor" name="vendor" onchange="toggleVendorInput()">
+                        <% vendors.forEach(vendor => { %>
+                            <option value="<%= vendor %>"><%= vendor %></option>
+                        <% }) %>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="newVendor">New Vendor (if other):</label>
+                    <input type="text" id="newVendor" name="newVendor" style="display:none;" placeholder="Enter new vendor">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dateCreated">Date Created:</label>
+                    <input type="date" id="dateCreated" name="dateCreated" required>
+                </div>
+                <div class="form-group">
+                    <label for="invoiceNumber">Invoice Number:</label>
+                    <input type="text" id="invoiceNumber" name="invoiceNumber" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cashPaid">Cash Paid:</label>
+                    <input type="number" step="0.01" id="cashPaid" name="cashPaid" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="accountPaid">Account Paid:</label>
+                    <input type="number" step="0.01" id="accountPaid" name="accountPaid" value="0" required>
+                </div>
+            </div>
 
+            <h2>Products</h2>
+            <table id="productsTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th>Total</th>
+                        <th>Auto Pricing</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                    <!-- Products will be dynamically added here -->
+                </tbody>
+            </table>
+            <button type="button" id="addProductBtn">Add Product</button>
 
-        <label for="dateCreated">Date Created:</label>
-        <input type="date" id="dateCreated" name="dateCreated" required><br>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Invoice Total: <span id="invoiceTotal">0.00</span></label>
+                </div>
+                <div class="form-group">
+                    <label>Account Balance: <span id="accountBalance">0.00</span></label>
+                </div>
+            </div>
 
-        <label for="invoiceNumber">Invoice Number:</label>
-        <input type="text" id="invoiceNumber" name="invoiceNumber" required><br>
-
-        <label for="cashPaid">Cash Paid:</label>
-        <input type="number" step="0.01" id="cashPaid" name="cashPaid" value="0" required><br>
-
-        <label for="accountPaid">Account Paid:</label>
-        <input type="number" step="0.01" id="accountPaid" name="accountPaid" value="0" required><br>
-
-        <h2>Products</h2>
-        <table id="productsTable">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Rate</th>
-                    <th>Total</th>
-                    <th>Auto Pricing</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="productsTableBody">
-                <!-- Products will be dynamically added here -->
-            </tbody>
-        </table>
-        <button type="button" id="addProductBtn">Add Product</button><br><br>
-
-        <label for="invoiceTotal">Invoice Total:</label>
-        <span id="invoiceTotal">0.00</span><br>
-
-        <label for="accountBalance">Account Balance:</label>
-        <span id="accountBalance">0.00</span><br>
-
-        <button type="submit" id="submitBtn">Submit</button>
-    </form>
+            <button type="submit" id="submitBtn">Submit Purchase</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,12 +1,10 @@
-<!-- customer-invoices.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Invoices</title>
+    <title>Vendor Manage Payments</title>
+    <!-- Add your CSS stylesheets or other head content here -->
     <style>
         /* Add your custom CSS styles here */
         body {
@@ -51,35 +49,36 @@
         }
     </style>
 </head>
-
 <body>
     <div class="container">
-        <h1>Customer Invoices</h1>
+        <h1>Vendor Manage Payments</h1>
         <table>
             <thead>
                 <tr>
-                    <th>Invoice Number</th>
-                    <th>Company Name</th>
+                    <th>Purchase ID</th>
+                    <th>Vendor Name</th>
                     <th>Date Created</th>
-                    <th>Total Amount</th>
+                    <th>Invoice Total</th>
+                    <th>Account Balance</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <% invoices.forEach(invoice => { %>
+                <% purchases.forEach(purchase => { %>
                     <tr>
-                        <td><%= invoice.invoiceNumber %></td>
-                        <td><%= invoice.companyName %></td>
-                        <td><%= new Date(invoice.dateCreated).toDateString() %></td>
-                        <td>$<%= invoice.totalBalance.toFixed(2) %></td>
-                        <td><%= invoice.paid ? 'Paid' : 'Unpaid' %></td>
+                        <td><%= purchase.PurchaseID %></td>
+                        <td><%= purchase.vendorName %></td>
+                        <td><%= purchase.dateCreated %></td>
+                        <td>$<%= ((purchase.invoiceTotal || 0)).toFixed(2) %></td>
+                        <td>$<%= ((purchase.accountBalance || 0)).toFixed(2) %></td>
+                        <td><%= purchase.paid ? 'Paid' : 'Unpaid' %></td>
                         <td>
-                            <!-- Go to Invoice Button -->
-                            <a href="/admin/invoices/<%= invoice.invoiceNumber %>" class="btn btn-primary">Go to Invoice</a>
+                            <!-- Go to Purchase Button -->
+                            <a href="/admin/purchases/<%= purchase.PurchaseID %>" class="btn btn-primary">Go to Purchase</a>
                             
                             <!-- Delete Button -->
-                            <button onclick="confirmDelete('<%= invoice.invoiceNumber %>')" class="btn btn-danger">Delete</button>
+                            <button onclick="confirmDelete('<%= purchase.PurchaseID %>')" class="btn btn-danger">Delete</button>
                         </td>
                     </tr>
                 <% }); %>
@@ -95,12 +94,28 @@
         </div>
     </div>
     <script>
-        function confirmDelete(invoiceNumber) {
-            if (confirm('Are you sure you want to delete this invoice?')) {
-                window.location.href = `/admin/invoices/delete/${invoiceNumber}`;
+        function confirmDelete(purchaseID) {
+            if (confirm('Are you sure you want to delete this purchase?')) {
+                fetch(`/admin/purchases/delete/${purchaseID}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error deleting purchase.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error deleting purchase.');
+                });
             }
         }
     </script>
+    <!-- Add your scripts or other body content here -->
 </body>
-
 </html>

@@ -26,13 +26,17 @@ async function compressPdfFile(inputPath) {
             return inputPath;
         }
 
-        // Skip compression for smaller files (under 20MB)
+        // Skip compression for smaller files (under 20MB) or very large files (over 50MB)
         if (fs.existsSync(inputPath)) {
             const stats = fs.statSync(inputPath);
             const fileSizeInMB = stats.size / (1024 * 1024);
             console.log('[PDF-COMPRESS] File size:', fileSizeInMB.toFixed(2), 'MB');
             if (fileSizeInMB < 20) {
                 console.log('[PDF-COMPRESS] File is small, skipping compression');
+                return inputPath;
+            }
+            if (fileSizeInMB > 50) {
+                console.log('[PDF-COMPRESS] File is too large for compression, skipping');
                 return inputPath;
             }
         }
@@ -199,13 +203,22 @@ async function performCompressionAsync(inputPath, publicKey) {
 }
 
 let categoryRanks = {};
-let users = []; // To include both admin and customer users
-let inventory = [
+// Load data from data.json
+console.log('Current directory:', __dirname);
+let data = {};
+try {
+    data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+} catch (e) {
+    console.log('data.json not found, starting fresh');
+}
+let users = data.users || []; // To include both admin and customer users
+let inventory = data.inventory || [
     { id: 1, itemName: "Item One", quantity: 100, priceLevel1: 10, priceLevel2: 9, priceLevel3: 8, rank: 0, imageUrl: "/path/to/image1.jpg" },
 ];
-let returns = [];
-let vendorsList = [];
-let purchases = []
+let returns = data.returns || [];
+let purchases = data.purchases || []
+let vendors = data.vendors || [];
+
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -267,7 +280,7 @@ function loadData() {
             users = json.users;
             inventory = json.inventory;
             purchases = json.purchases;
-            vendorsList = json.vendors;
+            vendors = json.vendors || [];
             returns = json.returns || []; // Initialize returns if not present
 
             // Load category ranks
@@ -303,17 +316,27 @@ if (!adminExists) {
 }
 
 function saveData() {
-    const data = {
-        users: users,
-        inventory: inventory,
-        purchases: purchases,
-        returns: returns, // Save the returns array
-        ItemsCategory: Object.keys(categoryRanks).map(category => ({
-            Category: category,
-            Rank: categoryRanks[category]
-        }))
-    };
-    fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
+    try {
+        // Read existing data to preserve any manual edits or extra fields
+        const existingData = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+        const dataToSave = {
+            ...existingData,
+            users,
+            inventory,
+            purchases,
+            vendors,
+            returns,
+            ItemsCategory: Object.keys(categoryRanks).map(category => ({
+                Category: category,
+                Rank: categoryRanks[category]
+            }))
+        };
+        fs.writeFileSync('data.json', JSON.stringify(dataToSave, null, 2));
+        console.log('Data saved successfully, vendors included:', dataToSave.vendors);
+    } catch (error) {
+        console.error('Error saving data:', error.message);
+        console.error('Error stack:', error.stack);
+    }
 }
 
 
@@ -1426,27 +1449,27 @@ app.post('/submit-order', async (req, res) => {
     }
 });
 
-app.get('/admin/manage-payment', (req, res) => {
+app.get('/admin/customer-invoices', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.redirect('/');
     }
 
-    // Get all unpaid invoices
-    let unpaidInvoices = [];
+    // Get all invoices
+    let allInvoices = [];
     users.forEach(user => {
         if (user.invoices && user.invoices.length > 0) {
-            unpaidInvoices = unpaidInvoices.concat(user.invoices.filter(invoice => invoice.paid === false));
+            allInvoices = allInvoices.concat(user.invoices);
         }
     });
 
     // Sort the invoices by date in descending order
-    unpaidInvoices.sort((a, b) => {
+    allInvoices.sort((a, b) => {
         const dateA = new Date(a.dateCreated);
         const dateB = new Date(b.dateCreated);
         return dateB - dateA; // descending order
     });
 
-    res.render('manage-payment', { invoices: unpaidInvoices });
+    res.render('customer-invoices', { invoices: allInvoices });
 });
 
 
@@ -1566,7 +1589,9 @@ app.get('/admin/purchases', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.redirect('/');
     }
-    res.render('purchases', { inventory });
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    const vendors = data.vendors || [];
+    res.render('purchases', { inventory, vendors });
 });
 
 function roundToNearestQuarter(value) {
@@ -1590,7 +1615,12 @@ function vPackAutoPrice(cost) {
 }
 
 app.post('/admin/purchases', (req, res) => {
-    let { vendorName, newVendor, dateCreated, invoiceNumber, cashPaid, accountPaid, paid } = req.body;
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    vendors = data.vendors || [];
+    purchases = data.purchases || [];
+    inventory = data.inventory || [];
+    users = data.users || [];
+    let { vendor: vendorName, newVendor, dateCreated, invoiceNumber, cashPaid, accountPaid, paid } = req.body;
     const products = JSON.parse(req.body.products || '[]');
 
     if (!Array.isArray(products) || products.length === 0) {
@@ -1601,15 +1631,9 @@ app.post('/admin/purchases', (req, res) => {
     if (vendorName === 'other' && newVendor) {
         vendorName = newVendor;
         // Add the new vendor to the vendor list if not already there
-        const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
-        if (!data.vendors) {
-            data.vendors = [];
-        }
-
-        if (!data.vendors.includes(newVendor)) {
-            data.vendors.push(newVendor);
-            // Save the updated vendors list
-            fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
+        if (!vendors.includes(newVendor)) {
+            vendors.push(newVendor);
+            saveData();
         }
     }
 
@@ -1666,8 +1690,6 @@ app.post('/admin/purchases', (req, res) => {
         products: products
     };
 
-    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
-    
     // Handling purchases array
     let purchaseID = purchases ? purchases.length + 1 : 1;
 
@@ -1686,11 +1708,184 @@ app.post('/admin/purchases', (req, res) => {
 
     purchases.push(newPurchase);
 
-    // Save the updated purchases array in data.json
-    data.purchases = purchases;
-    fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
+    // Save the updated data
+    saveData();
 
-    res.redirect('/admin/purchases');
+    res.redirect('/admin/vendor-invoices');
+});
+
+
+app.get('/admin/vendor-manage-payment', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    const purchases = data.purchases || [];
+
+    // Get all unpaid purchases
+    const unpaidPurchases = purchases.filter(purchase => purchase.accountBalance > 0);
+
+    // Sort by date descending
+    unpaidPurchases.sort((a, b) => {
+        const dateA = new Date(a.dateCreated);
+        const dateB = new Date(b.dateCreated);
+        return dateB - dateA;
+    });
+
+    res.render('vendor-manage-payment', { purchases: unpaidPurchases });
+});
+
+app.get('/admin/vendor-invoices', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    const purchases = data.purchases || [];
+    const vendors = data.vendors || [];
+    const vendorFilter = req.query.vendor;
+    let filteredPurchases = purchases;
+    if (vendorFilter) {
+        filteredPurchases = purchases.filter(p => p.vendorName === vendorFilter);
+    }
+    res.render('vendor-portal', { purchases: filteredPurchases, vendors, inventory: data.inventory || [], vendorFilter });
+});
+
+app.get('/admin/view-vendors', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    const vendors = data.vendors || [];
+    res.render('view-vendors', { vendors });
+});
+
+app.get('/admin/add-vendor', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+    res.render('add-vendor');
+});
+
+app.post('/admin/add-vendor', (req, res) => {
+    console.log('Session logged in:', req.session.loggedIn, 'role:', req.session.user?.role);
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        console.log('Not logged in or not admin, redirecting');
+        return res.redirect('/');
+    }
+    const { email, company, phone, addressLine1, addressLine2, city, state, zipCode } = req.body;
+    console.log('Adding vendor:', company);
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    console.log('Loaded data vendors:', data.vendors);
+    vendors = data.vendors || [];
+    console.log('Global vendors before:', vendors.length);
+    const newVendor = {
+        id: vendors.length + 1,
+        email,
+        company,
+        phone,
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        zipCode
+    };
+    vendors.push(newVendor);
+    console.log('Global vendors after push:', vendors.length);
+    saveData();
+    console.log('Data saved');
+    res.redirect('/admin/view-vendors');
+});
+
+app.get('/admin/edit-vendor/:id', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+    const vendorId = parseInt(req.params.id);
+    const vendor = vendors.find(v => v.id === vendorId);
+    if (!vendor) {
+        return res.send('Vendor not found.');
+    }
+    res.render('edit-vendor', { vendor });
+});
+
+app.post('/admin/edit-vendor/:id', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+    const vendorId = parseInt(req.params.id);
+    const vendorIndex = vendors.findIndex(v => v.id === vendorId);
+
+    if (vendorIndex === -1) {
+        return res.status(404).send('Vendor not found.');
+    }
+
+    // Update vendor details
+    vendors[vendorIndex].email = req.body.email;
+    vendors[vendorIndex].company = req.body.company;
+    vendors[vendorIndex].phone = req.body.phone;
+    vendors[vendorIndex].addressLine1 = req.body.addressLine1;
+    vendors[vendorIndex].addressLine2 = req.body.addressLine2;
+    vendors[vendorIndex].city = req.body.city;
+    vendors[vendorIndex].state = req.body.state;
+    vendors[vendorIndex].zipCode = req.body.zipCode;
+
+    saveData();
+    res.redirect('/admin/view-vendors');
+});
+
+app.post('/admin/delete-vendor/:id', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+
+    const vendorId = parseInt(req.params.id);
+    
+    // Find the index of the vendor to delete
+    const vendorIndex = vendors.findIndex(v => v.id === vendorId);
+    
+    if (vendorIndex === -1) {
+        return res.status(404).send('Vendor not found.');
+    }
+    
+    // Remove the vendor from the vendors array
+    vendors.splice(vendorIndex, 1);
+    
+    // Save the updated data
+    saveData();
+    
+    // Redirect back to the vendors view
+    res.redirect('/admin/view-vendors');
+});
+
+app.get('/admin/manage-payment', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+    res.redirect('/admin/customer-manage-payment');
+});
+
+app.get('/admin/invoices', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+    res.redirect('/admin/customer-invoices');
+});
+
+app.get('/admin/purchases', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+    const purchases = data.purchases || [];
+    const vendors = data.vendors || [];
+    const inventory = data.inventory || [];
+    const vendorFilter = req.query.vendor;
+    let filteredPurchases = purchases;
+    if (vendorFilter) {
+        filteredPurchases = purchases.filter(p => p.vendorName === vendorFilter);
+    }
+    res.render('vendor-portal', { purchases: filteredPurchases, vendors, inventory, vendorFilter });
 });
 
 
@@ -1702,7 +1897,7 @@ app.get('/admin/vendor-portal', (req, res) => {
     const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
     const purchases = data.purchases || [];
 
-    res.render('vendor-portal', { purchases });
+    res.render('vendor-portal', { purchases, vendorFilter: req.query.vendor });
 });
 app.get('/admin/purchases/:purchaseID', (req, res) => {
     const purchaseID = parseInt(req.params.purchaseID, 10);
@@ -1762,10 +1957,19 @@ app.post('/admin/purchases/:purchaseID', (req, res) => {
 app.post('/admin/purchases/delete/:purchaseID', (req, res) => {
     const purchaseID = parseInt(req.params.purchaseID, 10);
 
-    // Filter out the purchase to be deleted
-    purchases = purchases.filter(purchase => purchase.PurchaseID !== purchaseID);
+    // Load data
+    const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
 
-    res.redirect('/admin/vendor-portal');
+    // Filter out the purchase to be deleted
+    data.purchases = data.purchases.filter(purchase => purchase.PurchaseID !== purchaseID);
+
+    // Save to data.json
+    fs.writeFileSync('data.json', JSON.stringify(data, null, 2), 'utf8');
+
+    // Update global variable
+    purchases = data.purchases;
+
+    res.redirect('/admin/vendor-invoices');
 });
 
 
@@ -1912,21 +2116,23 @@ app.get('/generate-products-pdf-download', async (req, res) => {
             price: (Math.floor((item[userPriceLevel] * finalPriceMultiplier) * 4) / 4)
         }));
 
-        // Sort inventory based on category rank then item rank
-        adjustedInventory.sort((a, b) => {
-            const rankA = categoryRanks[a.itemCategory] || Infinity;
-            const rankB = categoryRanks[b.itemCategory] || Infinity;
-            if (rankA !== rankB) {
-                return rankA - rankB;
-            }
-            return (a.rank || 0) - (b.rank || 0);
-        });
+        // Limit inventory to prevent excessive memory usage (max 200 items)
+        const maxItems = 200;
+        if (adjustedInventory.length > maxItems) {
+            console.log(`[PDF-GEN] Limiting inventory to ${maxItems} items to prevent memory issues`);
+            adjustedInventory.splice(maxItems);
+        }
 
         const fileName = `products-${user.company.replace(/\s+/g, '-')}.pdf`;
         const filePath = path.join(__dirname, 'pdfs', fileName);
         fs.mkdirSync(path.dirname(filePath), { recursive: true });
 
         console.log('[PDF-GEN] Starting PDF generation with PDFKit...');
+        
+        // Check initial memory usage
+        const memUsage = process.memoryUsage();
+        console.log(`[PDF-GEN] Initial memory usage: ${Math.round(memUsage.heapUsed / 1024 / 1024)}MB`);
+        
         const PDFDocument = require('pdfkit');
         const doc = new PDFDocument({
             size: 'A4',
@@ -1994,34 +2200,29 @@ app.get('/generate-products-pdf-download', async (req, res) => {
             const y = headerReservedTop + (row * (cellHeight + gutter));
 
 
-            // Draw image
+            // Draw image with memory-efficient resizing
             const imagePath = path.join(__dirname, 'public', item.imageUrl.startsWith('/') ? item.imageUrl.substring(1) : item.imageUrl);
             if (fs.existsSync(imagePath)) {
                 try {
-                    // Try direct embed first
-                    doc.image(imagePath, x, y, {
+                    // Resize image to max 200x200 pixels to reduce memory usage
+                    const resizedBuffer = await sharp(imagePath)
+                        .resize(200, 200, {
+                            fit: 'inside',
+                            withoutEnlargement: true
+                        })
+                        .png({ quality: 80 })
+                        .toBuffer();
+                    
+                    doc.image(resizedBuffer, x, y, {
                         fit: [cellWidth, cellHeight - 50],
                         align: 'center',
                         valign: 'center'
                     });
                 } catch (imgErr) {
-                    console.error(`[PDF-GEN] Direct embed failed for ${imagePath}:`, imgErr.message);
-                    // Convert with sharp to PNG buffer and embed synchronously
-                    try {
-                        const buf = fs.readFileSync(imagePath);
-                        const pngBuf = await sharp(buf).png().toBuffer();
-                        try {
-                            doc.image(pngBuf, x, y, { fit: [cellWidth, cellHeight - 50] });
-                        } catch (e2) {
-                            console.error('[PDF-GEN] Failed to embed converted PNG buffer for', imagePath, e2.message);
-                            doc.rect(x, y, cellWidth, cellHeight - 50).stroke();
-                            doc.fontSize(8).text('Image Error', x + 5, y + 5);
-                        }
-                    } catch (convErr) {
-                        console.error('[PDF-GEN] Sharp conversion failed for', imagePath, convErr.message);
-                        doc.rect(x, y, cellWidth, cellHeight - 50).stroke();
-                        doc.fontSize(8).text('Image Error', x + 5, y + 5);
-                    }
+                    console.error(`[PDF-GEN] Image processing failed for ${imagePath}:`, imgErr.message);
+                    // Draw an empty box if image processing fails
+                    doc.rect(x, y, cellWidth, cellHeight - 50).stroke();
+                    doc.fontSize(8).text('Image Error', x + 5, y + 5);
                 }
             } else {
                 console.error(`[PDF-GEN] Image file not found at path: ${imagePath}`);
@@ -2067,6 +2268,16 @@ app.get('/generate-products-pdf-download', async (req, res) => {
         });
 
         console.log('[PDF-GEN] PDF generated successfully with PDFKit at', filePath);
+        
+        // Check memory usage after PDF generation
+        const memUsageAfter = process.memoryUsage();
+        console.log(`[PDF-GEN] Memory usage after PDF generation: ${Math.round(memUsageAfter.heapUsed / 1024 / 1024)}MB`);
+        
+        // Force garbage collection if available
+        if (global.gc) {
+            global.gc();
+            console.log(`[PDF-GEN] Memory usage after GC: ${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`);
+        }
 
         // Check file size before compression
         if (fs.existsSync(filePath)) {
@@ -2077,6 +2288,11 @@ app.get('/generate-products-pdf-download', async (req, res) => {
 
         // Compress PDF using iLovePDF API
         console.log('[PDF-GEN] Starting PDF compression...');
+        
+        // Check memory usage before compression
+        const memUsageBeforeCompress = process.memoryUsage();
+        console.log(`[PDF-GEN] Memory usage before compression: ${Math.round(memUsageBeforeCompress.heapUsed / 1024 / 1024)}MB`);
+        
         let compressedFilePath = filePath; // Default to original
         
         try {

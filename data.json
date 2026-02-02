@@ -86814,6 +86814,25 @@
       "taxableItem": false
     },
     {
+      "id": 4,
+      "itemName": "12\" x 1000' Aluminum Foil Roll Heavy Duty (Blue White)",
+      "itemCategory": "Aluminum Foil Roll",
+      "cost": 18,
+      "quantity": 0,
+      "priceLevel1": 18,
+      "priceLevel2": 21,
+      "priceLevel3": 24.5,
+      "rank": 2,
+      "imageUrl": "/uploads/image-1722922854534.jpg",
+      "vendors": null,
+      "length": 0,
+      "width": 0,
+      "height": 0,
+      "weight": 0,
+      "palletqty": 0,
+      "taxableItem": false
+    },
+    {
       "id": 2,
       "itemName": "18\" x 500' Aluminum Foil Roll Heavy Duty",
       "itemCategory": "Aluminum Foil Roll",
@@ -86822,7 +86841,7 @@
       "priceLevel2": 15,
       "priceLevel3": 22,
       "imageUrl": "/uploads/3.jpg",
-      "rank": 2,
+      "rank": 3,
       "quantity": 100,
       "vendors": [
         {
@@ -86835,25 +86854,6 @@
       "height": 0,
       "weight": 0,
       "palletqty": 198,
-      "taxableItem": false
-    },
-    {
-      "id": 4,
-      "itemName": "12\" x 1000' Aluminum Foil Roll Heavy Duty (Blue White)",
-      "itemCategory": "Aluminum Foil Roll",
-      "cost": 18,
-      "quantity": 0,
-      "priceLevel1": 18,
-      "priceLevel2": 21,
-      "priceLevel3": 24.5,
-      "rank": 3,
-      "imageUrl": "/uploads/image-1722922854534.jpg",
-      "vendors": null,
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "weight": 0,
-      "palletqty": 0,
       "taxableItem": false
     },
     {
@@ -92075,87 +92075,6 @@
     }
   ],
   "purchases": [
-    {
-      "PurchaseID": 1,
-      "vendorName": "KEYSERMAN PACKAGING CO INC",
-      "dateCreated": "8/1/2024",
-      "invoiceNumber": "#10-24",
-      "cashPaid": 0,
-      "accountPaid": 0,
-      "products": [
-        {
-          "productName": "Detroit Forming LBH-111",
-          "quantity": 50,
-          "rate": 28.75,
-          "total": 1437.5,
-          "autoPricing": "autoPriceRetail"
-        },
-        {
-          "productName": "Detroit Forming LBH-9812",
-          "quantity": 50,
-          "rate": 34.5,
-          "total": 1725,
-          "autoPricing": "autoPriceRetail"
-        }
-      ],
-      "totalAmount": 3162.5,
-      "accountBalance": 3162.5,
-      "paid": false
-    },
-    {
-      "PurchaseID": 2,
-      "vendorName": "KEYSERMAN PACKAGING CO INC",
-      "dateCreated": "8/8/2024",
-      "invoiceNumber": "#11-24",
-      "cashPaid": 0,
-      "accountPaid": 0,
-      "products": [
-        {
-          "productName": "Detroit Forming LBH-991",
-          "quantity": 66,
-          "rate": 26.6,
-          "total": 1755.6,
-          "autoPricing": "autoPriceRetail"
-        },
-        {
-          "productName": "Detroit Forming LBH-992",
-          "quantity": 58,
-          "rate": 31.7,
-          "total": 1838.6,
-          "autoPricing": "autoPriceRetail"
-        },
-        {
-          "productName": "Detroit Forming LBH-9812",
-          "quantity": 26,
-          "rate": 34.5,
-          "total": 897,
-          "autoPricing": "autoPriceRetail"
-        }
-      ],
-      "totalAmount": 4491.2,
-      "accountBalance": 4491.2,
-      "paid": false
-    },
-    {
-      "PurchaseID": 5,
-      "vendorName": "Getty Packaging Corp.",
-      "dateCreated": "8/8/2024",
-      "invoiceNumber": "618",
-      "cashPaid": 0,
-      "accountPaid": 0,
-      "products": [
-        {
-          "productName": "PP Hinged Container PP225 / PP61 6\"x6\"x3 250pcs",
-          "quantity": 25,
-          "rate": 15.25,
-          "total": 381.25,
-          "autoPricing": "autoPriceRetail"
-        }
-      ],
-      "totalAmount": 381.25,
-      "accountBalance": 381.25,
-      "paid": false
-    },
     {
       "invoiceNumber": "INV1728830506883",
       "companyName": "Unknown Company",
@@ -100534,5 +100453,8 @@
       "Category": "Plastic Produce Bags",
       "Rank": 32
     }
+  ],
+  "vendors": [
+    "Carry Bag Company"
   ]
 }

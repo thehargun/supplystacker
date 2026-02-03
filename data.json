@@ -41778,13 +41778,20 @@
               "quantity": 792,
               "rate": 16.1,
               "total": 12751.2
+            },
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": -87028.1,
+              "total": -87028.1
             }
           ],
-          "subtotal": 87028.1,
+          "subtotal": 0,
           "salesTax": 0,
-          "totalAmount": 87028.1,
-          "totalBalance": 87028.1,
-          "paid": false,
+          "totalAmount": 0,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
           "AccountPayment": 0,
           "notes": ""
@@ -41839,13 +41846,20 @@
               "quantity": 2880,
               "rate": 38.25,
               "total": 110160
+            },
+            {
+              "productName": "Freight",
+              "productCategory": "Industrial",
+              "quantity": 1,
+              "rate": -110160,
+              "total": -110160
             }
           ],
-          "subtotal": 110160,
+          "subtotal": 0,
           "salesTax": 0,
-          "totalAmount": 110160,
-          "totalBalance": 110160,
-          "paid": false,
+          "totalAmount": 0,
+          "totalBalance": 0,
+          "paid": true,
           "CashPayment": 0,
           "AccountPayment": 0,
           "notes": ""
@@ -83060,15 +83074,51 @@
               "quantity": 4,
               "rate": 11.6,
               "total": 46.4
+            },
+            {
+              "productName": "7\" Aluminum Pan 7.6g",
+              "productCategory": "Aluminum Pans",
+              "quantity": 2,
+              "rate": 29,
+              "total": 58
+            },
+            {
+              "productName": "7\" Aluminum Pan Dome Lid",
+              "productCategory": "Aluminum Pans",
+              "quantity": 2,
+              "rate": 12,
+              "total": 24
+            },
+            {
+              "productName": "20 oz PET Cup (1000pcs)",
+              "productCategory": "Plastic PET Cups",
+              "quantity": 1,
+              "rate": 46,
+              "total": 46
+            },
+            {
+              "productName": "98mm PET Cup Flat Lids (1000pcs)",
+              "productCategory": "Plastic PET Cups",
+              "quantity": 1,
+              "rate": 15.5,
+              "total": 15.5
+            },
+            {
+              "productName": "C90PST1 Hinged Container Import",
+              "productCategory": "Plastic Hinged Container",
+              "quantity": 1,
+              "rate": 45.25,
+              "total": 45.25
             }
           ],
-          "subtotal": 785.4,
+          "subtotal": 974.15,
           "salesTax": 0,
-          "totalAmount": 785.4,
-          "totalBalance": 785.4,
+          "totalAmount": 974.15,
+          "totalBalance": 974.15,
           "paid": false,
           "CashPayment": 0,
-          "AccountPayment": 0
+          "AccountPayment": 0,
+          "notes": ""
         }
       ]
     },
@@ -100664,17 +100714,5 @@
       "Rank": 32
     }
   ],
-  "vendors": [
-    {
-      "id": 1,
-      "email": "carrybag@gmail.com",
-      "company": "Carry Bag Company",
-      "phone": "5512248891",
-      "addressLine1": "123",
-      "addressLine2": "",
-      "city": "123",
-      "state": "123",
-      "zipCode": "07410"
-    }
-  ]
+  "vendors": []
 }

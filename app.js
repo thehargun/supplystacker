@@ -1528,6 +1528,21 @@ app.post('/admin/update-inventory-order', (req, res) => {
     res.json({ success: true });
 });
 
+// API endpoint to update inventory quantity inline
+app.post('/admin/update-inventory-quantity', (req, res) => {
+    const { id, quantity } = req.body;
+    const itemIndex = inventory.findIndex(item => item.id === parseInt(id));
+    
+    if (itemIndex === -1) {
+        return res.status(404).json({ success: false, message: 'Item not found' });
+    }
+    
+    inventory[itemIndex].quantity = parseInt(quantity) || 0;
+    saveData();
+    
+    res.json({ success: true, quantity: inventory[itemIndex].quantity });
+});
+
 app.post('/admin/add-vendor/:id', (req, res) => {
     const itemId = parseInt(req.params.id);
     const itemIndex = inventory.findIndex(item => item.id === itemId);
@@ -2670,54 +2685,50 @@ app.post('/admin/salesreport', (req, res) => {
 });
 
 // Route for Admin Sales By Product Report
-app.get('/admin/salesbyproductreport', (req, res) => {
-    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.redirect('/');
-    }
-    res.render('salesbyproductreport', { reportData: null, month: null });
-});
-
-app.post('/admin/salesbyproductreport', (req, res) => {
-    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
-        return res.redirect('/');
-    }
-
-    const selectedMonth = req.body.month; // Format: YYYY-MM
-    const startOfMonth = moment(selectedMonth, 'YYYY-MM').startOf('month');
-    const endOfMonth = moment(selectedMonth, 'YYYY-MM').endOf('month');
-    const startOfLastMonth = moment(selectedMonth, 'YYYY-MM').subtract(1, 'month').startOf('month');
-    const endOfLastMonth = moment(selectedMonth, 'YYYY-MM').subtract(1, 'month').endOf('month');
+// Helper function to calculate sales by product data for a time period
+function calculateSalesByProductPeriod(months) {
+    const endDate = moment();
+    const startDate = moment().subtract(months, 'months').startOf('month');
+    const prevStartDate = moment().subtract(months * 2, 'months').startOf('month');
+    const prevEndDate = moment().subtract(months, 'months').subtract(1, 'day');
 
     let reportData = {};
+    let totalSales = 0;
+    let totalQuantity = 0;
 
     // Iterate through all users and their invoices to gather sales data
     users.forEach(user => {
         if (user.invoices && user.invoices.length > 0) {
             user.invoices.forEach(invoice => {
-                const invoiceDate = moment(invoice.dateCreated, 'YYYY-MM-DD');
-                const isCurrentMonth = invoiceDate.isBetween(startOfMonth, endOfMonth, undefined, '[]');
-                const isLastMonth = invoiceDate.isBetween(startOfLastMonth, endOfLastMonth, undefined, '[]');
+                const invoiceDate = moment(invoice.dateCreated, ['YYYY-MM-DD', 'MM/DD/YYYY']);
+                const isCurrentPeriod = invoiceDate.isBetween(startDate, endDate, undefined, '[]');
+                const isPrevPeriod = invoiceDate.isBetween(prevStartDate, prevEndDate, undefined, '[]');
 
                 invoice.products.forEach(product => {
                     if (!reportData[product.productName]) {
+                        // Find product image from inventory
+                        const inventoryItem = inventory.find(i => i.itemName === product.productName);
                         reportData[product.productName] = {
                             productName: product.productName,
+                            imageUrl: inventoryItem ? inventoryItem.imageUrl : null,
                             quantitySold: 0,
-                            quantitySoldLastMonth: 0,
+                            quantitySoldPrev: 0,
                             totalAmount: 0,
-                            totalAmountLastMonth: 0,
+                            totalAmountPrev: 0,
                             rate: product.rate
                         };
                     }
 
-                    if (isCurrentMonth) {
+                    if (isCurrentPeriod) {
                         reportData[product.productName].quantitySold += product.quantity;
                         reportData[product.productName].totalAmount += product.total;
+                        totalSales += product.total;
+                        totalQuantity += product.quantity;
                     }
 
-                    if (isLastMonth) {
-                        reportData[product.productName].quantitySoldLastMonth += product.quantity;
-                        reportData[product.productName].totalAmountLastMonth += product.total;
+                    if (isPrevPeriod) {
+                        reportData[product.productName].quantitySoldPrev += product.quantity;
+                        reportData[product.productName].totalAmountPrev += product.total;
                     }
                 });
             });
@@ -2726,8 +2737,47 @@ app.post('/admin/salesbyproductreport', (req, res) => {
 
     // Convert reportData object to an array and sort by totalAmount
     const reportDataArray = Object.values(reportData).sort((a, b) => b.totalAmount - a.totalAmount);
+    
+    return {
+        reportData: reportDataArray,
+        totalSales,
+        totalQuantity,
+        uniqueProducts: reportDataArray.filter(p => p.quantitySold > 0).length
+    };
+}
 
-    res.render('salesbyproductreport', { reportData: reportDataArray, month: selectedMonth });
+app.get('/admin/salesbyproductreport', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+    
+    // Default to last 3 months
+    const data = calculateSalesByProductPeriod(3);
+    
+    res.render('salesbyproductreport', { 
+        reportData: data.reportData, 
+        period: '3',
+        totalSales: data.totalSales,
+        totalQuantity: data.totalQuantity,
+        uniqueProducts: data.uniqueProducts
+    });
+});
+
+app.post('/admin/salesbyproductreport', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+
+    const period = req.body.period || '3'; // Default 3 months
+    const data = calculateSalesByProductPeriod(parseInt(period));
+
+    res.render('salesbyproductreport', { 
+        reportData: data.reportData, 
+        period: period,
+        totalSales: data.totalSales,
+        totalQuantity: data.totalQuantity,
+        uniqueProducts: data.uniqueProducts
+    });
 });
 
 app.get('/admin/returns', (req, res) => {

@@ -221,6 +221,7 @@ let vendors = data.vendors || [];
 
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -332,7 +333,6 @@ function saveData() {
             }))
         };
         fs.writeFileSync('data.json', JSON.stringify(dataToSave, null, 2));
-        console.log('Data saved successfully, vendors included:', dataToSave.vendors);
     } catch (error) {
         console.error('Error saving data:', error.message);
         console.error('Error stack:', error.stack);
@@ -1462,11 +1462,9 @@ app.get('/admin/customer-invoices', (req, res) => {
         }
     });
 
-    // Sort the invoices by date in descending order
+    // Sort the invoices by invoice number alphabetically (A-Z)
     allInvoices.sort((a, b) => {
-        const dateA = new Date(a.dateCreated);
-        const dateB = new Date(b.dateCreated);
-        return dateB - dateA; // descending order
+        return a.invoiceNumber.localeCompare(b.invoiceNumber);
     });
 
     res.render('customer-invoices', { invoices: allInvoices });
@@ -2557,12 +2555,126 @@ app.post('/admin/salestaxreport', (req, res) => {
     });
 });
 
+// Admin Sales Report Page - GET Route
+app.get('/admin/salesreport', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+    
+    // Calculate monthly sales for last 12 months
+    let monthlySales = [];
+    for (let i = 11; i >= 0; i--) {
+        const monthDate = moment().subtract(i, 'months');
+        monthlySales.push({
+            label: monthDate.format('MMMM YYYY'),
+            month: monthDate.month(),
+            year: monthDate.year(),
+            total: 0,
+            isCurrentMonth: i === 0
+        });
+    }
+    
+    // Calculate sales for each month
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            user.invoices.forEach(invoice => {
+                const invoiceDate = moment(invoice.dateCreated, ["MM/DD/YYYY", "YYYY-MM-DD"]);
+                const invoiceMonth = invoiceDate.month();
+                const invoiceYear = invoiceDate.year();
+                
+                const monthData = monthlySales.find(m => m.month === invoiceMonth && m.year === invoiceYear);
+                if (monthData && invoice.totalAmount) {
+                    monthData.total += invoice.totalAmount;
+                }
+            });
+        }
+    });
+    
+    // Calculate average (excluding current month - divide by 11)
+    const pastMonthsSales = monthlySales.filter(m => !m.isCurrentMonth);
+    const totalPastSales = pastMonthsSales.reduce((sum, m) => sum + m.total, 0);
+    const monthlyAverage = pastMonthsSales.length > 0 ? totalPastSales / pastMonthsSales.length : 0;
+    
+    res.render('salesreport', {
+        monthlySales: monthlySales,
+        monthlyAverage: monthlyAverage,
+        customRangeTotal: null,
+        startDate: null,
+        endDate: null
+    });
+});
+
+// Admin Sales Report Page - POST Route
+app.post('/admin/salesreport', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.redirect('/');
+    }
+
+    const { startDate, endDate } = req.body;
+    
+    const start = moment(startDate, 'YYYY-MM-DD').startOf('day');
+    const end = moment(endDate, 'YYYY-MM-DD').endOf('day');
+
+    let totalSales = 0;
+
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            user.invoices.forEach(invoice => {
+                const invoiceDate = moment(invoice.dateCreated, ["MM/DD/YYYY", "YYYY-MM-DD"]);
+                if (invoiceDate.isBetween(start, end, undefined, '[]')) {
+                    totalSales += invoice.totalAmount || 0;
+                }
+            });
+        }
+    });
+
+    // Recalculate monthly sales for the dashboard
+    let monthlySales = [];
+    for (let i = 11; i >= 0; i--) {
+        const monthDate = moment().subtract(i, 'months');
+        monthlySales.push({
+            label: monthDate.format('MMMM YYYY'),
+            month: monthDate.month(),
+            year: monthDate.year(),
+            total: 0,
+            isCurrentMonth: i === 0
+        });
+    }
+    
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            user.invoices.forEach(invoice => {
+                const invoiceDate = moment(invoice.dateCreated, ["MM/DD/YYYY", "YYYY-MM-DD"]);
+                const invoiceMonth = invoiceDate.month();
+                const invoiceYear = invoiceDate.year();
+                
+                const monthData = monthlySales.find(m => m.month === invoiceMonth && m.year === invoiceYear);
+                if (monthData && invoice.totalAmount) {
+                    monthData.total += invoice.totalAmount;
+                }
+            });
+        }
+    });
+    
+    const pastMonthsSales = monthlySales.filter(m => !m.isCurrentMonth);
+    const totalPastSales = pastMonthsSales.reduce((sum, m) => sum + m.total, 0);
+    const monthlyAverage = pastMonthsSales.length > 0 ? totalPastSales / pastMonthsSales.length : 0;
+    
+    res.render('salesreport', {
+        monthlySales: monthlySales,
+        monthlyAverage: monthlyAverage,
+        customRangeTotal: totalSales,
+        startDate: startDate,
+        endDate: endDate
+    });
+});
+
 // Route for Admin Sales By Product Report
 app.get('/admin/salesbyproductreport', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
         return res.redirect('/');
     }
-    res.render('salesreport', { reportData: null, month: null });
+    res.render('salesbyproductreport', { reportData: null, month: null });
 });
 
 app.post('/admin/salesbyproductreport', (req, res) => {
@@ -2615,7 +2727,7 @@ app.post('/admin/salesbyproductreport', (req, res) => {
     // Convert reportData object to an array and sort by totalAmount
     const reportDataArray = Object.values(reportData).sort((a, b) => b.totalAmount - a.totalAmount);
 
-    res.render('salesreport', { reportData: reportDataArray, month: selectedMonth });
+    res.render('salesbyproductreport', { reportData: reportDataArray, month: selectedMonth });
 });
 
 app.get('/admin/returns', (req, res) => {

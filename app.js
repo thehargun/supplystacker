@@ -2711,6 +2711,7 @@ function calculateSalesByProductPeriod(months) {
                         reportData[product.productName] = {
                             productName: product.productName,
                             imageUrl: inventoryItem ? inventoryItem.imageUrl : null,
+                            inventoryQuantity: inventoryItem ? (inventoryItem.quantity || 0) : 0,
                             quantitySold: 0,
                             quantitySoldPrev: 0,
                             totalAmount: 0,

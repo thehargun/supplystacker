@@ -279,7 +279,7 @@
                     <label for="vendor">Vendor Name:</label>
                     <select id="vendor" name="vendor" onchange="toggleVendorInput()">
                         <% vendors.forEach(vendor => { %>
-                            <option value="<%= vendor %>"><%= vendor %></option>
+                            <option value="<%= vendor.company %>"><%= vendor.company %></option>
                         <% }) %>
                         <option value="other">Other</option>
                     </select>

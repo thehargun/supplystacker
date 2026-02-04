@@ -39,13 +39,22 @@
         .chart-container { position: relative; height: 300px; }
         
         .table-section { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 30px; }
-        .table-section h2 { font-size: 18px; color: #2c3e50; margin-bottom: 20px; }
+        .table-section h2 { font-size: 18px; color: #2c3e50; margin-bottom: 10px; }
+        .table-legend { font-size: 13px; color: #7f8c8d; margin-bottom: 15px; display: flex; gap: 20px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-color { width: 16px; height: 16px; border-radius: 4px; }
+        .legend-color.low-stock { background: #ffebee; border: 1px solid #ffcdd2; }
         .product-table { width: 100%; border-collapse: collapse; }
         .product-table th, .product-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ecf0f1; vertical-align: middle; }
         .product-table th { background: #f8f9fa; font-weight: 600; color: #7f8c8d; font-size: 12px; text-transform: uppercase; position: sticky; top: 0; }
         .product-table tr:hover { background: #f8f9fa; }
+        .product-table tr.low-stock { background: #ffebee !important; }
+        .product-table tr.low-stock:hover { background: #ffcdd2 !important; }
         .product-table .amount { font-weight: 600; color: #27ae60; }
         .product-table .qty { font-weight: 600; color: #3498db; }
+        .product-table .stock { font-weight: 600; }
+        .product-table .stock-ok { color: #27ae60; }
+        .product-table .stock-low { color: #e74c3c; }
         .product-table .change-up { color: #27ae60; font-size: 12px; }
         .product-table .change-down { color: #e74c3c; font-size: 12px; }
         .product-table .change-same { color: #7f8c8d; font-size: 12px; }
@@ -60,6 +69,20 @@
         .product-img { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; background: #f0f0f0; }
         .product-img-placeholder { width: 40px; height: 40px; border-radius: 6px; background: #ecf0f1; display: flex; align-items: center; justify-content: center; color: #bdc3c7; font-size: 18px; }
         .product-name { font-weight: 500; }
+        
+        .low-stock-alert { 
+            background: linear-gradient(135deg, #e74c3c, #c0392b); 
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .low-stock-alert .alert-icon { font-size: 24px; }
+        .low-stock-alert .alert-text { flex: 1; }
+        .low-stock-alert .alert-count { font-size: 24px; font-weight: 700; }
         
         .no-data { text-align: center; padding: 40px; color: #7f8c8d; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
     </style>
@@ -90,8 +113,29 @@
         </div>
         
         <% var soldProducts = reportData.filter(function(p) { return p.quantitySold > 0; }); %>
+        <% var periodMonths = parseInt(period); %>
+        <% 
+            // Calculate projected need for next period (same length as selected)
+            // Monthly avg = quantitySold / periodMonths, projected = monthlyAvg * periodMonths
+            var lowStockProducts = soldProducts.filter(function(p) {
+                var monthlyAvg = p.quantitySold / periodMonths;
+                var projectedNeed = monthlyAvg * periodMonths; // Need for next same period
+                return p.inventoryQuantity < projectedNeed;
+            });
+        %>
         
         <% if (soldProducts.length > 0) { %>
+            <% if (lowStockProducts.length > 0) { %>
+                <div class="low-stock-alert">
+                    <span class="alert-icon">⚠️</span>
+                    <span class="alert-text">
+                        <strong>Low Stock Alert!</strong> 
+                        Based on sales from the last <%= period %> months, these products may not have enough inventory for the next <%= period %> months.
+                    </span>
+                    <span class="alert-count"><%= lowStockProducts.length %></span>
+                </div>
+            <% } %>
+        
             <div class="stats-row">
                 <div class="stat-card highlight">
                     <h3>Total Sales</h3>
@@ -106,8 +150,8 @@
                     <div class="value"><%= uniqueProducts.toLocaleString() %></div>
                 </div>
                 <div class="stat-card">
-                    <h3>Avg Sale/Product</h3>
-                    <div class="value">$<%= uniqueProducts > 0 ? (totalSales / uniqueProducts).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '0.00' %></div>
+                    <h3>Low Stock Items</h3>
+                    <div class="value" style="color: <%= lowStockProducts.length > 0 ? '#e74c3c' : '#27ae60' %>"><%= lowStockProducts.length %></div>
                 </div>
             </div>
             
@@ -128,6 +172,12 @@
             
             <div class="table-section">
                 <h2>Product Sales - Last <%= period %> Months (<%= soldProducts.length %> products)</h2>
+                <div class="table-legend">
+                    <div class="legend-item">
+                        <div class="legend-color low-stock"></div>
+                        <span>Low stock - won't last next <%= period %> months based on sales trend</span>
+                    </div>
+                </div>
                 <div class="table-wrapper">
                     <table class="product-table">
                         <thead>
@@ -135,14 +185,21 @@
                                 <th style="width:60px">Rank</th>
                                 <th>Product</th>
                                 <th>Qty Sold</th>
+                                <th>In Stock</th>
                                 <th>vs Prev Period</th>
                                 <th>Avg Price</th>
                                 <th>Total Revenue</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% var rank = 0; soldProducts.forEach(function(product) { rank++; %>
-                                <tr>
+                            <% var rank = 0; soldProducts.forEach(function(product) { 
+                                rank++; 
+                                var monthlyAvg = product.quantitySold / periodMonths;
+                                var projectedNeed = monthlyAvg * periodMonths;
+                                var isLowStock = product.inventoryQuantity < projectedNeed;
+                                var orderQuantity = Math.ceil(projectedNeed - product.inventoryQuantity);
+                            %>
+                                <tr class="<%= isLowStock ? 'low-stock' : '' %>">
                                     <td>
                                         <span class="rank-badge <%= rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-other' %>"><%= rank %></span>
                                     </td>
@@ -158,6 +215,12 @@
                                         </div>
                                     </td>
                                     <td class="qty"><%= product.quantitySold.toLocaleString() %></td>
+                                    <td class="stock <%= isLowStock ? 'stock-low' : 'stock-ok' %>">
+                                        <%= product.inventoryQuantity.toLocaleString() %>
+                                        <% if (isLowStock) { %>
+                                            <span style="font-size:11px; font-weight:normal;"> (order ~<%= orderQuantity %>)</span>
+                                        <% } %>
+                                    </td>
                                     <td>
                                         <% var diff = product.quantitySold - product.quantitySoldPrev; %>
                                         <% if (diff > 0) { %>

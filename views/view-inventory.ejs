@@ -81,6 +81,7 @@
             padding: 14px 16px;
             text-align: left;
             border-bottom: 1px solid #ecf0f1;
+            user-select: text;
         }
         th {
             background-color: #f8f9fa;
@@ -136,7 +137,24 @@
         .btn-edit:hover { background: #219a52; }
         .btn-delete { background: #e74c3c; color: white; }
         .btn-delete:hover { background: #c0392b; }
-        .dragging { background-color: #e8f4fc !important; }
+        .dragging { background-color: #e8f4fc !important; opacity: 0.8; }
+        .drag-over { border-top: 3px solid #3498db; }
+        
+        /* Drag Handle */
+        .drag-handle {
+            cursor: grab;
+            color: #bdc3c7;
+            font-size: 18px;
+            padding: 5px 10px;
+            user-select: none;
+            transition: color 0.2s;
+        }
+        .drag-handle:hover {
+            color: #7f8c8d;
+        }
+        .drag-handle:active {
+            cursor: grabbing;
+        }
         
         /* Mobile Card View */
         .mobile-list { display: none; }
@@ -256,6 +274,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th style="width:40px"></th>
                         <th>Image</th>
                         <th>Item Name</th>
                         <th>Category</th>
@@ -269,7 +288,8 @@
                 </thead>
                 <tbody id="inventoryList">
                     <% inventory.forEach(item => { %>
-                        <tr class="inventory-item" draggable="true" data-id="<%= item.id %>" data-category="<%= item.itemCategory %>">
+                        <tr class="inventory-item" data-id="<%= item.id %>" data-category="<%= item.itemCategory %>">
+                            <td><span class="drag-handle" draggable="true" title="Drag to reorder">☰</span></td>
                             <td><img src="<%= item.imageUrl %>" alt="" class="item-img"></td>
                             <td><strong><%= item.itemName %></strong></td>
                             <td><%= item.itemCategory || '-' %></td>
@@ -343,7 +363,7 @@
             
             // Desktop table rows
             document.querySelectorAll('.inventory-item').forEach(row => {
-                const name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                const name = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
                 row.style.display = name.includes(searchTerm) ? '' : 'none';
             });
             
@@ -419,33 +439,51 @@
             });
         }
         
-        // Drag and drop for desktop
-        document.querySelectorAll('.inventory-item').forEach(item => {
-            item.addEventListener('dragstart', function(e) {
-                e.dataTransfer.setData('text/plain', e.target.dataset.id);
-                e.target.classList.add('dragging');
+        // Drag and drop using handle only
+        let draggedRow = null;
+        
+        document.querySelectorAll('.drag-handle').forEach(handle => {
+            handle.addEventListener('dragstart', function(e) {
+                draggedRow = this.closest('.inventory-item');
+                draggedRow.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', draggedRow.dataset.id);
             });
             
-            item.addEventListener('dragend', function(e) {
-                e.target.classList.remove('dragging');
+            handle.addEventListener('dragend', function(e) {
+                if (draggedRow) {
+                    draggedRow.classList.remove('dragging');
+                }
+                document.querySelectorAll('.inventory-item').forEach(row => {
+                    row.classList.remove('drag-over');
+                });
+                draggedRow = null;
             });
-            
-            item.addEventListener('dragover', function(e) {
+        });
+        
+        document.querySelectorAll('.inventory-item').forEach(row => {
+            row.addEventListener('dragover', function(e) {
                 e.preventDefault();
+                if (draggedRow && draggedRow !== this) {
+                    this.classList.add('drag-over');
+                }
             });
             
-            item.addEventListener('drop', function(e) {
+            row.addEventListener('dragleave', function(e) {
+                this.classList.remove('drag-over');
+            });
+            
+            row.addEventListener('drop', function(e) {
                 e.preventDefault();
-                const draggedItemId = e.dataTransfer.getData('text/plain');
-                const draggedItem = document.querySelector('.inventory-item[data-id="' + draggedItemId + '"]');
-                const dropTarget = e.target.closest('.inventory-item');
+                this.classList.remove('drag-over');
                 
-                if (dropTarget && draggedItem !== dropTarget) {
-                    const dropTargetCategory = dropTarget.dataset.category;
-                    const draggedItemCategory = draggedItem.dataset.category;
+                if (draggedRow && draggedRow !== this) {
+                    const dropTargetCategory = this.dataset.category;
+                    const draggedItemCategory = draggedRow.dataset.category;
                     
                     if (dropTargetCategory === draggedItemCategory) {
-                        dropTarget.parentNode.insertBefore(draggedItem, dropTarget.nextSibling);
+                        // Insert dragged row after drop target
+                        this.parentNode.insertBefore(draggedRow, this.nextSibling);
                         saveNewOrder();
                     } else {
                         alert('Items can only be reordered within the same category.');

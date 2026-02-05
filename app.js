@@ -893,11 +893,13 @@ app.get('/admin/invoices/delete/:invoiceNumber', (req, res) => {
 
     const invoiceNumber = req.params.invoiceNumber;
     let invoiceFound = false;
+    let deletedInvoice = null;
 
     users.forEach(user => {
         if (user.invoices && user.invoices.length > 0) {
             const invoiceIndex = user.invoices.findIndex(inv => inv.invoiceNumber === invoiceNumber);
             if (invoiceIndex !== -1) {
+                deletedInvoice = user.invoices[invoiceIndex];
                 user.invoices.splice(invoiceIndex, 1);
                 invoiceFound = true;
             }
@@ -908,10 +910,29 @@ app.get('/admin/invoices/delete/:invoiceNumber', (req, res) => {
         return res.status(404).send('Invoice not found.');
     }
 
+    // Reverse inventory quantities for each product in the deleted invoice
+    if (deletedInvoice && deletedInvoice.products) {
+        console.log('[INVENTORY REVERSAL] Reversing inventory for deleted invoice:', invoiceNumber);
+        deletedInvoice.products.forEach(product => {
+            const inventoryItem = inventory.find(item => item.itemName === product.productName);
+            if (inventoryItem) {
+                const oldQty = inventoryItem.quantity || 0;
+                // Add back positive quantities, subtract negative quantities
+                inventoryItem.quantity = oldQty + product.quantity;
+                console.log('[INVENTORY REVERSAL] Item:', product.productName, 'Qty on invoice:', product.quantity, 'Old stock:', oldQty, 'New stock:', inventoryItem.quantity);
+            } else {
+                console.log('[INVENTORY REVERSAL] WARNING: Could not find inventory item for:', product.productName);
+            }
+        });
+        console.log('[INVENTORY REVERSAL] Completed.');
+    }
+
     // Save updated data to data.json
     saveData();
 
-    res.redirect('/admin/invoices');
+    // Redirect to the specified URL or default to /admin/invoices
+    const redirectUrl = req.query.redirect || '/admin/invoices';
+    res.redirect(redirectUrl);
 });
 // Route to handle invoice printing from admin panel
 app.post('/admin/invoices/print/:invoiceNumber', (req, res) => {
@@ -966,11 +987,13 @@ app.get('/admin/manage-payment/invoices/delete/:invoiceNumber', (req, res) => {
 
     const invoiceNumber = req.params.invoiceNumber;
     let invoiceFound = false;
+    let deletedInvoice = null;
 
     users.forEach(user => {
         if (user.invoices && user.invoices.length > 0) {
             const invoiceIndex = user.invoices.findIndex(inv => inv.invoiceNumber === invoiceNumber);
             if (invoiceIndex !== -1) {
+                deletedInvoice = user.invoices[invoiceIndex];
                 user.invoices.splice(invoiceIndex, 1);
                 invoiceFound = true;
             }
@@ -979,6 +1002,23 @@ app.get('/admin/manage-payment/invoices/delete/:invoiceNumber', (req, res) => {
 
     if (!invoiceFound) {
         return res.status(404).send('Invoice not found.');
+    }
+
+    // Reverse inventory quantities for each product in the deleted invoice
+    if (deletedInvoice && deletedInvoice.products) {
+        console.log('[INVENTORY REVERSAL] Reversing inventory for deleted invoice:', invoiceNumber);
+        deletedInvoice.products.forEach(product => {
+            const inventoryItem = inventory.find(item => item.itemName === product.productName);
+            if (inventoryItem) {
+                const oldQty = inventoryItem.quantity || 0;
+                // Add back positive quantities, subtract negative quantities
+                inventoryItem.quantity = oldQty + product.quantity;
+                console.log('[INVENTORY REVERSAL] Item:', product.productName, 'Qty on invoice:', product.quantity, 'Old stock:', oldQty, 'New stock:', inventoryItem.quantity);
+            } else {
+                console.log('[INVENTORY REVERSAL] WARNING: Could not find inventory item for:', product.productName);
+            }
+        });
+        console.log('[INVENTORY REVERSAL] Completed.');
     }
 
     // Save updated data to data.json
@@ -1285,6 +1325,21 @@ app.post('/checkout', async (req, res) => {
         // Update session user data to reflect the new invoice
         req.session.user = user;
 
+        // Deduct inventory quantities for each item in the cart
+        console.log('[INVENTORY DEDUCTION] Starting inventory deduction...');
+        req.session.cart.forEach(cartItem => {
+            console.log('[INVENTORY DEDUCTION] Cart item:', cartItem.itemName, 'Qty ordered:', cartItem.quantity);
+            const inventoryItem = inventory.find(item => item.itemName === cartItem.itemName);
+            if (inventoryItem) {
+                const oldQty = inventoryItem.quantity || 0;
+                inventoryItem.quantity = Math.max(0, oldQty - cartItem.quantity);
+                console.log('[INVENTORY DEDUCTION] Found inventory item:', inventoryItem.itemName, 'Old qty:', oldQty, 'New qty:', inventoryItem.quantity);
+            } else {
+                console.log('[INVENTORY DEDUCTION] WARNING: Could not find inventory item for:', cartItem.itemName);
+            }
+        });
+        console.log('[INVENTORY DEDUCTION] Completed.');
+
         // Save data to data.json
         saveData();
 
@@ -1375,6 +1430,7 @@ app.get('/checkout', (req, res) => {
 
 
 app.post('/submit-order', async (req, res) => {
+    console.log('==== /submit-order ROUTE HIT ====');
     if (!req.session.cart || !req.session.user) {
         return res.send('No items in cart or user not logged in.');
     }
@@ -1420,6 +1476,21 @@ app.post('/submit-order', async (req, res) => {
 
         // Push the new invoice to the user's invoice list
         user.invoices.push(invoiceDetails);
+
+        // Deduct inventory quantities for each item in the cart
+        console.log('[INVENTORY DEDUCTION] Starting inventory deduction...');
+        req.session.cart.forEach(cartItem => {
+            console.log('[INVENTORY DEDUCTION] Cart item:', cartItem.itemName, 'Qty ordered:', cartItem.quantity);
+            const inventoryItem = inventory.find(item => item.itemName === cartItem.itemName);
+            if (inventoryItem) {
+                const oldQty = inventoryItem.quantity || 0;
+                inventoryItem.quantity = Math.max(0, oldQty - cartItem.quantity);
+                console.log('[INVENTORY DEDUCTION] Found inventory item:', inventoryItem.itemName, 'Old qty:', oldQty, 'New qty:', inventoryItem.quantity);
+            } else {
+                console.log('[INVENTORY DEDUCTION] WARNING: Could not find inventory item for:', cartItem.itemName);
+            }
+        });
+        console.log('[INVENTORY DEDUCTION] Completed.');
 
         // Update the users array with the modified user object
         const userIndex = users.findIndex(u => u.id === user.id);
@@ -2684,6 +2755,64 @@ app.post('/admin/salesreport', (req, res) => {
     });
 });
 
+// Helper function to find a matching inventory item by similar name
+function findMatchingInventoryItem(productName) {
+    // First try exact match
+    let match = inventory.find(i => i.itemName === productName);
+    if (match) return match;
+    
+    // Normalize the product name for comparison (remove special chars, extra spaces, convert to lowercase)
+    const normalize = (str) => {
+        return str.toLowerCase()
+            .replace(/[()]/g, ' ')  // Replace parentheses with spaces
+            .replace(/\s+/g, ' ')   // Collapse multiple spaces
+            .trim();
+    };
+    
+    const normalizedProductName = normalize(productName);
+    
+    // Try to find a similar product in inventory
+    // Score each inventory item by how well it matches
+    let bestMatch = null;
+    let bestScore = 0;
+    
+    inventory.forEach(item => {
+        const normalizedItemName = normalize(item.itemName);
+        
+        // Check if one contains the other (partial match)
+        if (normalizedItemName.includes(normalizedProductName) || 
+            normalizedProductName.includes(normalizedItemName)) {
+            const score = Math.min(normalizedItemName.length, normalizedProductName.length) / 
+                          Math.max(normalizedItemName.length, normalizedProductName.length);
+            if (score > bestScore) {
+                bestScore = score;
+                bestMatch = item;
+            }
+        }
+        
+        // Check word overlap (useful for products like "Paper Bags 8x4x10 Twisted Handle")
+        const productWords = normalizedProductName.split(' ').filter(w => w.length > 2);
+        const itemWords = normalizedItemName.split(' ').filter(w => w.length > 2);
+        
+        let matchingWords = 0;
+        productWords.forEach(pw => {
+            if (itemWords.some(iw => iw.includes(pw) || pw.includes(iw))) {
+                matchingWords++;
+            }
+        });
+        
+        // If more than 60% of words match, consider it a potential match
+        const wordScore = matchingWords / Math.max(productWords.length, itemWords.length);
+        if (wordScore > 0.6 && wordScore > bestScore) {
+            bestScore = wordScore;
+            bestMatch = item;
+        }
+    });
+    
+    // Only return a match if the score is good enough (above 50%)
+    return bestScore >= 0.5 ? bestMatch : null;
+}
+
 // Route for Admin Sales By Product Report
 // Helper function to calculate sales by product data for a time period
 function calculateSalesByProductPeriod(months) {
@@ -2705,11 +2834,15 @@ function calculateSalesByProductPeriod(months) {
                 const isPrevPeriod = invoiceDate.isBetween(prevStartDate, prevEndDate, undefined, '[]');
 
                 invoice.products.forEach(product => {
-                    if (!reportData[product.productName]) {
-                        // Find product image from inventory
-                        const inventoryItem = inventory.find(i => i.itemName === product.productName);
-                        reportData[product.productName] = {
-                            productName: product.productName,
+                    // Find matching inventory item using fuzzy matching
+                    const inventoryItem = findMatchingInventoryItem(product.productName);
+                    
+                    // Use the inventory item's name as the key if found, otherwise use product name
+                    const keyName = inventoryItem ? inventoryItem.itemName : product.productName;
+                    
+                    if (!reportData[keyName]) {
+                        reportData[keyName] = {
+                            productName: keyName,
                             imageUrl: inventoryItem ? inventoryItem.imageUrl : null,
                             inventoryQuantity: inventoryItem ? (inventoryItem.quantity || 0) : 0,
                             quantitySold: 0,
@@ -2721,15 +2854,15 @@ function calculateSalesByProductPeriod(months) {
                     }
 
                     if (isCurrentPeriod) {
-                        reportData[product.productName].quantitySold += product.quantity;
-                        reportData[product.productName].totalAmount += product.total;
+                        reportData[keyName].quantitySold += product.quantity;
+                        reportData[keyName].totalAmount += product.total;
                         totalSales += product.total;
                         totalQuantity += product.quantity;
                     }
 
                     if (isPrevPeriod) {
-                        reportData[product.productName].quantitySoldPrev += product.quantity;
-                        reportData[product.productName].totalAmountPrev += product.total;
+                        reportData[keyName].quantitySoldPrev += product.quantity;
+                        reportData[keyName].totalAmountPrev += product.total;
                     }
                 });
             });
@@ -2760,7 +2893,8 @@ app.get('/admin/salesbyproductreport', (req, res) => {
         period: '3',
         totalSales: data.totalSales,
         totalQuantity: data.totalQuantity,
-        uniqueProducts: data.uniqueProducts
+        uniqueProducts: data.uniqueProducts,
+        inventory: inventory
     });
 });
 
@@ -2777,7 +2911,8 @@ app.post('/admin/salesbyproductreport', (req, res) => {
         period: period,
         totalSales: data.totalSales,
         totalQuantity: data.totalQuantity,
-        uniqueProducts: data.uniqueProducts
+        uniqueProducts: data.uniqueProducts,
+        inventory: inventory
     });
 });
 

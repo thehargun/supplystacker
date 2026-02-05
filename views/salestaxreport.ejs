@@ -18,7 +18,7 @@
             margin-bottom: 20px;
         }
         .button {
-            background-color: #66b3ff; /* Updated color */
+            background-color: #66b3ff;
             border: none;
             color: white;
             padding: 10px 20px;
@@ -50,10 +50,89 @@
         tr:hover {
             background-color: #f1f1f1;
         }
+        .passcode-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .passcode-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .passcode-box h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        .passcode-box input {
+            padding: 12px 20px;
+            font-size: 18px;
+            border: 2px solid #dce4ec;
+            border-radius: 8px;
+            text-align: center;
+            width: 200px;
+            letter-spacing: 8px;
+        }
+        .passcode-box input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        .passcode-box button {
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .passcode-box button:hover {
+            background: #2980b9;
+        }
+        .passcode-error {
+            color: #e74c3c;
+            margin-top: 10px;
+            display: none;
+        }
+        .report-content {
+            display: none;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="passcode-overlay" id="passcodeOverlay">
+        <div class="passcode-box">
+            <h2>🔒 Enter Passcode</h2>
+            <p style="color:#7f8c8d; margin-bottom:20px;">This report is protected</p>
+            <input type="password" id="passcodeInput" maxlength="4" placeholder="••••" autofocus>
+            <button onclick="checkPasscode()">Unlock Report</button>
+            <p class="passcode-error" id="passcodeError">Incorrect passcode. Try again.</p>
+        </div>
+    </div>
+
+    <div class="container report-content" id="reportContent">
+        <a href="/admin" class="back-link">← Back to Admin</a>
         <h1>Admin Sales Tax Report</h1>
         <form action="/admin/salestaxreport" method="POST">
             <div class="dropdown">
@@ -96,5 +175,34 @@
             <h3>Sales Tax Collected: $<%= totalSalesTax %></h3>
         <% } %>
     </div>
+
+    <script>
+        const CORRECT_PASSCODE = '6697';
+        
+        // Check if already unlocked in this session
+        if (sessionStorage.getItem('reportUnlocked') === 'true') {
+            document.getElementById('passcodeOverlay').style.display = 'none';
+            document.getElementById('reportContent').style.display = 'block';
+        }
+        
+        document.getElementById('passcodeInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPasscode();
+            }
+        });
+        
+        function checkPasscode() {
+            const input = document.getElementById('passcodeInput').value;
+            if (input === CORRECT_PASSCODE) {
+                sessionStorage.setItem('reportUnlocked', 'true');
+                document.getElementById('passcodeOverlay').style.display = 'none';
+                document.getElementById('reportContent').style.display = 'block';
+            } else {
+                document.getElementById('passcodeError').style.display = 'block';
+                document.getElementById('passcodeInput').value = '';
+                document.getElementById('passcodeInput').focus();
+            }
+        }
+    </script>
 </body>
 </html>

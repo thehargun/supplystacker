@@ -189,9 +189,11 @@
     
     <script>
         const CORRECT_PASSCODE = '6697';
+        const UNLOCK_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
         
-        // Check if already unlocked in this session
-        if (sessionStorage.getItem('reportUnlocked') === 'true') {
+        // Check if unlocked within the last 5 minutes
+        const unlockTime = localStorage.getItem('reportUnlockTime');
+        if (unlockTime && (Date.now() - parseInt(unlockTime)) < UNLOCK_DURATION) {
             document.getElementById('passcodeOverlay').style.display = 'none';
             document.getElementById('reportContent').style.display = 'block';
             initChart();
@@ -206,7 +208,7 @@
         function checkPasscode() {
             const input = document.getElementById('passcodeInput').value;
             if (input === CORRECT_PASSCODE) {
-                sessionStorage.setItem('reportUnlocked', 'true');
+                localStorage.setItem('reportUnlockTime', Date.now().toString());
                 document.getElementById('passcodeOverlay').style.display = 'none';
                 document.getElementById('reportContent').style.display = 'block';
                 initChart();

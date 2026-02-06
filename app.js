@@ -1614,6 +1614,21 @@ app.post('/admin/update-inventory-quantity', (req, res) => {
     res.json({ success: true, quantity: inventory[itemIndex].quantity });
 });
 
+// API endpoint to update inventory cost inline
+app.post('/admin/update-inventory-cost', (req, res) => {
+    const { id, cost } = req.body;
+    const itemIndex = inventory.findIndex(item => item.id === parseInt(id));
+    
+    if (itemIndex === -1) {
+        return res.status(404).json({ success: false, message: 'Item not found' });
+    }
+    
+    inventory[itemIndex].cost = parseFloat(cost) || 0;
+    saveData();
+    
+    res.json({ success: true, cost: inventory[itemIndex].cost });
+});
+
 app.post('/admin/add-vendor/:id', (req, res) => {
     const itemId = parseInt(req.params.id);
     const itemIndex = inventory.findIndex(item => item.id === itemId);
@@ -2894,7 +2909,8 @@ app.get('/admin/salesbyproductreport', (req, res) => {
         totalSales: data.totalSales,
         totalQuantity: data.totalQuantity,
         uniqueProducts: data.uniqueProducts,
-        inventory: inventory
+        inventory: inventory,
+        users: users
     });
 });
 
@@ -2912,7 +2928,8 @@ app.post('/admin/salesbyproductreport', (req, res) => {
         totalSales: data.totalSales,
         totalQuantity: data.totalQuantity,
         uniqueProducts: data.uniqueProducts,
-        inventory: inventory
+        inventory: inventory,
+        users: users
     });
 });
 

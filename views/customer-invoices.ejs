@@ -60,12 +60,57 @@
             cursor: pointer;
             text-decoration: none;
         }
+        
+        /* Year Filter Styles */
+        .year-filters {
+            margin: 15px 0 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+        .year-filters-label {
+            font-weight: bold;
+            color: #333;
+            margin-right: 5px;
+        }
+        .year-btn {
+            padding: 6px 14px;
+            border: 2px solid #66b3ff;
+            background-color: white;
+            color: #66b3ff;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .year-btn:hover {
+            background-color: #e6f2ff;
+        }
+        .year-btn.active {
+            background-color: #66b3ff;
+            color: white;
+        }
+        .no-invoices-msg {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 16px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>Customer Invoices</h1>
+        
+        <!-- Year Filters -->
+        <div class="year-filters">
+            <span class="year-filters-label">Filter by Year:</span>
+            <div id="yearButtonsContainer"></div>
+        </div>
+        
         <table>
             <thead>
                 <tr>
@@ -77,8 +122,10 @@
                 </tr>
             </thead>
             <tbody>
-                <% invoices.forEach(invoice => { %>
-                    <tr>
+                <% invoices.forEach(invoice => { 
+                    const invoiceYear = new Date(invoice.dateCreated).getFullYear();
+                %>
+                    <tr data-year="<%= invoiceYear %>">
                         <td><%= invoice.invoiceNumber %></td>
                         <td><%= invoice.companyName %></td>
                         <td><%= new Date(invoice.dateCreated).toDateString() %></td>
@@ -111,11 +158,117 @@
             }
         }
 
+        // Year filter functionality
+        const STORAGE_KEY = 'customerInvoicesYearFilter';
+        let selectedYears = [];
+        let availableYears = [];
+
+        function initYearFilters() {
+            const rows = document.querySelectorAll('tbody tr[data-year]');
+            const yearSet = new Set();
+            
+            rows.forEach(row => {
+                const year = parseInt(row.getAttribute('data-year'));
+                if (!isNaN(year)) {
+                    yearSet.add(year);
+                }
+            });
+            
+            availableYears = Array.from(yearSet).sort((a, b) => b - a); // Sort descending (newest first)
+            
+            // Load saved filter or default to current year
+            const currentYear = new Date().getFullYear();
+            const saved = localStorage.getItem(STORAGE_KEY);
+            
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    // Only use saved years that are still available
+                    selectedYears = parsed.filter(y => availableYears.includes(y));
+                    // If no valid saved years, default to current year
+                    if (selectedYears.length === 0) {
+                        selectedYears = availableYears.includes(currentYear) ? [currentYear] : (availableYears.length > 0 ? [availableYears[0]] : []);
+                    }
+                } catch (e) {
+                    selectedYears = availableYears.includes(currentYear) ? [currentYear] : (availableYears.length > 0 ? [availableYears[0]] : []);
+                }
+            } else {
+                selectedYears = availableYears.includes(currentYear) ? [currentYear] : (availableYears.length > 0 ? [availableYears[0]] : []);
+            }
+            
+            renderYearButtons();
+            applyFilters();
+        }
+
+        function renderYearButtons() {
+            const container = document.getElementById('yearButtonsContainer');
+            container.innerHTML = '';
+            
+            availableYears.forEach(year => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'year-btn' + (selectedYears.includes(year) ? ' active' : '');
+                btn.textContent = year;
+                btn.onclick = () => toggleYear(year);
+                container.appendChild(btn);
+            });
+        }
+
+        function toggleYear(year) {
+            const index = selectedYears.indexOf(year);
+            if (index > -1) {
+                // Don't allow deselecting the last year
+                if (selectedYears.length > 1) {
+                    selectedYears.splice(index, 1);
+                }
+            } else {
+                selectedYears.push(year);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(selectedYears));
+            
+            renderYearButtons();
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const rows = document.querySelectorAll('tbody tr[data-year]');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                const year = parseInt(row.getAttribute('data-year'));
+                if (selectedYears.includes(year)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // Show/hide no invoices message
+            let noMsg = document.getElementById('noInvoicesMsg');
+            if (visibleCount === 0) {
+                if (!noMsg) {
+                    noMsg = document.createElement('tr');
+                    noMsg.id = 'noInvoicesMsg';
+                    noMsg.innerHTML = '<td colspan="5" class="no-invoices-msg">No invoices found for selected year(s)</td>';
+                    document.querySelector('tbody').appendChild(noMsg);
+                }
+                noMsg.style.display = '';
+            } else if (noMsg) {
+                noMsg.style.display = 'none';
+            }
+        }
+
         // Table sorting functionality
         let currentSortColumn = 'invoiceNumber';
         let currentSortDirection = 'asc'; // Start with ascending for invoice numbers
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize year filters first
+            initYearFilters();
+            
             const headers = document.querySelectorAll('th[data-column]');
             
             headers.forEach(header => {

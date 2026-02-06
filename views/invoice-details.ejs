@@ -4,95 +4,650 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice Details</title>
+    <title>Invoice <%= invoice.invoiceNumber %> - Details</title>
     <link rel="stylesheet" href="/styles.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-            background-color: #f4f4f4;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f5f7f9;
+            min-height: 100vh;
+            padding: 24px;
+            color: #1a2b3c;
         }
 
         .invoice-container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
         }
 
         .invoice-header {
-            margin-bottom: 20px;
+            background: #fff;
+            border-bottom: 2px solid #e8eef3;
+            padding: 20px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .invoice-header h1 {
-            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a2b3c;
         }
 
-        .invoice-details {
-            margin-bottom: 20px;
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
         }
 
-        .invoice-details table {
-            width: 100%;
-            border-collapse: collapse;
+        .btn {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
         }
 
-        .invoice-details th,
-        .invoice-details td {
-            padding: 10px;
-            border: 1px solid #ddd;
+        .btn-back {
+            background: #f0f3f6;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
         }
 
-        .invoice-details th {
-            background: #f4f4f4;
+        .btn-back:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-primary {
+            background: #5a9bd5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4a8bc5;
+        }
+
+        .btn-success {
+            background: #48a87c;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #3d9169;
+        }
+
+        .invoice-body {
+            padding: 28px;
+        }
+
+        .section {
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e8eef3;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
         }
 
         .form-group label {
-            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a5568;
             margin-bottom: 5px;
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
+            padding: 10px 12px;
+            border: 1px solid #dce3ea;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            background: #fff;
+            color: #1a2b3c;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #5a9bd5;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(90, 155, 213, 0.15);
+        }
+
+        .form-group input[readonly] {
+            background: #f8fafc;
+            color: #64748b;
+        }
+
+        /* Products Section */
+        .products-section {
+            background: #fafbfc;
+            border-radius: 8px;
+            padding: 18px;
+            margin-top: 14px;
+            border: 1px solid #e8eef3;
+        }
+
+        /* Desktop Table */
+        .products-table {
             width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        .products-table th {
+            background: #f0f3f6;
+            color: #2d3748;
+            padding: 11px 12px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 1px solid #e8eef3;
+        }
+
+        .products-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f0f3f6;
+            background: #ffffff;
+            vertical-align: middle;
+        }
+
+        .products-table tbody tr:hover td {
+            background: #fafbfc;
+        }
+
+        .products-table input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #dce3ea;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            background: #fff;
+        }
+
+        .products-table input:focus {
+            border-color: #5a9bd5;
+            outline: none;
+        }
+
+        .products-table .total {
+            font-weight: 700;
+            color: #1a2b3c;
+            font-size: 14px;
         }
 
         .delete-btn {
-            background-color: red;
+            background: #e05555;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 6px 14px;
+            border-radius: 4px;
             cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .delete-btn:hover {
-            background-color: darkred;
+            background: #c44;
         }
 
         .add-product-btn {
-            background-color: green;
-            color: white;
-            border: none;
-            padding: 5px 10px;
+            background: #ffffff;
+            color: #5a9bd5;
+            border: 1px dashed #5a9bd5;
+            padding: 10px 18px;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
         }
 
         .add-product-btn:hover {
-            background-color: darkgreen;
+            background: #f8fafc;
         }
 
-        .total-display {
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-bottom: 15px;
+        /* Mobile Product Cards */
+        .mobile-products {
+            display: none;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 1px solid #e8eef3;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .product-card-header {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            cursor: pointer;
+            gap: 12px;
+        }
+
+        .product-card-header img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #e8eef3;
+        }
+
+        .product-card-header .no-img {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f3f6;
+            border-radius: 6px;
+            font-size: 22px;
+        }
+
+        .product-card-header .card-title {
+            flex: 1;
+            font-weight: 600;
+            font-size: 14px;
+            color: #1a2b3c;
+        }
+
+        .product-card-header .card-chevron {
+            color: #5a9bd5;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        .product-card.expanded .card-chevron {
+            transform: rotate(180deg);
+        }
+
+        .product-card-body {
+            display: none;
+            padding: 0 12px 12px;
+            border-top: 1px solid #f0f3f6;
+        }
+
+        .product-card.expanded .product-card-body {
+            display: block;
+        }
+
+        .card-field {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f7f9;
+        }
+
+        .card-field:last-child {
+            border-bottom: none;
+        }
+
+        .card-field label {
+            font-size: 12px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .card-field input {
+            width: 120px;
+            padding: 7px 10px;
+            border: 1px solid #dce3ea;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .card-field .value {
+            font-weight: 700;
+            color: #1a2b3c;
+        }
+
+        .card-delete {
+            margin-top: 10px;
+        }
+
+        .card-delete .delete-btn {
+            width: 100%;
+            padding: 10px;
+        }
+
+        /* Sales Tax Section */
+        .tax-section {
+            background: #fafbfc;
+            border-radius: 8px;
+            padding: 18px;
+            margin-top: 24px;
+            border: 1px solid #e8eef3;
+        }
+
+        .tax-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .tax-row .form-group {
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .tax-summary {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .tax-summary-item {
+            text-align: center;
+        }
+
+        .tax-summary-item label {
+            font-size: 11px;
+            color: #4a5568;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .tax-summary-item .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a2b3c;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: #fafbfc;
+            border-radius: 8px;
+            padding: 18px;
+            margin-top: 16px;
+            border: 1px solid #e8eef3;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+        }
+
+        /* Balance Section */
+        .balance-section {
+            background: #5a9bd5;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .balance-item {
+            text-align: center;
+        }
+
+        .balance-item label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.85);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .balance-item .value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .balance-item.paid .value {
+            color: #a8f0c8;
+        }
+
+        .balance-item.unpaid .value {
+            color: #ffd699;
+        }
+
+        /* Product Picker Styles */
+        .product-picker {
+            position: relative;
+            width: 100%;
+            min-width: 220px;
+        }
+
+        .product-picker-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #dce3ea;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .product-picker-input:focus {
+            border-color: #5a9bd5;
+            outline: none;
+        }
+
+        .product-picker-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 260px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #dce3ea;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .product-picker-dropdown.show {
+            display: block;
+        }
+
+        .product-picker-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f5f7f9;
+        }
+
+        .product-picker-item:hover {
+            background: #f8fafc;
+        }
+
+        .product-picker-item img {
+            width: 38px;
+            height: 38px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 10px;
+            border: 1px solid #e8eef3;
+        }
+
+        .product-picker-item .no-image {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f3f6;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .product-picker-item .product-info {
+            flex: 1;
+        }
+
+        .product-picker-item .product-name {
+            font-weight: 600;
+            color: #1a2b3c;
+            font-size: 13px;
+        }
+
+        .product-picker-item .product-details {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        .product-picker-no-results {
+            padding: 12px;
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            justify-content: flex-end;
+            padding-top: 20px;
+            border-top: 1px solid #e8eef3;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-paid {
+            background: #d4edda;
+            color: #28a745;
+        }
+
+        .status-unpaid {
+            background: #fff3cd;
+            color: #c77c00;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .invoice-header {
+                flex-direction: column;
+                gap: 14px;
+                text-align: center;
+                padding: 16px;
+            }
+
+            .invoice-body {
+                padding: 16px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Hide desktop table, show mobile cards */
+            .products-table {
+                display: none;
+            }
+
+            .mobile-products {
+                display: block;
+                margin-top: 12px;
+            }
+
+            .tax-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+            }
+
+            .tax-row .form-group {
+                max-width: none;
+            }
+
+            .tax-summary {
+                justify-content: space-around;
+            }
+
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .balance-section {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-buttons .btn {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -100,168 +655,502 @@
 <body>
     <div class="invoice-container">
         <div class="invoice-header">
-            <h1>Invoice <%= invoice.invoiceNumber %> Details</h1>
+            <h1>Invoice #<%= invoice.invoiceNumber %></h1>
+            <div class="header-actions">
+                <a href="/admin/invoices" class="btn btn-back">← Back</a>
+                <span class="status-badge <%= invoice.paid ? 'status-paid' : 'status-unpaid' %>">
+                    <%= invoice.paid ? '✓ Paid' : '○ Unpaid' %>
+                </span>
+            </div>
         </div>
-        <form id="invoiceForm" method="POST">
-            <!-- Invoice Information -->
-            <div class="invoice-details">
-                <h2>Invoice Info</h2>
-                <div class="form-group">
-                    <label for="invoiceNumber">Invoice Number:</label>
-                    <input type="text" id="invoiceNumber" name="invoiceNumber" class="form-control" value="<%= invoice.invoiceNumber %>">
-                </div>
-                <div class="form-group">
-                    <label>Company Name:</label>
-                    <input type="text" name="companyName" value="<%= invoice.companyName %>">
-                </div>
-                <div class="form-group">
-                    <label>Address Line 1:</label>
-                    <input type="text" name="addressLine1" value="<%= invoice.addressLine1 %>">
-                </div>
-                <div class="form-group">
-                    <label>Address Line 2:</label>
-                    <input type="text" name="addressLine2" value="<%= invoice.addressLine2 %>">
-                </div>
-                <div class="form-group">
-                    <label>City:</label>
-                    <input type="text" name="city" value="<%= invoice.city %>">
-                </div>
-                <div class="form-group">
-                    <label>State:</label>
-                    <input type="text" name="state" value="<%= invoice.state %>">
-                </div>
-                <div class="form-group">
-                    <label>Zip Code:</label>
-                    <input type="text" name="zipCode" value="<%= invoice.zipCode %>">
-                </div>
-                <div class="form-group">
-                    <label>Date Created:</label>
-                    <input type="date" name="dateCreated" value="<%= new Date(invoice.dateCreated).toISOString().split('T')[0] %>">
-                </div>
-                <div class="form-group">
-                    <label>Cash Payment:</label>
-                    <input type="number" name="CashPayment" step="0.01" value="<%= invoice.CashPayment %>">
-                </div>
-                <div class="form-group">
-                    <label>Account Payment:</label>
-                    <input type="number" name="AccountPayment" step="0.01" value="<%= invoice.AccountPayment %>">
-                </div>
-                <div class="form-group">
-                    <label>Total Amount:</label>
-                    <span id="totalAmount">$<%= (typeof invoice.totalAmount === 'number' ? invoice.totalAmount.toFixed(2) : parseFloat(invoice.totalAmount).toFixed(2)) %></span>
-                </div>
-                <div class="form-group">
-                    <label>Total Balance:</label>
-                    <span id="totalBalance">$<%= (typeof invoice.totalBalance === 'number' ? invoice.totalBalance.toFixed(2) : parseFloat(invoice.totalBalance).toFixed(2)) %></span>
-                </div>
-                <div class="form-group">
-                    <label>Paid:</label>
-                    <p><%= invoice.paid ? 'Yes' : 'No' %></p>
-                </div>
-                <div class="form-group">
-                    <label>Notes:</label>
-                    <input type="text" name="notes" value="<%= invoice.notes %>">
+
+        <div class="invoice-body">
+            <form id="invoiceForm" method="POST">
+                <!-- Customer Information -->
+                <div class="section">
+                    <h3 class="section-title">Invoice Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Invoice Number</label>
+                            <input type="text" id="invoiceNumber" name="invoiceNumber" value="<%= invoice.invoiceNumber %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" name="companyName" value="<%= invoice.companyName %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Date Created</label>
+                            <input type="date" name="dateCreated" value="<%= new Date(invoice.dateCreated).toISOString().split('T')[0] %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <input type="text" name="notes" value="<%= invoice.notes || '' %>" placeholder="Add notes...">
+                        </div>
+                    </div>
                 </div>
 
+                <div class="section">
+                    <h3 class="section-title">Address</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Address Line 1</label>
+                            <input type="text" name="addressLine1" value="<%= invoice.addressLine1 %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Address Line 2</label>
+                            <input type="text" name="addressLine2" value="<%= invoice.addressLine2 || '' %>">
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" name="city" value="<%= invoice.city %>">
+                        </div>
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" name="state" value="<%= invoice.state %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Zip Code</label>
+                            <input type="text" name="zipCode" value="<%= invoice.zipCode %>">
+                        </div>
+                    </div>
+                </div>
 
-            </div>
-
-            <!-- Products Section -->
-            <div class="invoice-details">
-                <h2>Products</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Quantity</th>
-                            <th>Rate</th>
-                            <th>Total</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productsTableBody">
-                        <% invoice.products.forEach((product, index) => { %>
-                            <tr data-index="<%= index %>">
-                                <td>
-                                    <select name="productName" data-index="<%= index %>" class="productName" onchange="updateProductDetails(<%= index %>)">
-                                        <option value="">Select Product</option>
-                                        <% availableProducts.forEach(availableProduct => { %>
-                                            <option value="<%= availableProduct.itemName %>" <%= product.productName === availableProduct.itemName ? 'selected' : '' %>>
-                                                <%= availableProduct.itemName %>
-                                            </option>
-                                        <% }); %>
-                                    </select>
-                                </td>
-                                <td><input type="text" name="productCategory" value="<%= product.productCategory %>" data-index="<%= index %>" class="productCategory" readonly></td>
-                                <td><input type="number" name="quantity" class="form-control" value="<%= product.quantity %>" step="any"></td>
-                                <td><input type="number" name="rate" class="form-control" value="<%= product.rate %>" step="any"></td>
-                                <td class="total"><%= product.total ? parseFloat(product.total).toFixed(2) : '0.00' %></td>
-                                <td><button type="button" class="delete-btn" onclick="deleteProduct(<%= index %>)">Delete</button></td>
+                <!-- Products Section -->
+                <div class="section products-section">
+                    <h3 class="section-title">Products</h3>
+                    
+                    <!-- Desktop Table -->
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 35%;">Product Name</th>
+                                <th style="width: 15%;">Category</th>
+                                <th style="width: 12%;">Qty</th>
+                                <th style="width: 12%;">Rate</th>
+                                <th style="width: 12%;">Total</th>
+                                <th style="width: 14%;">Action</th>
                             </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <% invoice.products.forEach((product, index) => { %>
+                                <tr data-index="<%= index %>">
+                                    <td>
+                                        <div class="product-picker" id="picker-init-<%= index %>">
+                                            <input type="text" class="product-picker-input" value="<%= product.productName %>" placeholder="Search product..." autocomplete="off">
+                                            <input type="hidden" name="productName" value="<%= product.productName %>">
+                                            <div class="product-picker-dropdown"></div>
+                                        </div>
+                                    </td>
+                                    <td><input type="text" name="productCategory" value="<%= product.productCategory %>" data-index="<%= index %>" class="productCategory" readonly></td>
+                                    <td><input type="number" name="quantity" value="<%= product.quantity %>" step="any" oninput="updateProductTotal(<%= index %>)"></td>
+                                    <td><input type="number" name="rate" value="<%= product.rate %>" step="any" oninput="updateProductTotal(<%= index %>)"></td>
+                                    <td class="total"><%= product.total ? parseFloat(product.total).toFixed(2) : '0.00' %></td>
+                                    <td><button type="button" class="delete-btn" onclick="deleteProduct(<%= index %>)">Delete</button></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+
+                    <!-- Mobile Product Cards -->
+                    <div class="mobile-products" id="mobileProductsContainer">
+                        <% invoice.products.forEach((product, index) => { 
+                            const matchedItem = availableProducts.find(i => i.itemName === product.productName);
+                        %>
+                            <div class="product-card" data-index="<%= index %>">
+                                <div class="product-card-header" onclick="toggleProductCard(this)">
+                                    <% if (matchedItem && matchedItem.imageUrl) { %>
+                                        <img src="<%= matchedItem.imageUrl %>" alt="<%= product.productName %>">
+                                    <% } else { %>
+                                        <div class="no-img">📦</div>
+                                    <% } %>
+                                    <span class="card-title"><%= product.productName %></span>
+                                    <span class="card-chevron">▼</span>
+                                </div>
+                                <div class="product-card-body">
+                                    <div class="card-field">
+                                        <label>Category</label>
+                                        <span class="value"><%= product.productCategory %></span>
+                                    </div>
+                                    <div class="card-field">
+                                        <label>Quantity</label>
+                                        <input type="number" class="mobile-qty" value="<%= product.quantity %>" step="any" oninput="updateMobileProductTotal(<%= index %>)">
+                                    </div>
+                                    <div class="card-field">
+                                        <label>Rate</label>
+                                        <input type="number" class="mobile-rate" value="<%= product.rate %>" step="any" oninput="updateMobileProductTotal(<%= index %>)">
+                                    </div>
+                                    <div class="card-field">
+                                        <label>Total</label>
+                                        <span class="value mobile-total">$<%= product.total ? parseFloat(product.total).toFixed(2) : '0.00' %></span>
+                                    </div>
+                                    <div class="card-delete">
+                                        <button type="button" class="delete-btn" onclick="deleteProduct(<%= index %>)">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
                         <% }); %>
-                    </tbody>
-                </table>
-                <button type="button" class="add-product-btn" onclick="addProduct()">Add Product</button>
-            </div>
+                    </div>
 
-            <!-- Sales Tax and Subtotal -->
-            <div class="form-group">
-                <label>Sales Tax:</label>
-                
-                <input type="number" name="salesTax" id="salesTax" step="0.01" value="<%= invoice.salesTax %>" />
-            </div>
+                    <button type="button" class="add-product-btn" onclick="addProduct()">+ Add Product</button>
+                </div>
 
-            <div class="form-group">
-                <label>Subtotal:</label>
-                <span id="subtotal">$<%= invoice.subtotal %></span>
-            </div>
+                <!-- Tax Section - Separated -->
+                <div class="tax-section">
+                    <h3 class="section-title">Tax & Subtotal</h3>
+                    <div class="tax-row">
+                        <div class="form-group">
+                            <label>Sales Tax</label>
+                            <input type="number" name="salesTax" id="salesTax" step="0.01" value="<%= invoice.salesTax || 0 %>">
+                        </div>
+                        <div class="tax-summary">
+                            <div class="tax-summary-item">
+                                <label>Subtotal</label>
+                                <div class="value" id="subtotal">$<%= invoice.subtotal || 0 %></div>
+                            </div>
+                            <div class="tax-summary-item">
+                                <label>Total</label>
+                                <div class="value" id="totalAmount">$<%= (typeof invoice.totalAmount === 'number' ? invoice.totalAmount.toFixed(2) : parseFloat(invoice.totalAmount || 0).toFixed(2)) %></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Payment Section - Separate from Tax -->
+                <div class="payment-section">
+                    <h3 class="section-title">Payments</h3>
+                    <div class="payment-grid">
+                        <div class="form-group">
+                            <label>Cash Payment</label>
+                            <input type="number" name="CashPayment" step="0.01" value="<%= invoice.CashPayment || 0 %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Account Payment</label>
+                            <input type="number" name="AccountPayment" step="0.01" value="<%= invoice.AccountPayment || 0 %>">
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label>Total Amount:</label>
-                <span id="totalAmount">$<%= (typeof invoice.totalAmount === 'number' ? invoice.totalAmount.toFixed(2) : parseFloat(invoice.totalAmount).toFixed(2)) %></span>
-            </div>
+                <!-- Balance Section -->
+                <div class="balance-section">
+                    <div class="balance-item <%= invoice.paid ? 'paid' : 'unpaid' %>">
+                        <label>Balance Due</label>
+                        <div class="value" id="totalBalance">$<%= (typeof invoice.totalBalance === 'number' ? invoice.totalBalance.toFixed(2) : parseFloat(invoice.totalBalance || 0).toFixed(2)) %></div>
+                    </div>
+                </div>
 
-            
-
-
-            <div class="form-group">
-                <button type="submit">Submit</button>
-                <button type="button" onclick="printInvoice()">Print</button>
-            </div>
-        </form>
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-primary" onclick="printInvoice()">Print Invoice</button>
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>
         const availableProducts = <%- JSON.stringify(availableProducts) %>;
         const customerPriceLevel = <%= customerPriceLevel %>;
-        document.getElementById('invoiceForm').addEventListener('submit', function (event) {
+        let pickerCounter = <%= invoice.products.length %>;
+
+        // Helper function to escape HTML attributes (handles quotes and special chars)
+        function escapeAttr(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        // Helper function to escape for display (less strict)
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        // Toggle mobile product card
+        function toggleProductCard(header) {
+            const card = header.closest('.product-card');
+            card.classList.toggle('expanded');
+        }
+
+        // Update mobile product total
+        function updateMobileProductTotal(index) {
+            const card = document.querySelector(`.mobile-products .product-card[data-index='${index}']`);
+            if (!card) return;
+            
+            const qty = parseFloat(card.querySelector('.mobile-qty').value) || 0;
+            const rate = parseFloat(card.querySelector('.mobile-rate').value) || 0;
+            const total = qty * rate;
+            
+            card.querySelector('.mobile-total').textContent = '$' + total.toFixed(2);
+            
+            // Sync with desktop table
+            const row = document.querySelector(`#productsTableBody tr[data-index='${index}']`);
+            if (row) {
+                row.querySelector('input[name="quantity"]').value = qty;
+                row.querySelector('input[name="rate"]').value = rate;
+                row.querySelector('.total').textContent = total.toFixed(2);
+            }
+            
+            updateTotal();
+        }
+
+        // Initialize existing product pickers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize pickers for existing products
+            <% invoice.products.forEach((product, index) => { %>
+                initProductPicker('init-<%= index %>', `<%- product.productName.replace(/`/g, '\\`').replace(/\$/g, '\\$') %>`);
+            <% }); %>
+
+            // Attach event listeners
+            document.getElementById("salesTax").addEventListener("input", updateTotal);
+            document.querySelector("input[name='CashPayment']").addEventListener("input", updateTotalBalance);
+            document.querySelector("input[name='AccountPayment']").addEventListener("input", updateTotalBalance);
+
+            updateTotal();
+        });
+
+        function initProductPicker(pickerId, initialValue = '') {
+            const picker = document.getElementById('picker-' + pickerId);
+            if (!picker) {
+                console.error('Picker not found: picker-' + pickerId);
+                return;
+            }
+
+            const input = picker.querySelector('.product-picker-input');
+            const hiddenInput = picker.querySelector('input[name="productName"]');
+            const dropdown = picker.querySelector('.product-picker-dropdown');
+            const row = picker.closest('tr');
+
+            function renderDropdown(filter = '') {
+                const filterLower = filter.toLowerCase();
+                let filtered = availableProducts;
+                
+                if (filter) {
+                    filtered = availableProducts.filter(item => 
+                        item.itemName.toLowerCase().includes(filterLower)
+                    );
+                }
+
+                if (filtered.length === 0) {
+                    dropdown.innerHTML = '<div class="product-picker-no-results">No products found</div>';
+                } else {
+                    dropdown.innerHTML = filtered.map(item => `
+                        <div class="product-picker-item" data-value="${escapeAttr(item.itemName)}" data-category="${escapeAttr(item.itemCategory || '')}" data-price="${item['priceLevel' + customerPriceLevel] || 0}">
+                            ${item.imageUrl ? 
+                                `<img src="${escapeAttr(item.imageUrl)}" alt="${escapeAttr(item.itemName)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                 <div class="no-image" style="display:none;">📦</div>` : 
+                                '<div class="no-image">📦</div>'
+                            }
+                            <div class="product-info">
+                                <div class="product-name">${escapeHtml(item.itemName)}</div>
+                                <div class="product-details">Stock: ${item.quantity || 0} | $${(item['priceLevel' + customerPriceLevel] || 0).toFixed(2)}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                dropdown.querySelectorAll('.product-picker-item').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const value = this.dataset.value;
+                        const category = this.dataset.category;
+                        const price = this.dataset.price;
+                        const item = availableProducts.find(i => i.itemName === value);
+                        
+                        hiddenInput.value = value;
+                        input.value = value;
+                        dropdown.classList.remove('show');
+                        
+                        // Update category and rate in the row
+                        if (row) {
+                            const rowIndex = row.dataset.index;
+                            row.querySelector('input[name="productCategory"]').value = category;
+                            row.querySelector('input[name="rate"]').value = parseFloat(price).toFixed(2);
+                            updateProductTotal(rowIndex);
+                            
+                            // Also update mobile card if exists
+                            const card = document.querySelector(`.mobile-products .product-card[data-index='${rowIndex}']`);
+                            if (card) {
+                                card.querySelector('.card-title').textContent = value;
+                                card.querySelector('.mobile-category').textContent = category || '-';
+                                card.querySelector('.mobile-rate').value = parseFloat(price).toFixed(2);
+                            }
+                        }
+                        
+                        // Update display with image
+                        if (item && item.imageUrl) {
+                            input.style.paddingLeft = '50px';
+                            input.style.backgroundImage = `url('${item.imageUrl}')`;
+                            input.style.backgroundSize = '35px 35px';
+                            input.style.backgroundPosition = '8px center';
+                            input.style.backgroundRepeat = 'no-repeat';
+                        } else {
+                            input.style.paddingLeft = '12px';
+                            input.style.backgroundImage = 'none';
+                        }
+                    });
+                });
+            }
+
+            input.addEventListener('focus', function() {
+                renderDropdown(this.value);
+                dropdown.classList.add('show');
+            });
+
+            input.addEventListener('input', function() {
+                renderDropdown(this.value);
+                dropdown.classList.add('show');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!picker.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+
+            // Set initial image if product exists
+            if (initialValue) {
+                const item = availableProducts.find(i => i.itemName === initialValue);
+                if (item && item.imageUrl) {
+                    input.style.paddingLeft = '50px';
+                    input.style.backgroundImage = `url('${item.imageUrl}')`;
+                    input.style.backgroundSize = '35px 35px';
+                    input.style.backgroundPosition = '8px center';
+                    input.style.backgroundRepeat = 'no-repeat';
+                }
+            }
+        }
+
+        function addProduct() {
+            const tbody = document.getElementById('productsTableBody');
+            const mobileContainer = document.getElementById('mobileProductsContainer');
+            const rowCount = tbody.rows.length;
+            const pickerId = 'new-' + pickerCounter++;
+            
+            // Add desktop table row
+            const newRow = document.createElement('tr');
+            newRow.dataset.index = rowCount;
+            newRow.innerHTML = `
+                <td>
+                    <div class="product-picker" id="picker-${pickerId}">
+                        <input type="text" class="product-picker-input" placeholder="Search product..." autocomplete="off">
+                        <input type="hidden" name="productName" value="">
+                        <div class="product-picker-dropdown"></div>
+                    </div>
+                </td>
+                <td><input type="text" name="productCategory" data-index="${rowCount}" class="productCategory" readonly></td>
+                <td><input type="number" name="quantity" value="1" step="any" oninput="updateProductTotal(${rowCount})"></td>
+                <td><input type="number" name="rate" value="0.00" step="any" oninput="updateProductTotal(${rowCount})"></td>
+                <td class="total">0.00</td>
+                <td><button type="button" class="delete-btn" onclick="deleteProduct(${rowCount})">Delete</button></td>
+            `;
+            tbody.appendChild(newRow);
+
+            // Add mobile product card
+            const newCard = document.createElement('div');
+            newCard.className = 'product-card expanded';
+            newCard.dataset.index = rowCount;
+            newCard.innerHTML = `
+                <div class="product-card-header" onclick="toggleProductCard(this)">
+                    <div class="no-img">📦</div>
+                    <span class="card-title">New Product</span>
+                    <span class="card-chevron">▼</span>
+                </div>
+                <div class="product-card-body">
+                    <div class="card-field">
+                        <label>Category</label>
+                        <span class="value mobile-category">-</span>
+                    </div>
+                    <div class="card-field">
+                        <label>Quantity</label>
+                        <input type="number" class="mobile-qty" value="1" step="any" oninput="updateMobileProductTotal(${rowCount})">
+                    </div>
+                    <div class="card-field">
+                        <label>Rate</label>
+                        <input type="number" class="mobile-rate" value="0.00" step="any" oninput="updateMobileProductTotal(${rowCount})">
+                    </div>
+                    <div class="card-field">
+                        <label>Total</label>
+                        <span class="value mobile-total">$0.00</span>
+                    </div>
+                    <div class="card-delete">
+                        <button type="button" class="delete-btn" onclick="deleteProduct(${rowCount})">Delete</button>
+                    </div>
+                </div>
+            `;
+            mobileContainer.appendChild(newCard);
+            
+            initProductPicker(pickerId);
+        }
+
+        function updateProductTotal(index) {
+            const row = document.querySelector(`tr[data-index='${index}']`);
+            if (!row) return;
+
+            const quantity = parseFloat(row.querySelector('input[name="quantity"]').value) || 0;
+            const rate = parseFloat(row.querySelector('input[name="rate"]').value) || 0;
+            const total = quantity * rate;
+
+            row.querySelector('.total').textContent = total.toFixed(2);
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let subtotal = 0;
+            document.querySelectorAll('#productsTableBody tr').forEach(row => {
+                subtotal += parseFloat(row.querySelector('.total').textContent) || 0;
+            });
+
+            document.getElementById('subtotal').innerText = "$" + subtotal.toFixed(2);
+
+            const salesTax = parseFloat(document.getElementById("salesTax").value) || 0;
+            const totalAmount = subtotal + salesTax;
+
+            document.getElementById("totalAmount").innerText = "$" + totalAmount.toFixed(2);
+            updateTotalBalance();
+        }
+
+        function updateTotalBalance() {
+            const totalAmount = parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0;
+            const cashPayment = parseFloat(document.querySelector("input[name='CashPayment']").value) || 0;
+            const accountPayment = parseFloat(document.querySelector("input[name='AccountPayment']").value) || 0;
+            const totalBalance = totalAmount - cashPayment - accountPayment;
+
+            document.getElementById("totalBalance").innerText = "$" + totalBalance.toFixed(2);
+        }
+
+        function deleteProduct(index) {
+            const row = document.querySelector(`tr[data-index='${index}']`);
+            const card = document.querySelector(`.mobile-products .product-card[data-index='${index}']`);
+            if (row) row.remove();
+            if (card) card.remove();
+            updateTotal();
+        }
+
+        // Form submission
+        document.getElementById('invoiceForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             const formData = new FormData(this);
             const products = [];
 
-            // Construct products array from form inputs
-            document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
-                const productName = row.querySelector(`select[name='productName']`).value;
-                const productCategory = row.querySelector(`input[name='productCategory']`).value.trim();
-                const quantity = parseFloat(row.querySelector(`input[name='quantity']`).value);
-                const rate = parseFloat(row.querySelector(`input[name='rate']`).value);
+            document.querySelectorAll('#productsTableBody tr').forEach((row) => {
+                const productName = row.querySelector('input[name="productName"]').value;
+                const productCategory = row.querySelector('input[name="productCategory"]').value.trim();
+                const quantity = parseFloat(row.querySelector('input[name="quantity"]').value);
+                const rate = parseFloat(row.querySelector('input[name="rate"]').value);
                 const total = parseFloat(row.querySelector('.total').textContent);
 
                 if (productName && !isNaN(quantity) && !isNaN(rate)) {
-                    products.push({
-                        productName,
-                        productCategory,
-                        quantity,
-                        rate,
-                        total: parseFloat(total.toFixed(2))
-                    });
+                    products.push({ productName, productCategory, quantity, rate, total: parseFloat(total.toFixed(2)) });
                 }
             });
 
-            // Prepare JSON data to send to the server
             const jsonData = {
                 invoiceNumber: formData.get('invoiceNumber'),
                 companyName: formData.get('companyName'),
@@ -282,244 +1171,76 @@
                 products: products
             };
 
-            console.log("Sending JSON data to server:", jsonData);
-
-            // Send the JSON data using fetch
             fetch(this.action, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(jsonData)
             })
             .then(response => {
                 if (response.ok) {
-                    // Redirect to the updated invoice URL
                     window.location.href = `/admin/invoices/${jsonData.invoiceNumber}`;
                 } else {
-                    return response.text().then(text => {
-                        console.error("Server responded with an error:", text);
-                        alert('Error updating invoice: ' + text);
-                    });
+                    return response.text().then(text => alert('Error: ' + text));
                 }
             })
-            .catch(error => {
-                console.error('Error connecting to server:', error);
-                alert('Error connecting to server. Please try again later.');
+            .catch(error => alert('Error connecting to server.'));
+        });
+
+        function printInvoice() {
+            const formData = new FormData(document.getElementById('invoiceForm'));
+            const products = [];
+            
+            document.querySelectorAll('#productsTableBody tr').forEach((row) => {
+                const productName = row.querySelector('input[name="productName"]').value;
+                const productCategory = row.querySelector('input[name="productCategory"]').value;
+                const quantity = parseFloat(row.querySelector('input[name="quantity"]').value);
+                const rate = parseFloat(row.querySelector('input[name="rate"]').value);
+                products.push({ productName, productCategory, quantity, rate, total: parseFloat((quantity * rate).toFixed(2)) });
             });
-        });
-        document.addEventListener('DOMContentLoaded', function () {
-        // Attach event listeners for all quantity and rate input fields
-        document.querySelectorAll('#productsTableBody input[name="quantity"], #productsTableBody input[name="rate"]').forEach(input => {
-            input.addEventListener('input', function () {
-                const index = this.closest('tr').dataset.index;
-                updateProductTotal(index);
+
+            let dateCreated = new Date(formData.get('dateCreated'));
+            const invoiceDetails = {
+                invoiceNumber: formData.get('invoiceNumber'),
+                companyName: formData.get('companyName'),
+                addressLine1: formData.get('addressLine1'),
+                addressLine2: formData.get('addressLine2'),
+                city: formData.get('city'),
+                state: formData.get('state'),
+                zipCode: formData.get('zipCode'),
+                dateCreated: dateCreated.toISOString().split('T')[0],
+                CashPayment: formData.get('CashPayment'),
+                AccountPayment: formData.get('AccountPayment'),
+                products: products,
+                totalBalance: parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')),
+                salesTax: parseFloat(document.getElementById('salesTax').value) || 0,
+                subtotal: parseFloat(document.getElementById('subtotal').textContent.replace('$', '')) || 0,
+                totalAmount: parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0
+            };
+
+            const printButton = document.querySelector('button[onclick="printInvoice()"]');
+            printButton.innerText = '⏳ Generating...';
+            printButton.disabled = true;
+
+            fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(invoiceDetails)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.open(`/download-invoice/${invoiceDetails.invoiceNumber}`, '_blank');
+                    alert('Invoice PDF generated and emailed successfully.');
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => alert('Error printing invoice: ' + error.message))
+            .finally(() => {
+                printButton.innerText = '🖨 Print Invoice';
+                printButton.disabled = false;
             });
-        });
-
-        // Attach event listener for sales tax input field
-        document.getElementById("salesTax").addEventListener("input", updateTotal);
-
-        // Attach event listeners for cash and account payments to update balance
-        document.querySelector("input[name='CashPayment']").addEventListener("input", updateTotalBalance);
-        document.querySelector("input[name='AccountPayment']").addEventListener("input", updateTotalBalance);
-
-        // Initial calculation on page load
-        updateTotal();
-    });
-
-    function updateProductTotal(index) {
-        // Get the row for the product
-        const row = document.querySelector(`tr[data-index='${index}']`);
-        if (!row) return;
-
-        const quantityInput = row.querySelector(`input[name='quantity']`);
-        const rateInput = row.querySelector(`input[name='rate']`);
-
-        const quantity = parseFloat(quantityInput.value) || 0;
-        const rate = parseFloat(rateInput.value) || 0;
-
-        // Calculate the total for this product
-        const total = quantity * rate;
-
-        // Update the total in the row
-        row.querySelector('.total').textContent = total.toFixed(2);
-
-        // Update the subtotal and total amounts
-        updateTotal();
-    }
-
-    function updateTotal() {
-        let subtotal = 0;
-
-        // Loop through each product row and add up the totals
-        document.querySelectorAll('#productsTableBody tr').forEach(row => {
-            const rowTotal = parseFloat(row.querySelector('.total').textContent) || 0;
-            subtotal += rowTotal;
-        });
-
-        // Update the displayed subtotal
-        document.getElementById('subtotal').innerText = "$" + subtotal.toFixed(2);
-
-        // Calculate the total amount with sales tax
-        const salesTax = parseFloat(document.getElementById("salesTax").value) || 0;
-        const totalAmount = subtotal + salesTax;
-
-        // Update the displayed total amount
-        document.getElementById("totalAmount").innerText = "$" + totalAmount.toFixed(2);
-
-        // Update total balance
-        updateTotalBalance();
-    }
-
-    function updateTotalBalance() {
-        const totalAmount = parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0;
-        const cashPayment = parseFloat(document.querySelector("input[name='CashPayment']").value) || 0;
-        const accountPayment = parseFloat(document.querySelector("input[name='AccountPayment']").value) || 0;
-
-        // Calculate the total balance
-        const totalBalance = totalAmount - cashPayment - accountPayment;
-
-        // Update the displayed total balance
-        document.getElementById("totalBalance").innerText = "$" + totalBalance.toFixed(2);
-
-        // Update the 'Paid' status
-        const paidElement = document.querySelector("p.paid-status");
-        if (paidElement) {
-            paidElement.innerText = totalBalance === 0 ? "Yes" : "No";
         }
-    }
-
-    function deleteProduct(index) {
-        const row = document.querySelector(`tr[data-index='${index}']`);
-        if (row) {
-            row.remove();
-            updateTotal();  // Recalculate totals after deleting a product
-        }
-    }
-
-    function addProduct() {
-        const tbody = document.getElementById('productsTableBody');
-        const rowCount = tbody.rows.length;
-        const newRow = document.createElement('tr');
-        newRow.dataset.index = rowCount;
-        newRow.innerHTML = `
-            <td>
-                <select name="productName" data-index="${rowCount}" class="productName" onchange="updateProductDetails(${rowCount})">
-                    <option value="">Select Product</option>
-                    <% availableProducts.forEach(availableProduct => { %>
-                        <option value="<%= availableProduct.itemName %>"><%= availableProduct.itemName %></option>
-                    <% }); %>
-                </select>
-            </td>
-            <td><input type="text" name="productCategory" data-index="${rowCount}" class="productCategory" readonly></td>
-            <td><input type="number" name="quantity" data-index="${rowCount}" class="quantity" step="0.01" oninput="updateProductTotal(${rowCount})" placeholder="Enter Quantity"></td>
-            <td><input type="number" name="rate" data-index="${rowCount}" class="rate" step="0.01" oninput="updateProductTotal(${rowCount})" placeholder="Enter Rate"></td>
-            <td class="total">0.00</td>
-            <td><button type="button" class="delete-btn" onclick="deleteProduct(${rowCount})">Delete</button></td>
-        `;
-        tbody.appendChild(newRow);
-
-        // Attach event listeners for new row's quantity and rate fields
-        newRow.querySelector('.quantity').addEventListener('input', () => updateProductTotal(rowCount));
-        newRow.querySelector('.rate').addEventListener('input', () => updateProductTotal(rowCount));
-    }
-
-    function updateProductDetails(index) {
-        const productName = document.querySelector(`select[name='productName'][data-index='${index}']`).value;
-        const product = availableProducts.find(item => item.itemName === productName);
-
-        if (product) {
-            // Update the product category field
-            document.querySelector(`input[name='productCategory'][data-index='${index}']`).value = product.itemCategory;
-
-            // Set the price level based on the customer's price level
-            const priceKey = `priceLevel${customerPriceLevel}`;
-            if (product[priceKey]) {
-                document.querySelector(`input[name='rate'][data-index='${index}']`).value = product[priceKey].toFixed(2);
-            } else {
-                document.querySelector(`input[name='rate'][data-index='${index}']`).value = '0.00';
-            }
-        } else {
-            document.querySelector(`input[name='productCategory'][data-index='${index}']`).value = '';
-            document.querySelector(`input[name='rate'][data-index='${index}']`).value = '0.00';
-        }
-
-        updateProductTotal(index);
-    }
-
-function printInvoice() {
-    const formData = new FormData(document.getElementById('invoiceForm'));
-    const products = [];
-    document.querySelectorAll('#productsTableBody tr').forEach((row, index) => {
-        const productName = row.querySelector(`select[name='productName']`) ? row.querySelector(`select[name='productName']`).value : row.cells[0].textContent;
-        const productCategory = row.cells[1].textContent;
-        const quantity = row.querySelector(`input[name='quantity']`).value;
-        const rate = row.querySelector(`input[name='rate']`).value;
-        const total = quantity * rate;
-        products.push({ productName, productCategory, quantity: parseInt(quantity), rate: parseFloat(rate), total: parseFloat(total.toFixed(2)) });
-    });
-
-    const totalAmount = parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0;
-    
-    let dateCreated = new Date(formData.get('dateCreated'));
-    dateCreated.setDate(dateCreated.getDate());
-    const formattedDate = dateCreated.toISOString().split('T')[0];
-    const invoiceDetails = {
-        invoiceNumber: formData.get('invoiceNumber'),
-        companyName: formData.get('companyName'),
-        addressLine1: formData.get('addressLine1'),
-        addressLine2: formData.get('addressLine2'),
-        city: formData.get('city'),
-        state: formData.get('state'),
-        zipCode: formData.get('zipCode'),
-        dateCreated: formattedDate,
-        CashPayment: formData.get('CashPayment'),
-        AccountPayment: formData.get('AccountPayment'),
-        products: products,
-        totalBalance: totalAmount,
-        salesTax: parseFloat(document.getElementById('salesTax').value) || 0,
-        subtotal: parseFloat(document.getElementById('subtotal').textContent.replace('$', '')) || 0,
-        totalAmount: parseFloat(document.getElementById('totalAmount').textContent.replace('$', '')) || 0
-    };
-
-    // Show loading message
-    const printButton = document.querySelector('button[onclick="printInvoice()"]');
-    const originalButtonText = printButton.innerText;
-    printButton.innerText = 'Generating PDF...';
-    printButton.disabled = true;
-
-    fetch(`/admin/invoices/print/${invoiceDetails.invoiceNumber}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(invoiceDetails)
-    }).then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Failed to generate PDF');
-        }
-    }).then(data => {
-        if (data.success) {
-            // Open PDF in new tab
-            window.open(`/download-invoice/${invoiceDetails.invoiceNumber}`, '_blank');
-            alert('Invoice PDF generated and emailed successfully.');
-        } else {
-            alert('Error: ' + data.message);
-        }
-    }).catch(error => {
-        console.error('Error printing invoice:', error);
-        alert('Error printing invoice: ' + error.message);
-    }).finally(() => {
-        // Reset button
-        printButton.innerText = originalButtonText;
-        printButton.disabled = false;
-    });
-}
-    // Initial calculation when the page loads
-    updateTotal();
     </script>
 </body>
 

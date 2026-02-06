@@ -6,48 +6,48 @@
     <title>Inventory Report</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; color: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f8fc; color: #333; }
         .dashboard { max-width: 1400px; margin: 0 auto; padding: 30px 20px; display: none; }
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
-        .header h1 { font-size: 28px; color: #2c3e50; }
-        .back-btn { background: #2c3e50; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; transition: background 0.2s; }
-        .back-btn:hover { background: #1a252f; }
+        .header h1 { font-size: 28px; color: #2c3e50; font-weight: 700; }
+        .back-btn { background: #5a9bd5; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; transition: background 0.2s; }
+        .back-btn:hover { background: #4a8bc5; }
         
-        .filter-section { background: white; border-radius: 12px; padding: 20px 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 30px; }
-        .filter-section h2 { font-size: 18px; color: #2c3e50; margin-bottom: 15px; }
+        .filter-section { background: white; border-radius: 12px; padding: 20px 25px; box-shadow: 0 2px 10px rgba(90,155,213,0.1); margin-bottom: 30px; border: 1px solid #e8f0f8; }
+        .filter-section h2 { font-size: 18px; color: #2c3e50; margin-bottom: 15px; font-weight: 600; }
         .period-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
-        .period-btn { padding: 12px 24px; border: 2px solid #dce4ec; border-radius: 8px; background: white; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-        .period-btn:hover { border-color: #3498db; color: #3498db; }
-        .period-btn.active { background: #3498db; color: white; border-color: #3498db; }
+        .period-btn { padding: 12px 24px; border: 2px solid #5a9bd5; border-radius: 8px; background: white; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; color: #5a9bd5; }
+        .period-btn:hover { background: #f0f7ff; }
+        .period-btn.active { background: #5a9bd5; color: white; border-color: #5a9bd5; }
         
         .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
-        .stat-card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
-        .stat-card h3 { font-size: 12px; color: #7f8c8d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .stat-card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 2px 10px rgba(90,155,213,0.1); border: 1px solid #e8f0f8; }
+        .stat-card h3 { font-size: 12px; color: #7f8c8d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 600; }
         .stat-card .value { font-size: 28px; font-weight: 700; color: #2c3e50; }
-        .stat-card.highlight { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .stat-card.highlight { background: linear-gradient(135deg, #5a9bd5, #4a8bc5); border: none; }
         .stat-card.highlight h3, .stat-card.highlight .value { color: white; }
         .stat-card.highlight h3 { opacity: 0.9; }
-        .stat-card.blue { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .stat-card.blue { background: linear-gradient(135deg, #6bb3e8, #5a9bd5); border: none; }
         .stat-card.blue h3, .stat-card.blue .value { color: white; }
         .stat-card.blue h3 { opacity: 0.9; }
-        .stat-card.green { background: linear-gradient(135deg, #27ae60, #219a52); }
+        .stat-card.green { background: linear-gradient(135deg, #27ae60, #219a52); border: none; }
         .stat-card.green h3, .stat-card.green .value { color: white; }
         .stat-card.green h3 { opacity: 0.9; }
         
-        .table-section { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 30px; }
-        .table-section h2 { font-size: 18px; color: #2c3e50; margin-bottom: 10px; }
+        .table-section { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 2px 10px rgba(90,155,213,0.1); margin-bottom: 30px; border: 1px solid #e8f0f8; }
+        .table-section h2 { font-size: 18px; color: #2c3e50; margin-bottom: 10px; font-weight: 600; }
         .table-legend { font-size: 13px; color: #7f8c8d; margin-bottom: 15px; display: flex; gap: 20px; flex-wrap: wrap; }
         .legend-item { display: flex; align-items: center; gap: 6px; }
         .legend-color { width: 16px; height: 16px; border-radius: 4px; }
         .legend-color.low-stock { background: #ffebee; border: 1px solid #ffcdd2; }
         .product-table { width: 100%; border-collapse: collapse; }
-        .product-table th, .product-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ecf0f1; vertical-align: middle; }
-        .product-table th { background: #f8f9fa; font-weight: 600; color: #7f8c8d; font-size: 12px; text-transform: uppercase; position: sticky; top: 0; }
-        .product-table tr:hover { background: #f8f9fa; }
+        .product-table th, .product-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e8f0f8; vertical-align: middle; }
+        .product-table th { background: #f5f8fc; font-weight: 600; color: #5a7a9a; font-size: 12px; text-transform: uppercase; position: sticky; top: 0; }
+        .product-table tr:hover { background: #f5f8fc; }
         .product-table tr.low-stock { background: #ffebee !important; }
         .product-table tr.low-stock:hover { background: #ffcdd2 !important; }
         .product-table .amount { font-weight: 600; color: #27ae60; }
-        .product-table .qty { font-weight: 600; color: #3498db; }
+        .product-table .qty { font-weight: 600; color: #5a9bd5; }
         .product-table .stock { font-weight: 600; }
         .product-table .stock-ok { color: #27ae60; }
         .product-table .stock-low { color: #e74c3c; }
@@ -59,12 +59,12 @@
         .rank-1 { background: #f1c40f; color: #fff; }
         .rank-2 { background: #95a5a6; color: #fff; }
         .rank-3 { background: #cd6133; color: #fff; }
-        .rank-other { background: #ecf0f1; color: #7f8c8d; }
+        .rank-other { background: #e8f0f8; color: #5a7a9a; }
         
         .product-cell { display: flex; align-items: center; gap: 12px; }
         .product-img { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; background: #f0f0f0; }
-        .product-img-placeholder { width: 40px; height: 40px; border-radius: 6px; background: #ecf0f1; display: flex; align-items: center; justify-content: center; color: #bdc3c7; font-size: 18px; }
-        .product-name { font-weight: 500; }
+        .product-img-placeholder { width: 40px; height: 40px; border-radius: 6px; background: #e8f0f8; display: flex; align-items: center; justify-content: center; color: #5a9bd5; font-size: 18px; }
+        .product-name { font-weight: 600; }
         
         .low-stock-alert { 
             background: linear-gradient(135deg, #e74c3c, #c0392b); 
@@ -80,7 +80,25 @@
         .low-stock-alert .alert-text { flex: 1; }
         .low-stock-alert .alert-count { font-size: 24px; font-weight: 700; }
         
-        .no-data { text-align: center; padding: 40px; color: #7f8c8d; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .overstock-alert { 
+            background: linear-gradient(135deg, #6bb3e8, #5a9bd5); 
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .overstock-alert .alert-icon { font-size: 24px; }
+        .overstock-alert .alert-text { flex: 1; }
+        .overstock-alert .alert-count { font-size: 24px; font-weight: 700; }
+        
+        .overstock-table tr.overstock-row { background: #f0f7ff !important; }
+        .overstock-table tr.overstock-row:hover { background: #e3effa !important; }
+        .overstock-value { color: #5a9bd5; font-weight: 600; }
+        
+        .no-data { text-align: center; padding: 40px; color: #7f8c8d; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(90,155,213,0.1); border: 1px solid #e8f0f8; }
         
         .passcode-overlay {
             position: fixed;
@@ -88,7 +106,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(90,155,213,0.3);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -99,16 +117,18 @@
             padding: 40px;
             border-radius: 12px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(90,155,213,0.3);
+            border: 1px solid #e8f0f8;
         }
         .passcode-box h2 {
             margin-bottom: 20px;
             color: #2c3e50;
+            font-weight: 700;
         }
         .passcode-box input {
             padding: 12px 20px;
             font-size: 18px;
-            border: 2px solid #dce4ec;
+            border: 2px solid #e8f0f8;
             border-radius: 8px;
             text-align: center;
             width: 200px;
@@ -116,22 +136,23 @@
         }
         .passcode-box input:focus {
             outline: none;
-            border-color: #3498db;
+            border-color: #5a9bd5;
         }
         .passcode-box button {
             display: block;
             width: 100%;
             margin-top: 15px;
             padding: 12px;
-            background: #3498db;
+            background: #5a9bd5;
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
         }
         .passcode-box button:hover {
-            background: #2980b9;
+            background: #4a8bc5;
         }
         .passcode-error {
             color: #e74c3c;
@@ -190,32 +211,122 @@
             inventory.forEach(function(item) {
                 totalInventoryValue += (item.quantity || 0) * (item.cost || 0);
             });
+            
+            // Calculate Additional Capital Required
+            // For each low stock product: (order quantity needed) × (cost per unit)
+            var additionalCapitalRequired = 0;
+            soldProducts.forEach(function(product) {
+                var monthlyAvg = product.quantitySold / periodMonths;
+                var projectedNeed = monthlyAvg * periodMonths;
+                if (product.inventoryQuantity < projectedNeed) {
+                    var orderQuantity = Math.ceil(projectedNeed - product.inventoryQuantity);
+                    // Find the cost from inventory
+                    var inventoryItem = inventory.find(function(item) {
+                        return item.itemName === product.productName;
+                    });
+                    var cost = inventoryItem ? (inventoryItem.cost || 0) : 0;
+                    additionalCapitalRequired += orderQuantity * cost;
+                }
+            });
+            
+            // Calculate overstock products and total excess value early for the stat card
+            var annualizationFactor = 12 / periodMonths;
+            var overstockProducts = [];
+            
+            inventory.forEach(function(item) {
+                var soldProduct = reportData.find(function(p) { 
+                    return p.productName === item.itemName; 
+                });
+                var qtySold = soldProduct ? soldProduct.quantitySold : 0;
+                var annualizedProjection = qtySold * annualizationFactor;
+                var currentStock = item.quantity || 0;
+                
+                if (currentStock > annualizedProjection && annualizedProjection >= 0) {
+                    var excessStock = currentStock - annualizedProjection;
+                    var excessValue = excessStock * (item.cost || 0);
+                    overstockProducts.push({
+                        productName: item.itemName,
+                        imageUrl: item.imageUrl,
+                        currentStock: currentStock,
+                        annualizedProjection: Math.round(annualizedProjection),
+                        excessStock: Math.round(excessStock),
+                        excessValue: excessValue,
+                        qtySold: qtySold,
+                        cost: item.cost || 0
+                    });
+                }
+            });
+            
+            overstockProducts.sort(function(a, b) {
+                return b.excessValue - a.excessValue;
+            });
+            
+            var totalExcessValue = overstockProducts.reduce(function(sum, p) {
+                return sum + p.excessValue;
+            }, 0);
+            
+            // Calculate Annualized Profit (last 365 days)
+            // For each invoice product: (sale price - current cost) × quantity
+            // Exclude customers: Amazon, Texas Warehouse
+            var annualizedProfit = 0;
+            var oneYearAgo = new Date();
+            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+            var excludedCustomers = ['amazon', 'texas warehouse'];
+            
+            users.forEach(function(user) {
+                // Skip excluded customers
+                var companyName = (user.company || '').toLowerCase();
+                if (excludedCustomers.some(function(exc) { return companyName.includes(exc); })) {
+                    return;
+                }
+                
+                if (user.invoices && user.invoices.length > 0) {
+                    user.invoices.forEach(function(invoice) {
+                        var invoiceDate = new Date(invoice.dateCreated);
+                        if (invoiceDate >= oneYearAgo) {
+                            if (invoice.products && invoice.products.length > 0) {
+                                invoice.products.forEach(function(product) {
+                                    // Find the current cost from inventory
+                                    // Invoice uses productName, rate, quantity
+                                    var productName = product.productName || product.name || '';
+                                    var inventoryItem = inventory.find(function(item) {
+                                        return item.itemName === productName;
+                                    });
+                                    var currentCost = inventoryItem ? (inventoryItem.cost || 0) : 0;
+                                    var salePrice = product.rate || product.price || 0;
+                                    var qty = product.quantity || 0;
+                                    var productProfit = (salePrice - currentCost) * qty;
+                                    annualizedProfit += productProfit;
+                                });
+                            }
+                        }
+                    });
+                }
+            });
         %>
         
         <% if (soldProducts.length > 0) { %>
-            <% if (lowStockProducts.length > 0) { %>
-                <div class="low-stock-alert">
-                    <span class="alert-icon">⚠️</span>
-                    <span class="alert-text">
-                        <strong>Low Stock Alert!</strong> 
-                        Based on sales from the last <%= period %> months, these products may not have enough inventory for the next <%= period %> months.
-                    </span>
-                    <span class="alert-count"><%= lowStockProducts.length %></span>
-                </div>
-            <% } %>
         
             <div class="stats-row">
                 <div class="stat-card highlight">
                     <h3>Total Sales (<%= period %> Months)</h3>
                     <div class="value">$<%= totalSales.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) %></div>
                 </div>
-                <div class="stat-card green">
+                <div class="stat-card blue">
                     <h3>Total Inventory Value</h3>
                     <div class="value">$<%= totalInventoryValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) %></div>
                 </div>
-                <div class="stat-card">
-                    <h3>Low Stock Items</h3>
-                    <div class="value" style="color: <%= lowStockProducts.length > 0 ? '#e74c3c' : '#27ae60' %>"><%= lowStockProducts.length %></div>
+                <div class="stat-card" style="border-left: 4px solid #e74c3c;">
+                    <h3>Additional Capital Required</h3>
+                    <div class="value" style="color: <%= additionalCapitalRequired > 0 ? '#e74c3c' : '#27ae60' %>">$<%= additionalCapitalRequired.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) %></div>
+                </div>
+                <div class="stat-card" style="border-left: 4px solid #f39c12;">
+                    <h3>Excessive Product Value</h3>
+                    <div class="value" style="color: #f39c12;">$<%= totalExcessValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) %></div>
+                </div>
+                <div class="stat-card" style="border-left: 4px solid #27ae60;">
+                    <h3>Annualized Profit</h3>
+                    <div class="value" style="color: <%= annualizedProfit >= 0 ? '#27ae60' : '#e74c3c' %>;">$<%= annualizedProfit.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) %></div>
                 </div>
             </div>
             
@@ -288,6 +399,73 @@
                     </table>
                 </div>
             </div>
+            
+            <!-- Overstock Section -->
+            
+            <% if (overstockProducts.length > 0) { %>
+                <div class="overstock-alert">
+                    <span class="alert-icon">📦</span>
+                    <span class="alert-text">
+                        <strong>Overstock Alert!</strong> 
+                        Based on annualized sales projection from the last <%= period %> months, these products have excess inventory worth <strong>$<%= totalExcessValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) %></strong>.
+                    </span>
+                    <span class="alert-count"><%= overstockProducts.length %></span>
+                </div>
+                
+                <div class="table-section">
+                    <h2>Overstock Inventory (<%= overstockProducts.length %> products)</h2>
+                    <div class="table-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #fff9e6; border: 1px solid #ffe082;"></div>
+                            <span>Overstock - inventory exceeds annualized sales projection (based on <%= period %> month sales × <%= annualizationFactor.toFixed(1) %>)</span>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="product-table overstock-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:60px">Rank</th>
+                                    <th>Product</th>
+                                    <th>Sold (<%= period %>mo)</th>
+                                    <th>Annualized Need</th>
+                                    <th>In Stock</th>
+                                    <th>Excess Qty</th>
+                                    <th>Unit Cost</th>
+                                    <th>Excess Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% var osRank = 0; overstockProducts.forEach(function(product) { 
+                                    osRank++;
+                                %>
+                                    <tr class="overstock-row">
+                                        <td>
+                                            <span class="rank-badge <%= osRank === 1 ? 'rank-1' : osRank === 2 ? 'rank-2' : osRank === 3 ? 'rank-3' : 'rank-other' %>"><%= osRank %></span>
+                                        </td>
+                                        <td>
+                                            <div class="product-cell">
+                                                <% if (product.imageUrl) { %>
+                                                    <img src="<%= product.imageUrl %>" alt="" class="product-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                                                    <div class="product-img-placeholder" style="display:none;">📦</div>
+                                                <% } else { %>
+                                                    <div class="product-img-placeholder">📦</div>
+                                                <% } %>
+                                                <span class="product-name"><%= product.productName %></span>
+                                            </div>
+                                        </td>
+                                        <td class="qty"><%= product.qtySold.toLocaleString() %></td>
+                                        <td><%= product.annualizedProjection.toLocaleString() %></td>
+                                        <td class="stock stock-ok"><%= product.currentStock.toLocaleString() %></td>
+                                        <td class="overstock-value">+<%= product.excessStock.toLocaleString() %></td>
+                                        <td>$<%= product.cost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) %></td>
+                                        <td class="overstock-value">$<%= product.excessValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <% } %>
         <% } else { %>
             <div class="no-data">
                 <h2>No sales data for this period</h2>
@@ -298,9 +476,11 @@
     
     <script>
         const CORRECT_PASSCODE = '6697';
+        const UNLOCK_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
         
-        // Check if already unlocked in this session
-        if (sessionStorage.getItem('reportUnlocked') === 'true') {
+        // Check if unlocked within the last 5 minutes
+        const unlockTime = localStorage.getItem('reportUnlockTime');
+        if (unlockTime && (Date.now() - parseInt(unlockTime)) < UNLOCK_DURATION) {
             document.getElementById('passcodeOverlay').style.display = 'none';
             document.getElementById('reportContent').style.display = 'block';
         }
@@ -314,7 +494,7 @@
         function checkPasscode() {
             const input = document.getElementById('passcodeInput').value;
             if (input === CORRECT_PASSCODE) {
-                sessionStorage.setItem('reportUnlocked', 'true');
+                localStorage.setItem('reportUnlockTime', Date.now().toString());
                 document.getElementById('passcodeOverlay').style.display = 'none';
                 document.getElementById('reportContent').style.display = 'block';
             } else {

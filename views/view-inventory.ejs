@@ -121,6 +121,28 @@
             border-color: #27ae60;
             background: #e8f8f5;
         }
+        .price-input {
+            width: 85px;
+            padding: 8px 10px;
+            border: 2px solid #dce4ec;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .price-input:focus {
+            outline: none;
+            border-color: #3498db;
+            background: #e8f4fc;
+        }
+        .price-input.saving {
+            border-color: #f39c12;
+            background: #fef9e7;
+        }
+        .price-input.saved {
+            border-color: #27ae60;
+            background: #e8f8f5;
+        }
         .actions {
             display: flex;
             gap: 8px;
@@ -293,7 +315,9 @@
                             <td><img src="<%= item.imageUrl %>" alt="" class="item-img"></td>
                             <td><strong><%= item.itemName %></strong></td>
                             <td><%= item.itemCategory || '-' %></td>
-                            <td>$<%= item.cost ? item.cost.toFixed(2) : '0.00' %></td>
+                            <td>
+                                <input type="number" class="price-input" value="<%= item.cost ? item.cost.toFixed(2) : '0.00' %>" data-id="<%= item.id %>" min="0" step="0.01">
+                            </td>
                             <td>
                                 <input type="number" class="qty-input" value="<%= item.quantity %>" data-id="<%= item.id %>" min="0">
                             </td>
@@ -326,7 +350,7 @@
                         </div>
                         <div class="mobile-detail-row">
                             <span class="mobile-detail-label">Cost</span>
-                            <span class="mobile-detail-value">$<%= item.cost ? item.cost.toFixed(2) : '0.00' %></span>
+                            <input type="number" class="mobile-qty-input price-input" value="<%= item.cost ? item.cost.toFixed(2) : '0.00' %>" data-id="<%= item.id %>" min="0" step="0.01">
                         </div>
                         <div class="mobile-detail-row">
                             <span class="mobile-detail-label">Quantity</span>
@@ -436,6 +460,64 @@
             .catch(err => {
                 input.classList.remove('saving');
                 alert('Error saving quantity');
+            });
+        }
+        
+        // Inline price/cost editing
+        document.querySelectorAll('.price-input').forEach(input => {
+            let originalValue = input.value;
+            
+            input.addEventListener('focus', () => {
+                originalValue = input.value;
+            });
+            
+            input.addEventListener('blur', () => {
+                if (input.value !== originalValue) {
+                    savePrice(input);
+                }
+            });
+            
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    input.blur();
+                }
+            });
+        });
+        
+        function savePrice(input) {
+            const id = input.dataset.id;
+            const cost = input.value;
+            
+            input.classList.add('saving');
+            input.classList.remove('saved');
+            
+            fetch('/admin/update-inventory-cost', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, cost })
+            })
+            .then(res => res.json())
+            .then(data => {
+                input.classList.remove('saving');
+                if (data.success) {
+                    input.classList.add('saved');
+                    input.value = data.cost.toFixed(2);
+                    
+                    // Also update the other input (mobile/desktop) if exists
+                    document.querySelectorAll('.price-input[data-id="' + id + '"]').forEach(otherInput => {
+                        if (otherInput !== input) {
+                            otherInput.value = data.cost.toFixed(2);
+                        }
+                    });
+                    
+                    setTimeout(() => input.classList.remove('saved'), 1500);
+                } else {
+                    alert('Failed to update price');
+                }
+            })
+            .catch(err => {
+                input.classList.remove('saving');
+                alert('Error saving price');
             });
         }
         

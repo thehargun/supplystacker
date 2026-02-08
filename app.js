@@ -290,6 +290,22 @@ function loadData() {
                     categoryRanks[category.Category] = category.Rank;
                 });
             }
+
+            // Migration: Add picked field to all existing invoices (default to true)
+            let migrationNeeded = false;
+            users.forEach(user => {
+                if (user.invoices && Array.isArray(user.invoices)) {
+                    user.invoices.forEach(invoice => {
+                        if (invoice.picked === undefined) {
+                            invoice.picked = true;
+                            migrationNeeded = true;
+                        }
+                    });
+                }
+            });
+            if (migrationNeeded) {
+                console.log('Migration: Added picked field to existing invoices');
+            }
         } else {
             console.log('Data structure is not valid, not overwriting existing data.');
         }
@@ -861,6 +877,35 @@ app.post('/admin/invoices/:invoiceNumber', (req, res) => {
 
     // Update invoice details
     try {
+        // Get the old products before updating to adjust inventory
+        const oldProducts = users[userIndex].invoices[invoiceIndex].products || [];
+        const newProducts = req.body.products || [];
+
+        // Adjust inventory: add back old quantities, subtract new quantities
+        console.log('[INVENTORY ADJUSTMENT] Adjusting inventory for invoice edit...');
+        
+        // Step 1: Add back all old product quantities to inventory
+        oldProducts.forEach(oldProduct => {
+            const inventoryItem = inventory.find(item => item.itemName === oldProduct.productName);
+            if (inventoryItem) {
+                const oldQty = inventoryItem.quantity || 0;
+                inventoryItem.quantity = oldQty + (oldProduct.quantity || 0);
+                console.log('[INVENTORY ADJUSTMENT] Added back:', oldProduct.productName, 'Qty:', oldProduct.quantity, 'New stock:', inventoryItem.quantity);
+            }
+        });
+
+        // Step 2: Subtract all new product quantities from inventory
+        newProducts.forEach(newProduct => {
+            const inventoryItem = inventory.find(item => item.itemName === newProduct.productName);
+            if (inventoryItem) {
+                const oldQty = inventoryItem.quantity || 0;
+                inventoryItem.quantity = Math.max(0, oldQty - (newProduct.quantity || 0));
+                console.log('[INVENTORY ADJUSTMENT] Subtracted:', newProduct.productName, 'Qty:', newProduct.quantity, 'New stock:', inventoryItem.quantity);
+            }
+        });
+
+        console.log('[INVENTORY ADJUSTMENT] Completed.');
+
         users[userIndex].invoices[invoiceIndex] = {
             ...users[userIndex].invoices[invoiceIndex],
             ...req.body, // Spread new updates
@@ -934,6 +979,37 @@ app.get('/admin/invoices/delete/:invoiceNumber', (req, res) => {
     const redirectUrl = req.query.redirect || '/admin/invoices';
     res.redirect(redirectUrl);
 });
+
+// Route to toggle the picked status of an invoice
+app.post('/admin/invoices/:invoiceNumber/toggle-picked', (req, res) => {
+    if (!req.session.loggedIn || req.session.user.role !== 'admin') {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+
+    const invoiceNumber = req.params.invoiceNumber;
+    let invoiceFound = false;
+    let newPickedStatus = false;
+
+    users.forEach(user => {
+        if (user.invoices && user.invoices.length > 0) {
+            const invoiceIndex = user.invoices.findIndex(inv => inv.invoiceNumber === invoiceNumber);
+            if (invoiceIndex !== -1) {
+                // Toggle the picked status
+                user.invoices[invoiceIndex].picked = !user.invoices[invoiceIndex].picked;
+                newPickedStatus = user.invoices[invoiceIndex].picked;
+                invoiceFound = true;
+            }
+        }
+    });
+
+    if (!invoiceFound) {
+        return res.status(404).json({ success: false, message: 'Invoice not found' });
+    }
+
+    saveData();
+    res.json({ success: true, picked: newPickedStatus });
+});
+
 // Route to handle invoice printing from admin panel
 app.post('/admin/invoices/print/:invoiceNumber', (req, res) => {
     if (!req.session.loggedIn || req.session.user.role !== 'admin') {
@@ -1301,6 +1377,7 @@ app.post('/checkout', async (req, res) => {
             totalAmount: totalAmount,
             totalBalance: totalAmount,
             paid: false,
+            picked: false,
             CashPayment: 0,
             AccountPayment: 0
         };
@@ -1471,6 +1548,7 @@ app.post('/submit-order', async (req, res) => {
             })),
             totalBalance: req.session.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0),
             paid: false,
+            picked: false,
             invoiceTotal: req.session.cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)
         };
 

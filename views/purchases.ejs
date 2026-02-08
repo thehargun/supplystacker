@@ -311,6 +311,18 @@
                         input.value = value;
                         dropdown.classList.remove('show');
                         
+                        // Prefill cost price from inventory
+                        if (item) {
+                            const row = picker.closest('tr');
+                            if (row) {
+                                const rateInput = row.querySelector('input[name="rate"]');
+                                if (rateInput && item.cost !== undefined) {
+                                    rateInput.value = parseFloat(item.cost).toFixed(2);
+                                    updateRowTotal(rateInput);
+                                }
+                            }
+                        }
+                        
                         // Update display with image
                         if (item && item.imageUrl) {
                             input.style.paddingLeft = '45px';
@@ -346,10 +358,21 @@
             // Initial render
             renderDropdown();
             
-            // Set first item as default
+            // Set first item as default and prefill cost
             if (inventory.length > 0) {
                 hiddenInput.value = inventory[0].itemName;
                 input.value = inventory[0].itemName;
+                
+                // Prefill cost price from first inventory item
+                const row = picker.closest('tr');
+                if (row && inventory[0].cost !== undefined) {
+                    const rateInput = row.querySelector('input[name="rate"]');
+                    if (rateInput) {
+                        rateInput.value = parseFloat(inventory[0].cost).toFixed(2);
+                        updateRowTotal(rateInput);
+                    }
+                }
+                
                 if (inventory[0].imageUrl) {
                     input.style.paddingLeft = '45px';
                     input.style.backgroundImage = `url('${inventory[0].imageUrl}')`;

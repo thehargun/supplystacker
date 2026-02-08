@@ -587,6 +587,45 @@
             color: #c77c00;
         }
 
+        /* Picked Checkbox */
+        .picked-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .picked-toggle:hover {
+            background: #f0f3f6;
+        }
+
+        .picked-toggle.picked {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .picked-toggle input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .picked-toggle label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            cursor: pointer;
+        }
+
+        .picked-toggle.picked label {
+            color: #28a745;
+        }
+
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             body {
@@ -658,6 +697,10 @@
             <h1>Invoice #<%= invoice.invoiceNumber %></h1>
             <div class="header-actions">
                 <a href="/admin/invoices" class="btn btn-back">← Back</a>
+                <div class="picked-toggle <%= invoice.picked ? 'picked' : '' %>" onclick="togglePicked()">
+                    <input type="checkbox" id="pickedCheckbox" <%= invoice.picked ? 'checked' : '' %>>
+                    <label for="pickedCheckbox">Picked Up</label>
+                </div>
                 <span class="status-badge <%= invoice.paid ? 'status-paid' : 'status-unpaid' %>">
                     <%= invoice.paid ? '✓ Paid' : '○ Unpaid' %>
                 </span>
@@ -851,6 +894,37 @@
         const availableProducts = <%- JSON.stringify(availableProducts) %>;
         const customerPriceLevel = <%= customerPriceLevel %>;
         let pickerCounter = <%= invoice.products.length %>;
+
+        // Toggle picked status
+        function togglePicked() {
+            const invoiceNumber = '<%= invoice.invoiceNumber %>';
+            const checkbox = document.getElementById('pickedCheckbox');
+            const toggle = document.querySelector('.picked-toggle');
+            
+            fetch(`/admin/invoices/${invoiceNumber}/toggle-picked`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    checkbox.checked = data.picked;
+                    if (data.picked) {
+                        toggle.classList.add('picked');
+                    } else {
+                        toggle.classList.remove('picked');
+                    }
+                } else {
+                    alert('Failed to update picked status');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error updating picked status');
+            });
+        }
 
         // Helper function to escape HTML attributes (handles quotes and special chars)
         function escapeAttr(str) {

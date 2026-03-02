@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Submitted</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .success-message {
+            color: #28a745;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .invoice-details {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .pdf-actions {
+            margin: 20px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-message">
+        ✅ Order Submitted Successfully!
+    </div>
+    
+    <div class="invoice-details">
+        <h3>Invoice Details</h3>
+        <p><strong>Invoice Number:</strong> <%= invoice.invoiceNumber %></p>
+        <p><strong>Company:</strong> <%= invoice.companyName %></p>
+        <p><strong>Date:</strong> <%= invoice.dateCreated %></p>
+        <p><strong>Total Amount:</strong> $<%= invoice.totalAmount.toFixed(2) %></p>
+    </div>
+
+    <div class="pdf-actions">
+        <a href="<%= pdfUrl %>" target="_blank" class="btn" id="viewPdfBtn">View Invoice PDF</a>
+        <a href="/products" class="btn btn-secondary">Continue Shopping</a>
+    </div>
+
+    <p>A copy of your invoice has been emailed to our sales team.</p>
+
+    <script>
+        // Automatically open PDF in new tab when page loads
+        window.addEventListener('load', function() {
+            // Small delay to ensure page has loaded completely
+            setTimeout(function() {
+                window.open('<%= pdfUrl %>', '_blank');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

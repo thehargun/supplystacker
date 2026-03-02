@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Purchase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background-color: #5a6268;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            flex: 1;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .rowTotal {
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #submitBtn {
+            margin-top: 20px;
+            width: auto;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .form-row {
+                flex-direction: column;
+            }
+        }
+        
+        /* Product Search Picker Styles */
+        .product-picker {
+            position: relative;
+            width: 100%;
+            min-width: 300px;
+        }
+        .product-picker-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+        .product-picker-input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .product-picker-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 350px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .product-picker-dropdown.show {
+            display: block;
+        }
+        .product-picker-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        .product-picker-item:hover {
+            background-color: #f0f7ff;
+        }
+        .product-picker-item.selected {
+            background-color: #e3f2fd;
+        }
+        .product-picker-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+        }
+        .product-picker-item .no-image {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 20px;
+            border: 1px solid #ddd;
+        }
+        .product-picker-item .product-info {
+            flex: 1;
+        }
+        .product-picker-item .product-name {
+            font-weight: 500;
+            color: #333;
+        }
+        .product-picker-item .product-stock {
+            font-size: 12px;
+            color: #666;
+        }
+        .product-picker-no-results {
+            padding: 12px;
+            text-align: center;
+            color: #666;
+        }
+        .selected-product-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .selected-product-display img {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        const inventory = <%- JSON.stringify(inventory) %>;
+        let pickerCounter = 0;
+
+        // Helper function to escape HTML attributes (handles quotes and special chars)
+        function escapeAttr(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        // Helper function to escape for display (less strict)
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function roundToNearestQuarter(value) {
+            return (Math.round(value * 4) / 4).toFixed(2);
+        }
+
+        function autoPriceRetail(cost) {
+            return {
+                priceLevel1: roundToNearestQuarter(1.1 * cost + 0.25),
+                priceLevel2: roundToNearestQuarter(1.15 * cost + 0.5),
+                priceLevel3: roundToNearestQuarter(1.3 * cost + 1)
+            };
+        }
+
+        function vPackAutoPrice(cost) {
+            return {
+                priceLevel1: roundToNearestQuarter(1.15 * cost + 0.25),
+                priceLevel2: roundToNearestQuarter(1.25 * cost + 0.5),
+                priceLevel3: roundToNearestQuarter(1.45 * cost + 1)
+            };
+        }
+
+        function createProductPicker(pickerId) {
+            const pickerHtml = `
+                <div class="product-picker" id="picker-${pickerId}">
+                    <input type="text" class="product-picker-input" placeholder="Search for a product..." autocomplete="off">
+                    <input type="hidden" name="productName" value="">
+                    <div class="product-picker-dropdown"></div>
+                </div>
+            `;
+            return pickerHtml;
+        }
+
+        function initProductPicker(pickerId) {
+            const picker = document.getElementById('picker-' + pickerId);
+            const input = picker.querySelector('.product-picker-input');
+            const hiddenInput = picker.querySelector('input[name="productName"]');
+            const dropdown = picker.querySelector('.product-picker-dropdown');
+
+            function renderDropdown(filter = '') {
+                const filterLower = filter.toLowerCase();
+                let filtered = inventory;
+                
+                if (filter) {
+                    filtered = inventory.filter(item => 
+                        item.itemName.toLowerCase().includes(filterLower)
+                    );
+                }
+
+                if (filtered.length === 0) {
+                    dropdown.innerHTML = '<div class="product-picker-no-results">No products found</div>';
+                } else {
+                    dropdown.innerHTML = filtered.map(item => `
+                        <div class="product-picker-item" data-value="${escapeAttr(item.itemName)}">
+                            ${item.imageUrl ? 
+                                `<img src="${escapeAttr(item.imageUrl)}" alt="${escapeAttr(item.itemName)}" onerror="this.parentElement.innerHTML = this.parentElement.innerHTML.replace(/<img[^>]*>/, '<div class=\\'no-image\\'>📦</div>')">` : 
+                                '<div class="no-image">📦</div>'
+                            }
+                            <div class="product-info">
+                                <div class="product-name">${escapeHtml(item.itemName)}</div>
+                                <div class="product-stock">Stock: ${item.quantity || 0} | Cost: $${(item.cost || 0).toFixed(2)}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // Add click handlers
+                dropdown.querySelectorAll('.product-picker-item').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const value = this.dataset.value;
+                        const item = inventory.find(i => i.itemName === value);
+                        hiddenInput.value = value;
+                        input.value = value;
+                        dropdown.classList.remove('show');
+                        
+                        // Prefill cost price from inventory
+                        if (item) {
+                            const row = picker.closest('tr');
+                            if (row) {
+                                const rateInput = row.querySelector('input[name="rate"]');
+                                if (rateInput && item.cost !== undefined) {
+                                    rateInput.value = parseFloat(item.cost).toFixed(2);
+                                    updateRowTotal(rateInput);
+                                }
+                            }
+                        }
+                        
+                        // Update display with image
+                        if (item && item.imageUrl) {
+                            input.style.paddingLeft = '45px';
+                            input.style.backgroundImage = `url('${item.imageUrl}')`;
+                            input.style.backgroundSize = '30px 30px';
+                            input.style.backgroundPosition = '8px center';
+                            input.style.backgroundRepeat = 'no-repeat';
+                        } else {
+                            input.style.paddingLeft = '12px';
+                            input.style.backgroundImage = 'none';
+                        }
+                    });
+                });
+            }
+
+            input.addEventListener('focus', function() {
+                renderDropdown(this.value);
+                dropdown.classList.add('show');
+            });
+
+            input.addEventListener('input', function() {
+                renderDropdown(this.value);
+                dropdown.classList.add('show');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!picker.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+
+            // Initial render
+            renderDropdown();
+            
+            // Set first item as default and prefill cost
+            if (inventory.length > 0) {
+                hiddenInput.value = inventory[0].itemName;
+                input.value = inventory[0].itemName;
+                
+                // Prefill cost price from first inventory item
+                const row = picker.closest('tr');
+                if (row && inventory[0].cost !== undefined) {
+                    const rateInput = row.querySelector('input[name="rate"]');
+                    if (rateInput) {
+                        rateInput.value = parseFloat(inventory[0].cost).toFixed(2);
+                        updateRowTotal(rateInput);
+                    }
+                }
+                
+                if (inventory[0].imageUrl) {
+                    input.style.paddingLeft = '45px';
+                    input.style.backgroundImage = `url('${inventory[0].imageUrl}')`;
+                    input.style.backgroundSize = '30px 30px';
+                    input.style.backgroundPosition = '8px center';
+                    input.style.backgroundRepeat = 'no-repeat';
+                }
+            }
+        }
+
+        function addProductRow() {
+            const currentPickerId = pickerCounter++;
+            const productPickerHtml = createProductPicker(currentPickerId);
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td></td>
+                <td>${productPickerHtml}</td>
+                <td><input type="number" name="quantity" value="1" min="1" oninput="updateRowTotal(this)"></td>
+                <td><input type="number" step="0.01" name="rate" value="0" oninput="updateRowTotal(this)"></td>
+                <td class="rowTotal">0.00</td>
+                <td>
+                    <select name="autoPricing">
+                        <option value="">Select Pricing</option>
+                        <option value="autoPriceRetail">Auto Price Retail</option>
+                        <option value="vPackAutoPrice">VPack Auto Price</option>
+                    </select>
+                </td>
+                <td><button type="button" onclick="removeProductRow(this)">Delete</button></td>
+            `;
+
+            document.getElementById('productsTableBody').appendChild(tr);
+            initProductPicker(currentPickerId);
+            updateRowIndices();
+        }
+
+        function updateRowIndices() {
+            const rows = document.querySelectorAll('#productsTableBody tr');
+            rows.forEach((row, index) => {
+                row.querySelector('td:first-child').textContent = index + 1;
+            });
+        }
+
+        function updateRowTotal(input) {
+            const row = input.closest('tr');
+            const quantity = parseFloat(row.querySelector('input[name="quantity"]').value) || 0;
+            const rate = parseFloat(row.querySelector('input[name="rate"]').value) || 0;
+            const total = quantity * rate;
+            row.querySelector('.rowTotal').textContent = total.toFixed(2);
+            updateInvoiceTotal();
+        }
+
+        function removeProductRow(button) {
+            const row = button.closest('tr');
+            row.remove();
+            updateInvoiceTotal();
+            updateRowIndices();
+        }
+
+        function updateInvoiceTotal() {
+            let invoiceTotal = 0;
+            const rows = document.querySelectorAll('#productsTableBody tr');
+            rows.forEach(row => {
+                const total = parseFloat(row.querySelector('.rowTotal').textContent) || 0;
+                invoiceTotal += total;
+            });
+            document.getElementById('invoiceTotal').textContent = invoiceTotal.toFixed(2);
+            updateAccountBalance();
+        }
+
+        function updateAccountBalance() {
+            const invoiceTotal = parseFloat(document.getElementById('invoiceTotal').textContent) || 0;
+            const cashPaid = parseFloat(document.getElementById('cashPaid').value) || 0;
+            const accountPaid = parseFloat(document.getElementById('accountPaid').value) || 0;
+            const accountBalance = invoiceTotal - cashPaid - accountPaid;
+            document.getElementById('accountBalance').textContent = accountBalance.toFixed(2);
+        }
+
+        function determinePaidStatus() {
+            const accountBalance = parseFloat(document.getElementById('accountBalance').textContent) || 0;
+            return accountBalance === 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            addProductRow(); // Add initial product row
+            document.getElementById('addProductBtn').addEventListener('click', addProductRow);
+            document.getElementById('cashPaid').addEventListener('input', updateAccountBalance);
+            document.getElementById('accountPaid').addEventListener('input', updateAccountBalance);
+            document.getElementById('submitBtn').addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const rows = document.querySelectorAll('#productsTableBody tr');
+                const products = [];
+
+                rows.forEach(row => {
+                    const productName = row.querySelector('input[name="productName"]').value;
+                    const quantity = parseFloat(row.querySelector('input[name="quantity"]').value) || 0;
+                    const rate = parseFloat(row.querySelector('input[name="rate"]').value) || 0;
+                    const autoPricing = row.querySelector('select[name="autoPricing"]').value;
+                    const total = parseFloat(row.querySelector('.rowTotal').textContent) || 0;
+
+                    products.push({
+                        productName,
+                        quantity,
+                        rate,
+                        total,
+                        autoPricing
+                    });
+                });
+
+                const form = document.querySelector('form');
+                const productsInput = document.createElement('input');
+                productsInput.type = 'hidden';
+                productsInput.name = 'products';
+                productsInput.value = JSON.stringify(products);
+                form.appendChild(productsInput);
+
+                const paidStatus = determinePaidStatus();
+                const paidInput = document.createElement('input');
+                paidInput.type = 'hidden';
+                paidInput.name = 'paid';
+                paidInput.value = paidStatus;
+                form.appendChild(paidInput);
+
+                form.submit();
+            });
+        });
+        function toggleVendorInput() {
+            const vendorDropdown = document.getElementById("vendor");
+            const newVendorInput = document.getElementById("newVendor");
+            newVendorInput.style.display = vendorDropdown.value === "other" ? "block" : "none";
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <a href="/admin" class="back-link">Back to Admin Dashboard</a>
+        <h1>Add Purchase</h1>
+        <form action="/admin/purchases" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="vendor">Vendor Name:</label>
+                    <select id="vendor" name="vendor" onchange="toggleVendorInput()">
+                        <% vendors.forEach(vendor => { %>
+                            <option value="<%= vendor.company %>"><%= vendor.company %></option>
+                        <% }) %>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="newVendor">New Vendor (if other):</label>
+                    <input type="text" id="newVendor" name="newVendor" style="display:none;" placeholder="Enter new vendor">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dateCreated">Date Created:</label>
+                    <input type="date" id="dateCreated" name="dateCreated" required>
+                </div>
+                <div class="form-group">
+                    <label for="invoiceNumber">Invoice Number:</label>
+                    <input type="text" id="invoiceNumber" name="invoiceNumber" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cashPaid">Cash Paid:</label>
+                    <input type="number" step="0.01" id="cashPaid" name="cashPaid" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="accountPaid">Account Paid:</label>
+                    <input type="number" step="0.01" id="accountPaid" name="accountPaid" value="0" required>
+                </div>
+            </div>
+
+            <h2>Products</h2>
+            <table id="productsTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th>Total</th>
+                        <th>Auto Pricing</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                    <!-- Products will be dynamically added here -->
+                </tbody>
+            </table>
+            <button type="button" id="addProductBtn">Add Product</button>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Invoice Total: <span id="invoiceTotal">0.00</span></label>
+                </div>
+                <div class="form-group">
+                    <label>Account Balance: <span id="accountBalance">0.00</span></label>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn">Submit Purchase</button>
+        </form>
+    </div>
+</body>
+</html>

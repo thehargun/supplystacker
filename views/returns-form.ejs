@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 375px; /* iPhone 8 width */
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            color: #333333;
+            margin: 0 0 20px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .step h2 {
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .step input, .step select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin: 15px 0;
+            border: 1px solid #cccccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .step input[type="file"] {
+            text-align: center;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100px;
+            text-align: center;
+        }
+
+        button.next {
+            background-color: #007bff;
+            color: white;
+        }
+
+        button.next:hover {
+            background-color: #0056b3;
+        }
+
+        button.back {
+            background-color: #f4f4f4;
+            color: #333333;
+        }
+
+        button.back:hover {
+            background-color: #e6e6e6;
+        }
+
+        button.submit {
+            background-color: #28a745;
+            color: white;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        button.submit:hover {
+            background-color: #218838;
+        }
+
+        /* Add spacing for mobile-friendly design */
+        .buttons button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Return Form</h1>
+        <form id="returnForm" method="POST" action="/admin/returns" enctype="multipart/form-data">
+            <!-- Step 1 -->
+            <div class="step active">
+                <h2>Step 1: Upload Label Picture</h2>
+                <input type="file" name="images" accept="image/*" required>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step">
+                <h2>Step 2: Upload Outside Box Picture</h2>
+                <input type="file" name="images" accept="image/*" required>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step">
+                <h2>Step 3: Upload Inside Box Picture</h2>
+                <input type="file" name="images" accept="image/*" required>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step">
+                <h2>Step 4: Upload Original Shipping Label (Optional)</h2>
+                <input type="file" name="images" accept="image/*">
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step">
+                <h2>Additional Details</h2>
+                <label for="date">Date of Return:</label>
+                <input type="date" id="date" name="date" value="<%= new Date().toISOString().split('T')[0] %>" required>
+                <label for="classification">Classification:</label>
+                <select id="classification" name="classification" required>
+                    <option value="resalable">Resalable</option>
+                    <option value="non-resalable">Non-resalable</option>
+                    <option value="not-in-system">Not in System</option>
+                </select>
+                <label for="damaged">Damaged? Shipping Claim?</label>
+                <select id="damaged" name="damaged" required>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="buttons">
+                <button type="button" class="back" onclick="prevStep()">Back</button>
+                <button type="button" class="next" onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="submit" style="display:none;">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const steps = document.querySelectorAll('.step');
+        const nextButton = document.querySelector('.next');
+        const backButton = document.querySelector('.back');
+        const submitButton = document.querySelector('.submit');
+
+        function showStep() {
+            steps.forEach((step, index) => {
+                step.classList.toggle('active', index === currentStep);
+            });
+            backButton.style.display = currentStep === 0 ? 'none' : 'inline-block';
+            nextButton.style.display = currentStep === steps.length - 1 ? 'none' : 'inline-block';
+            submitButton.style.display = currentStep === steps.length - 1 ? 'block' : 'none';
+        }
+
+        function nextStep() {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep();
+            }
+        }
+
+        showStep();
+    </script>
+</body>
+</html>

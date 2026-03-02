@@ -1,0 +1,349 @@
+<!-- customer-invoices.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Invoices</title>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: blue;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer;
+            user-select: none;
+        }
+        th:hover {
+            background-color: #e0e0e0;
+        }
+        th.sort-asc::after {
+            content: ' ▲';
+        }
+        th.sort-desc::after {
+            content: ' ▼';
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        .actions button {
+            margin-right: 10px;
+        }
+        .btn-danger {
+            background-color: #ff6666;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #66b3ff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        /* Year Filter Styles */
+        .year-filters {
+            margin: 15px 0 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+        .year-filters-label {
+            font-weight: bold;
+            color: #333;
+            margin-right: 5px;
+        }
+        .year-btn {
+            padding: 6px 14px;
+            border: 2px solid #66b3ff;
+            background-color: white;
+            color: #66b3ff;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .year-btn:hover {
+            background-color: #e6f2ff;
+        }
+        .year-btn.active {
+            background-color: #66b3ff;
+            color: white;
+        }
+        .no-invoices-msg {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Customer Invoices</h1>
+        
+        <!-- Year Filters -->
+        <div class="year-filters">
+            <span class="year-filters-label">Filter by Year:</span>
+            <div id="yearButtonsContainer"></div>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th data-column="invoiceNumber">Invoice Number</th>
+                    <th data-column="companyName">Company Name</th>
+                    <th data-column="dateCreated">Date Created</th>
+                    <th data-column="totalBalance">Total Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% invoices.forEach(invoice => { 
+                    const invoiceYear = new Date(invoice.dateCreated).getFullYear();
+                %>
+                    <tr data-year="<%= invoiceYear %>">
+                        <td><%= invoice.invoiceNumber %></td>
+                        <td><%= invoice.companyName %></td>
+                        <td><%= new Date(invoice.dateCreated).toDateString() %></td>
+                        <td>$<%= invoice.totalBalance.toFixed(2) %></td>
+                        <td>
+                            <!-- Go to Invoice Button -->
+                            <a href="/admin/invoices/<%= invoice.invoiceNumber %>" class="btn btn-primary">Go to Invoice</a>
+                            
+                            <!-- Delete Button -->
+                            <button onclick="confirmDelete('<%= invoice.invoiceNumber %>')" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <div class="actions">
+            <form action="/admin" method="get">
+                <button type="submit">Go Back to Admin Dashboard</button>
+            </form>
+            <form action="/logout" method="get">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function confirmDelete(invoiceNumber) {
+            if (confirm('Are you sure you want to delete this invoice?')) {
+                const currentPath = encodeURIComponent(window.location.pathname);
+                window.location.href = `/admin/invoices/delete/${invoiceNumber}?redirect=${currentPath}`;
+            }
+        }
+
+        // Year filter functionality
+        const STORAGE_KEY = 'customerInvoicesYearFilter';
+        let selectedYears = [];
+        let availableYears = [];
+
+        function initYearFilters() {
+            const rows = document.querySelectorAll('tbody tr[data-year]');
+            const yearSet = new Set();
+            
+            rows.forEach(row => {
+                const year = parseInt(row.getAttribute('data-year'));
+                if (!isNaN(year)) {
+                    yearSet.add(year);
+                }
+            });
+            
+            availableYears = Array.from(yearSet).sort((a, b) => b - a); // Sort descending (newest first)
+            
+            // Load saved filter or default to current year
+            const currentYear = new Date().getFullYear();
+            const saved = localStorage.getItem(STORAGE_KEY);
+            
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    // Only use saved years that are still available
+                    selectedYears = parsed.filter(y => availableYears.includes(y));
+                    // If no valid saved years, default to current year
+                    if (selectedYears.length === 0) {
+                        selectedYears = availableYears.includes(currentYear) ? [currentYear] : (availableYears.length > 0 ? [availableYears[0]] : []);
+                    }
+                } catch (e) {
+                    selectedYears = availableYears.includes(currentYear) ? [currentYear] : (availableYears.length > 0 ? [availableYears[0]] : []);
+                }
+            } else {
+                selectedYears = availableYears.includes(currentYear) ? [currentYear] : (availableYears.length > 0 ? [availableYears[0]] : []);
+            }
+            
+            renderYearButtons();
+            applyFilters();
+        }
+
+        function renderYearButtons() {
+            const container = document.getElementById('yearButtonsContainer');
+            container.innerHTML = '';
+            
+            availableYears.forEach(year => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'year-btn' + (selectedYears.includes(year) ? ' active' : '');
+                btn.textContent = year;
+                btn.onclick = () => toggleYear(year);
+                container.appendChild(btn);
+            });
+        }
+
+        function toggleYear(year) {
+            const index = selectedYears.indexOf(year);
+            if (index > -1) {
+                // Don't allow deselecting the last year
+                if (selectedYears.length > 1) {
+                    selectedYears.splice(index, 1);
+                }
+            } else {
+                selectedYears.push(year);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(selectedYears));
+            
+            renderYearButtons();
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const rows = document.querySelectorAll('tbody tr[data-year]');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                const year = parseInt(row.getAttribute('data-year'));
+                if (selectedYears.includes(year)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // Show/hide no invoices message
+            let noMsg = document.getElementById('noInvoicesMsg');
+            if (visibleCount === 0) {
+                if (!noMsg) {
+                    noMsg = document.createElement('tr');
+                    noMsg.id = 'noInvoicesMsg';
+                    noMsg.innerHTML = '<td colspan="5" class="no-invoices-msg">No invoices found for selected year(s)</td>';
+                    document.querySelector('tbody').appendChild(noMsg);
+                }
+                noMsg.style.display = '';
+            } else if (noMsg) {
+                noMsg.style.display = 'none';
+            }
+        }
+
+        // Table sorting functionality
+        let currentSortColumn = 'invoiceNumber';
+        let currentSortDirection = 'asc'; // Start with ascending for invoice numbers
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize year filters first
+            initYearFilters();
+            
+            const headers = document.querySelectorAll('th[data-column]');
+            
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    const column = this.getAttribute('data-column');
+                    sortTable(column);
+                });
+            });
+
+            // Initially sort by invoice number (already done server-side, but ensure visual indicators)
+            updateSortIndicators('invoiceNumber', 'asc');
+        });
+
+        function sortTable(column) {
+            const tbody = document.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // Determine sort direction
+            let direction = 'asc';
+            if (column === currentSortColumn && currentSortDirection === 'asc') {
+                direction = 'desc';
+            }
+            
+            rows.sort((a, b) => {
+                let aValue, bValue;
+                
+                switch(column) {
+                    case 'invoiceNumber':
+                        aValue = a.cells[0].textContent;
+                        bValue = b.cells[0].textContent;
+                        break;
+                    case 'companyName':
+                        aValue = a.cells[1].textContent.toLowerCase();
+                        bValue = b.cells[1].textContent.toLowerCase();
+                        break;
+                    case 'dateCreated':
+                        aValue = new Date(a.cells[2].textContent);
+                        bValue = new Date(b.cells[2].textContent);
+                        break;
+                    case 'totalBalance':
+                        aValue = parseFloat(a.cells[3].textContent.replace('$', ''));
+                        bValue = parseFloat(b.cells[3].textContent.replace('$', ''));
+                        break;
+                    default:
+                        return 0;
+                }
+                
+                if (direction === 'asc') {
+                    return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
+                } else {
+                    return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
+                }
+            });
+            
+            // Re-append sorted rows
+            rows.forEach(row => tbody.appendChild(row));
+            
+            // Update sort indicators
+            updateSortIndicators(column, direction);
+            
+            currentSortColumn = column;
+            currentSortDirection = direction;
+        }
+
+        function updateSortIndicators(activeColumn, direction) {
+            const headers = document.querySelectorAll('th[data-column]');
+            
+            headers.forEach(header => {
+                header.classList.remove('sort-asc', 'sort-desc');
+                if (header.getAttribute('data-column') === activeColumn) {
+                    header.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <style>
+        /* Top bar styles - removed */
+
+        /* Generate PDF button styles - moved */
+
+        /* Cart button styles - moved */
+
+        /* Logout button styles - moved */
+
+        /* Filters styles - removed */
+
+        /* Product header styles */
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 10px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .generate-pdf-button, .cart-button, .logout-button {
+            background-color: #28a745; /* Green for PDF */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .cart-button, .logout-button {
+            background-color: #2196F3; /* Blue */
+        }
+
+        /* Filters styles */
+        .filters {
+            max-width: 1000px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        /* Product container styles */
+        .product-container {
+            text-align: center;
+            max-width: 1000px; /* Maximum width for product container */
+            margin: 20px auto; /* Center align product container */
+            margin-top: 40px; /* Extra space below filters */
+        }
+
+        /* Product styles */
+        .product {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            display: inline-block;
+            box-sizing: border-box;
+            width: 100%; /* Initially, each product occupies full width */
+            text-align: center; /* Center align product content */
+        }
+
+        .product img {
+            width: 100%; /* Ensure image fills its container */
+            height: 200px; /* Fixed height for all images */
+            object-fit: contain; /* Resize image to fit container */
+        }
+
+        .product-details {
+            padding: 10px;
+        }
+
+        .product button {
+            margin-top: 10px;
+        }
+                    .product-details input[type="number"] {
+                width: 60px; /* Adjust the width as needed */
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+                margin: 5px auto; /* Center the input horizontally */
+                display: block; /* Display as block-level element */
+            }
+
+            /* Add to Cart button styles */
+            .product-details button {
+                margin-top: 10px; /* Add some space between quantity input and button */
+            }
+        /* Responsive layout */
+        @media only screen and (min-width: 600px) {
+            .top-bar {
+                justify-content: space-between; /* Space between left and right buttons */
+            }
+            .product {
+                width: calc(50% - 20px); /* Adjust to fit 2 items per row */
+                margin-right: 20px; /* Margin between products */
+                vertical-align: top; /* Align products to top of container */
+            }
+            .product:nth-child(2n) {
+                margin-right: 0; /* Remove margin for last product in each row */
+            }
+        }
+
+        @media only screen and (min-width: 900px) {
+            .product {
+                width: calc(25% - 20px); /* Adjust to fit 4 items per row */
+            }
+        }
+        @media print {
+    /* Reset margins and paddings for printing */
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+    .top-bar, .cart-button, .logout-button, .generate-pdf-button, #overlay, .backorder-form {
+        display: none; /* Hide elements that are not relevant for printing */
+    }
+    .product-container {
+        width: 100%;
+        max-width: none; /* Allow the container to fill the page */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px; /* Add padding for spacing */
+    }
+    .product {
+        width: calc(25% - 40px); /* Adjust the width for 4 products per row with margin included */
+        margin-bottom: 40px; /* Add margin between rows */
+        text-align: center;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        padding: 10px;
+        page-break-inside: avoid; /* Avoid breaking product box between pages */
+    }
+    .product img {
+        width: 100%; /* Ensure image fills its container */
+        height: auto; /* Adjust height automatically */
+        max-height: 200px; /* Limit maximum height for consistency */
+        object-fit: contain; /* Resize image to fit container */
+    }
+    .product-details {
+        font-size: 12px; /* Increase font size slightly for better readability */
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="product-header">
+        <h1>Products</h1>
+        <div class="header-buttons">
+            <button onclick="generatePDF()" class="generate-pdf-button">Generate PDF</button>
+            <a href="/cart" class="cart-button">Cart</a>
+            <a href="/logout" class="logout-button">Logout</a>
+        </div>
+    </div>
+
+    <div class="filters">
+        <input type="text" id="searchInput" placeholder="Search products..." style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    </div>
+
+    <div class="product-container">
+        <% inventory.forEach(item => { %>
+            <% const q = Number(item && item.quantity) || 0; %>
+            <% if (q <= 0) { return; } %>
+            <div class="product">
+                <img src="<%= item.imageUrl %>" alt="<%= item.itemName %>">
+                <div class="product-details">
+                    <h3><%= item.itemName %></h3>
+                    <p>$<%= item[`priceLevel${req.session.user.priceLevel}`] ? item[`priceLevel${req.session.user.priceLevel}`].toFixed(2) : 'N/A' %></p>
+                    <% if (q > 0) { %>
+                        <div class="inline-form">
+                            <input type="number" id="quantity_<%= item.id %>" name="quantity" step="0.01" min="0.01" value="1">
+                            <button onclick="addToCart('<%= item.id %>')">Add to Cart</button>
+                        </div>
+                    <% } else { %>
+                        <button onclick="showBackorderForm('<%= item.id %>')">Backorder</button>
+                    <% } %>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="hideBackorderForm()"></div>
+    <div id="backorderForm" class="backorder-form">
+        <h2>Backorder Item</h2>
+        <input type="number" id="backorderQuantity" placeholder="Quantity to Backorder" min="1">
+        <input type="number" id="estimatedUsage" placeholder="Estimated Monthly Usage" min="1">
+        <button onclick="submitBackorder()">Submit Backorder</button>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        let currentSearch = '';
+
+        function filterProducts() {
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                const name = product.querySelector('h3').textContent.toLowerCase();
+                const matchesSearch = name.includes(currentSearch);
+                product.style.display = matchesSearch ? 'inline-block' : 'none';
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase();
+            filterProducts();
+        });
+
+        function generatePDF() {
+            // Simply redirect to the generation route which will generate and download
+            window.location.href = '/generate-products-pdf-download';
+        }
+
+        function addToCart(itemId) {
+            var quantity = document.getElementById('quantity_' + itemId).value;
+            var data = {
+                itemId: itemId,
+                quantity: quantity
+            };
+
+            fetch('/add-to-cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Item added to cart successfully.');
+                } else {
+                    console.error('Failed to add item to cart.');
+                }
+            })
+            .catch(error => {
+                console.error('Error adding item to cart:', error);
+            });
+        }
+
+        function showBackorderForm(itemId) {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('backorderForm').style.display = 'block';
+            // Add itemId to form for identification if needed
+        }
+
+        function hideBackorderForm() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('backorderForm').style.display = 'none';
+        }
+
+        function submitBackorder() {
+            // Implement submission logic here
+            alert('Backorder submitted!');
+            hideBackorderForm();
+        }
+    </script>
+</body>
+</html>

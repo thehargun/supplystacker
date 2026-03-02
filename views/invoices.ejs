@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoices 2024</title>
+    <link rel="stylesheet" href="/path/to/your/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .button-delete {
+            background-color: #f44336;
+        }
+        .button-delete:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+            const parseInvoiceNumber = (invoiceNumber) => {
+                const match = invoiceNumber.match(/([A-Za-z]+)(\d+)/);
+                return match ? { prefix: match[1], number: parseInt(match[2], 10) } : { prefix: invoiceNumber, number: 0 };
+            };
+
+            const compareInvoiceNumbers = (a, b, asc) => {
+                const parsedA = parseInvoiceNumber(getCellValue(a, 0));
+                const parsedB = parseInvoiceNumber(getCellValue(b, 0));
+                if (parsedA.prefix === parsedB.prefix) {
+                    return (parsedA.number - parsedB.number) * (asc ? 1 : -1);
+                }
+                return parsedA.prefix.localeCompare(parsedB.prefix) * (asc ? 1 : -1);
+            };
+
+            const parseDate = (dateString) => new Date(dateString);
+
+            const compareDates = (a, b, asc) => {
+                const dateA = parseDate(getCellValue(a, 1));
+                const dateB = parseDate(getCellValue(b, 1));
+                return (dateA - dateB) * (asc ? 1 : -1);
+            };
+
+            const parseCurrency = (currencyString) => parseFloat(currencyString.replace(/[$,]/g, ''));
+
+            const compareCurrency = (a, b, idx, asc) => {
+                const amountA = parseCurrency(getCellValue(a, idx));
+                const amountB = parseCurrency(getCellValue(b, idx));
+                return (amountA - amountB) * (asc ? 1 : -1);
+            };
+
+            const comparer = (idx, asc) => (a, b) => {
+                if (idx === 0) {
+                    return compareInvoiceNumbers(a, b, asc);
+                } else if (idx === 1) {
+                    return compareDates(a, b, asc);
+                } else if (idx === 2 || idx === 3) {
+                    return compareCurrency(a, b, idx, asc);
+                } else {
+                    return ((v1, v2) => 
+                        v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+                    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx)) * (asc ? 1 : -1);
+                }
+            };
+
+            document.querySelectorAll('th').forEach(th => th.addEventListener('click', function () {
+                const table = th.closest('table');
+                const tbody = table.querySelector('tbody');
+                Array.from(tbody.querySelectorAll('tr'))
+                    .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+                    .forEach(tr => tbody.appendChild(tr));
+            }));
+        });
+    </script>
+</head>
+<body>
+    <h1>Invoices</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Invoice Number</th>
+                <th>Date</th>
+                <th>Invoice Amount</th>
+                <th>Total Balance</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% invoices.forEach(invoice => { %>
+                <tr>
+                    <td><a href="/admin/invoices/<%= invoice.invoiceNumber %>"><%= invoice.invoiceNumber %></a></td>
+                    <td><%= new Date(invoice.dateCreated).toDateString() %></td>
+                    <td>$<%= (typeof invoice.totalAmount === 'number' ? invoice.totalAmount.toFixed(2) : '0.00') %></td>
+                    <td>$<%= (typeof invoice.totalBalance === 'number' ? invoice.totalBalance.toFixed(2) : '0.00') %></td>
+                    <td>
+                        <a href="/admin/invoices/delete/<%= invoice.invoiceNumber %>" class="button button-delete">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

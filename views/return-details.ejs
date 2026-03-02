@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Return Details - <%= returnData.returnNumber %></h1>
+    <table>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Return Number</td>
+            <td><%= returnData.returnNumber %></td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td><%= returnData.date %></td>
+        </tr>
+        <tr>
+            <td>Classification</td>
+            <td><%= returnData.classification %></td>
+        </tr>
+        <tr>
+            <td>Damaged</td>
+            <td><%= returnData.damaged ? "Yes" : "No" %></td>
+        </tr>
+        <tr>
+            <td>Tracking Number</td>
+            <td><%= returnData.trackingNumber || "N/A" %></td>
+        </tr>
+        <tr>
+            <td>Processed</td>
+            <td><%= returnData.processed ? "Yes" : "No" %></td>
+        </tr>
+        <tr>
+            <td>Images</td>
+            <td>
+                <% if (returnData.images && returnData.images.length > 0) { %>
+                    <% returnData.images.forEach(image => { %>
+                        <a href="/uploads/<%= image %>" target="_blank"><%= image %></a><br>
+                    <% }) %>
+                <% } else { %>
+                    No Images
+                <% } %>
+            </td>
+        </tr>
+    </table>
+    <div class="button-container">
+        <form action="/admin/manageReturns/<%= returnData.returnNumber %>/download" method="get">
+            <button type="submit">Download Images</button>
+        </form>
+    </div>
+</body>
+</html>

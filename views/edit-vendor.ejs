@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Vendor</title>
+    <link rel="stylesheet" href="/path/to/your/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Vendor</h1>
+        <form action="/admin/edit-vendor/<%= vendor.id %>" method="POST">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="<%= vendor.email %>" required>
+            </div>
+            <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" class="form-control" id="company" name="company" value="<%= vendor.company %>">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="<%= vendor.phone %>">
+            </div>
+
+            <div class="form-group">
+                <label for="addressLine1">Address Line 1</label>
+                <input type="text" class="form-control" id="addressLine1" name="addressLine1" value="<%= vendor.addressLine1 %>">
+            </div>
+
+            <div class="form-group">
+                <label for="addressLine2">Address Line 2</label>
+                <input type="text" class="form-control" id="addressLine2" name="addressLine2" value="<%= vendor.addressLine2 %>">
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" name="city" value="<%= vendor.city %>">
+            </div>
+
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" class="form-control" id="state" name="state" value="<%= vendor.state %>">
+            </div>
+
+            <div class="form-group">
+                <label for="zipCode">Zip Code</label>
+                <input type="text" class="form-control" id="zipCode" name="zipCode" value="<%= vendor.zipCode %>">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Update Vendor</button>
+            </div>
+        </form>
+
+        <a href="/admin/view-vendors" class="btn btn-secondary">Back to Vendors</a>
+    </div>
+</body>
+</html>

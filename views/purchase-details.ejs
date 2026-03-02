@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Invoice</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Purchase Invoice</h1>
+        <form action="/admin/purchases/<%= purchase.PurchaseID %>" method="POST" id="purchaseForm">
+            <div class="form-group">
+                <label for="vendorName">Vendor Name:</label>
+                <input type="text" class="form-control" id="vendorName" name="vendorName" value="<%= purchase.vendorName %>">
+            </div>
+            <div class="form-group">
+                <label for="dateCreated">Date Created:</label>
+                <input type="date" class="form-control" id="dateCreated" name="dateCreated" value="<%= new Date(purchase.dateCreated).toISOString().split('T')[0] %>">
+            </div>
+            <div class="form-group">
+                <label for="invoiceNumber">Invoice Number:</label>
+                <input type="text" class="form-control" id="invoiceNumber" name="invoiceNumber" value="<%= purchase.invoiceNumber %>">
+            </div>
+            <div class="form-group">
+                <label for="cashPaid">Cash Paid:</label>
+                <input type="number" class="form-control" id="cashPaid" name="cashPaid" value="<%= purchase.cashPaid %>" oninput="updateAccountBalance()">
+            </div>
+            <div class="form-group">
+                <label for="accountPaid">Account Paid:</label>
+                <input type="number" class="form-control" id="accountPaid" name="accountPaid" value="<%= purchase.accountPaid %>" oninput="updateAccountBalance()">
+            </div>
+
+            <h3>Products</h3>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Rate</th>
+                        <th>Total</th>
+                        <th>Auto Pricing</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody">
+                    <% purchase.products.forEach((product, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= product.productName %></td>
+                            <td><input type="number" class="form-control quantity" name="products[<%= index %>][quantity]" value="<%= product.quantity %>" data-index="<%= index %>" oninput="updateRowTotal(this)"></td>
+                            <td><input type="number" step="0.01" class="form-control rate" name="products[<%= index %>][rate]" value="<%= product.rate %>" data-index="<%= index %>" oninput="updateRowTotal(this)"></td>
+                            <td class="productTotal">$<%= (product.total || 0).toFixed(2) %></td>
+                            <td>
+                                <select class="form-control autoPricing" name="products[<%= index %>][autoPricing]" data-index="<%= index %>">
+                                    <option value="">Select Pricing</option>
+                                    <option value="autoPriceRetail" <%= product.autoPricing === 'autoPriceRetail' ? 'selected' : '' %>>Auto Price Retail</option>
+                                    <option value="vPackAutoPrice" <%= product.autoPricing === 'vPackAutoPrice' ? 'selected' : '' %>>V Pack Auto Price</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm removeProduct" data-index="<%= index %>">Remove</button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-primary" id="addProductBtn">Add Product</button>
+
+            <div class="form-group mt-4">
+                <label>Invoice Total:</label>
+                <div id="invoiceTotal">$<%= (purchase.invoiceTotal || 0).toFixed(2) %></div>
+            </div>
+            <div class="form-group">
+                <label>Account Balance:</label>
+                <div id="accountBalance">$<%= (purchase.accountBalance || 0).toFixed(2) %></div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const inventory = <%- JSON.stringify(inventory) %>;
+
+        function roundToNearestQuarter(value) {
+            return (Math.round(value * 4) / 4).toFixed(2);
+        }
+
+        function autoPriceRetail(cost) {
+            return {
+                priceLevel1: roundToNearestQuarter(1.1 * cost + 0.25),
+                priceLevel2: roundToNearestQuarter(1.15 * cost + 0.5),
+                priceLevel3: roundToNearestQuarter(1.3 * cost + 1)
+            };
+        }
+
+        function vPackAutoPrice(cost) {
+            return {
+                priceLevel1: roundToNearestQuarter(1.15 * cost + 0.25),
+                priceLevel2: roundToNearestQuarter(1.25 * cost + 0.5),
+                priceLevel3: roundToNearestQuarter(1.45 * cost + 1)
+            };
+        }
+
+        function addProductRow() {
+            const newIndex = $('#productsTableBody tr').length;
+            const productDropdown = $('<select class="form-control" name="products[' + newIndex + '][productName]"></select>');
+            
+            inventory.forEach(item => {
+                const option = $('<option></option>').attr('value', item.itemName).text(item.itemName);
+                productDropdown.append(option);
+            });
+
+            const tr = $('<tr></tr>').append(
+                $('<td></td>').text(newIndex + 1),
+                $('<td></td>').append(productDropdown),
+                $('<td><input type="number" class="form-control quantity" name="products[' + newIndex + '][quantity]" value="1" oninput="updateRowTotal(this)"></td>'),
+                $('<td><input type="number" step="0.01" class="form-control rate" name="products[' + newIndex + '][rate]" value="0" oninput="updateRowTotal(this)"></td>'),
+                $('<td class="productTotal">$0.00</td>'),
+                $('<td><select class="form-control autoPricing" name="products[' + newIndex + '][autoPricing]" data-index="' + newIndex + '"><option value="">Select Pricing</option><option value="autoPriceRetail">Auto Price Retail</option><option value="vPackAutoPrice">V Pack Auto Price</option></select></td>'),
+                $('<td><button type="button" class="btn btn-danger btn-sm removeProduct">Remove</button></td>')
+            );
+
+            $('#productsTableBody').append(tr);
+            updateRowIndices();
+        }
+
+        function updateRowIndices() {
+            $('#productsTableBody tr').each(function(index) {
+                $(this).find('td:first').text(index + 1);
+            });
+        }
+
+        function updateRowTotal(input) {
+            const row = $(input).closest('tr');
+            const quantity = parseFloat(row.find('.quantity').val()) || 0;
+            const rate = parseFloat(row.find('.rate').val()) || 0;
+            const total = quantity * rate;
+            row.find('.productTotal').text('$' + total.toFixed(2));
+            updateInvoiceTotal();
+        }
+
+        function removeProductRow(button) {
+            $(button).closest('tr').remove();
+            updateRowIndices();
+            updateInvoiceTotal();
+        }
+
+        function updateInvoiceTotal() {
+            let invoiceTotal = 0;
+            $('#productsTableBody tr').each(function() {
+                const total = parseFloat($(this).find('.productTotal').text().replace('$', '')) || 0;
+                invoiceTotal += total;
+            });
+            $('#invoiceTotal').text('$' + invoiceTotal.toFixed(2));
+            updateAccountBalance();
+        }
+
+        function updateAccountBalance() {
+            const invoiceTotal = parseFloat($('#invoiceTotal').text().replace('$', '')) || 0;
+            const cashPaid = parseFloat($('#cashPaid').val()) || 0;
+            const accountPaid = parseFloat($('#accountPaid').val()) || 0;
+            const accountBalance = invoiceTotal - cashPaid - accountPaid;
+            $('#accountBalance').text('$' + accountBalance.toFixed(2));
+        }
+
+        $('#purchaseForm').on('submit', function(event) {
+            event.preventDefault();
+
+            const products = [];
+            $('#productsTableBody tr').each(function() {
+                const productName = $(this).find('select[name^="products["]').val();
+                const quantity = parseFloat($(this).find('input[name$="[quantity]"]').val()) || 0;
+                const rate = parseFloat($(this).find('input[name$="[rate]"]').val()) || 0;
+                const total = quantity * rate;
+                const autoPricing = $(this).find('select[name$="[autoPricing]"]').val();
+
+                products.push({
+                    productName,
+                    quantity,
+                    rate,
+                    total,
+                    autoPricing
+                });
+            });
+
+            // Ensure the products array is properly stringified
+            const productsString = JSON.stringify(products);
+
+            // Serialize the form data
+            const formData = $(this).serializeArray();
+            formData.push({ name: 'products', value: productsString });
+
+            // Send the data to the server
+            $.post($(this).attr('action'), $.param(formData), function(response) {
+                window.location.href = response.redirectUrl || '/admin/purchases';
+            });
+        });
+
+        $(document).on('input', '.quantity, .rate', updateRowTotal);
+
+        $(document).on('change', '.autoPricing', function() {
+            const index = $(this).data('index');
+            const productName = $('[name="products[' + index + '][productName]"]').val();
+            const selectedProduct = inventory.find(item => item.itemName === productName);
+            const cost = selectedProduct ? selectedProduct.cost : 0;
+            const pricingMethod = $(this).val();
+
+            let newPrices = {};
+            if (pricingMethod === 'autoPriceRetail') {
+                newPrices = autoPriceRetail(cost);
+            } else if (pricingMethod === 'vPackAutoPrice') {
+                newPrices = vPackAutoPrice(cost);
+            }
+
+            $('[name="products[' + index + '][rate]"]').val(newPrices.priceLevel1); // or whichever level is preferred
+            updateRowTotal($('[name="products[' + index + '][rate]"]'));
+        });
+
+        $(document).on('click', '.removeProduct', function() {
+            removeProductRow(this);
+        });
+
+        $('#addProductBtn').on('click', addProductRow);
+
+        $('#cashPaid, #accountPaid').on('input', updateAccountBalance);
+
+        // Initial calculation
+        updateInvoiceTotal();
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
             background-color: #f0f8ff;
             color: #333;
         }
+
         .container {
             max-width: 1200px;
             margin: 20px auto;
@@ -20,19 +22,23 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             text-align: center;
             color: #333;
             margin-bottom: 20px;
         }
+
         .sections {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
         }
+
         .section {
-            flex: 1 1 calc(50% - 20px); /* Allows two sections per row */
+            flex: 1 1 calc(50% - 20px);
+            /* Allows two sections per row */
             min-width: 300px;
             max-width: 500px;
             padding: 20px;
@@ -41,20 +47,26 @@
             background: #f0f8ff;
             border-radius: 10px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            text-align: center; /* Center align text in each section */
+            text-align: center;
+            /* Center align text in each section */
         }
+
         .section h2 {
             color: #4a90e2;
             margin-bottom: 15px;
         }
+
         .button-container {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
-            justify-content: center; /* Center align buttons */
+            justify-content: center;
+            /* Center align buttons */
         }
+
         .button {
-            background-color: #4a90e2; /* Updated darker blue color */
+            background-color: #4a90e2;
+            /* Updated darker blue color */
             border: none;
             color: white;
             padding: 15px 30px;
@@ -65,19 +77,26 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .button:hover {
-            background-color: #3b78b3; /* Slightly darker blue when hovered */
+            background-color: #3b78b3;
+            /* Slightly darker blue when hovered */
         }
+
         @media (max-width: 768px) {
             .section {
-                flex: 1 1 100%; /* Single column for smaller screens */
+                flex: 1 1 100%;
+                /* Single column for smaller screens */
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Admin Dashboard - Supply Stacker LLC<% if (typeof tenantName !== 'undefined' && tenantName) { %> (<%= tenantName %>)<% } %></h1>
+        <h1>Admin Dashboard - Supply Stacker LLC<% if (typeof tenantName !=='undefined' && tenantName) { %> (<%=
+                    tenantName %>)<% } %>
+        </h1>
 
         <div class="sections">
             <!-- Inventory Section -->
@@ -118,9 +137,11 @@
                     <a href="/admin/salestaxreport" class="button">Sales Tax Report</a>
                     <a href="/admin/salesreport" class="button">Sales Report</a>
                     <a href="/admin/salesbyproductreport" class="button">Inventory Report</a>
+                    <a href="/admin/salesrep" class="button">Sales Representatives</a>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>

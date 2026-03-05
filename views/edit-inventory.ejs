@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Edit Inventory Item</title>
@@ -10,11 +11,13 @@
             margin: 0;
             padding: 0;
         }
+
         h1 {
             text-align: center;
             color: #333;
             margin-top: 20px;
         }
+
         form {
             max-width: 600px;
             margin: 20px auto;
@@ -23,12 +26,14 @@
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
+
         label {
             font-weight: bold;
             display: inline-block;
             width: 150px;
             margin-top: 10px;
         }
+
         input[type="text"],
         input[type="number"],
         input[type="file"],
@@ -41,9 +46,11 @@
             border-radius: 4px;
             display: inline-block;
         }
+
         .price-input {
             width: calc(70% - 160px);
         }
+
         button {
             background-color: #007bff;
             color: white;
@@ -52,22 +59,28 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #0069d9;
         }
+
         table {
             width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+
         th {
             background-color: #f2f2f2;
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -80,6 +93,7 @@
             background-color: rgba(0, 0, 0, 0.5);
             padding-top: 60px;
         }
+
         .modal-content {
             background-color: #fefefe;
             margin: 5% auto;
@@ -88,24 +102,28 @@
             width: 50%;
             border-radius: 10px;
         }
+
         .close {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
+
         .close:hover,
         .close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
         }
+
         .button-container {
             display: inline-block;
         }
     </style>
 
 </head>
+
 <body>
     <h1>Edit Inventory Item</h1>
     <form action="/admin/edit-inventory/<%= item.id %>" method="post" enctype="multipart/form-data">
@@ -138,19 +156,19 @@
             <button type="button" onclick="autoPriceRetail()">Auto Price Retail</button>
             <button type="button" onclick="vPackAutoPrice()">VPack Auto Price</button>
         </div><br>
-        
+
         <label for="image">Item Image:</label>
         <input type="file" name="image"><br>
         <img src="<%= item.imageUrl %>" alt="<%= item.itemName %>" style="max-width: 200px;"><br>
 
         <label for="taxableItem">Taxable Item:</label>
         <select class="form-control" id="taxableItem" name="taxableItem">
-            <option value="Yes" <%= item.taxableItem === true ? 'selected' : '' %>>Yes</option>
-            <option value="No" <%= item.taxableItem !== true ? 'selected' : '' %>>No</option>
+            <option value="Yes" <%=item.taxableItem===true ? 'selected' : '' %>>Yes</option>
+            <option value="No" <%=item.taxableItem !==true ? 'selected' : '' %>>No</option>
         </select>
 
         <h2>Vendors</h2>
-        <% if (item.vendors && item.vendors.length > 0) { %>
+        <% if (item.vendors && item.vendors.length> 0) { %>
             <table border="1">
                 <thead>
                     <tr>
@@ -161,48 +179,56 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% item.vendors.forEach((vendor, index) => { %>
+                    <% item.vendors.forEach((vendor, index)=> { %>
                         <tr>
-                            <td><%= vendor.name %></td>
-                            <td><%= vendor.price %></td>
-                            <td><%= vendor.lastPurchased %></td>
                             <td>
-                                <button type="button" onclick="deleteVendor('<%= item.id %>', '<%= vendor.name %>')">Delete</button>
+                                <%= vendor.name %>
+                            </td>
+                            <td>
+                                <%= vendor.price %>
+                            </td>
+                            <td>
+                                <%= vendor.lastPurchased %>
+                            </td>
+                            <td>
+                                <button type="button"
+                                    onclick="deleteVendor('<%= item.id %>', '<%= vendor.name %>')">Delete</button>
                             </td>
                         </tr>
-                    <% }) %>
+                        <% }) %>
                 </tbody>
             </table>
-        <% } else { %>
-            <p>No Vendors Added</p>
-        <% } %>
+            <% } else { %>
+                <p>No Vendors Added</p>
+                <% } %>
 
-        <button type="button" id="addVendorBtn">Add Vendor</button>
-        <br><br>
+                    <button type="button" id="addVendorBtn">Add Vendor</button>
+                    <br><br>
 
-        <label for="length">Length:</label>
-        <input type="number" step="0.01" name="length" value="<%= item.length %>" />
+                    <label for="length">Length:</label>
+                    <input type="number" step="0.01" name="length" value="<%= item.length %>" />
 
-        <label for="width">Width:</label>
-        <input type="number" step="0.01" name="width" value="<%= item.width %>" />
+                    <label for="width">Width:</label>
+                    <input type="number" step="0.01" name="width" value="<%= item.width %>" />
 
-        <label for="height">Height:</label>
-        <input type="number" step="0.01" name="height" value="<%= item.height %>" />
+                    <label for="height">Height:</label>
+                    <input type="number" step="0.01" name="height" value="<%= item.height %>" />
 
-        <label for="weight">Weight:</label>
-        <input type="number" step="0.01" name="weight" value="<%= item.weight %>" />
+                    <label for="weight">Weight:</label>
+                    <input type="number" step="0.01" name="weight" value="<%= item.weight %>" />
 
-        <label for="palletqty">Pallet Quantity:</label>
-        <input type="number" name="palletqty" value="<%= item.palletqty %>" /><br>
+                    <label for="palletqty">Pallet Quantity:</label>
+                    <input type="number" name="palletqty" value="<%= item.palletqty %>" /><br>
 
-        <button type="submit">Update Item</button>
-        <button type="button" onclick="submitDuplicateForm('<%= item.id %>')">Duplicate</button>
+                    <button type="submit">Update Item</button>
+                    <button type="button" onclick="submitDuplicateForm('<%= item.id %>')">Duplicate</button>
 
 
-        <button type="button" onclick="window.location.href='/admin/view-inventory'">Back to Inventory List</button>
+                    <button type="button" onclick="window.location.href='/admin/view-inventory'">Back to Inventory
+                        List</button>
 
     </form>
-    
+
     <!-- Modal for adding a vendor -->
     <div id="addVendorModal" class="modal">
         <div class="modal-content">
@@ -242,24 +268,24 @@
         var span = document.getElementsByClassName("close")[0];
 
         // Open the modal
-        btn.onclick = function() {
+        btn.onclick = function () {
             modal.style.display = "block";
         }
 
         // Close the modal
-        span.onclick = function() {
+        span.onclick = function () {
             modal.style.display = "none";
         }
 
         // Close the modal when clicking outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
 
         // Handle the form submission
-        document.getElementById("addVendorForm").onsubmit = function(event) {
+        document.getElementById("addVendorForm").onsubmit = function (event) {
             event.preventDefault();
 
             // Get the form data
@@ -274,65 +300,66 @@
                 },
                 body: JSON.stringify({ vendorName, vendorPrice })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();  // Reload the page to show updated vendors
-                } else {
-                    alert('Failed to add vendor');
-                }
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();  // Reload the page to show updated vendors
+                    } else {
+                        alert('Failed to add vendor');
+                    }
+                });
         }
         function submitDuplicateForm(itemId) {
-        // Create a form element
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = `/admin/duplicate-inventory/${itemId}`;
+            // Create a form element
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `/admin/duplicate-inventory/${itemId}`;
 
-        // Append the form to the body and submit it
-        document.body.appendChild(form);
-        form.submit();
-    }
-    function deleteVendor(itemId, vendorName) {
-        fetch(`/admin/remove-vendor/${itemId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ vendorName })
-        })
-        .then(response => {
-            if (response.ok) {
-                window.location.reload(); // Reload the page to reflect the deletion
-            } else {
-                alert('Failed to delete vendor');
+            // Append the form to the body and submit it
+            document.body.appendChild(form);
+            form.submit();
+        }
+        function deleteVendor(itemId, vendorName) {
+            fetch(`/admin/remove-vendor/${itemId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ vendorName })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload(); // Reload the page to reflect the deletion
+                    } else {
+                        alert('Failed to delete vendor');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting vendor:', error);
+                    alert('An error occurred while deleting the vendor');
+                });
+        }
+        app.post('/admin/delete-vendor/:id', (req, res) => {
+            const itemId = parseInt(req.params.id);
+            const { vendorName } = req.body;
+
+            // Find the item in the inventory
+            const itemIndex = inventory.findIndex(item => item.id === itemId);
+            if (itemIndex === -1) {
+                return res.status(404).send('Item not found');
             }
-        })
-        .catch(error => {
-            console.error('Error deleting vendor:', error);
-            alert('An error occurred while deleting the vendor');
+
+            // Remove the vendor with the specified name
+            const currentItem = inventory[itemIndex];
+            currentItem.vendors = currentItem.vendors.filter(vendor => vendor.name.trim() !== vendorName.trim());
+
+            // Save the updated inventory to tenant data file
+            saveData();
+
+            res.status(200).send({ success: true });
         });
-    }
-    app.post('/admin/delete-vendor/:id', (req, res) => {
-    const itemId = parseInt(req.params.id);
-    const { vendorName } = req.body;
-
-    // Find the item in the inventory
-    const itemIndex = inventory.findIndex(item => item.id === itemId);
-    if (itemIndex === -1) {
-        return res.status(404).send('Item not found');
-    }
-
-    // Remove the vendor with the specified name
-    const currentItem = inventory[itemIndex];
-    currentItem.vendors = currentItem.vendors.filter(vendor => vendor.name.trim() !== vendorName.trim());
-
-    // Save the updated inventory to data.json
-    saveData();
-
-    res.status(200).send({ success: true });
-});
 
     </script>
 </body>
+
 </html>

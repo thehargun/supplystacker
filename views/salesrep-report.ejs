@@ -1,0 +1,194 @@
+<!-- views/salesrep-report.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Rep Report - <%= salesRep.name %>
+    </title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        html,
+        body {
+            height: auto !important;
+            display: block !important;
+            justify-content: initial !important;
+            align-items: initial !important;
+            overflow: auto !important;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .action-buttons {
+            margin: 20px 0;
+        }
+
+        .action-buttons a {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .action-buttons a:hover {
+            background-color: #0056b3;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .money {
+            text-align: right;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .empty-msg {
+            color: #888;
+            font-style: italic;
+            margin: 20px 0;
+        }
+
+        .totals-row {
+            font-weight: bold;
+            background-color: #e8f4fd !important;
+        }
+
+        * {
+            position: static;
+        }
+
+        .container {
+            position: relative;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sales Rep Report</h1>
+        <p class="subtitle">Report for: <strong>
+                <%= salesRep.name %>
+            </strong></p>
+
+        <div class="action-buttons">
+            <a href="/admin/salesrep">Back to Sales Representatives</a>
+            <a href="/admin">Back to Admin Home</a>
+        </div>
+
+        <% if (customerReports && customerReports.length> 0) { %>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th style="text-align:right">Last 30 Days</th>
+                            <th style="text-align:right">Last 90 Days</th>
+                            <th style="text-align:right">Last 180 Days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% let grandTotal30=0, grandTotal90=0, grandTotal180=0; customerReports.forEach(cr=> {
+                            grandTotal30 += parseFloat(cr.total30);
+                            grandTotal90 += parseFloat(cr.total90);
+                            grandTotal180 += parseFloat(cr.total180);
+                            %>
+                            <tr>
+                                <td>
+                                    <%= cr.company %>
+                                </td>
+                                <td>
+                                    <%= cr.email %>
+                                </td>
+                                <td class="money">$<%= cr.total30 %>
+                                </td>
+                                <td class="money">$<%= cr.total90 %>
+                                </td>
+                                <td class="money">$<%= cr.total180 %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                                <tr class="totals-row">
+                                    <td colspan="2"><strong>Totals</strong></td>
+                                    <td class="money">$<%= grandTotal30.toFixed(2) %>
+                                    </td>
+                                    <td class="money">$<%= grandTotal90.toFixed(2) %>
+                                    </td>
+                                    <td class="money">$<%= grandTotal180.toFixed(2) %>
+                                    </td>
+                                </tr>
+                    </tbody>
+                </table>
+            </div>
+            <% } else { %>
+                <p class="empty-msg">No customers are assigned to this sales rep yet.</p>
+                <% } %>
+    </div>
+</body>
+
+</html>

@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const path = require('path');
 // SMTP transporter configuration
 let transporter = nodemailer.createTransport({
     host: 'mail.supplystacker.com', // Your SMTP server address
@@ -45,7 +46,7 @@ function sendBackupEmail(email, subject, text, filePath) {
         text: text,
         attachments: [
             {
-                filename: `data.json`,
+                filename: path.basename(filePath),
                 path: filePath,
             },
         ],

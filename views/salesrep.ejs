@@ -1,0 +1,229 @@
+<!-- views/salesrep.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Representatives</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        html,
+        body {
+            height: auto !important;
+            display: block !important;
+            justify-content: initial !important;
+            align-items: initial !important;
+            overflow: auto !important;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h1 {
+            margin: 0 0 20px 0;
+            color: #333;
+        }
+
+        .action-buttons {
+            margin: 20px 0;
+        }
+
+        .action-buttons a {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .action-buttons a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add form */
+        .add-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+
+        .add-form input[type="text"] {
+            flex: 1;
+            padding: 10px 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .add-form input[type="text"]:focus {
+            border-color: #007bff;
+        }
+
+        .add-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-form button:hover {
+            background-color: #218838;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .delete-btn {
+            background-color: #dc3545 !important;
+            color: white !important;
+            padding: 5px 10px;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333 !important;
+        }
+
+        .empty-msg {
+            color: #888;
+            font-style: italic;
+            margin: 20px 0;
+        }
+
+        * {
+            position: static;
+        }
+
+        .container {
+            position: relative;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sales Representatives</h1>
+
+        <div class="action-buttons">
+            <a href="/admin">Back to Admin Home</a>
+        </div>
+
+        <!-- Add Sales Rep Form -->
+        <form class="add-form" action="/admin/salesrep/add" method="POST">
+            <input type="text" name="name" placeholder="Enter sales rep name..." required>
+            <button type="submit">Add Sales Rep</button>
+        </form>
+
+        <!-- Sales Reps Table -->
+        <% if (salesReps && salesReps.length> 0) { %>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% salesReps.forEach((rep, index)=> { %>
+                            <tr>
+                                <td>
+                                    <%= index + 1 %>
+                                </td>
+                                <td>
+                                    <%= rep.name %>
+                                </td>
+                                <td>
+                                    <a href="/admin/salesrep/<%= rep.id %>/report"
+                                        style="color:#007bff;text-decoration:none;margin-right:10px;">View Report</a>
+                                    <button class="delete-btn" onclick="deleteSalesRep(<%= rep.id %>)">Delete</button>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <% } else { %>
+                <p class="empty-msg">No sales representatives added yet.</p>
+                <% } %>
+    </div>
+
+    <script>
+        function deleteSalesRep(repId) {
+            if (confirm('Are you sure you want to delete this sales rep?')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/salesrep/delete/${repId}`;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+</body>
+
+</html>
